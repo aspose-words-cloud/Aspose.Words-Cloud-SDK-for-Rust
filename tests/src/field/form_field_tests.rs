@@ -36,37 +36,35 @@ use crate::test_context::*;
 #[tokio::test]
 async fn form_field_update_form_field() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/DocumentElements/FormFields")?;
-    let fieldFolder = test_string!("DocumentElements/FormFields")?;
-    let remoteFileName = test_string!("TestUpdateFormField.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentElements/FormFields";
+    let field_folder = "DocumentElements/FormFields".to_owned();
+    let remote_file_name = "TestUpdateFormField.docx".to_owned();
 
-    context.upload_file(test_string!(fieldFolder + "/FormFilled.docx")?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
-    let mut requestFormField = FormFieldTextInput::default();
-    requestFormField.r#name = Some((test_string!("FullName")?).into());
-    requestFormField.r#enabled = Some((true).into());
-    requestFormField.r#calculate_on_exit = Some((true).into());
-    requestFormField.r#status_text = Some((test_string!("")?).into());
-    requestFormField.r#text_input_type = Some((FormFieldTextInput_TextInputTypeEnum::Regular).into());
-    requestFormField.r#text_input_default = Some((test_string!("No name")?).into());
-    requestFormField.r#text_input_format = Some((test_string!("")?).into());
+    context.upload_file(field_folder.clone() + "/FormFilled.docx", remote_data_folder.clone() + "/" + &remote_file_name).await?;
+    let mut request_form_field = FormFieldTextInput::default();
+    request_form_field.name = Some(("FullName".to_owned()).into());
+    request_form_field.enabled = Some((true).into());
+    request_form_field.calculate_on_exit = Some((true).into());
+    request_form_field.status_text = Some(("".to_owned()).into());
+    request_form_field.text_input_type = Some((FormFieldTextInputTextInputTypeEnum::Regular).into());
+    request_form_field.text_input_default = Some(("No name".to_owned()).into());
+    request_form_field.text_input_format = Some(("".to_owned()).into());
 
     let request = UpdateFormFieldRequest::new(
-        (test_string!(remoteFileName)?).into(),
+        (remote_file_name.clone()).into(),
         (0).into(),
-        (requestFormField).into()
-    ).with_node_path((test_string!("sections/0")?).into())
-.with_folder((test_string!(remoteDataFolder)?).into())
-.with_dest_file_name((test_string!(baseTestOutPath + "/" + remoteFileName)?).into());
+        (request_form_field).into()
+    ).with_node_path(("sections/0".to_owned()).into())
+.with_folder((remote_data_folder.clone()).into())
+.with_dest_file_name((base_test_out_path.clone() + "/" + &remote_file_name).into());
 
     let result = context.api().update_form_field(request).await?;
     let result_json = serialize_result(&result)?;
     assert_not_null(&result_json, "FormField")?;
-    assert_string(&result_json, "FormField.Name", test_string!("FullName")?)?;
-    assert_string(&result_json, "FormField.StatusText", test_string!("")?)?;
+    assert_string(&result_json, "FormField.Name", "FullName".to_owned())?;
+    assert_string(&result_json, "FormField.StatusText", "".to_owned())?;
     Ok(())
 }
 
@@ -74,27 +72,25 @@ async fn form_field_update_form_field() -> TestResult<()> {
 #[tokio::test]
 async fn form_field_update_form_field_online() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let fieldFolder = test_string!("DocumentElements/FormFields")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let field_folder = "DocumentElements/FormFields".to_owned();
 
-    let requestDocument = context.load_binary_file(test_string!(fieldFolder + "/FormFilled.docx")?).await?;
-    let mut requestFormField = FormFieldTextInput::default();
-    requestFormField.r#name = Some((test_string!("FullName")?).into());
-    requestFormField.r#enabled = Some((true).into());
-    requestFormField.r#calculate_on_exit = Some((true).into());
-    requestFormField.r#status_text = Some((test_string!("")?).into());
-    requestFormField.r#text_input_type = Some((FormFieldTextInput_TextInputTypeEnum::Regular).into());
-    requestFormField.r#text_input_default = Some((test_string!("No name")?).into());
-    requestFormField.r#text_input_format = Some((test_string!("")?).into());
+    let request_document = context.load_binary_file(field_folder.clone() + "/FormFilled.docx").await?;
+    let mut request_form_field = FormFieldTextInput::default();
+    request_form_field.name = Some(("FullName".to_owned()).into());
+    request_form_field.enabled = Some((true).into());
+    request_form_field.calculate_on_exit = Some((true).into());
+    request_form_field.status_text = Some(("".to_owned()).into());
+    request_form_field.text_input_type = Some((FormFieldTextInputTextInputTypeEnum::Regular).into());
+    request_form_field.text_input_default = Some(("No name".to_owned()).into());
+    request_form_field.text_input_format = Some(("".to_owned()).into());
 
     let request = UpdateFormFieldOnlineRequest::new(
-        (requestDocument).into(),
-        (requestFormField).into(),
+        (request_document).into(),
+        (request_form_field).into(),
         (0).into()
-    ).with_node_path((test_string!("sections/0")?).into());
+    ).with_node_path(("sections/0".to_owned()).into());
 
     context.api().update_form_field_online(request).await?;
     Ok(())
@@ -104,36 +100,34 @@ async fn form_field_update_form_field_online() -> TestResult<()> {
 #[tokio::test]
 async fn form_field_update_form_field_without_node_path() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/DocumentElements/FormFields")?;
-    let fieldFolder = test_string!("DocumentElements/FormFields")?;
-    let remoteFileName = test_string!("TestUpdateFormFieldWithoutNodePath.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentElements/FormFields";
+    let field_folder = "DocumentElements/FormFields".to_owned();
+    let remote_file_name = "TestUpdateFormFieldWithoutNodePath.docx".to_owned();
 
-    context.upload_file(test_string!(fieldFolder + "/FormFilled.docx")?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
-    let mut requestFormField = FormFieldTextInput::default();
-    requestFormField.r#name = Some((test_string!("FullName")?).into());
-    requestFormField.r#enabled = Some((true).into());
-    requestFormField.r#calculate_on_exit = Some((true).into());
-    requestFormField.r#status_text = Some((test_string!("")?).into());
-    requestFormField.r#text_input_type = Some((FormFieldTextInput_TextInputTypeEnum::Regular).into());
-    requestFormField.r#text_input_default = Some((test_string!("No name")?).into());
-    requestFormField.r#text_input_format = Some((test_string!("")?).into());
+    context.upload_file(field_folder.clone() + "/FormFilled.docx", remote_data_folder.clone() + "/" + &remote_file_name).await?;
+    let mut request_form_field = FormFieldTextInput::default();
+    request_form_field.name = Some(("FullName".to_owned()).into());
+    request_form_field.enabled = Some((true).into());
+    request_form_field.calculate_on_exit = Some((true).into());
+    request_form_field.status_text = Some(("".to_owned()).into());
+    request_form_field.text_input_type = Some((FormFieldTextInputTextInputTypeEnum::Regular).into());
+    request_form_field.text_input_default = Some(("No name".to_owned()).into());
+    request_form_field.text_input_format = Some(("".to_owned()).into());
 
     let request = UpdateFormFieldRequest::new(
-        (test_string!(remoteFileName)?).into(),
+        (remote_file_name.clone()).into(),
         (0).into(),
-        (requestFormField).into()
-    ).with_folder((test_string!(remoteDataFolder)?).into())
-.with_dest_file_name((test_string!(baseTestOutPath + "/" + remoteFileName)?).into());
+        (request_form_field).into()
+    ).with_folder((remote_data_folder.clone()).into())
+.with_dest_file_name((base_test_out_path.clone() + "/" + &remote_file_name).into());
 
     let result = context.api().update_form_field(request).await?;
     let result_json = serialize_result(&result)?;
     assert_not_null(&result_json, "FormField")?;
-    assert_string(&result_json, "FormField.Name", test_string!("FullName")?)?;
-    assert_string(&result_json, "FormField.StatusText", test_string!("")?)?;
+    assert_string(&result_json, "FormField.Name", "FullName".to_owned())?;
+    assert_string(&result_json, "FormField.StatusText", "".to_owned())?;
     Ok(())
 }
 
@@ -141,26 +135,24 @@ async fn form_field_update_form_field_without_node_path() -> TestResult<()> {
 #[tokio::test]
 async fn form_field_get_form_field() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/DocumentElements/FormFields")?;
-    let fieldFolder = test_string!("DocumentElements/FormFields")?;
-    let remoteFileName = test_string!("TestGetFormField.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentElements/FormFields";
+    let field_folder = "DocumentElements/FormFields".to_owned();
+    let remote_file_name = "TestGetFormField.docx".to_owned();
 
-    context.upload_file(test_string!(fieldFolder + "/FormFilled.docx")?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
+    context.upload_file(field_folder.clone() + "/FormFilled.docx", remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
     let request = GetFormFieldRequest::new(
-        (test_string!(remoteFileName)?).into(),
+        (remote_file_name.clone()).into(),
         (0).into()
-    ).with_node_path((test_string!("sections/0")?).into())
-.with_folder((test_string!(remoteDataFolder)?).into());
+    ).with_node_path(("sections/0".to_owned()).into())
+.with_folder((remote_data_folder.clone()).into());
 
     let result = context.api().get_form_field(request).await?;
     let result_json = serialize_result(&result)?;
     assert_not_null(&result_json, "FormField")?;
-    assert_string(&result_json, "FormField.Name", test_string!("FullName")?)?;
+    assert_string(&result_json, "FormField.Name", "FullName".to_owned())?;
     Ok(())
 }
 
@@ -168,18 +160,16 @@ async fn form_field_get_form_field() -> TestResult<()> {
 #[tokio::test]
 async fn form_field_get_form_field_online() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let fieldFolder = test_string!("DocumentElements/FormFields")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let field_folder = "DocumentElements/FormFields".to_owned();
 
-    let requestDocument = context.load_binary_file(test_string!(fieldFolder + "/FormFilled.docx")?).await?;
+    let request_document = context.load_binary_file(field_folder.clone() + "/FormFilled.docx").await?;
 
     let request = GetFormFieldOnlineRequest::new(
-        (requestDocument).into(),
+        (request_document).into(),
         (0).into()
-    ).with_node_path((test_string!("sections/0")?).into());
+    ).with_node_path(("sections/0".to_owned()).into());
 
     context.api().get_form_field_online(request).await?;
     Ok(())
@@ -189,25 +179,23 @@ async fn form_field_get_form_field_online() -> TestResult<()> {
 #[tokio::test]
 async fn form_field_get_form_field_without_node_path() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/DocumentElements/FormFields")?;
-    let fieldFolder = test_string!("DocumentElements/FormFields")?;
-    let remoteFileName = test_string!("TestGetFormFieldWithoutNodePath.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentElements/FormFields";
+    let field_folder = "DocumentElements/FormFields".to_owned();
+    let remote_file_name = "TestGetFormFieldWithoutNodePath.docx".to_owned();
 
-    context.upload_file(test_string!(fieldFolder + "/FormFilled.docx")?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
+    context.upload_file(field_folder.clone() + "/FormFilled.docx", remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
     let request = GetFormFieldRequest::new(
-        (test_string!(remoteFileName)?).into(),
+        (remote_file_name.clone()).into(),
         (0).into()
-    ).with_folder((test_string!(remoteDataFolder)?).into());
+    ).with_folder((remote_data_folder.clone()).into());
 
     let result = context.api().get_form_field(request).await?;
     let result_json = serialize_result(&result)?;
     assert_not_null(&result_json, "FormField")?;
-    assert_string(&result_json, "FormField.Name", test_string!("FullName")?)?;
+    assert_string(&result_json, "FormField.Name", "FullName".to_owned())?;
     Ok(())
 }
 
@@ -215,27 +203,25 @@ async fn form_field_get_form_field_without_node_path() -> TestResult<()> {
 #[tokio::test]
 async fn form_field_get_form_fields() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/DocumentElements/FormFields")?;
-    let fieldFolder = test_string!("DocumentElements/FormFields")?;
-    let remoteFileName = test_string!("TestGetFormFields.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentElements/FormFields";
+    let field_folder = "DocumentElements/FormFields".to_owned();
+    let remote_file_name = "TestGetFormFields.docx".to_owned();
 
-    context.upload_file(test_string!(fieldFolder + "/FormFilled.docx")?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
+    context.upload_file(field_folder.clone() + "/FormFilled.docx", remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
     let request = GetFormFieldsRequest::new(
-        (test_string!(remoteFileName)?).into()
-    ).with_node_path((test_string!("sections/0")?).into())
-.with_folder((test_string!(remoteDataFolder)?).into());
+        (remote_file_name.clone()).into()
+    ).with_node_path(("sections/0".to_owned()).into())
+.with_folder((remote_data_folder.clone()).into());
 
     let result = context.api().get_form_fields(request).await?;
     let result_json = serialize_result(&result)?;
     assert_not_null(&result_json, "FormFields")?;
     assert_not_null(&result_json, "FormFields.List")?;
     assert_length(&result_json, "FormFields.List", 5)?;
-    assert_string(&result_json, "FormFields.List[0].Name", test_string!("FullName")?)?;
+    assert_string(&result_json, "FormFields.List[0].Name", "FullName".to_owned())?;
     Ok(())
 }
 
@@ -243,17 +229,15 @@ async fn form_field_get_form_fields() -> TestResult<()> {
 #[tokio::test]
 async fn form_field_get_form_fields_online() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let fieldFolder = test_string!("DocumentElements/FormFields")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let field_folder = "DocumentElements/FormFields".to_owned();
 
-    let requestDocument = context.load_binary_file(test_string!(fieldFolder + "/FormFilled.docx")?).await?;
+    let request_document = context.load_binary_file(field_folder.clone() + "/FormFilled.docx").await?;
 
     let request = GetFormFieldsOnlineRequest::new(
-        (requestDocument).into()
-    ).with_node_path((test_string!("sections/0")?).into());
+        (request_document).into()
+    ).with_node_path(("sections/0".to_owned()).into());
 
     context.api().get_form_fields_online(request).await?;
     Ok(())
@@ -263,26 +247,24 @@ async fn form_field_get_form_fields_online() -> TestResult<()> {
 #[tokio::test]
 async fn form_field_get_form_fields_without_node_path() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/DocumentElements/FormFields")?;
-    let fieldFolder = test_string!("DocumentElements/FormFields")?;
-    let remoteFileName = test_string!("TestGetFormFieldsWithoutNodePath.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentElements/FormFields";
+    let field_folder = "DocumentElements/FormFields".to_owned();
+    let remote_file_name = "TestGetFormFieldsWithoutNodePath.docx".to_owned();
 
-    context.upload_file(test_string!(fieldFolder + "/FormFilled.docx")?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
+    context.upload_file(field_folder.clone() + "/FormFilled.docx", remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
     let request = GetFormFieldsRequest::new(
-        (test_string!(remoteFileName)?).into()
-    ).with_folder((test_string!(remoteDataFolder)?).into());
+        (remote_file_name.clone()).into()
+    ).with_folder((remote_data_folder.clone()).into());
 
     let result = context.api().get_form_fields(request).await?;
     let result_json = serialize_result(&result)?;
     assert_not_null(&result_json, "FormFields")?;
     assert_not_null(&result_json, "FormFields.List")?;
     assert_length(&result_json, "FormFields.List", 5)?;
-    assert_string(&result_json, "FormFields.List[0].Name", test_string!("FullName")?)?;
+    assert_string(&result_json, "FormFields.List[0].Name", "FullName".to_owned())?;
     Ok(())
 }
 
@@ -290,35 +272,33 @@ async fn form_field_get_form_fields_without_node_path() -> TestResult<()> {
 #[tokio::test]
 async fn form_field_insert_form_field() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/DocumentElements/FormFields")?;
-    let remoteFileName = test_string!("TestInsertFormField.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentElements/FormFields";
+    let remote_file_name = "TestInsertFormField.docx".to_owned();
 
-    context.upload_file(test_string!("Common/test_multi_pages.docx")?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
-    let mut requestFormField = FormFieldTextInput::default();
-    requestFormField.r#name = Some((test_string!("FullName")?).into());
-    requestFormField.r#enabled = Some((true).into());
-    requestFormField.r#calculate_on_exit = Some((true).into());
-    requestFormField.r#status_text = Some((test_string!("")?).into());
-    requestFormField.r#text_input_type = Some((FormFieldTextInput_TextInputTypeEnum::Regular).into());
-    requestFormField.r#text_input_default = Some((test_string!("123")?).into());
-    requestFormField.r#text_input_format = Some((test_string!("UPPERCASE")?).into());
+    context.upload_file("Common/test_multi_pages.docx".to_owned(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
+    let mut request_form_field = FormFieldTextInput::default();
+    request_form_field.name = Some(("FullName".to_owned()).into());
+    request_form_field.enabled = Some((true).into());
+    request_form_field.calculate_on_exit = Some((true).into());
+    request_form_field.status_text = Some(("".to_owned()).into());
+    request_form_field.text_input_type = Some((FormFieldTextInputTextInputTypeEnum::Regular).into());
+    request_form_field.text_input_default = Some(("123".to_owned()).into());
+    request_form_field.text_input_format = Some(("UPPERCASE".to_owned()).into());
 
     let request = InsertFormFieldRequest::new(
-        (test_string!(remoteFileName)?).into(),
-        (requestFormField).into()
-    ).with_node_path((test_string!("sections/0/paragraphs/0")?).into())
-.with_folder((test_string!(remoteDataFolder)?).into())
-.with_dest_file_name((test_string!(baseTestOutPath + "/" + remoteFileName)?).into());
+        (remote_file_name.clone()).into(),
+        (request_form_field).into()
+    ).with_node_path(("sections/0/paragraphs/0".to_owned()).into())
+.with_folder((remote_data_folder.clone()).into())
+.with_dest_file_name((base_test_out_path.clone() + "/" + &remote_file_name).into());
 
     let result = context.api().insert_form_field(request).await?;
     let result_json = serialize_result(&result)?;
     assert_not_null(&result_json, "FormField")?;
-    assert_string(&result_json, "FormField.Name", test_string!("FullName")?)?;
-    assert_string(&result_json, "FormField.StatusText", test_string!("")?)?;
+    assert_string(&result_json, "FormField.Name", "FullName".to_owned())?;
+    assert_string(&result_json, "FormField.StatusText", "".to_owned())?;
     Ok(())
 }
 
@@ -326,26 +306,24 @@ async fn form_field_insert_form_field() -> TestResult<()> {
 #[tokio::test]
 async fn form_field_insert_form_field_online() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let fieldFolder = test_string!("DocumentElements/FormFields")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let field_folder = "DocumentElements/FormFields".to_owned();
 
-    let requestDocument = context.load_binary_file(test_string!(fieldFolder + "/FormFilled.docx")?).await?;
-    let mut requestFormField = FormFieldTextInput::default();
-    requestFormField.r#name = Some((test_string!("FullName")?).into());
-    requestFormField.r#enabled = Some((true).into());
-    requestFormField.r#calculate_on_exit = Some((true).into());
-    requestFormField.r#status_text = Some((test_string!("")?).into());
-    requestFormField.r#text_input_type = Some((FormFieldTextInput_TextInputTypeEnum::Regular).into());
-    requestFormField.r#text_input_default = Some((test_string!("123")?).into());
-    requestFormField.r#text_input_format = Some((test_string!("UPPERCASE")?).into());
+    let request_document = context.load_binary_file(field_folder.clone() + "/FormFilled.docx").await?;
+    let mut request_form_field = FormFieldTextInput::default();
+    request_form_field.name = Some(("FullName".to_owned()).into());
+    request_form_field.enabled = Some((true).into());
+    request_form_field.calculate_on_exit = Some((true).into());
+    request_form_field.status_text = Some(("".to_owned()).into());
+    request_form_field.text_input_type = Some((FormFieldTextInputTextInputTypeEnum::Regular).into());
+    request_form_field.text_input_default = Some(("123".to_owned()).into());
+    request_form_field.text_input_format = Some(("UPPERCASE".to_owned()).into());
 
     let request = InsertFormFieldOnlineRequest::new(
-        (requestDocument).into(),
-        (requestFormField).into()
-    ).with_node_path((test_string!("sections/0/paragraphs/0")?).into());
+        (request_document).into(),
+        (request_form_field).into()
+    ).with_node_path(("sections/0/paragraphs/0".to_owned()).into());
 
     context.api().insert_form_field_online(request).await?;
     Ok(())
@@ -355,34 +333,32 @@ async fn form_field_insert_form_field_online() -> TestResult<()> {
 #[tokio::test]
 async fn form_field_insert_form_field_without_node_path() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/DocumentElements/FormFields")?;
-    let remoteFileName = test_string!("TestInsertFormFieldWithoutNodePath.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentElements/FormFields";
+    let remote_file_name = "TestInsertFormFieldWithoutNodePath.docx".to_owned();
 
-    context.upload_file(test_string!("Common/test_multi_pages.docx")?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
-    let mut requestFormField = FormFieldTextInput::default();
-    requestFormField.r#name = Some((test_string!("FullName")?).into());
-    requestFormField.r#enabled = Some((true).into());
-    requestFormField.r#calculate_on_exit = Some((true).into());
-    requestFormField.r#status_text = Some((test_string!("")?).into());
-    requestFormField.r#text_input_type = Some((FormFieldTextInput_TextInputTypeEnum::Regular).into());
-    requestFormField.r#text_input_default = Some((test_string!("123")?).into());
-    requestFormField.r#text_input_format = Some((test_string!("UPPERCASE")?).into());
+    context.upload_file("Common/test_multi_pages.docx".to_owned(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
+    let mut request_form_field = FormFieldTextInput::default();
+    request_form_field.name = Some(("FullName".to_owned()).into());
+    request_form_field.enabled = Some((true).into());
+    request_form_field.calculate_on_exit = Some((true).into());
+    request_form_field.status_text = Some(("".to_owned()).into());
+    request_form_field.text_input_type = Some((FormFieldTextInputTextInputTypeEnum::Regular).into());
+    request_form_field.text_input_default = Some(("123".to_owned()).into());
+    request_form_field.text_input_format = Some(("UPPERCASE".to_owned()).into());
 
     let request = InsertFormFieldRequest::new(
-        (test_string!(remoteFileName)?).into(),
-        (requestFormField).into()
-    ).with_folder((test_string!(remoteDataFolder)?).into())
-.with_dest_file_name((test_string!(baseTestOutPath + "/" + remoteFileName)?).into());
+        (remote_file_name.clone()).into(),
+        (request_form_field).into()
+    ).with_folder((remote_data_folder.clone()).into())
+.with_dest_file_name((base_test_out_path.clone() + "/" + &remote_file_name).into());
 
     let result = context.api().insert_form_field(request).await?;
     let result_json = serialize_result(&result)?;
     assert_not_null(&result_json, "FormField")?;
-    assert_string(&result_json, "FormField.Name", test_string!("FullName")?)?;
-    assert_string(&result_json, "FormField.StatusText", test_string!("")?)?;
+    assert_string(&result_json, "FormField.Name", "FullName".to_owned())?;
+    assert_string(&result_json, "FormField.StatusText", "".to_owned())?;
     Ok(())
 }
 
@@ -390,22 +366,20 @@ async fn form_field_insert_form_field_without_node_path() -> TestResult<()> {
 #[tokio::test]
 async fn form_field_delete_form_field() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/DocumentElements/FormFields")?;
-    let fieldFolder = test_string!("DocumentElements/FormFields")?;
-    let remoteFileName = test_string!("TestDeleteFormField.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentElements/FormFields";
+    let field_folder = "DocumentElements/FormFields".to_owned();
+    let remote_file_name = "TestDeleteFormField.docx".to_owned();
 
-    context.upload_file(test_string!(fieldFolder + "/FormFilled.docx")?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
+    context.upload_file(field_folder.clone() + "/FormFilled.docx", remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
     let request = DeleteFormFieldRequest::new(
-        (test_string!(remoteFileName)?).into(),
+        (remote_file_name.clone()).into(),
         (0).into()
-    ).with_node_path((test_string!("sections/0")?).into())
-.with_folder((test_string!(remoteDataFolder)?).into())
-.with_dest_file_name((test_string!(baseTestOutPath + "/" + remoteFileName)?).into());
+    ).with_node_path(("sections/0".to_owned()).into())
+.with_folder((remote_data_folder.clone()).into())
+.with_dest_file_name((base_test_out_path.clone() + "/" + &remote_file_name).into());
 
     context.api().delete_form_field(request).await?;
     Ok(())
@@ -415,18 +389,16 @@ async fn form_field_delete_form_field() -> TestResult<()> {
 #[tokio::test]
 async fn form_field_delete_form_field_online() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let fieldFolder = test_string!("DocumentElements/FormFields")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let field_folder = "DocumentElements/FormFields".to_owned();
 
-    let requestDocument = context.load_binary_file(test_string!(fieldFolder + "/FormFilled.docx")?).await?;
+    let request_document = context.load_binary_file(field_folder.clone() + "/FormFilled.docx").await?;
 
     let request = DeleteFormFieldOnlineRequest::new(
-        (requestDocument).into(),
+        (request_document).into(),
         (0).into()
-    ).with_node_path((test_string!("sections/0")?).into());
+    ).with_node_path(("sections/0".to_owned()).into());
 
     context.api().delete_form_field_online(request).await?;
     Ok(())
@@ -436,21 +408,19 @@ async fn form_field_delete_form_field_online() -> TestResult<()> {
 #[tokio::test]
 async fn form_field_delete_form_field_without_node_path() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/DocumentElements/FormFields")?;
-    let fieldFolder = test_string!("DocumentElements/FormFields")?;
-    let remoteFileName = test_string!("TestDeleteFormFieldWithoutNodePath.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentElements/FormFields";
+    let field_folder = "DocumentElements/FormFields".to_owned();
+    let remote_file_name = "TestDeleteFormFieldWithoutNodePath.docx".to_owned();
 
-    context.upload_file(test_string!(fieldFolder + "/FormFilled.docx")?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
+    context.upload_file(field_folder.clone() + "/FormFilled.docx", remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
     let request = DeleteFormFieldRequest::new(
-        (test_string!(remoteFileName)?).into(),
+        (remote_file_name.clone()).into(),
         (0).into()
-    ).with_folder((test_string!(remoteDataFolder)?).into())
-.with_dest_file_name((test_string!(baseTestOutPath + "/" + remoteFileName)?).into());
+    ).with_folder((remote_data_folder.clone()).into())
+.with_dest_file_name((base_test_out_path.clone() + "/" + &remote_file_name).into());
 
     context.api().delete_form_field(request).await?;
     Ok(())

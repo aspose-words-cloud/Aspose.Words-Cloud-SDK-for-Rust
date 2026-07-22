@@ -37,22 +37,22 @@ pub struct OoxmlSaveOptionsData {
     pub parent: SaveOptionsData,
         /// Gets or sets the oOXML version for the output document.
         #[serde(rename = "Compliance", skip_serializing_if = "Option::is_none")]
-        pub r#compliance: Option<OoxmlSaveOptionsData_ComplianceEnum>,
+        pub compliance: Option<OoxmlSaveOptionsDataComplianceEnum>,
 
 
         /// Gets or sets the compression level.
         #[serde(rename = "CompressionLevel", skip_serializing_if = "Option::is_none")]
-        pub r#compression_level: Option<OoxmlSaveOptionsData_CompressionLevelEnum>,
+        pub compression_level: Option<OoxmlSaveOptionsDataCompressionLevelEnum>,
 
 
         /// Gets or sets the password to encrypt document using ECMA376 Standard encryption algorithm.
         #[serde(rename = "Password", skip_serializing_if = "Option::is_none")]
-        pub r#password: Option<String>,
+        pub password: Option<String>,
 
 
         /// Gets or sets a value indicating whether to use pretty formats output.
         #[serde(rename = "PrettyFormat", skip_serializing_if = "Option::is_none")]
-        pub r#pretty_format: Option<bool>,
+        pub pretty_format: Option<bool>,
 
 }
 
@@ -61,10 +61,10 @@ impl Default for OoxmlSaveOptionsData {
         let mut parent = SaveOptionsData::default();
         Self {
             parent,
-            r#compliance: None,
-            r#compression_level: None,
-            r#password: None,
-            r#pretty_format: None,
+            compliance: None,
+            compression_level: None,
+            password: None,
+            pretty_format: None,
         }
     }
 }
@@ -89,8 +89,8 @@ impl Model for OoxmlSaveOptionsData {
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
-        self.parent.collect_file_references(output);
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+        self.parent.collect_file_references(_output);
     }
 
     fn as_any(&self) -> &dyn Any {
@@ -99,21 +99,19 @@ impl Model for OoxmlSaveOptionsData {
 }
 
 /// Gets or sets the oOXML version for the output document.
-#[allow(non_camel_case_types)]
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
-pub enum OoxmlSaveOptionsData_ComplianceEnum {
+pub enum OoxmlSaveOptionsDataComplianceEnum {
     #[serde(rename = "Ecma376_2006")]
-        Ecma376_2006,
+        Ecma3762006,
     #[serde(rename = "Iso29500_2008_Transitional")]
-        Iso29500_2008_Transitional,
+        Iso295002008Transitional,
     #[serde(rename = "Iso29500_2008_Strict")]
-        Iso29500_2008_Strict,
+        Iso295002008Strict,
 }
 
 /// Gets or sets the compression level.
-#[allow(non_camel_case_types)]
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
-pub enum OoxmlSaveOptionsData_CompressionLevelEnum {
+pub enum OoxmlSaveOptionsDataCompressionLevelEnum {
     #[serde(rename = "Normal")]
         Normal,
     #[serde(rename = "Maximum")]

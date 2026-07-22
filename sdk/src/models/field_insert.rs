@@ -37,7 +37,7 @@ pub struct FieldInsert {
     pub parent: FieldBase,
         /// Gets or sets the position of the node that will be used to determine the placement of a new field.
         #[serde(rename = "Position", skip_serializing_if = "Option::is_none", default, deserialize_with = "deserialize_optional_model")]
-        pub r#position: Option<ModelBox>,
+        pub position: Option<ModelBox>,
 
 }
 
@@ -46,7 +46,7 @@ impl Default for FieldInsert {
         let mut parent = FieldBase::default();
         Self {
             parent,
-            r#position: None,
+            position: None,
         }
     }
 }
@@ -68,14 +68,14 @@ impl DerefMut for FieldInsert {
 impl Model for FieldInsert {
     fn validate(&self) -> SdkResult<()> {
         self.parent.validate()?;
-        if let Some(value) = &self.r#position {
+        if let Some(value) = &self.position {
         value.validate()?;
         }
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
-        self.parent.collect_file_references(output);
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+        self.parent.collect_file_references(_output);
     }
 
     fn as_any(&self) -> &dyn Any {

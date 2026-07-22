@@ -35,21 +35,21 @@ pub struct StructuredDocumentTagListItem {
         /// Gets or sets the text to display in the run content in place of the Aspose.Words.Markup.SdtListItem.Value attribute contents for this list item.
             /// Cannot be null and cannot be an empty string.
         #[serde(rename = "DisplayText", skip_serializing_if = "Option::is_none")]
-        pub r#display_text: Option<String>,
+        pub display_text: Option<String>,
 
 
         /// Gets or sets the value of this list item.
             /// Cannot be null and cannot be an empty string.
         #[serde(rename = "Value", skip_serializing_if = "Option::is_none")]
-        pub r#value: Option<String>,
+        pub value: Option<String>,
 
 }
 
 impl Default for StructuredDocumentTagListItem {
     fn default() -> Self {
         Self {
-            r#display_text: None,
-            r#value: None,
+            display_text: None,
+            value: None,
         }
     }
 }
@@ -59,7 +59,7 @@ impl Model for StructuredDocumentTagListItem {
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
     }
 
     fn as_any(&self) -> &dyn Any {

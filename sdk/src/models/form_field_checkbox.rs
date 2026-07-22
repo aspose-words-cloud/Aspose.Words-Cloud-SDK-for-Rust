@@ -37,17 +37,17 @@ pub struct FormFieldCheckbox {
     pub parent: FormField,
         /// Gets or sets a value indicating whether the size of the textbox is automatic or specified explicitly.
         #[serde(rename = "IsCheckBoxExactSize", skip_serializing_if = "Option::is_none")]
-        pub r#is_check_box_exact_size: Option<bool>,
+        pub is_check_box_exact_size: Option<bool>,
 
 
         /// Gets or sets the size of the checkbox in points. Has effect only when IsCheckBoxExactSize is true.
         #[serde(rename = "CheckBoxSize", skip_serializing_if = "Option::is_none")]
-        pub r#check_box_size: Option<f64>,
+        pub check_box_size: Option<f64>,
 
 
         /// Gets or sets the checked status of the check box form field.
         #[serde(rename = "Checked", skip_serializing_if = "Option::is_none")]
-        pub r#checked: Option<bool>,
+        pub checked: Option<bool>,
 
 }
 
@@ -56,9 +56,9 @@ impl Default for FormFieldCheckbox {
         let mut parent = FormField::default();
         Self {
             parent,
-            r#is_check_box_exact_size: None,
-            r#check_box_size: None,
-            r#checked: None,
+            is_check_box_exact_size: None,
+            check_box_size: None,
+            checked: None,
         }
     }
 }
@@ -80,7 +80,7 @@ impl DerefMut for FormFieldCheckbox {
 impl Model for FormFieldCheckbox {
     fn validate(&self) -> SdkResult<()> {
         self.parent.validate()?;
-        if self.r#checked.is_none() {
+        if self.checked.is_none() {
             return Err(SdkError::InvalidRequest(
                 "property Checked in FormFieldCheckbox is required".to_owned(),
             ));
@@ -88,8 +88,8 @@ impl Model for FormFieldCheckbox {
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
-        self.parent.collect_file_references(output);
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+        self.parent.collect_file_references(_output);
     }
 
     fn as_any(&self) -> &dyn Any {

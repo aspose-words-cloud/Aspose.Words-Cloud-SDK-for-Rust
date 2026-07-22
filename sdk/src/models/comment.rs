@@ -37,40 +37,40 @@ pub struct Comment {
     pub parent: CommentLink,
         /// Gets or sets the link to comment range start node.
         #[serde(rename = "RangeStart", skip_serializing_if = "Option::is_none")]
-        pub r#range_start: Option<DocumentPosition>,
+        pub range_start: Option<DocumentPosition>,
 
 
         /// Gets or sets the link to comment range end node.
         #[serde(rename = "RangeEnd", skip_serializing_if = "Option::is_none")]
-        pub r#range_end: Option<DocumentPosition>,
+        pub range_end: Option<DocumentPosition>,
 
 
         /// Gets or sets the author name for a comment.
             /// Cannot be null.Default is an empty string.
         #[serde(rename = "Author", skip_serializing_if = "Option::is_none")]
-        pub r#author: Option<String>,
+        pub author: Option<String>,
 
 
         /// Gets or sets the initials of the user associated with a specific comment.
             /// Cannot be null.Default is an empty string.
         #[serde(rename = "Initial", skip_serializing_if = "Option::is_none")]
-        pub r#initial: Option<String>,
+        pub initial: Option<String>,
 
 
         /// Gets or sets the date and time that the comment was made.
         #[serde(rename = "DateTime", skip_serializing_if = "Option::is_none")]
-        pub r#date_time: Option<DateTime<Utc>>,
+        pub date_time: Option<chrono::DateTime<chrono::Utc>>,
 
 
         /// Gets or sets text of the comment.
             /// This method allows to quickly set text of a comment from a string. The string can contain paragraph breaks, this will create paragraphs of text in the comment accordingly.
         #[serde(rename = "Text", skip_serializing_if = "Option::is_none")]
-        pub r#text: Option<String>,
+        pub text: Option<String>,
 
 
         /// Gets or sets the content of the comment.
         #[serde(rename = "Content", skip_serializing_if = "Option::is_none")]
-        pub r#content: Option<StoryChildNodes>,
+        pub content: Option<StoryChildNodes>,
 
 }
 
@@ -79,13 +79,13 @@ impl Default for Comment {
         let mut parent = CommentLink::default();
         Self {
             parent,
-            r#range_start: None,
-            r#range_end: None,
-            r#author: None,
-            r#initial: None,
-            r#date_time: None,
-            r#text: None,
-            r#content: None,
+            range_start: None,
+            range_end: None,
+            author: None,
+            initial: None,
+            date_time: None,
+            text: None,
+            content: None,
         }
     }
 }
@@ -107,24 +107,24 @@ impl DerefMut for Comment {
 impl Model for Comment {
     fn validate(&self) -> SdkResult<()> {
         self.parent.validate()?;
-        if let Some(value) = &self.r#range_start {
+        if let Some(value) = &self.range_start {
         value.validate()?;
         }
-        if let Some(value) = &self.r#range_end {
+        if let Some(value) = &self.range_end {
         value.validate()?;
         }
 
 
 
 
-        if let Some(value) = &self.r#content {
+        if let Some(value) = &self.content {
         value.validate()?;
         }
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
-        self.parent.collect_file_references(output);
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+        self.parent.collect_file_references(_output);
     }
 
     fn as_any(&self) -> &dyn Any {

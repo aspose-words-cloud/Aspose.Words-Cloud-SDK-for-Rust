@@ -36,17 +36,15 @@ use crate::test_context::*;
 #[tokio::test]
 async fn mail_merge_fileds_get_document_field_names_online() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let mailMergeFolder = test_string!("DocumentActions/MailMerge")?;
-    let localDocumentFile = test_string!("SampleExecuteTemplate.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let mail_merge_folder = "DocumentActions/MailMerge".to_owned();
+    let local_document_file = "SampleExecuteTemplate.docx".to_owned();
 
-    let requestTemplate = context.load_binary_file(test_string!(mailMergeFolder + "/" + localDocumentFile)?).await?;
+    let request_template = context.load_binary_file(mail_merge_folder.clone() + "/" + &local_document_file).await?;
 
     let request = GetDocumentFieldNamesOnlineRequest::new(
-        (requestTemplate).into()
+        (request_template).into()
     ).with_use_non_merge_fields((true).into());
 
     let result = context.api().get_document_field_names_online(request).await?;
@@ -54,7 +52,7 @@ async fn mail_merge_fileds_get_document_field_names_online() -> TestResult<()> {
     assert_not_null(&result_json, "FieldNames")?;
     assert_not_null(&result_json, "FieldNames.Names")?;
     assert_length(&result_json, "FieldNames.Names", 15)?;
-    assert_string(&result_json, "FieldNames.Names[0]", test_string!("TableStart:Order")?)?;
+    assert_string(&result_json, "FieldNames.Names[0]", "TableStart:Order".to_owned())?;
     Ok(())
 }
 
@@ -62,18 +60,16 @@ async fn mail_merge_fileds_get_document_field_names_online() -> TestResult<()> {
 #[tokio::test]
 async fn mail_merge_fileds_get_document_field_names() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/DocumentActions/MailMerge")?;
-    let remoteFileName = test_string!("TestGetDocumentFieldNames.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentActions/MailMerge";
+    let remote_file_name = "TestGetDocumentFieldNames.docx".to_owned();
 
-    context.upload_file(test_string!("Common/test_multi_pages.docx")?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
+    context.upload_file("Common/test_multi_pages.docx".to_owned(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
     let request = GetDocumentFieldNamesRequest::new(
-        (test_string!(remoteFileName)?).into()
-    ).with_folder((test_string!(remoteDataFolder)?).into());
+        (remote_file_name.clone()).into()
+    ).with_folder((remote_data_folder.clone()).into());
 
     let result = context.api().get_document_field_names(request).await?;
     let result_json = serialize_result(&result)?;

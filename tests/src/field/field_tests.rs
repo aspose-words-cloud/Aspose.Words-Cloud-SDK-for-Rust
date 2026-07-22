@@ -36,28 +36,26 @@ use crate::test_context::*;
 #[tokio::test]
 async fn field_get_fields() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/DocumentElements/Fields")?;
-    let fieldFolder = test_string!("DocumentElements/Fields")?;
-    let localFileName = test_string!("GetField.docx")?;
-    let remoteFileName = test_string!("TestGetFields.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentElements/Fields";
+    let field_folder = "DocumentElements/Fields".to_owned();
+    let local_file_name = "GetField.docx".to_owned();
+    let remote_file_name = "TestGetFields.docx".to_owned();
 
-    context.upload_file(test_string!(fieldFolder + "/" + localFileName)?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
+    context.upload_file(field_folder.clone() + "/" + &local_file_name, remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
     let request = GetFieldsRequest::new(
-        (test_string!(remoteFileName)?).into()
-    ).with_node_path((test_string!("sections/0")?).into())
-.with_folder((test_string!(remoteDataFolder)?).into());
+        (remote_file_name.clone()).into()
+    ).with_node_path(("sections/0".to_owned()).into())
+.with_folder((remote_data_folder.clone()).into());
 
     let result = context.api().get_fields(request).await?;
     let result_json = serialize_result(&result)?;
     assert_not_null(&result_json, "Fields")?;
     assert_not_null(&result_json, "Fields.List")?;
     assert_length(&result_json, "Fields.List", 1)?;
-    assert_string(&result_json, "Fields.List[0].Result", test_string!("1")?)?;
+    assert_string(&result_json, "Fields.List[0].Result", "1".to_owned())?;
     Ok(())
 }
 
@@ -65,17 +63,15 @@ async fn field_get_fields() -> TestResult<()> {
 #[tokio::test]
 async fn field_get_fields_online() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let fieldFolder = test_string!("DocumentElements/Fields")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let field_folder = "DocumentElements/Fields".to_owned();
 
-    let requestDocument = context.load_binary_file(test_string!(fieldFolder + "/GetField.docx")?).await?;
+    let request_document = context.load_binary_file(field_folder.clone() + "/GetField.docx").await?;
 
     let request = GetFieldsOnlineRequest::new(
-        (requestDocument).into()
-    ).with_node_path((test_string!("sections/0")?).into());
+        (request_document).into()
+    ).with_node_path(("sections/0".to_owned()).into());
 
     context.api().get_fields_online(request).await?;
     Ok(())
@@ -85,27 +81,25 @@ async fn field_get_fields_online() -> TestResult<()> {
 #[tokio::test]
 async fn field_get_fields_without_node_path() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/DocumentElements/Fields")?;
-    let fieldFolder = test_string!("DocumentElements/Fields")?;
-    let localFileName = test_string!("GetField.docx")?;
-    let remoteFileName = test_string!("TestGetFieldsWithoutNodePath.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentElements/Fields";
+    let field_folder = "DocumentElements/Fields".to_owned();
+    let local_file_name = "GetField.docx".to_owned();
+    let remote_file_name = "TestGetFieldsWithoutNodePath.docx".to_owned();
 
-    context.upload_file(test_string!(fieldFolder + "/" + localFileName)?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
+    context.upload_file(field_folder.clone() + "/" + &local_file_name, remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
     let request = GetFieldsRequest::new(
-        (test_string!(remoteFileName)?).into()
-    ).with_folder((test_string!(remoteDataFolder)?).into());
+        (remote_file_name.clone()).into()
+    ).with_folder((remote_data_folder.clone()).into());
 
     let result = context.api().get_fields(request).await?;
     let result_json = serialize_result(&result)?;
     assert_not_null(&result_json, "Fields")?;
     assert_not_null(&result_json, "Fields.List")?;
     assert_length(&result_json, "Fields.List", 1)?;
-    assert_string(&result_json, "Fields.List[0].Result", test_string!("1")?)?;
+    assert_string(&result_json, "Fields.List[0].Result", "1".to_owned())?;
     Ok(())
 }
 
@@ -113,27 +107,25 @@ async fn field_get_fields_without_node_path() -> TestResult<()> {
 #[tokio::test]
 async fn field_get_field() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/DocumentElements/Fields")?;
-    let fieldFolder = test_string!("DocumentElements/Fields")?;
-    let localFileName = test_string!("GetField.docx")?;
-    let remoteFileName = test_string!("TestGetField.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentElements/Fields";
+    let field_folder = "DocumentElements/Fields".to_owned();
+    let local_file_name = "GetField.docx".to_owned();
+    let remote_file_name = "TestGetField.docx".to_owned();
 
-    context.upload_file(test_string!(fieldFolder + "/" + localFileName)?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
+    context.upload_file(field_folder.clone() + "/" + &local_file_name, remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
     let request = GetFieldRequest::new(
-        (test_string!(remoteFileName)?).into(),
+        (remote_file_name.clone()).into(),
         (0).into()
-    ).with_node_path((test_string!("sections/0/paragraphs/0")?).into())
-.with_folder((test_string!(remoteDataFolder)?).into());
+    ).with_node_path(("sections/0/paragraphs/0".to_owned()).into())
+.with_folder((remote_data_folder.clone()).into());
 
     let result = context.api().get_field(request).await?;
     let result_json = serialize_result(&result)?;
     assert_not_null(&result_json, "Field")?;
-    assert_string(&result_json, "Field.Result", test_string!("1")?)?;
+    assert_string(&result_json, "Field.Result", "1".to_owned())?;
     Ok(())
 }
 
@@ -141,18 +133,16 @@ async fn field_get_field() -> TestResult<()> {
 #[tokio::test]
 async fn field_get_field_online() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let fieldFolder = test_string!("DocumentElements/Fields")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let field_folder = "DocumentElements/Fields".to_owned();
 
-    let requestDocument = context.load_binary_file(test_string!(fieldFolder + "/GetField.docx")?).await?;
+    let request_document = context.load_binary_file(field_folder.clone() + "/GetField.docx").await?;
 
     let request = GetFieldOnlineRequest::new(
-        (requestDocument).into(),
+        (request_document).into(),
         (0).into()
-    ).with_node_path((test_string!("sections/0/paragraphs/0")?).into());
+    ).with_node_path(("sections/0/paragraphs/0".to_owned()).into());
 
     context.api().get_field_online(request).await?;
     Ok(())
@@ -162,26 +152,24 @@ async fn field_get_field_online() -> TestResult<()> {
 #[tokio::test]
 async fn field_get_field_without_node_path() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/DocumentElements/Fields")?;
-    let fieldFolder = test_string!("DocumentElements/Fields")?;
-    let localFileName = test_string!("GetField.docx")?;
-    let remoteFileName = test_string!("TestGetFieldWithoutNodePath.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentElements/Fields";
+    let field_folder = "DocumentElements/Fields".to_owned();
+    let local_file_name = "GetField.docx".to_owned();
+    let remote_file_name = "TestGetFieldWithoutNodePath.docx".to_owned();
 
-    context.upload_file(test_string!(fieldFolder + "/" + localFileName)?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
+    context.upload_file(field_folder.clone() + "/" + &local_file_name, remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
     let request = GetFieldRequest::new(
-        (test_string!(remoteFileName)?).into(),
+        (remote_file_name.clone()).into(),
         (0).into()
-    ).with_folder((test_string!(remoteDataFolder)?).into());
+    ).with_folder((remote_data_folder.clone()).into());
 
     let result = context.api().get_field(request).await?;
     let result_json = serialize_result(&result)?;
     assert_not_null(&result_json, "Field")?;
-    assert_string(&result_json, "Field.Result", test_string!("1")?)?;
+    assert_string(&result_json, "Field.Result", "1".to_owned())?;
     Ok(())
 }
 
@@ -189,30 +177,28 @@ async fn field_get_field_without_node_path() -> TestResult<()> {
 #[tokio::test]
 async fn field_insert_field() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/DocumentElements/Fields")?;
-    let textFolder = test_string!("DocumentElements/Text")?;
-    let localFileName = test_string!("SampleWordDocument.docx")?;
-    let remoteFileName = test_string!("TestInsertField.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentElements/Fields";
+    let text_folder = "DocumentElements/Text".to_owned();
+    let local_file_name = "SampleWordDocument.docx".to_owned();
+    let remote_file_name = "TestInsertField.docx".to_owned();
 
-    context.upload_file(test_string!(textFolder + "/" + localFileName)?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
-    let mut requestField = FieldInsert::default();
-    requestField.r#field_code = Some((test_string!("{ NUMPAGES }")?).into());
+    context.upload_file(text_folder.clone() + "/" + &local_file_name, remote_data_folder.clone() + "/" + &remote_file_name).await?;
+    let mut request_field = FieldInsert::default();
+    request_field.field_code = Some(("{ NUMPAGES }".to_owned()).into());
 
     let request = InsertFieldRequest::new(
-        (test_string!(remoteFileName)?).into(),
-        (requestField).into()
-    ).with_node_path((test_string!("sections/0/paragraphs/0")?).into())
-.with_folder((test_string!(remoteDataFolder)?).into());
+        (remote_file_name.clone()).into(),
+        (request_field).into()
+    ).with_node_path(("sections/0/paragraphs/0".to_owned()).into())
+.with_folder((remote_data_folder.clone()).into());
 
     let result = context.api().insert_field(request).await?;
     let result_json = serialize_result(&result)?;
     assert_not_null(&result_json, "Field")?;
-    assert_string(&result_json, "Field.FieldCode", test_string!("{ NUMPAGES }")?)?;
-    assert_string(&result_json, "Field.NodeId", test_string!("0.0.0.1")?)?;
+    assert_string(&result_json, "Field.FieldCode", "{ NUMPAGES }".to_owned())?;
+    assert_string(&result_json, "Field.NodeId", "0.0.0.1".to_owned())?;
     Ok(())
 }
 
@@ -220,20 +206,18 @@ async fn field_insert_field() -> TestResult<()> {
 #[tokio::test]
 async fn field_insert_field_online() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let fieldFolder = test_string!("DocumentElements/Fields")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let field_folder = "DocumentElements/Fields".to_owned();
 
-    let requestDocument = context.load_binary_file(test_string!(fieldFolder + "/GetField.docx")?).await?;
-    let mut requestField = FieldInsert::default();
-    requestField.r#field_code = Some((test_string!("{ NUMPAGES }")?).into());
+    let request_document = context.load_binary_file(field_folder.clone() + "/GetField.docx").await?;
+    let mut request_field = FieldInsert::default();
+    request_field.field_code = Some(("{ NUMPAGES }".to_owned()).into());
 
     let request = InsertFieldOnlineRequest::new(
-        (requestDocument).into(),
-        (requestField).into()
-    ).with_node_path((test_string!("sections/0/paragraphs/0")?).into());
+        (request_document).into(),
+        (request_field).into()
+    ).with_node_path(("sections/0/paragraphs/0".to_owned()).into());
 
     context.api().insert_field_online(request).await?;
     Ok(())
@@ -243,29 +227,27 @@ async fn field_insert_field_online() -> TestResult<()> {
 #[tokio::test]
 async fn field_insert_field_without_node_path() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/DocumentElements/Fields")?;
-    let textFolder = test_string!("DocumentElements/Text")?;
-    let localFileName = test_string!("SampleWordDocument.docx")?;
-    let remoteFileName = test_string!("TestInsertFieldWithoutNodePath.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentElements/Fields";
+    let text_folder = "DocumentElements/Text".to_owned();
+    let local_file_name = "SampleWordDocument.docx".to_owned();
+    let remote_file_name = "TestInsertFieldWithoutNodePath.docx".to_owned();
 
-    context.upload_file(test_string!(textFolder + "/" + localFileName)?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
-    let mut requestField = FieldInsert::default();
-    requestField.r#field_code = Some((test_string!("{ NUMPAGES }")?).into());
+    context.upload_file(text_folder.clone() + "/" + &local_file_name, remote_data_folder.clone() + "/" + &remote_file_name).await?;
+    let mut request_field = FieldInsert::default();
+    request_field.field_code = Some(("{ NUMPAGES }".to_owned()).into());
 
     let request = InsertFieldRequest::new(
-        (test_string!(remoteFileName)?).into(),
-        (requestField).into()
-    ).with_folder((test_string!(remoteDataFolder)?).into());
+        (remote_file_name.clone()).into(),
+        (request_field).into()
+    ).with_folder((remote_data_folder.clone()).into());
 
     let result = context.api().insert_field(request).await?;
     let result_json = serialize_result(&result)?;
     assert_not_null(&result_json, "Field")?;
-    assert_string(&result_json, "Field.FieldCode", test_string!("{ NUMPAGES }")?)?;
-    assert_string(&result_json, "Field.NodeId", test_string!("5.0.22.0")?)?;
+    assert_string(&result_json, "Field.FieldCode", "{ NUMPAGES }".to_owned())?;
+    assert_string(&result_json, "Field.NodeId", "5.0.22.0".to_owned())?;
     Ok(())
 }
 
@@ -273,31 +255,29 @@ async fn field_insert_field_without_node_path() -> TestResult<()> {
 #[tokio::test]
 async fn field_update_field() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/DocumentElements/Fields")?;
-    let fieldFolder = test_string!("DocumentElements/Fields")?;
-    let localFileName = test_string!("GetField.docx")?;
-    let remoteFileName = test_string!("TestUpdateField.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentElements/Fields";
+    let field_folder = "DocumentElements/Fields".to_owned();
+    let local_file_name = "GetField.docx".to_owned();
+    let remote_file_name = "TestUpdateField.docx".to_owned();
 
-    context.upload_file(test_string!(fieldFolder + "/" + localFileName)?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
-    let mut requestField = FieldUpdate::default();
-    requestField.r#field_code = Some((test_string!("{ NUMPAGES }")?).into());
+    context.upload_file(field_folder.clone() + "/" + &local_file_name, remote_data_folder.clone() + "/" + &remote_file_name).await?;
+    let mut request_field = FieldUpdate::default();
+    request_field.field_code = Some(("{ NUMPAGES }".to_owned()).into());
 
     let request = UpdateFieldRequest::new(
-        (test_string!(remoteFileName)?).into(),
+        (remote_file_name.clone()).into(),
         (0).into(),
-        (requestField).into()
-    ).with_node_path((test_string!("sections/0/paragraphs/0")?).into())
-.with_folder((test_string!(remoteDataFolder)?).into());
+        (request_field).into()
+    ).with_node_path(("sections/0/paragraphs/0".to_owned()).into())
+.with_folder((remote_data_folder.clone()).into());
 
     let result = context.api().update_field(request).await?;
     let result_json = serialize_result(&result)?;
     assert_not_null(&result_json, "Field")?;
-    assert_string(&result_json, "Field.FieldCode", test_string!("{ NUMPAGES }")?)?;
-    assert_string(&result_json, "Field.NodeId", test_string!("0.0.0.0")?)?;
+    assert_string(&result_json, "Field.FieldCode", "{ NUMPAGES }".to_owned())?;
+    assert_string(&result_json, "Field.NodeId", "0.0.0.0".to_owned())?;
     Ok(())
 }
 
@@ -305,21 +285,19 @@ async fn field_update_field() -> TestResult<()> {
 #[tokio::test]
 async fn field_update_field_online() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let fieldFolder = test_string!("DocumentElements/Fields")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let field_folder = "DocumentElements/Fields".to_owned();
 
-    let requestDocument = context.load_binary_file(test_string!(fieldFolder + "/GetField.docx")?).await?;
-    let mut requestField = FieldUpdate::default();
-    requestField.r#field_code = Some((test_string!("{ NUMPAGES }")?).into());
+    let request_document = context.load_binary_file(field_folder.clone() + "/GetField.docx").await?;
+    let mut request_field = FieldUpdate::default();
+    request_field.field_code = Some(("{ NUMPAGES }".to_owned()).into());
 
     let request = UpdateFieldOnlineRequest::new(
-        (requestDocument).into(),
-        (requestField).into(),
+        (request_document).into(),
+        (request_field).into(),
         (0).into()
-    ).with_node_path((test_string!("sections/0/paragraphs/0")?).into());
+    ).with_node_path(("sections/0/paragraphs/0".to_owned()).into());
 
     context.api().update_field_online(request).await?;
     Ok(())
@@ -329,31 +307,29 @@ async fn field_update_field_online() -> TestResult<()> {
 #[tokio::test]
 async fn field_insert_page_numbers() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/DocumentElements/Fields")?;
-    let localFileName = test_string!("test_multi_pages.docx")?;
-    let remoteFileName = test_string!("TestInsertPageNumbers.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentElements/Fields";
+    let local_file_name = "test_multi_pages.docx".to_owned();
+    let remote_file_name = "TestInsertPageNumbers.docx".to_owned();
 
-    context.upload_file(test_string!("Common/" + localFileName)?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
-    let mut requestPageNumber = PageNumber::default();
-    requestPageNumber.r#alignment = Some((test_string!("center")?).into());
-    requestPageNumber.r#format = Some((test_string!("{PAGE} of {NUMPAGES}")?).into());
-    requestPageNumber.r#is_top = Some((true).into());
-    requestPageNumber.r#set_page_number_on_first_page = Some((true).into());
+    context.upload_file("Common/".to_owned() + &local_file_name, remote_data_folder.clone() + "/" + &remote_file_name).await?;
+    let mut request_page_number = PageNumber::default();
+    request_page_number.alignment = Some(("center".to_owned()).into());
+    request_page_number.format = Some(("{PAGE} of {NUMPAGES}".to_owned()).into());
+    request_page_number.is_top = Some((true).into());
+    request_page_number.set_page_number_on_first_page = Some((true).into());
 
     let request = InsertPageNumbersRequest::new(
-        (test_string!(remoteFileName)?).into(),
-        (requestPageNumber).into()
-    ).with_folder((test_string!(remoteDataFolder)?).into())
-.with_dest_file_name((test_string!(baseTestOutPath + "/" + remoteFileName)?).into());
+        (remote_file_name.clone()).into(),
+        (request_page_number).into()
+    ).with_folder((remote_data_folder.clone()).into())
+.with_dest_file_name((base_test_out_path.clone() + "/" + &remote_file_name).into());
 
     let result = context.api().insert_page_numbers(request).await?;
     let result_json = serialize_result(&result)?;
     assert_not_null(&result_json, "Document")?;
-    assert_string(&result_json, "Document.FileName", test_string!("TestInsertPageNumbers.docx")?)?;
+    assert_string(&result_json, "Document.FileName", "TestInsertPageNumbers.docx".to_owned())?;
     Ok(())
 }
 
@@ -361,22 +337,20 @@ async fn field_insert_page_numbers() -> TestResult<()> {
 #[tokio::test]
 async fn field_insert_page_numbers_online() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let localFileName = test_string!("test_multi_pages.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let local_file_name = "test_multi_pages.docx".to_owned();
 
-    let requestDocument = context.load_binary_file(test_string!("Common/" + localFileName)?).await?;
-    let mut requestPageNumber = PageNumber::default();
-    requestPageNumber.r#alignment = Some((test_string!("center")?).into());
-    requestPageNumber.r#format = Some((test_string!("{PAGE} of {NUMPAGES}")?).into());
-    requestPageNumber.r#is_top = Some((true).into());
-    requestPageNumber.r#set_page_number_on_first_page = Some((true).into());
+    let request_document = context.load_binary_file("Common/".to_owned() + &local_file_name).await?;
+    let mut request_page_number = PageNumber::default();
+    request_page_number.alignment = Some(("center".to_owned()).into());
+    request_page_number.format = Some(("{PAGE} of {NUMPAGES}".to_owned()).into());
+    request_page_number.is_top = Some((true).into());
+    request_page_number.set_page_number_on_first_page = Some((true).into());
 
     let request = InsertPageNumbersOnlineRequest::new(
-        (requestDocument).into(),
-        (requestPageNumber).into()
+        (request_document).into(),
+        (request_page_number).into()
     );
 
     context.api().insert_page_numbers_online(request).await?;
@@ -387,22 +361,20 @@ async fn field_insert_page_numbers_online() -> TestResult<()> {
 #[tokio::test]
 async fn field_delete_field() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/DocumentElements/Fields")?;
-    let fieldFolder = test_string!("DocumentElements/Fields")?;
-    let localFileName = test_string!("GetField.docx")?;
-    let remoteFileName = test_string!("TestDeleteField.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentElements/Fields";
+    let field_folder = "DocumentElements/Fields".to_owned();
+    let local_file_name = "GetField.docx".to_owned();
+    let remote_file_name = "TestDeleteField.docx".to_owned();
 
-    context.upload_file(test_string!(fieldFolder + "/" + localFileName)?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
+    context.upload_file(field_folder.clone() + "/" + &local_file_name, remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
     let request = DeleteFieldRequest::new(
-        (test_string!(remoteFileName)?).into(),
+        (remote_file_name.clone()).into(),
         (0).into()
-    ).with_node_path((test_string!("sections/0/paragraphs/0")?).into())
-.with_folder((test_string!(remoteDataFolder)?).into());
+    ).with_node_path(("sections/0/paragraphs/0".to_owned()).into())
+.with_folder((remote_data_folder.clone()).into());
 
     context.api().delete_field(request).await?;
     Ok(())
@@ -412,18 +384,16 @@ async fn field_delete_field() -> TestResult<()> {
 #[tokio::test]
 async fn field_delete_field_online() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let fieldFolder = test_string!("DocumentElements/Fields")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let field_folder = "DocumentElements/Fields".to_owned();
 
-    let requestDocument = context.load_binary_file(test_string!(fieldFolder + "/GetField.docx")?).await?;
+    let request_document = context.load_binary_file(field_folder.clone() + "/GetField.docx").await?;
 
     let request = DeleteFieldOnlineRequest::new(
-        (requestDocument).into(),
+        (request_document).into(),
         (0).into()
-    ).with_node_path((test_string!("sections/0/paragraphs/0")?).into());
+    ).with_node_path(("sections/0/paragraphs/0".to_owned()).into());
 
     context.api().delete_field_online(request).await?;
     Ok(())
@@ -433,21 +403,19 @@ async fn field_delete_field_online() -> TestResult<()> {
 #[tokio::test]
 async fn field_delete_field_without_node_path() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/DocumentElements/Fields")?;
-    let fieldFolder = test_string!("DocumentElements/Fields")?;
-    let localFileName = test_string!("GetField.docx")?;
-    let remoteFileName = test_string!("TestDeleteFieldWithoutNodePath.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentElements/Fields";
+    let field_folder = "DocumentElements/Fields".to_owned();
+    let local_file_name = "GetField.docx".to_owned();
+    let remote_file_name = "TestDeleteFieldWithoutNodePath.docx".to_owned();
 
-    context.upload_file(test_string!(fieldFolder + "/" + localFileName)?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
+    context.upload_file(field_folder.clone() + "/" + &local_file_name, remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
     let request = DeleteFieldRequest::new(
-        (test_string!(remoteFileName)?).into(),
+        (remote_file_name.clone()).into(),
         (0).into()
-    ).with_folder((test_string!(remoteDataFolder)?).into());
+    ).with_folder((remote_data_folder.clone()).into());
 
     context.api().delete_field(request).await?;
     Ok(())
@@ -457,20 +425,18 @@ async fn field_delete_field_without_node_path() -> TestResult<()> {
 #[tokio::test]
 async fn field_delete_paragraph_fields() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/DocumentElements/Fields")?;
-    let localFileName = test_string!("test_multi_pages.docx")?;
-    let remoteFileName = test_string!("TestDeleteParagraphFields.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentElements/Fields";
+    let local_file_name = "test_multi_pages.docx".to_owned();
+    let remote_file_name = "TestDeleteParagraphFields.docx".to_owned();
 
-    context.upload_file(test_string!("Common/" + localFileName)?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
+    context.upload_file("Common/".to_owned() + &local_file_name, remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
     let request = DeleteFieldsRequest::new(
-        (test_string!(remoteFileName)?).into()
-    ).with_node_path((test_string!("paragraphs/0")?).into())
-.with_folder((test_string!(remoteDataFolder)?).into());
+        (remote_file_name.clone()).into()
+    ).with_node_path(("paragraphs/0".to_owned()).into())
+.with_folder((remote_data_folder.clone()).into());
 
     context.api().delete_fields(request).await?;
     Ok(())
@@ -480,19 +446,17 @@ async fn field_delete_paragraph_fields() -> TestResult<()> {
 #[tokio::test]
 async fn field_delete_paragraph_fields_without_node_path() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/DocumentElements/Fields")?;
-    let localFileName = test_string!("test_multi_pages.docx")?;
-    let remoteFileName = test_string!("TestDeleteParagraphFieldsWithoutNodePath.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentElements/Fields";
+    let local_file_name = "test_multi_pages.docx".to_owned();
+    let remote_file_name = "TestDeleteParagraphFieldsWithoutNodePath.docx".to_owned();
 
-    context.upload_file(test_string!("Common/" + localFileName)?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
+    context.upload_file("Common/".to_owned() + &local_file_name, remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
     let request = DeleteFieldsRequest::new(
-        (test_string!(remoteFileName)?).into()
-    ).with_folder((test_string!(remoteDataFolder)?).into());
+        (remote_file_name.clone()).into()
+    ).with_folder((remote_data_folder.clone()).into());
 
     context.api().delete_fields(request).await?;
     Ok(())
@@ -502,20 +466,18 @@ async fn field_delete_paragraph_fields_without_node_path() -> TestResult<()> {
 #[tokio::test]
 async fn field_delete_section_fields() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/DocumentElements/Fields")?;
-    let localFileName = test_string!("test_multi_pages.docx")?;
-    let remoteFileName = test_string!("TestDeleteSectionFields.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentElements/Fields";
+    let local_file_name = "test_multi_pages.docx".to_owned();
+    let remote_file_name = "TestDeleteSectionFields.docx".to_owned();
 
-    context.upload_file(test_string!("Common/" + localFileName)?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
+    context.upload_file("Common/".to_owned() + &local_file_name, remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
     let request = DeleteFieldsRequest::new(
-        (test_string!(remoteFileName)?).into()
-    ).with_node_path((test_string!("sections/0")?).into())
-.with_folder((test_string!(remoteDataFolder)?).into());
+        (remote_file_name.clone()).into()
+    ).with_node_path(("sections/0".to_owned()).into())
+.with_folder((remote_data_folder.clone()).into());
 
     context.api().delete_fields(request).await?;
     Ok(())
@@ -525,19 +487,17 @@ async fn field_delete_section_fields() -> TestResult<()> {
 #[tokio::test]
 async fn field_delete_section_fields_without_node_path() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/DocumentElements/Fields")?;
-    let localFileName = test_string!("test_multi_pages.docx")?;
-    let remoteFileName = test_string!("TestDeleteSectionFieldsWithoutNodePath.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentElements/Fields";
+    let local_file_name = "test_multi_pages.docx".to_owned();
+    let remote_file_name = "TestDeleteSectionFieldsWithoutNodePath.docx".to_owned();
 
-    context.upload_file(test_string!("Common/" + localFileName)?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
+    context.upload_file("Common/".to_owned() + &local_file_name, remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
     let request = DeleteFieldsRequest::new(
-        (test_string!(remoteFileName)?).into()
-    ).with_folder((test_string!(remoteDataFolder)?).into());
+        (remote_file_name.clone()).into()
+    ).with_folder((remote_data_folder.clone()).into());
 
     context.api().delete_fields(request).await?;
     Ok(())
@@ -547,20 +507,18 @@ async fn field_delete_section_fields_without_node_path() -> TestResult<()> {
 #[tokio::test]
 async fn field_delete_section_paragraph_fields() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/DocumentElements/Fields")?;
-    let localFileName = test_string!("test_multi_pages.docx")?;
-    let remoteFileName = test_string!("TestDeleteSectionParagraphFields.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentElements/Fields";
+    let local_file_name = "test_multi_pages.docx".to_owned();
+    let remote_file_name = "TestDeleteSectionParagraphFields.docx".to_owned();
 
-    context.upload_file(test_string!("Common/" + localFileName)?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
+    context.upload_file("Common/".to_owned() + &local_file_name, remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
     let request = DeleteFieldsRequest::new(
-        (test_string!(remoteFileName)?).into()
-    ).with_node_path((test_string!("sections/0/paragraphs/0")?).into())
-.with_folder((test_string!(remoteDataFolder)?).into());
+        (remote_file_name.clone()).into()
+    ).with_node_path(("sections/0/paragraphs/0".to_owned()).into())
+.with_folder((remote_data_folder.clone()).into());
 
     context.api().delete_fields(request).await?;
     Ok(())
@@ -570,20 +528,18 @@ async fn field_delete_section_paragraph_fields() -> TestResult<()> {
 #[tokio::test]
 async fn field_delete_document_fields() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/DocumentElements/Fields")?;
-    let localFileName = test_string!("test_multi_pages.docx")?;
-    let remoteFileName = test_string!("TestDeleteSectionParagraphFields.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentElements/Fields";
+    let local_file_name = "test_multi_pages.docx".to_owned();
+    let remote_file_name = "TestDeleteSectionParagraphFields.docx".to_owned();
 
-    context.upload_file(test_string!("Common/" + localFileName)?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
+    context.upload_file("Common/".to_owned() + &local_file_name, remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
     let request = DeleteFieldsRequest::new(
-        (test_string!(remoteFileName)?).into()
-    ).with_node_path((test_string!("")?).into())
-.with_folder((test_string!(remoteDataFolder)?).into());
+        (remote_file_name.clone()).into()
+    ).with_node_path(("".to_owned()).into())
+.with_folder((remote_data_folder.clone()).into());
 
     context.api().delete_fields(request).await?;
     Ok(())
@@ -593,17 +549,15 @@ async fn field_delete_document_fields() -> TestResult<()> {
 #[tokio::test]
 async fn field_delete_document_fields_online() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let localFileName = test_string!("Common/test_multi_pages.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let local_file_name = "Common/test_multi_pages.docx".to_owned();
 
-    let requestDocument = context.load_binary_file(test_string!(localFileName)?).await?;
+    let request_document = context.load_binary_file(local_file_name.clone()).await?;
 
     let request = DeleteFieldsOnlineRequest::new(
-        (requestDocument).into()
-    ).with_node_path((test_string!("")?).into());
+        (request_document).into()
+    ).with_node_path(("".to_owned()).into());
 
     context.api().delete_fields_online(request).await?;
     Ok(())
@@ -613,24 +567,22 @@ async fn field_delete_document_fields_online() -> TestResult<()> {
 #[tokio::test]
 async fn field_update_document_fields() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/DocumentElements/Fields")?;
-    let localFileName = test_string!("test_multi_pages.docx")?;
-    let remoteFileName = test_string!("TestUpdateDocumentFields.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentElements/Fields";
+    let local_file_name = "test_multi_pages.docx".to_owned();
+    let remote_file_name = "TestUpdateDocumentFields.docx".to_owned();
 
-    context.upload_file(test_string!("Common/" + localFileName)?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
+    context.upload_file("Common/".to_owned() + &local_file_name, remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
     let request = UpdateFieldsRequest::new(
-        (test_string!(remoteFileName)?).into()
-    ).with_folder((test_string!(remoteDataFolder)?).into());
+        (remote_file_name.clone()).into()
+    ).with_folder((remote_data_folder.clone()).into());
 
     let result = context.api().update_fields(request).await?;
     let result_json = serialize_result(&result)?;
     assert_not_null(&result_json, "Document")?;
-    assert_string(&result_json, "Document.FileName", test_string!("TestUpdateDocumentFields.docx")?)?;
+    assert_string(&result_json, "Document.FileName", "TestUpdateDocumentFields.docx".to_owned())?;
     Ok(())
 }
 
@@ -638,16 +590,14 @@ async fn field_update_document_fields() -> TestResult<()> {
 #[tokio::test]
 async fn field_update_document_fields_online() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let localFile = test_string!("Common/test_multi_pages.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let local_file = "Common/test_multi_pages.docx".to_owned();
 
-    let requestDocument = context.load_binary_file(test_string!(localFile)?).await?;
+    let request_document = context.load_binary_file(local_file.clone()).await?;
 
     let request = UpdateFieldsOnlineRequest::new(
-        (requestDocument).into()
+        (request_document).into()
     );
 
     context.api().update_fields_online(request).await?;

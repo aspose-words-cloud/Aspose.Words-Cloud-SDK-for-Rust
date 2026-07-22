@@ -37,52 +37,52 @@ pub struct DrawingObject {
     pub parent: DrawingObjectLink,
         /// Gets or sets the list of links that originate from this DrawingObjectDto.
         #[serde(rename = "RenderLinks", skip_serializing_if = "Option::is_none")]
-        pub r#render_links: Option<Vec<WordsApiLink>>,
+        pub render_links: Option<Vec<WordsApiLink>>,
 
 
         /// Gets or sets the width of the DrawingObjects in points.
         #[serde(rename = "Width", skip_serializing_if = "Option::is_none")]
-        pub r#width: Option<f64>,
+        pub width: Option<f64>,
 
 
         /// Gets or sets the height of the DrawingObject in points.
         #[serde(rename = "Height", skip_serializing_if = "Option::is_none")]
-        pub r#height: Option<f64>,
+        pub height: Option<f64>,
 
 
         /// Gets or sets the link to OLE object. Can be null if shape does not have OLE data.
         #[serde(rename = "OleDataLink", skip_serializing_if = "Option::is_none")]
-        pub r#ole_data_link: Option<WordsApiLink>,
+        pub ole_data_link: Option<WordsApiLink>,
 
 
         /// Gets or sets the link to image data. Can be null if shape does not have an image.
         #[serde(rename = "ImageDataLink", skip_serializing_if = "Option::is_none")]
-        pub r#image_data_link: Option<WordsApiLink>,
+        pub image_data_link: Option<WordsApiLink>,
 
 
         /// Gets or sets the relative horizontal position, from which the distance to the image is measured.
         #[serde(rename = "RelativeHorizontalPosition", skip_serializing_if = "Option::is_none")]
-        pub r#relative_horizontal_position: Option<DrawingObject_RelativeHorizontalPositionEnum>,
+        pub relative_horizontal_position: Option<DrawingObjectRelativeHorizontalPositionEnum>,
 
 
         /// Gets or sets the distance in points from the origin to the left side of the image.
         #[serde(rename = "Left", skip_serializing_if = "Option::is_none")]
-        pub r#left: Option<f64>,
+        pub left: Option<f64>,
 
 
         /// Gets or sets the relative vertical position, from which the distance to the image is measured.
         #[serde(rename = "RelativeVerticalPosition", skip_serializing_if = "Option::is_none")]
-        pub r#relative_vertical_position: Option<DrawingObject_RelativeVerticalPositionEnum>,
+        pub relative_vertical_position: Option<DrawingObjectRelativeVerticalPositionEnum>,
 
 
         /// Gets or sets the distance in points from the origin to the top side of the image.
         #[serde(rename = "Top", skip_serializing_if = "Option::is_none")]
-        pub r#top: Option<f64>,
+        pub top: Option<f64>,
 
 
         /// Gets or sets the option that controls how to wrap text around the image.
         #[serde(rename = "WrapType", skip_serializing_if = "Option::is_none")]
-        pub r#wrap_type: Option<DrawingObject_WrapTypeEnum>,
+        pub wrap_type: Option<DrawingObjectWrapTypeEnum>,
 
 }
 
@@ -91,16 +91,16 @@ impl Default for DrawingObject {
         let mut parent = DrawingObjectLink::default();
         Self {
             parent,
-            r#render_links: None,
-            r#width: None,
-            r#height: None,
-            r#ole_data_link: None,
-            r#image_data_link: None,
-            r#relative_horizontal_position: None,
-            r#left: None,
-            r#relative_vertical_position: None,
-            r#top: None,
-            r#wrap_type: None,
+            render_links: None,
+            width: None,
+            height: None,
+            ole_data_link: None,
+            image_data_link: None,
+            relative_horizontal_position: None,
+            left: None,
+            relative_vertical_position: None,
+            top: None,
+            wrap_type: None,
         }
     }
 }
@@ -122,17 +122,17 @@ impl DerefMut for DrawingObject {
 impl Model for DrawingObject {
     fn validate(&self) -> SdkResult<()> {
         self.parent.validate()?;
-        if let Some(values) = &self.r#render_links {
+        if let Some(values) = &self.render_links {
         for value in values {
         value.validate()?;
         }
         }
 
 
-        if let Some(value) = &self.r#ole_data_link {
+        if let Some(value) = &self.ole_data_link {
         value.validate()?;
         }
-        if let Some(value) = &self.r#image_data_link {
+        if let Some(value) = &self.image_data_link {
         value.validate()?;
         }
 
@@ -143,8 +143,8 @@ impl Model for DrawingObject {
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
-        self.parent.collect_file_references(output);
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+        self.parent.collect_file_references(_output);
     }
 
     fn as_any(&self) -> &dyn Any {
@@ -153,9 +153,8 @@ impl Model for DrawingObject {
 }
 
 /// Gets or sets the relative horizontal position, from which the distance to the image is measured.
-#[allow(non_camel_case_types)]
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
-pub enum DrawingObject_RelativeHorizontalPositionEnum {
+pub enum DrawingObjectRelativeHorizontalPositionEnum {
     #[serde(rename = "Margin")]
         Margin,
     #[serde(rename = "Page")]
@@ -177,9 +176,8 @@ pub enum DrawingObject_RelativeHorizontalPositionEnum {
 }
 
 /// Gets or sets the relative vertical position, from which the distance to the image is measured.
-#[allow(non_camel_case_types)]
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
-pub enum DrawingObject_RelativeVerticalPositionEnum {
+pub enum DrawingObjectRelativeVerticalPositionEnum {
     #[serde(rename = "Margin")]
         Margin,
     #[serde(rename = "TableDefault")]
@@ -203,9 +201,8 @@ pub enum DrawingObject_RelativeVerticalPositionEnum {
 }
 
 /// Gets or sets the option that controls how to wrap text around the image.
-#[allow(non_camel_case_types)]
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
-pub enum DrawingObject_WrapTypeEnum {
+pub enum DrawingObjectWrapTypeEnum {
     #[serde(rename = "Inline")]
         Inline,
     #[serde(rename = "TopBottom")]

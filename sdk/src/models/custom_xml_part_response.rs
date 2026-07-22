@@ -38,7 +38,7 @@ pub struct CustomXmlPartResponse {
     pub parent: WordsResponse,
         /// Gets or sets the custom xml part.
         #[serde(rename = "CustomXmlPart", skip_serializing_if = "Option::is_none")]
-        pub r#custom_xml_part: Option<CustomXmlPart>,
+        pub custom_xml_part: Option<CustomXmlPart>,
 
 }
 
@@ -47,7 +47,7 @@ impl Default for CustomXmlPartResponse {
         let mut parent = WordsResponse::default();
         Self {
             parent,
-            r#custom_xml_part: None,
+            custom_xml_part: None,
         }
     }
 }
@@ -69,14 +69,14 @@ impl DerefMut for CustomXmlPartResponse {
 impl Model for CustomXmlPartResponse {
     fn validate(&self) -> SdkResult<()> {
         self.parent.validate()?;
-        if let Some(value) = &self.r#custom_xml_part {
+        if let Some(value) = &self.custom_xml_part {
         value.validate()?;
         }
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
-        self.parent.collect_file_references(output);
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+        self.parent.collect_file_references(_output);
     }
 
     fn as_any(&self) -> &dyn Any {

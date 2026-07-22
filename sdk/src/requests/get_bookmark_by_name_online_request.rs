@@ -36,52 +36,52 @@ use super::*;
 /// Request parameters for the GetBookmarkByNameOnline operation.
 pub struct GetBookmarkByNameOnlineRequest {
     /// The document.
-    pub r#document: Vec<u8>,
+    pub document: Vec<u8>,
     /// The name of the bookmark.
-    pub r#bookmark_name: String,
+    pub bookmark_name: String,
     /// Encoding that will be used to load an HTML (or TXT) document if the encoding is not specified in HTML.
-    pub r#load_encoding: Option<String>,
+    pub load_encoding: Option<String>,
     /// Password of protected Word document. Use the parameter to pass a password via SDK. SDK encrypts it automatically. We don't recommend to use the parameter to pass a plain password for direct call of API.
-    pub r#password: Option<String>,
+    pub password: Option<String>,
     /// Password of protected Word document. Use the parameter to pass an encrypted password for direct calls of API. See SDK code for encyption details.
-    pub r#encrypted_password: Option<String>,
+    pub encrypted_password: Option<String>,
     /// The value indicates whether OpenType support is on.
-    pub r#open_type_support: Option<bool>,
+    pub open_type_support: Option<bool>,
     pub send_progress: Option<ProgressCallback>,
     pub receive_progress: Option<ProgressCallback>,
 }
 
 impl GetBookmarkByNameOnlineRequest {
-    pub fn new(r#document: Vec<u8>, r#bookmark_name: String) -> Self {
+    pub fn new(document: Vec<u8>, bookmark_name: String) -> Self {
         Self {
-            r#document,
-            r#bookmark_name,
-            r#load_encoding: None,
-            r#password: None,
-            r#encrypted_password: None,
-            r#open_type_support: None,
+            document,
+            bookmark_name,
+            load_encoding: None,
+            password: None,
+            encrypted_password: None,
+            open_type_support: None,
             send_progress: None,
             receive_progress: None,
         }
     }
 
     pub fn with_load_encoding(mut self, value: String) -> Self {
-        self.r#load_encoding = Some(value);
+        self.load_encoding = Some(value);
         self
     }
 
     pub fn with_password(mut self, value: String) -> Self {
-        self.r#password = Some(value);
+        self.password = Some(value);
         self
     }
 
     pub fn with_encrypted_password(mut self, value: String) -> Self {
-        self.r#encrypted_password = Some(value);
+        self.encrypted_password = Some(value);
         self
     }
 
     pub fn with_open_type_support(mut self, value: bool) -> Self {
-        self.r#open_type_support = Some(value);
+        self.open_type_support = Some(value);
         self
     }
 
@@ -118,21 +118,21 @@ impl Request for GetBookmarkByNameOnlineRequest {
         let mut headers = Vec::new();
         let mut body_parts = Vec::new();
 
-        let value = client.query_value(&self.r#bookmark_name)?;
+        let value = client.query_value(&self.bookmark_name)?;
         path = path.replace("{bookmarkName}", &value);
-        if let Some(value) = &self.r#load_encoding {
+        if let Some(value) = &self.load_encoding {
         query.push(("loadEncoding".to_owned(), client.query_value(value)?));
         }
-        if let Some(value) = &self.r#password {
+        if let Some(value) = &self.password {
         query.push(("encryptedPassword".to_owned(), client.encrypt_password(value).await?));
         }
-        if let Some(value) = &self.r#encrypted_password {
+        if let Some(value) = &self.encrypted_password {
         query.push(("encryptedPassword".to_owned(), client.query_value(value)?));
         }
-        if let Some(value) = &self.r#open_type_support {
+        if let Some(value) = &self.open_type_support {
         query.push(("openTypeSupport".to_owned(), client.query_value(value)?));
         }
-        client.add_binary_part(&mut body_parts, "Document", &self.r#document);
+        client.add_binary_part(&mut body_parts, "Document", &self.document);
 
         let url = client.build_url(&path, &query)?;
         let body = client.request_body_from_parts(&mut headers, body_parts);

@@ -1,40 +1,99 @@
 # Aspose.Words Cloud SDK for Rust
 
-This generated workspace contains two crates:
+This package contains Aspose.Words Cloud SDK for Rust.
+This SDK allows you to work with Aspose.Words Cloud REST APIs in your Rust applications quickly and easily, with zero initial cost.
 
-- `sdk` is the publishable `aspose-words-cloud` library.
-- `tests` contains integration tests and is excluded from publication.
+[Aspose.Words Cloud](https://products.aspose.cloud/words/family "Aspose.Words Cloud")
+[API Reference](https://apireference.aspose.cloud/words/)
 
-The SDK is asynchronous and uses Tokio, Reqwest, Serde, Multer, and Thiserror.
-All operations return `Result`; generated code does not panic on API, transport,
-serialization, multipart, cryptographic, or file-system failures.
+## Key Features
 
-## Usage
+- Conversion between various document-related formats (20+ formats supported), including PDF<->Word conversion
+- Mail merge and reports generation
+- Splitting Word documents
+- Accessing Word document metadata and statistics
+- Find and replace
+- Watermarks and protection
+- Full read and write access to the Document Object Model, including sections, paragraphs, text, images, tables, headers, footers, and many others
+
+## How to use the SDK?
+
+The complete source code is available in this repository. You can either use it directly in your project or add the published crate as a dependency (recommended). For more details, visit the [SDK documentation](https://docs.aspose.cloud/display/wordscloud/Available+SDKs).
+
+### Prerequisites
+
+To use Aspose.Words Cloud SDK for Rust, register an account with [Aspose Cloud](https://www.aspose.cloud/) and create an application in the [Cloud Dashboard](https://dashboard.aspose.cloud/#/apps) to obtain a Client ID and Client Secret. A free quota is available. For more details, see [Aspose Cloud Pricing](https://purchase.aspose.cloud/pricing).
+
+Rust 1.88 or newer is required.
+
+## Installation & Usage
+
+Add these dependencies to your `Cargo.toml`:
+
+```toml
+[dependencies]
+aspose-words-cloud = "26.7.0"
+tokio = { version = "1", features = ["fs", "macros", "rt-multi-thread"] }
+```
+
+## Getting Started
 
 ```rust
-use aspose_words_cloud::{Configuration, GetDocumentRequest, SdkResult, WordsApi};
+use aspose_words_cloud::*;
 
 #[tokio::main]
 async fn main() -> SdkResult<()> {
-    let configuration = Configuration::new("client-id", "client-secret");
-    let api = WordsApi::new(configuration)?;
-    let request = GetDocumentRequest::new("document.docx".to_owned());
-    let document = api.get_document(request).await?;
-    tokio::fs::write("document.docx", document).await?;
+    let configuration = Configuration::new("ClientId", "ClientSecret");
+    let words_api = WordsApi::new(configuration)?;
+
+    // Upload a document to cloud storage.
+    let file_content = tokio::fs::read("./test_data/Common/test_doc.docx").await?;
+    let upload_request =
+        UploadFileRequest::new(file_content, "fileStoredInCloud.docx".to_owned());
+    words_api.upload_file(upload_request).await?;
+
+    // Save the document as PDF in cloud storage.
+    let mut save_options = PdfSaveOptionsData::default();
+    save_options.r#file_name = Some("destStoredInCloud.pdf".to_owned());
+    let save_request = SaveAsRequest::new(
+        "fileStoredInCloud.docx".to_owned(),
+        save_options.into(),
+    );
+    words_api.save_as(save_request).await?;
     Ok(())
 }
 ```
 
-Credentials should be supplied by the application and must not be committed to
-source control. The generated examples read `ASPOSE_CLIENT_ID`,
-`ASPOSE_CLIENT_SECRET`, and optionally `ASPOSE_BASE_URL` from the environment.
+[Tests](tests) contain additional examples of using the SDK. Integration tests read credentials from `settings/servercreds.json`, test documents from `test_data`, and example documents from `examples_data`.
 
-## Tests
-
-The integration suite mirrors the Dart SDK scenarios. Put the credentials in
-`settings/servercreds.json`; test documents are read from `test_data` and
-example documents from `examples_data`. Then run from the workspace root:
+Run the test suite from the workspace root:
 
 ```text
 cargo test --workspace
 ```
+
+## Dependencies
+
+- Referenced crates are listed in [Cargo.toml](sdk/Cargo.toml).
+
+## Licensing
+
+All Aspose.Words Cloud SDKs, helper scripts, and templates are licensed under the [MIT License](LICENSE).
+
+## Contact Us
+
+Your feedback is very important to us. Feel free to contact us using our [Support Forums](https://forum.aspose.cloud/c/words).
+
+## Resources
+
+[Website](https://www.aspose.cloud/)
+[Product Home](https://products.aspose.cloud/words/family)
+[API Reference](https://apireference.aspose.cloud/words/)
+[Documentation](https://docs.aspose.cloud/display/wordscloud/Home)
+[Blog](https://blog.aspose.cloud/category/words/)
+
+## Other languages
+
+We generate our SDKs in different languages, so check whether yours is available in our [SDK list](https://github.com/aspose-words-cloud).
+
+If you do not find your language in the list, request it from us or use the raw REST API as described in the [cURL documentation](https://products.aspose.cloud/words/curl).

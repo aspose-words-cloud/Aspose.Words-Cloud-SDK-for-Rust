@@ -37,7 +37,7 @@ pub struct SectionLinkCollection {
     pub parent: LinkElement,
         /// Gets or sets the collection of section's links.
         #[serde(rename = "SectionLinkList", skip_serializing_if = "Option::is_none")]
-        pub r#section_link_list: Option<Vec<SectionLink>>,
+        pub section_link_list: Option<Vec<SectionLink>>,
 
 }
 
@@ -46,7 +46,7 @@ impl Default for SectionLinkCollection {
         let mut parent = LinkElement::default();
         Self {
             parent,
-            r#section_link_list: None,
+            section_link_list: None,
         }
     }
 }
@@ -68,7 +68,7 @@ impl DerefMut for SectionLinkCollection {
 impl Model for SectionLinkCollection {
     fn validate(&self) -> SdkResult<()> {
         self.parent.validate()?;
-        if let Some(values) = &self.r#section_link_list {
+        if let Some(values) = &self.section_link_list {
         for value in values {
         value.validate()?;
         }
@@ -76,8 +76,8 @@ impl Model for SectionLinkCollection {
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
-        self.parent.collect_file_references(output);
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+        self.parent.collect_file_references(_output);
     }
 
     fn as_any(&self) -> &dyn Any {

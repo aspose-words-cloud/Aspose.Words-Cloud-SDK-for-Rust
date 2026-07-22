@@ -38,7 +38,7 @@ pub struct TableLinkCollectionResponse {
     pub parent: WordsResponse,
         /// Gets or sets the collection of tables.
         #[serde(rename = "Tables", skip_serializing_if = "Option::is_none")]
-        pub r#tables: Option<TableLinkCollection>,
+        pub tables: Option<TableLinkCollection>,
 
 }
 
@@ -47,7 +47,7 @@ impl Default for TableLinkCollectionResponse {
         let mut parent = WordsResponse::default();
         Self {
             parent,
-            r#tables: None,
+            tables: None,
         }
     }
 }
@@ -69,14 +69,14 @@ impl DerefMut for TableLinkCollectionResponse {
 impl Model for TableLinkCollectionResponse {
     fn validate(&self) -> SdkResult<()> {
         self.parent.validate()?;
-        if let Some(value) = &self.r#tables {
+        if let Some(value) = &self.tables {
         value.validate()?;
         }
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
-        self.parent.collect_file_references(output);
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+        self.parent.collect_file_references(_output);
     }
 
     fn as_any(&self) -> &dyn Any {

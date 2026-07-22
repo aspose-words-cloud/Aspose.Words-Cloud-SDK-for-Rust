@@ -37,24 +37,24 @@ pub struct OfficeMathObject {
     pub parent: OfficeMathLink,
         /// Gets or sets the content of a footnote.
         #[serde(rename = "Content", skip_serializing_if = "Option::is_none")]
-        pub r#content: Option<StoryChildNodes>,
+        pub content: Option<StoryChildNodes>,
 
 
         /// Gets or sets the display format type of the OfficeMath object. This display format defines whether an equation is displayed inline with the text or displayed on its own line.
             /// Display format type has effect for top level Office Math only.Returned display format type is always Inline for nested Office Math.
         #[serde(rename = "DisplayType", skip_serializing_if = "Option::is_none")]
-        pub r#display_type: Option<OfficeMathObject_DisplayTypeEnum>,
+        pub display_type: Option<OfficeMathObjectDisplayTypeEnum>,
 
 
         /// Gets or sets the justification of the OfficeMath object.
             /// Justification cannot be set to the Office Math with display format type Inline.Inline justification cannot be set to the Office Math with display format type Display.Corresponding DisplayType has to be set before setting Office Math justification.
         #[serde(rename = "Justification", skip_serializing_if = "Option::is_none")]
-        pub r#justification: Option<OfficeMathObject_JustificationEnum>,
+        pub justification: Option<OfficeMathObjectJustificationEnum>,
 
 
         /// Gets or sets the type of the OfficeMath object.
         #[serde(rename = "MathObjectType", skip_serializing_if = "Option::is_none")]
-        pub r#math_object_type: Option<OfficeMathObject_MathObjectTypeEnum>,
+        pub math_object_type: Option<OfficeMathObjectMathObjectTypeEnum>,
 
 }
 
@@ -63,10 +63,10 @@ impl Default for OfficeMathObject {
         let mut parent = OfficeMathLink::default();
         Self {
             parent,
-            r#content: None,
-            r#display_type: None,
-            r#justification: None,
-            r#math_object_type: None,
+            content: None,
+            display_type: None,
+            justification: None,
+            math_object_type: None,
         }
     }
 }
@@ -88,7 +88,7 @@ impl DerefMut for OfficeMathObject {
 impl Model for OfficeMathObject {
     fn validate(&self) -> SdkResult<()> {
         self.parent.validate()?;
-        if let Some(value) = &self.r#content {
+        if let Some(value) = &self.content {
         value.validate()?;
         }
 
@@ -97,8 +97,8 @@ impl Model for OfficeMathObject {
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
-        self.parent.collect_file_references(output);
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+        self.parent.collect_file_references(_output);
     }
 
     fn as_any(&self) -> &dyn Any {
@@ -108,9 +108,8 @@ impl Model for OfficeMathObject {
 
 /// Gets or sets the display format type of the OfficeMath object. This display format defines whether an equation is displayed inline with the text or displayed on its own line.
 /// Display format type has effect for top level Office Math only.Returned display format type is always Inline for nested Office Math.
-#[allow(non_camel_case_types)]
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
-pub enum OfficeMathObject_DisplayTypeEnum {
+pub enum OfficeMathObjectDisplayTypeEnum {
     #[serde(rename = "Display")]
         Display,
     #[serde(rename = "Inline")]
@@ -119,9 +118,8 @@ pub enum OfficeMathObject_DisplayTypeEnum {
 
 /// Gets or sets the justification of the OfficeMath object.
 /// Justification cannot be set to the Office Math with display format type Inline.Inline justification cannot be set to the Office Math with display format type Display.Corresponding DisplayType has to be set before setting Office Math justification.
-#[allow(non_camel_case_types)]
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
-pub enum OfficeMathObject_JustificationEnum {
+pub enum OfficeMathObjectJustificationEnum {
     #[serde(rename = "CenterGroup")]
         CenterGroup,
     #[serde(rename = "Default")]
@@ -137,9 +135,8 @@ pub enum OfficeMathObject_JustificationEnum {
 }
 
 /// Gets or sets the type of the OfficeMath object.
-#[allow(non_camel_case_types)]
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
-pub enum OfficeMathObject_MathObjectTypeEnum {
+pub enum OfficeMathObjectMathObjectTypeEnum {
     #[serde(rename = "OMath")]
         OMath,
     #[serde(rename = "OMathPara")]

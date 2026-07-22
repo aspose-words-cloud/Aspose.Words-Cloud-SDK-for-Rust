@@ -37,22 +37,22 @@ pub struct TableRowFormat {
     pub parent: LinkElement,
         /// Gets or sets the height of the table row in points.
         #[serde(rename = "Height", skip_serializing_if = "Option::is_none")]
-        pub r#height: Option<f64>,
+        pub height: Option<f64>,
 
 
         /// Gets or sets the rule for determining the height of the table row.
         #[serde(rename = "HeightRule", skip_serializing_if = "Option::is_none")]
-        pub r#height_rule: Option<TableRowFormat_HeightRuleEnum>,
+        pub height_rule: Option<TableRowFormatHeightRuleEnum>,
 
 
         /// Gets or sets a value indicating whether the text in a table row is allowed to split across a page break.
         #[serde(rename = "AllowBreakAcrossPages", skip_serializing_if = "Option::is_none")]
-        pub r#allow_break_across_pages: Option<bool>,
+        pub allow_break_across_pages: Option<bool>,
 
 
         /// Gets or sets a value indicating whether the row is repeated as a table heading on every page when the table spans more than one page.
         #[serde(rename = "HeadingFormat", skip_serializing_if = "Option::is_none")]
-        pub r#heading_format: Option<bool>,
+        pub heading_format: Option<bool>,
 
 }
 
@@ -61,10 +61,10 @@ impl Default for TableRowFormat {
         let mut parent = LinkElement::default();
         Self {
             parent,
-            r#height: None,
-            r#height_rule: None,
-            r#allow_break_across_pages: None,
-            r#heading_format: None,
+            height: None,
+            height_rule: None,
+            allow_break_across_pages: None,
+            heading_format: None,
         }
     }
 }
@@ -89,8 +89,8 @@ impl Model for TableRowFormat {
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
-        self.parent.collect_file_references(output);
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+        self.parent.collect_file_references(_output);
     }
 
     fn as_any(&self) -> &dyn Any {
@@ -99,9 +99,8 @@ impl Model for TableRowFormat {
 }
 
 /// Gets or sets the rule for determining the height of the table row.
-#[allow(non_camel_case_types)]
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
-pub enum TableRowFormat_HeightRuleEnum {
+pub enum TableRowFormatHeightRuleEnum {
     #[serde(rename = "AtLeast")]
         AtLeast,
     #[serde(rename = "Exactly")]

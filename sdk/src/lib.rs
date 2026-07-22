@@ -20,7 +20,7 @@
 // SOFTWARE.
 // --------------------------------------------------------------------------------
 
-#![allow(dead_code, unused_imports, unused_mut, unused_variables)]
+#![allow(dead_code, unused_imports, unused_mut)]
 // Generated models use one uniform implementation strategy, including inherited
 // defaults and request constructors without required arguments.
 #![allow(

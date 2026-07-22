@@ -34,50 +34,50 @@ use super::*;
 pub struct PageNumber {
         /// Gets or sets text alignment, possible values are left, right, center or justify.
         #[serde(rename = "Alignment", skip_serializing_if = "Option::is_none")]
-        pub r#alignment: Option<String>,
+        pub alignment: Option<String>,
 
 
         /// Gets or sets the page number format, e.g. "{PAGE} of {NUMPAGES}".
         #[serde(rename = "Format", skip_serializing_if = "Option::is_none")]
-        pub r#format: Option<String>,
+        pub format: Option<String>,
 
 
         /// Gets or sets a value indicating whether if true the page number is added at the top of the page, else at the bottom.
         #[serde(rename = "IsTop", skip_serializing_if = "Option::is_none")]
-        pub r#is_top: Option<bool>,
+        pub is_top: Option<bool>,
 
 
         /// Gets or sets the starting page number of the document.
         #[serde(rename = "PageStartingNumber", skip_serializing_if = "Option::is_none")]
-        pub r#page_starting_number: Option<i32>,
+        pub page_starting_number: Option<i32>,
 
 
         /// Gets or sets a value indicating whether if true the page number is added on first page too.
         #[serde(rename = "SetPageNumberOnFirstPage", skip_serializing_if = "Option::is_none")]
-        pub r#set_page_number_on_first_page: Option<bool>,
+        pub set_page_number_on_first_page: Option<bool>,
 
 }
 
 impl Default for PageNumber {
     fn default() -> Self {
         Self {
-            r#alignment: None,
-            r#format: None,
-            r#is_top: None,
-            r#page_starting_number: None,
-            r#set_page_number_on_first_page: None,
+            alignment: None,
+            format: None,
+            is_top: None,
+            page_starting_number: None,
+            set_page_number_on_first_page: None,
         }
     }
 }
 
 impl Model for PageNumber {
     fn validate(&self) -> SdkResult<()> {
-        if self.r#is_top.is_none() {
+        if self.is_top.is_none() {
             return Err(SdkError::InvalidRequest(
                 "property IsTop in PageNumber is required".to_owned(),
             ));
         }
-        if self.r#set_page_number_on_first_page.is_none() {
+        if self.set_page_number_on_first_page.is_none() {
             return Err(SdkError::InvalidRequest(
                 "property SetPageNumberOnFirstPage in PageNumber is required".to_owned(),
             ));
@@ -85,7 +85,7 @@ impl Model for PageNumber {
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
     }
 
     fn as_any(&self) -> &dyn Any {

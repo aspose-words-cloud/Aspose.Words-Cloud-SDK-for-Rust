@@ -36,15 +36,15 @@ use super::*;
 /// Request parameters for the LoadWebDocumentOnline operation.
 pub struct LoadWebDocumentOnlineRequest {
     /// The properties of data downloading.
-    pub r#data: LoadWebDocumentData,
+    pub data: LoadWebDocumentData,
     pub send_progress: Option<ProgressCallback>,
     pub receive_progress: Option<ProgressCallback>,
 }
 
 impl LoadWebDocumentOnlineRequest {
-    pub fn new(r#data: LoadWebDocumentData) -> Self {
+    pub fn new(data: LoadWebDocumentData) -> Self {
         Self {
-            r#data,
+            data,
             send_progress: None,
             receive_progress: None,
         }
@@ -84,7 +84,7 @@ impl Request for LoadWebDocumentOnlineRequest {
         let mut headers = Vec::new();
         let mut body_parts = Vec::new();
 
-        client.add_model_part(&mut body_parts, "Data", &self.r#data).await?;
+        client.add_model_part(&mut body_parts, "Data", &self.data).await?;
 
         let url = client.build_url(&path, &query)?;
         let body = client.request_body_from_parts(&mut headers, body_parts);

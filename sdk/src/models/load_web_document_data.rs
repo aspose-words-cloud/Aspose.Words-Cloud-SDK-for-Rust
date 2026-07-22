@@ -34,39 +34,39 @@ use super::*;
 pub struct LoadWebDocumentData {
         /// Gets or sets the save options.
         #[serde(rename = "SaveOptions", skip_serializing_if = "Option::is_none", default, deserialize_with = "deserialize_optional_model")]
-        pub r#save_options: Option<ModelBox>,
+        pub save_options: Option<ModelBox>,
 
 
         /// Gets or sets the web document URL.
         #[serde(rename = "LoadingDocumentUrl", skip_serializing_if = "Option::is_none")]
-        pub r#loading_document_url: Option<String>,
+        pub loading_document_url: Option<String>,
 
 }
 
 impl Default for LoadWebDocumentData {
     fn default() -> Self {
         Self {
-            r#save_options: None,
-            r#loading_document_url: None,
+            save_options: None,
+            loading_document_url: None,
         }
     }
 }
 
 impl Model for LoadWebDocumentData {
     fn validate(&self) -> SdkResult<()> {
-        if self.r#loading_document_url.is_none() {
+        if self.loading_document_url.is_none() {
             return Err(SdkError::InvalidRequest(
                 "property LoadingDocumentUrl in LoadWebDocumentData is required".to_owned(),
             ));
         }
-        if let Some(value) = &self.r#save_options {
+        if let Some(value) = &self.save_options {
         value.validate()?;
         }
 
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
     }
 
     fn as_any(&self) -> &dyn Any {

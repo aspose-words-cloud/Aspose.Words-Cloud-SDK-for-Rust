@@ -37,17 +37,17 @@ pub struct ProtectionRequest {
     pub parent: ProtectionRequestBase,
         /// Gets or sets the new password.
         #[serde(rename = "NewPassword", skip_serializing_if = "Option::is_none")]
-        pub r#new_password: Option<String>,
+        pub new_password: Option<String>,
 
 
         /// Gets or sets the current password.
         #[serde(rename = "Password", skip_serializing_if = "Option::is_none")]
-        pub r#password: Option<String>,
+        pub password: Option<String>,
 
 
         /// Gets or sets the new type of protection.
         #[serde(rename = "ProtectionType", skip_serializing_if = "Option::is_none")]
-        pub r#protection_type: Option<String>,
+        pub protection_type: Option<String>,
 
 }
 
@@ -56,9 +56,9 @@ impl Default for ProtectionRequest {
         let mut parent = ProtectionRequestBase::default();
         Self {
             parent,
-            r#new_password: None,
-            r#password: None,
-            r#protection_type: None,
+            new_password: None,
+            password: None,
+            protection_type: None,
         }
     }
 }
@@ -80,7 +80,7 @@ impl DerefMut for ProtectionRequest {
 impl Model for ProtectionRequest {
     fn validate(&self) -> SdkResult<()> {
         self.parent.validate()?;
-        if self.r#password.is_none() {
+        if self.password.is_none() {
             return Err(SdkError::InvalidRequest(
                 "property Password in ProtectionRequest is required".to_owned(),
             ));
@@ -88,8 +88,8 @@ impl Model for ProtectionRequest {
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
-        self.parent.collect_file_references(output);
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+        self.parent.collect_file_references(_output);
     }
 
     fn as_any(&self) -> &dyn Any {

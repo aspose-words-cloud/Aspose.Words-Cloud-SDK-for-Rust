@@ -38,7 +38,7 @@ pub struct SectionResponse {
     pub parent: WordsResponse,
         /// Gets or sets the section.
         #[serde(rename = "Section", skip_serializing_if = "Option::is_none")]
-        pub r#section: Option<Section>,
+        pub section: Option<Section>,
 
 }
 
@@ -47,7 +47,7 @@ impl Default for SectionResponse {
         let mut parent = WordsResponse::default();
         Self {
             parent,
-            r#section: None,
+            section: None,
         }
     }
 }
@@ -69,14 +69,14 @@ impl DerefMut for SectionResponse {
 impl Model for SectionResponse {
     fn validate(&self) -> SdkResult<()> {
         self.parent.validate()?;
-        if let Some(value) = &self.r#section {
+        if let Some(value) = &self.section {
         value.validate()?;
         }
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
-        self.parent.collect_file_references(output);
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+        self.parent.collect_file_references(_output);
     }
 
     fn as_any(&self) -> &dyn Any {

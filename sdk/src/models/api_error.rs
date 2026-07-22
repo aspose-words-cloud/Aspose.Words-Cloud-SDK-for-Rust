@@ -34,52 +34,52 @@ use super::*;
 pub struct ApiError {
         /// Gets or sets the API error code.
         #[serde(rename = "Code", skip_serializing_if = "Option::is_none")]
-        pub r#code: Option<String>,
+        pub code: Option<String>,
 
 
         /// Gets or sets the server DateTime.
         #[serde(rename = "DateTime", skip_serializing_if = "Option::is_none")]
-        pub r#date_time: Option<DateTime<Utc>>,
+        pub date_time: Option<chrono::DateTime<chrono::Utc>>,
 
 
         /// Gets or sets the error description.
         #[serde(rename = "Description", skip_serializing_if = "Option::is_none")]
-        pub r#description: Option<String>,
+        pub description: Option<String>,
 
 
         /// Gets or sets the inner error.
         #[serde(rename = "InnerError", skip_serializing_if = "Option::is_none")]
-        pub r#inner_error: Option<Box<ApiError>>,
+        pub inner_error: Option<Box<ApiError>>,
 
 
         /// Gets or sets the error message.
         #[serde(rename = "Message", skip_serializing_if = "Option::is_none")]
-        pub r#message: Option<String>,
+        pub message: Option<String>,
 
 }
 
 impl Default for ApiError {
     fn default() -> Self {
         Self {
-            r#code: None,
-            r#date_time: None,
-            r#description: None,
-            r#inner_error: None,
-            r#message: None,
+            code: None,
+            date_time: None,
+            description: None,
+            inner_error: None,
+            message: None,
         }
     }
 }
 
 impl Model for ApiError {
     fn validate(&self) -> SdkResult<()> {
-        if let Some(value) = &self.r#inner_error {
+        if let Some(value) = &self.inner_error {
         value.validate()?;
         }
 
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
     }
 
     fn as_any(&self) -> &dyn Any {

@@ -38,7 +38,7 @@ pub struct CommentsResponse {
     pub parent: WordsResponse,
         /// Gets or sets the collection of comments.
         #[serde(rename = "Comments", skip_serializing_if = "Option::is_none")]
-        pub r#comments: Option<CommentsCollection>,
+        pub comments: Option<CommentsCollection>,
 
 }
 
@@ -47,7 +47,7 @@ impl Default for CommentsResponse {
         let mut parent = WordsResponse::default();
         Self {
             parent,
-            r#comments: None,
+            comments: None,
         }
     }
 }
@@ -69,14 +69,14 @@ impl DerefMut for CommentsResponse {
 impl Model for CommentsResponse {
     fn validate(&self) -> SdkResult<()> {
         self.parent.validate()?;
-        if let Some(value) = &self.r#comments {
+        if let Some(value) = &self.comments {
         value.validate()?;
         }
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
-        self.parent.collect_file_references(output);
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+        self.parent.collect_file_references(_output);
     }
 
     fn as_any(&self) -> &dyn Any {

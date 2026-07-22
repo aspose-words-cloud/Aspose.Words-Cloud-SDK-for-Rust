@@ -38,7 +38,7 @@ pub struct RunsResponse {
     pub parent: WordsResponse,
         /// Gets or sets the collection of Run elements.
         #[serde(rename = "Runs", skip_serializing_if = "Option::is_none")]
-        pub r#runs: Option<Runs>,
+        pub runs: Option<Runs>,
 
 }
 
@@ -47,7 +47,7 @@ impl Default for RunsResponse {
         let mut parent = WordsResponse::default();
         Self {
             parent,
-            r#runs: None,
+            runs: None,
         }
     }
 }
@@ -69,14 +69,14 @@ impl DerefMut for RunsResponse {
 impl Model for RunsResponse {
     fn validate(&self) -> SdkResult<()> {
         self.parent.validate()?;
-        if let Some(value) = &self.r#runs {
+        if let Some(value) = &self.runs {
         value.validate()?;
         }
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
-        self.parent.collect_file_references(output);
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+        self.parent.collect_file_references(_output);
     }
 
     fn as_any(&self) -> &dyn Any {

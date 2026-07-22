@@ -38,7 +38,7 @@ pub struct ListsResponse {
     pub parent: WordsResponse,
         /// Gets or sets the collection of lists, contained in the document.
         #[serde(rename = "Lists", skip_serializing_if = "Option::is_none")]
-        pub r#lists: Option<Lists>,
+        pub lists: Option<Lists>,
 
 }
 
@@ -47,7 +47,7 @@ impl Default for ListsResponse {
         let mut parent = WordsResponse::default();
         Self {
             parent,
-            r#lists: None,
+            lists: None,
         }
     }
 }
@@ -69,14 +69,14 @@ impl DerefMut for ListsResponse {
 impl Model for ListsResponse {
     fn validate(&self) -> SdkResult<()> {
         self.parent.validate()?;
-        if let Some(value) = &self.r#lists {
+        if let Some(value) = &self.lists {
         value.validate()?;
         }
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
-        self.parent.collect_file_references(output);
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+        self.parent.collect_file_references(_output);
     }
 
     fn as_any(&self) -> &dyn Any {

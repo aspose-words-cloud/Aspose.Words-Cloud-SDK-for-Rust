@@ -37,27 +37,27 @@ pub struct XpsSaveOptionsData {
     pub parent: FixedPageSaveOptionsData,
         /// Gets or sets the level in the XPS document outline at which to display Word bookmarks.
         #[serde(rename = "BookmarksOutlineLevel", skip_serializing_if = "Option::is_none")]
-        pub r#bookmarks_outline_level: Option<i32>,
+        pub bookmarks_outline_level: Option<i32>,
 
 
         /// Gets or sets the details for signing the output document.
         #[serde(rename = "DigitalSignatureDetails", skip_serializing_if = "Option::is_none")]
-        pub r#digital_signature_details: Option<DigitalSignatureDetails>,
+        pub digital_signature_details: Option<DigitalSignatureDetails>,
 
 
         /// Gets or sets the number of heading levels (paragraphs formatted with the Heading styles) to include in the XPS document outline.
         #[serde(rename = "HeadingsOutlineLevels", skip_serializing_if = "Option::is_none")]
-        pub r#headings_outline_levels: Option<i32>,
+        pub headings_outline_levels: Option<i32>,
 
 
         /// Gets or sets the outline options.
         #[serde(rename = "OutlineOptions", skip_serializing_if = "Option::is_none")]
-        pub r#outline_options: Option<OutlineOptionsData>,
+        pub outline_options: Option<OutlineOptionsData>,
 
 
         /// Gets or sets a value indicating whether the document should be saved using a booklet printing layout.
         #[serde(rename = "UseBookFoldPrintingSettings", skip_serializing_if = "Option::is_none")]
-        pub r#use_book_fold_printing_settings: Option<bool>,
+        pub use_book_fold_printing_settings: Option<bool>,
 
 
 }
@@ -65,14 +65,14 @@ pub struct XpsSaveOptionsData {
 impl Default for XpsSaveOptionsData {
     fn default() -> Self {
         let mut parent = FixedPageSaveOptionsData::default();
-        parent.r#save_format = Some("xps".to_owned());
+        parent.save_format = Some("xps".to_owned());
         Self {
             parent,
-            r#bookmarks_outline_level: None,
-            r#digital_signature_details: None,
-            r#headings_outline_levels: None,
-            r#outline_options: None,
-            r#use_book_fold_printing_settings: None,
+            bookmarks_outline_level: None,
+            digital_signature_details: None,
+            headings_outline_levels: None,
+            outline_options: None,
+            use_book_fold_printing_settings: None,
 
         }
     }
@@ -95,11 +95,11 @@ impl DerefMut for XpsSaveOptionsData {
 impl Model for XpsSaveOptionsData {
     fn validate(&self) -> SdkResult<()> {
         self.parent.validate()?;
-        if let Some(value) = &self.r#digital_signature_details {
+        if let Some(value) = &self.digital_signature_details {
         value.validate()?;
         }
 
-        if let Some(value) = &self.r#outline_options {
+        if let Some(value) = &self.outline_options {
         value.validate()?;
         }
 
@@ -107,8 +107,8 @@ impl Model for XpsSaveOptionsData {
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
-        self.parent.collect_file_references(output);
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+        self.parent.collect_file_references(_output);
     }
 
     fn as_any(&self) -> &dyn Any {

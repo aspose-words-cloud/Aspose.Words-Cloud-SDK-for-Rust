@@ -38,13 +38,13 @@ pub struct PclSaveOptionsData {
         /// Gets or sets the font name, that will be used if no expected font is found in printer and built-in fonts collections.
             /// If no fallback is found, "Arial" font is used.
         #[serde(rename = "FalllbackFontName", skip_serializing_if = "Option::is_none")]
-        pub r#falllback_font_name: Option<String>,
+        pub falllback_font_name: Option<String>,
 
 
         /// Gets or sets a value indicating whether complex transformed elements should be rasterized before saving to PCL document.. The default value is true.
             /// PCL doesn't support some kind of transformations that are used by Aspose Words.  E.g. rotated, skewed images and texture brushes. To properly render such elements rasterization process is used, i.e. saving to image and clipping.  This process can take additional time and memory.  If flag is set to false, some content in output may be different as compared with the source document.
         #[serde(rename = "RasterizeTransformedElements", skip_serializing_if = "Option::is_none")]
-        pub r#rasterize_transformed_elements: Option<bool>,
+        pub rasterize_transformed_elements: Option<bool>,
 
 
 }
@@ -52,11 +52,11 @@ pub struct PclSaveOptionsData {
 impl Default for PclSaveOptionsData {
     fn default() -> Self {
         let mut parent = FixedPageSaveOptionsData::default();
-        parent.r#save_format = Some("pcl".to_owned());
+        parent.save_format = Some("pcl".to_owned());
         Self {
             parent,
-            r#falllback_font_name: None,
-            r#rasterize_transformed_elements: None,
+            falllback_font_name: None,
+            rasterize_transformed_elements: None,
 
         }
     }
@@ -82,8 +82,8 @@ impl Model for PclSaveOptionsData {
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
-        self.parent.collect_file_references(output);
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+        self.parent.collect_file_references(_output);
     }
 
     fn as_any(&self) -> &dyn Any {

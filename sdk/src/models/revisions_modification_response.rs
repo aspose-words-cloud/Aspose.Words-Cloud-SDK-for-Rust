@@ -37,7 +37,7 @@ pub struct RevisionsModificationResponse {
     pub parent: WordsResponse,
         /// Gets or sets the result of the modification operations for the revisions collection.
         #[serde(rename = "Result", skip_serializing_if = "Option::is_none")]
-        pub r#result: Option<ModificationOperationResult>,
+        pub result: Option<ModificationOperationResult>,
 
 }
 
@@ -46,7 +46,7 @@ impl Default for RevisionsModificationResponse {
         let mut parent = WordsResponse::default();
         Self {
             parent,
-            r#result: None,
+            result: None,
         }
     }
 }
@@ -68,14 +68,14 @@ impl DerefMut for RevisionsModificationResponse {
 impl Model for RevisionsModificationResponse {
     fn validate(&self) -> SdkResult<()> {
         self.parent.validate()?;
-        if let Some(value) = &self.r#result {
+        if let Some(value) = &self.result {
         value.validate()?;
         }
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
-        self.parent.collect_file_references(output);
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+        self.parent.collect_file_references(_output);
     }
 
     fn as_any(&self) -> &dyn Any {

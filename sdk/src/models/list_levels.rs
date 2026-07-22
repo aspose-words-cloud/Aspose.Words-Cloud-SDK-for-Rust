@@ -38,7 +38,7 @@ pub struct ListLevels {
         /// Gets or sets the collection of list levels for this list.
             /// Use this property to access and modify formatting individual to each level of the list.
         #[serde(rename = "ListLevel", skip_serializing_if = "Option::is_none")]
-        pub r#list_level: Option<Vec<ListLevel>>,
+        pub list_level: Option<Vec<ListLevel>>,
 
 }
 
@@ -47,7 +47,7 @@ impl Default for ListLevels {
         let mut parent = LinkElement::default();
         Self {
             parent,
-            r#list_level: None,
+            list_level: None,
         }
     }
 }
@@ -69,7 +69,7 @@ impl DerefMut for ListLevels {
 impl Model for ListLevels {
     fn validate(&self) -> SdkResult<()> {
         self.parent.validate()?;
-        if let Some(values) = &self.r#list_level {
+        if let Some(values) = &self.list_level {
         for value in values {
         value.validate()?;
         }
@@ -77,8 +77,8 @@ impl Model for ListLevels {
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
-        self.parent.collect_file_references(output);
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+        self.parent.collect_file_references(_output);
     }
 
     fn as_any(&self) -> &dyn Any {

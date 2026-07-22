@@ -38,7 +38,7 @@ pub struct SplitDocumentResponse {
     pub parent: WordsResponse,
         /// Gets or sets the result of document splitting.
         #[serde(rename = "SplitResult", skip_serializing_if = "Option::is_none")]
-        pub r#split_result: Option<SplitDocumentResult>,
+        pub split_result: Option<SplitDocumentResult>,
 
 }
 
@@ -47,7 +47,7 @@ impl Default for SplitDocumentResponse {
         let mut parent = WordsResponse::default();
         Self {
             parent,
-            r#split_result: None,
+            split_result: None,
         }
     }
 }
@@ -69,14 +69,14 @@ impl DerefMut for SplitDocumentResponse {
 impl Model for SplitDocumentResponse {
     fn validate(&self) -> SdkResult<()> {
         self.parent.validate()?;
-        if let Some(value) = &self.r#split_result {
+        if let Some(value) = &self.split_result {
         value.validate()?;
         }
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
-        self.parent.collect_file_references(output);
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+        self.parent.collect_file_references(_output);
     }
 
     fn as_any(&self) -> &dyn Any {

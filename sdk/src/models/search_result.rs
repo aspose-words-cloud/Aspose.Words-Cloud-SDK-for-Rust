@@ -34,36 +34,36 @@ use super::*;
 pub struct SearchResult {
         /// Gets or sets the link to result range start node.
         #[serde(rename = "RangeStart", skip_serializing_if = "Option::is_none")]
-        pub r#range_start: Option<DocumentPosition>,
+        pub range_start: Option<DocumentPosition>,
 
 
         /// Gets or sets the link to result range end node.
         #[serde(rename = "RangeEnd", skip_serializing_if = "Option::is_none")]
-        pub r#range_end: Option<DocumentPosition>,
+        pub range_end: Option<DocumentPosition>,
 
 }
 
 impl Default for SearchResult {
     fn default() -> Self {
         Self {
-            r#range_start: None,
-            r#range_end: None,
+            range_start: None,
+            range_end: None,
         }
     }
 }
 
 impl Model for SearchResult {
     fn validate(&self) -> SdkResult<()> {
-        if let Some(value) = &self.r#range_start {
+        if let Some(value) = &self.range_start {
         value.validate()?;
         }
-        if let Some(value) = &self.r#range_end {
+        if let Some(value) = &self.range_end {
         value.validate()?;
         }
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
     }
 
     fn as_any(&self) -> &dyn Any {

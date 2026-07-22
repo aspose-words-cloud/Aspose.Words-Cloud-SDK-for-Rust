@@ -37,18 +37,18 @@ pub struct WatermarkDataImage {
     pub parent: WatermarkDataBase,
         /// Gets or sets the watermark image.
         #[serde(rename = "Image", skip_serializing_if = "Option::is_none")]
-        pub r#image: Option<FileReference>,
+        pub image: Option<FileReference>,
 
 
         /// Gets or sets a boolean value which is responsible for washout effect of the watermark. The default value is true.
         #[serde(rename = "IsWashout", skip_serializing_if = "Option::is_none")]
-        pub r#is_washout: Option<bool>,
+        pub is_washout: Option<bool>,
 
 
         /// Gets or sets the scale factor expressed as a fraction of the image. The default value is 0 - auto.
             /// Valid values range from 0 to 65.5 inclusive. Auto scale means that the watermark will be scaled to its max width and max height relative to the page margins.
         #[serde(rename = "Scale", skip_serializing_if = "Option::is_none")]
-        pub r#scale: Option<f64>,
+        pub scale: Option<f64>,
 
 }
 
@@ -57,9 +57,9 @@ impl Default for WatermarkDataImage {
         let mut parent = WatermarkDataBase::default();
         Self {
             parent,
-            r#image: None,
-            r#is_washout: None,
-            r#scale: None,
+            image: None,
+            is_washout: None,
+            scale: None,
         }
     }
 }
@@ -81,12 +81,12 @@ impl DerefMut for WatermarkDataImage {
 impl Model for WatermarkDataImage {
     fn validate(&self) -> SdkResult<()> {
         self.parent.validate()?;
-        if self.r#image.is_none() {
+        if self.image.is_none() {
             return Err(SdkError::InvalidRequest(
                 "property Image in WatermarkDataImage is required".to_owned(),
             ));
         }
-        if let Some(value) = &self.r#image {
+        if let Some(value) = &self.image {
         value.validate()?;
         }
 
@@ -94,10 +94,10 @@ impl Model for WatermarkDataImage {
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
-        self.parent.collect_file_references(output);
-        if let Some(value) = &self.r#image {
-        value.collect_file_references(output);
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+        self.parent.collect_file_references(_output);
+        if let Some(value) = &self.image {
+        value.collect_file_references(_output);
         }
 
 

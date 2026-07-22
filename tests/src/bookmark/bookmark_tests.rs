@@ -36,19 +36,17 @@ use crate::test_context::*;
 #[tokio::test]
 async fn bookmark_get_bookmarks() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/DocumentElements/Bookmarks")?;
-    let localFile = test_string!("Common/test_multi_pages.docx")?;
-    let remoteFileName = test_string!("TestGetDocumentBookmarks.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentElements/Bookmarks";
+    let local_file = "Common/test_multi_pages.docx".to_owned();
+    let remote_file_name = "TestGetDocumentBookmarks.docx".to_owned();
 
-    context.upload_file(test_string!(localFile)?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
     let request = GetBookmarksRequest::new(
-        (test_string!(remoteFileName)?).into()
-    ).with_folder((test_string!(remoteDataFolder)?).into());
+        (remote_file_name.clone()).into()
+    ).with_folder((remote_data_folder.clone()).into());
 
     context.api().get_bookmarks(request).await?;
     Ok(())
@@ -58,16 +56,14 @@ async fn bookmark_get_bookmarks() -> TestResult<()> {
 #[tokio::test]
 async fn bookmark_get_bookmarks_online() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let localFile = test_string!("Common/test_multi_pages.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let local_file = "Common/test_multi_pages.docx".to_owned();
 
-    let requestDocument = context.load_binary_file(test_string!(localFile)?).await?;
+    let request_document = context.load_binary_file(local_file.clone()).await?;
 
     let request = GetBookmarksOnlineRequest::new(
-        (requestDocument).into()
+        (request_document).into()
     );
 
     context.api().get_bookmarks_online(request).await?;
@@ -78,21 +74,19 @@ async fn bookmark_get_bookmarks_online() -> TestResult<()> {
 #[tokio::test]
 async fn bookmark_get_bookmark_by_name() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/DocumentElements/Bookmarks")?;
-    let localFile = test_string!("Common/test_multi_pages.docx")?;
-    let bookmarkName = test_string!("aspose")?;
-    let remoteFileName = test_string!("TestGetDocumentBookmarkByName.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentElements/Bookmarks";
+    let local_file = "Common/test_multi_pages.docx".to_owned();
+    let bookmark_name = "aspose".to_owned();
+    let remote_file_name = "TestGetDocumentBookmarkByName.docx".to_owned();
 
-    context.upload_file(test_string!(localFile)?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
     let request = GetBookmarkByNameRequest::new(
-        (test_string!(remoteFileName)?).into(),
-        (test_string!(bookmarkName)?).into()
-    ).with_folder((test_string!(remoteDataFolder)?).into());
+        (remote_file_name.clone()).into(),
+        (bookmark_name.clone()).into()
+    ).with_folder((remote_data_folder.clone()).into());
 
     context.api().get_bookmark_by_name(request).await?;
     Ok(())
@@ -102,18 +96,16 @@ async fn bookmark_get_bookmark_by_name() -> TestResult<()> {
 #[tokio::test]
 async fn bookmark_get_bookmark_by_name_online() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let localFile = test_string!("Common/test_multi_pages.docx")?;
-    let bookmarkName = test_string!("aspose")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let local_file = "Common/test_multi_pages.docx".to_owned();
+    let bookmark_name = "aspose".to_owned();
 
-    let requestDocument = context.load_binary_file(test_string!(localFile)?).await?;
+    let request_document = context.load_binary_file(local_file.clone()).await?;
 
     let request = GetBookmarkByNameOnlineRequest::new(
-        (requestDocument).into(),
-        (test_string!(bookmarkName)?).into()
+        (request_document).into(),
+        (bookmark_name.clone()).into()
     );
 
     context.api().get_bookmark_by_name_online(request).await?;
@@ -124,27 +116,25 @@ async fn bookmark_get_bookmark_by_name_online() -> TestResult<()> {
 #[tokio::test]
 async fn bookmark_update_bookmark() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/DocumentElements/Bookmarks")?;
-    let localFile = test_string!("Common/test_multi_pages.docx")?;
-    let bookmarkName = test_string!("aspose")?;
-    let remoteFileName = test_string!("TestUpdateDocumentBookmark.docx")?;
-    let bookmarkText = test_string!("This will be the text for Aspose")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentElements/Bookmarks";
+    let local_file = "Common/test_multi_pages.docx".to_owned();
+    let bookmark_name = "aspose".to_owned();
+    let remote_file_name = "TestUpdateDocumentBookmark.docx".to_owned();
+    let bookmark_text = "This will be the text for Aspose".to_owned();
 
-    context.upload_file(test_string!(localFile)?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
-    let mut requestBookmarkData = BookmarkData::default();
-    requestBookmarkData.r#name = Some((test_string!(bookmarkName)?).into());
-    requestBookmarkData.r#text = Some((test_string!(bookmarkText)?).into());
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
+    let mut request_bookmark_data = BookmarkData::default();
+    request_bookmark_data.name = Some((bookmark_name.clone()).into());
+    request_bookmark_data.text = Some((bookmark_text.clone()).into());
 
     let request = UpdateBookmarkRequest::new(
-        (test_string!(remoteFileName)?).into(),
-        (test_string!(bookmarkName)?).into(),
-        (requestBookmarkData).into()
-    ).with_folder((test_string!(remoteDataFolder)?).into())
-.with_dest_file_name((test_string!(baseTestOutPath + "/" + remoteFileName)?).into());
+        (remote_file_name.clone()).into(),
+        (bookmark_name.clone()).into(),
+        (request_bookmark_data).into()
+    ).with_folder((remote_data_folder.clone()).into())
+.with_dest_file_name((base_test_out_path.clone() + "/" + &remote_file_name).into());
 
     context.api().update_bookmark(request).await?;
     Ok(())
@@ -154,24 +144,22 @@ async fn bookmark_update_bookmark() -> TestResult<()> {
 #[tokio::test]
 async fn bookmark_update_bookmark_online() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let localFile = test_string!("Common/test_multi_pages.docx")?;
-    let bookmarkName = test_string!("aspose")?;
-    let remoteFileName = test_string!("TestUpdateDocumentBookmark.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let local_file = "Common/test_multi_pages.docx".to_owned();
+    let bookmark_name = "aspose".to_owned();
+    let remote_file_name = "TestUpdateDocumentBookmark.docx".to_owned();
 
-    let requestDocument = context.load_binary_file(test_string!(localFile)?).await?;
-    let mut requestBookmarkData = BookmarkData::default();
-    requestBookmarkData.r#name = Some((test_string!(bookmarkName)?).into());
-    requestBookmarkData.r#text = Some((test_string!("This will be the text for Aspose")?).into());
+    let request_document = context.load_binary_file(local_file.clone()).await?;
+    let mut request_bookmark_data = BookmarkData::default();
+    request_bookmark_data.name = Some((bookmark_name.clone()).into());
+    request_bookmark_data.text = Some(("This will be the text for Aspose".to_owned()).into());
 
     let request = UpdateBookmarkOnlineRequest::new(
-        (requestDocument).into(),
-        (test_string!(bookmarkName)?).into(),
-        (requestBookmarkData).into()
-    ).with_dest_file_name((test_string!(baseTestOutPath + "/" + remoteFileName)?).into());
+        (request_document).into(),
+        (bookmark_name.clone()).into(),
+        (request_bookmark_data).into()
+    ).with_dest_file_name((base_test_out_path.clone() + "/" + &remote_file_name).into());
 
     context.api().update_bookmark_online(request).await?;
     Ok(())
@@ -181,21 +169,19 @@ async fn bookmark_update_bookmark_online() -> TestResult<()> {
 #[tokio::test]
 async fn bookmark_delete_bookmark() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/DocumentElements/Bookmarks")?;
-    let localFile = test_string!("Common/test_multi_pages.docx")?;
-    let bookmarkName = test_string!("aspose")?;
-    let remoteFileName = test_string!("TestDeleteBookmark.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentElements/Bookmarks";
+    let local_file = "Common/test_multi_pages.docx".to_owned();
+    let bookmark_name = "aspose".to_owned();
+    let remote_file_name = "TestDeleteBookmark.docx".to_owned();
 
-    context.upload_file(test_string!(localFile)?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
     let request = DeleteBookmarkRequest::new(
-        (test_string!(remoteFileName)?).into(),
-        (test_string!(bookmarkName)?).into()
-    ).with_folder((test_string!(remoteDataFolder)?).into());
+        (remote_file_name.clone()).into(),
+        (bookmark_name.clone()).into()
+    ).with_folder((remote_data_folder.clone()).into());
 
     context.api().delete_bookmark(request).await?;
     Ok(())
@@ -205,18 +191,16 @@ async fn bookmark_delete_bookmark() -> TestResult<()> {
 #[tokio::test]
 async fn bookmark_delete_bookmark_online() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let localFile = test_string!("Common/test_multi_pages.docx")?;
-    let bookmarkName = test_string!("aspose")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let local_file = "Common/test_multi_pages.docx".to_owned();
+    let bookmark_name = "aspose".to_owned();
 
-    let requestDocument = context.load_binary_file(test_string!(localFile)?).await?;
+    let request_document = context.load_binary_file(local_file.clone()).await?;
 
     let request = DeleteBookmarkOnlineRequest::new(
-        (requestDocument).into(),
-        (test_string!(bookmarkName)?).into()
+        (request_document).into(),
+        (bookmark_name.clone()).into()
     );
 
     context.api().delete_bookmark_online(request).await?;
@@ -227,19 +211,17 @@ async fn bookmark_delete_bookmark_online() -> TestResult<()> {
 #[tokio::test]
 async fn bookmark_delete_bookmarks() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/DocumentElements/Bookmarks")?;
-    let localFile = test_string!("Common/test_multi_pages.docx")?;
-    let remoteFileName = test_string!("TestDeleteBookmarks.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentElements/Bookmarks";
+    let local_file = "Common/test_multi_pages.docx".to_owned();
+    let remote_file_name = "TestDeleteBookmarks.docx".to_owned();
 
-    context.upload_file(test_string!(localFile)?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
     let request = DeleteBookmarksRequest::new(
-        (test_string!(remoteFileName)?).into()
-    ).with_folder((test_string!(remoteDataFolder)?).into());
+        (remote_file_name.clone()).into()
+    ).with_folder((remote_data_folder.clone()).into());
 
     context.api().delete_bookmarks(request).await?;
     Ok(())
@@ -249,16 +231,14 @@ async fn bookmark_delete_bookmarks() -> TestResult<()> {
 #[tokio::test]
 async fn bookmark_delete_bookmarks_online() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let localFile = test_string!("Common/test_multi_pages.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let local_file = "Common/test_multi_pages.docx".to_owned();
 
-    let requestDocument = context.load_binary_file(test_string!(localFile)?).await?;
+    let request_document = context.load_binary_file(local_file.clone()).await?;
 
     let request = DeleteBookmarksOnlineRequest::new(
-        (requestDocument).into()
+        (request_document).into()
     );
 
     context.api().delete_bookmarks_online(request).await?;
@@ -269,31 +249,29 @@ async fn bookmark_delete_bookmarks_online() -> TestResult<()> {
 #[tokio::test]
 async fn bookmark_insert_bookmark() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/DocumentElements/Bookmarks")?;
-    let localFile = test_string!("Common/test_multi_pages.docx")?;
-    let remoteFileName = test_string!("TestInsertBookmark.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentElements/Bookmarks";
+    let local_file = "Common/test_multi_pages.docx".to_owned();
+    let remote_file_name = "TestInsertBookmark.docx".to_owned();
 
-    context.upload_file(test_string!(localFile)?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
-    let mut requestBookmarkStartRange = PositionInsideNode::default();
-    requestBookmarkStartRange.r#node_id = Some((test_string!("0.0.0.0")?).into());
-    requestBookmarkStartRange.r#offset = Some((0).into());
-    let mut requestBookmarkEndRange = PositionInsideNode::default();
-    requestBookmarkEndRange.r#node_id = Some((test_string!("0.0.0.0")?).into());
-    requestBookmarkEndRange.r#offset = Some((0).into());
-    let mut requestBookmark = BookmarkInsert::default();
-    requestBookmark.r#start_range = Some((requestBookmarkStartRange).into());
-    requestBookmark.r#end_range = Some((requestBookmarkEndRange).into());
-    requestBookmark.r#name = Some((test_string!("new_bookmark")?).into());
-    requestBookmark.r#text = Some((test_string!("Some text")?).into());
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
+    let mut request_bookmark_start_range = PositionInsideNode::default();
+    request_bookmark_start_range.node_id = Some(("0.0.0.0".to_owned()).into());
+    request_bookmark_start_range.offset = Some((0).into());
+    let mut request_bookmark_end_range = PositionInsideNode::default();
+    request_bookmark_end_range.node_id = Some(("0.0.0.0".to_owned()).into());
+    request_bookmark_end_range.offset = Some((0).into());
+    let mut request_bookmark = BookmarkInsert::default();
+    request_bookmark.start_range = Some((request_bookmark_start_range).into());
+    request_bookmark.end_range = Some((request_bookmark_end_range).into());
+    request_bookmark.name = Some(("new_bookmark".to_owned()).into());
+    request_bookmark.text = Some(("Some text".to_owned()).into());
 
     let request = InsertBookmarkRequest::new(
-        (test_string!(remoteFileName)?).into(),
-        (requestBookmark).into()
-    ).with_folder((test_string!(remoteDataFolder)?).into());
+        (remote_file_name.clone()).into(),
+        (request_bookmark).into()
+    ).with_folder((remote_data_folder.clone()).into());
 
     context.api().insert_bookmark(request).await?;
     Ok(())
@@ -303,28 +281,26 @@ async fn bookmark_insert_bookmark() -> TestResult<()> {
 #[tokio::test]
 async fn bookmark_insert_bookmark_online() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let localFile = test_string!("Common/test_multi_pages.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let local_file = "Common/test_multi_pages.docx".to_owned();
 
-    let requestDocument = context.load_binary_file(test_string!(localFile)?).await?;
-    let mut requestBookmarkStartRange = PositionInsideNode::default();
-    requestBookmarkStartRange.r#node_id = Some((test_string!("0.0.0.0")?).into());
-    requestBookmarkStartRange.r#offset = Some((0).into());
-    let mut requestBookmarkEndRange = PositionInsideNode::default();
-    requestBookmarkEndRange.r#node_id = Some((test_string!("0.0.0.0")?).into());
-    requestBookmarkEndRange.r#offset = Some((0).into());
-    let mut requestBookmark = BookmarkInsert::default();
-    requestBookmark.r#start_range = Some((requestBookmarkStartRange).into());
-    requestBookmark.r#end_range = Some((requestBookmarkEndRange).into());
-    requestBookmark.r#name = Some((test_string!("new_bookmark")?).into());
-    requestBookmark.r#text = Some((test_string!("Some text")?).into());
+    let request_document = context.load_binary_file(local_file.clone()).await?;
+    let mut request_bookmark_start_range = PositionInsideNode::default();
+    request_bookmark_start_range.node_id = Some(("0.0.0.0".to_owned()).into());
+    request_bookmark_start_range.offset = Some((0).into());
+    let mut request_bookmark_end_range = PositionInsideNode::default();
+    request_bookmark_end_range.node_id = Some(("0.0.0.0".to_owned()).into());
+    request_bookmark_end_range.offset = Some((0).into());
+    let mut request_bookmark = BookmarkInsert::default();
+    request_bookmark.start_range = Some((request_bookmark_start_range).into());
+    request_bookmark.end_range = Some((request_bookmark_end_range).into());
+    request_bookmark.name = Some(("new_bookmark".to_owned()).into());
+    request_bookmark.text = Some(("Some text".to_owned()).into());
 
     let request = InsertBookmarkOnlineRequest::new(
-        (requestDocument).into(),
-        (requestBookmark).into()
+        (request_document).into(),
+        (request_bookmark).into()
     );
 
     context.api().insert_bookmark_online(request).await?;

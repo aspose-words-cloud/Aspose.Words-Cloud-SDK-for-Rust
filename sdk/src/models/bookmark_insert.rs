@@ -34,68 +34,68 @@ use super::*;
 pub struct BookmarkInsert {
         /// Gets or sets the name of the bookmark.
         #[serde(rename = "Name", skip_serializing_if = "Option::is_none")]
-        pub r#name: Option<String>,
+        pub name: Option<String>,
 
 
         /// Gets or sets text, enclosed in the bookmark.
         #[serde(rename = "Text", skip_serializing_if = "Option::is_none")]
-        pub r#text: Option<String>,
+        pub text: Option<String>,
 
 
         /// Gets or sets the link to start bookmark node.
         #[serde(rename = "StartRange", skip_serializing_if = "Option::is_none", default, deserialize_with = "deserialize_optional_model")]
-        pub r#start_range: Option<ModelBox>,
+        pub start_range: Option<ModelBox>,
 
 
         /// Gets or sets the link to end bookmark node.
         #[serde(rename = "EndRange", skip_serializing_if = "Option::is_none", default, deserialize_with = "deserialize_optional_model")]
-        pub r#end_range: Option<ModelBox>,
+        pub end_range: Option<ModelBox>,
 
 }
 
 impl Default for BookmarkInsert {
     fn default() -> Self {
         Self {
-            r#name: None,
-            r#text: None,
-            r#start_range: None,
-            r#end_range: None,
+            name: None,
+            text: None,
+            start_range: None,
+            end_range: None,
         }
     }
 }
 
 impl Model for BookmarkInsert {
     fn validate(&self) -> SdkResult<()> {
-        if self.r#name.is_none() {
+        if self.name.is_none() {
             return Err(SdkError::InvalidRequest(
                 "property Name in BookmarkInsert is required".to_owned(),
             ));
         }
-        if self.r#text.is_none() {
+        if self.text.is_none() {
             return Err(SdkError::InvalidRequest(
                 "property Text in BookmarkInsert is required".to_owned(),
             ));
         }
-        if self.r#start_range.is_none() {
+        if self.start_range.is_none() {
             return Err(SdkError::InvalidRequest(
                 "property StartRange in BookmarkInsert is required".to_owned(),
             ));
         }
-        if self.r#end_range.is_none() {
+        if self.end_range.is_none() {
             return Err(SdkError::InvalidRequest(
                 "property EndRange in BookmarkInsert is required".to_owned(),
             ));
         }
-        if let Some(value) = &self.r#start_range {
+        if let Some(value) = &self.start_range {
         value.validate()?;
         }
-        if let Some(value) = &self.r#end_range {
+        if let Some(value) = &self.end_range {
         value.validate()?;
         }
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
     }
 
     fn as_any(&self) -> &dyn Any {

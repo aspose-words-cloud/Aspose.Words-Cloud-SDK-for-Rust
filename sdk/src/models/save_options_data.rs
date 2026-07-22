@@ -37,18 +37,18 @@ pub struct SaveOptionsData {
             /// This option only works when Aspose.Words.Fonts.FontInfoCollection.EmbedTrueTypeFonts of the Aspose.Words.DocumentBase.FontInfos property is set to true.
             /// The default value is false.
         #[serde(rename = "AllowEmbeddingPostScriptFonts", skip_serializing_if = "Option::is_none")]
-        pub r#allow_embedding_post_script_fonts: Option<bool>,
+        pub allow_embedding_post_script_fonts: Option<bool>,
 
 
         /// Gets or sets CustomTimeZoneInfo.
         #[serde(rename = "CustomTimeZoneInfoData", skip_serializing_if = "Option::is_none")]
-        pub r#custom_time_zone_info_data: Option<TimeZoneInfoData>,
+        pub custom_time_zone_info_data: Option<TimeZoneInfoData>,
 
 
         /// Gets or sets the value determining how 3D effects are rendered.
             /// The default value is Aspose.Words.Saving.Dml3DEffectsRenderingMode.Basic.
         #[serde(rename = "Dml3DEffectsRenderingMode", skip_serializing_if = "Option::is_none")]
-        pub r#dml3_d_effects_rendering_mode: Option<SaveOptionsData_Dml3DEffectsRenderingModeEnum>,
+        pub dml3_d_effects_rendering_mode: Option<SaveOptionsDataDml3DEffectsRenderingModeEnum>,
 
 
         /// Gets or sets the value determining how DrawingML effects are rendered.
@@ -56,96 +56,96 @@ pub struct SaveOptionsData {
             /// The default value is Simplified.
             /// This property is used when the document is exported to fixed page formats.
         #[serde(rename = "DmlEffectsRenderingMode", skip_serializing_if = "Option::is_none")]
-        pub r#dml_effects_rendering_mode: Option<SaveOptionsData_DmlEffectsRenderingModeEnum>,
+        pub dml_effects_rendering_mode: Option<SaveOptionsDataDmlEffectsRenderingModeEnum>,
 
 
         /// Gets or sets the option that controls how DrawingML shapes are rendered.
             /// { Fallback | DrawingML }. The default value is Fallback.
             /// This property is used when the document is exported to fixed page formats.
         #[serde(rename = "DmlRenderingMode", skip_serializing_if = "Option::is_none")]
-        pub r#dml_rendering_mode: Option<SaveOptionsData_DmlRenderingModeEnum>,
+        pub dml_rendering_mode: Option<SaveOptionsDataDmlRenderingModeEnum>,
 
 
         /// Gets or sets the name of destination file.
         #[serde(rename = "FileName", skip_serializing_if = "Option::is_none")]
-        pub r#file_name: Option<String>,
+        pub file_name: Option<String>,
 
 
         /// Gets or sets the value determining how ink (InkML) objects are rendered.
             /// The default value is Aspose.Words.Saving.ImlRenderingMode.InkML.
         #[serde(rename = "ImlRenderingMode", skip_serializing_if = "Option::is_none")]
-        pub r#iml_rendering_mode: Option<SaveOptionsData_ImlRenderingModeEnum>,
+        pub iml_rendering_mode: Option<SaveOptionsDataImlRenderingModeEnum>,
 
 
         /// Gets or sets a value indicating whether the font attributes will be changed according to the character code being used.
         #[serde(rename = "UpdateAmbiguousTextFont", skip_serializing_if = "Option::is_none")]
-        pub r#update_ambiguous_text_font: Option<bool>,
+        pub update_ambiguous_text_font: Option<bool>,
 
 
         /// Gets or sets a value determining whether the Aspose.Words.Properties.BuiltInDocumentProperties.CreatedTime property is updated before saving.
             /// The default value is false.
         #[serde(rename = "UpdateCreatedTimeProperty", skip_serializing_if = "Option::is_none")]
-        pub r#update_created_time_property: Option<bool>,
+        pub update_created_time_property: Option<bool>,
 
 
         /// Gets or sets a value indicating whether fields should be updated before saving the document to a fixed page format. The default value is true.
         #[serde(rename = "UpdateFields", skip_serializing_if = "Option::is_none")]
-        pub r#update_fields: Option<bool>,
+        pub update_fields: Option<bool>,
 
 
         /// Gets or sets a value indicating whether the Aspose.Words.Properties.BuiltInDocumentProperties.LastPrinted property is updated before saving.
         #[serde(rename = "UpdateLastPrintedProperty", skip_serializing_if = "Option::is_none")]
-        pub r#update_last_printed_property: Option<bool>,
+        pub update_last_printed_property: Option<bool>,
 
 
         /// Gets or sets a value indicating whether the Aspose.Words.Properties.BuiltInDocumentProperties.LastSavedTime property is updated before saving.
             /// The default value is false.
         #[serde(rename = "UpdateLastSavedTimeProperty", skip_serializing_if = "Option::is_none")]
-        pub r#update_last_saved_time_property: Option<bool>,
+        pub update_last_saved_time_property: Option<bool>,
 
 
         /// Gets or sets a value indicating whether to zip output or not.
             /// The default value is false.
             /// When set to true, output files will be zipped.
         #[serde(rename = "ZipOutput", skip_serializing_if = "Option::is_none")]
-        pub r#zip_output: Option<bool>,
+        pub zip_output: Option<bool>,
 
 
         /// Gets the format of save.
         #[serde(rename = "SaveFormat", skip_serializing_if = "Option::is_none")]
-        pub r#save_format: Option<String>,
+        pub save_format: Option<String>,
 
 }
 
 impl Default for SaveOptionsData {
     fn default() -> Self {
         Self {
-            r#allow_embedding_post_script_fonts: None,
-            r#custom_time_zone_info_data: None,
-            r#dml3_d_effects_rendering_mode: None,
-            r#dml_effects_rendering_mode: None,
-            r#dml_rendering_mode: None,
-            r#file_name: None,
-            r#iml_rendering_mode: None,
-            r#update_ambiguous_text_font: None,
-            r#update_created_time_property: None,
-            r#update_fields: None,
-            r#update_last_printed_property: None,
-            r#update_last_saved_time_property: None,
-            r#zip_output: None,
-            r#save_format: None,
+            allow_embedding_post_script_fonts: None,
+            custom_time_zone_info_data: None,
+            dml3_d_effects_rendering_mode: None,
+            dml_effects_rendering_mode: None,
+            dml_rendering_mode: None,
+            file_name: None,
+            iml_rendering_mode: None,
+            update_ambiguous_text_font: None,
+            update_created_time_property: None,
+            update_fields: None,
+            update_last_printed_property: None,
+            update_last_saved_time_property: None,
+            zip_output: None,
+            save_format: None,
         }
     }
 }
 
 impl Model for SaveOptionsData {
     fn validate(&self) -> SdkResult<()> {
-        if self.r#file_name.is_none() {
+        if self.file_name.is_none() {
             return Err(SdkError::InvalidRequest(
                 "property FileName in SaveOptionsData is required".to_owned(),
             ));
         }
-        if let Some(value) = &self.r#custom_time_zone_info_data {
+        if let Some(value) = &self.custom_time_zone_info_data {
         value.validate()?;
         }
 
@@ -163,7 +163,7 @@ impl Model for SaveOptionsData {
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
     }
 
     fn as_any(&self) -> &dyn Any {
@@ -173,9 +173,8 @@ impl Model for SaveOptionsData {
 
 /// Gets or sets the value determining how 3D effects are rendered.
 /// The default value is Aspose.Words.Saving.Dml3DEffectsRenderingMode.Basic.
-#[allow(non_camel_case_types)]
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
-pub enum SaveOptionsData_Dml3DEffectsRenderingModeEnum {
+pub enum SaveOptionsDataDml3DEffectsRenderingModeEnum {
     #[serde(rename = "Basic")]
         Basic,
     #[serde(rename = "Advanced")]
@@ -186,9 +185,8 @@ pub enum SaveOptionsData_Dml3DEffectsRenderingModeEnum {
 /// { Simplified | None | Fine }.
 /// The default value is Simplified.
 /// This property is used when the document is exported to fixed page formats.
-#[allow(non_camel_case_types)]
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
-pub enum SaveOptionsData_DmlEffectsRenderingModeEnum {
+pub enum SaveOptionsDataDmlEffectsRenderingModeEnum {
     #[serde(rename = "Simplified")]
         Simplified,
     #[serde(rename = "None")]
@@ -200,22 +198,20 @@ pub enum SaveOptionsData_DmlEffectsRenderingModeEnum {
 /// Gets or sets the option that controls how DrawingML shapes are rendered.
 /// { Fallback | DrawingML }. The default value is Fallback.
 /// This property is used when the document is exported to fixed page formats.
-#[allow(non_camel_case_types)]
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
-pub enum SaveOptionsData_DmlRenderingModeEnum {
+pub enum SaveOptionsDataDmlRenderingModeEnum {
     #[serde(rename = "Fallback")]
         Fallback,
     #[serde(rename = "DrawingML")]
-        DrawingML,
+        DrawingMl,
 }
 
 /// Gets or sets the value determining how ink (InkML) objects are rendered.
 /// The default value is Aspose.Words.Saving.ImlRenderingMode.InkML.
-#[allow(non_camel_case_types)]
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
-pub enum SaveOptionsData_ImlRenderingModeEnum {
+pub enum SaveOptionsDataImlRenderingModeEnum {
     #[serde(rename = "Fallback")]
         Fallback,
     #[serde(rename = "InkML")]
-        InkML,
+        InkMl,
 }

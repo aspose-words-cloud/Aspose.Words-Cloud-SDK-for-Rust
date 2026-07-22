@@ -36,19 +36,17 @@ use crate::test_context::*;
 #[tokio::test]
 async fn lists_get_lists() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/DocumentElements/Lists")?;
-    let localFile = test_string!("DocumentElements/Lists/ListsGet.doc")?;
-    let remoteFileName = test_string!("TestGetLists.doc")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentElements/Lists";
+    let local_file = "DocumentElements/Lists/ListsGet.doc".to_owned();
+    let remote_file_name = "TestGetLists.doc".to_owned();
 
-    context.upload_file(test_string!(localFile)?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
     let request = GetListsRequest::new(
-        (test_string!(remoteFileName)?).into()
-    ).with_folder((test_string!(remoteDataFolder)?).into());
+        (remote_file_name.clone()).into()
+    ).with_folder((remote_data_folder.clone()).into());
 
     let result = context.api().get_lists(request).await?;
     let result_json = serialize_result(&result)?;
@@ -63,16 +61,14 @@ async fn lists_get_lists() -> TestResult<()> {
 #[tokio::test]
 async fn lists_get_lists_online() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let localFile = test_string!("DocumentElements/Lists/ListsGet.doc")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let local_file = "DocumentElements/Lists/ListsGet.doc".to_owned();
 
-    let requestDocument = context.load_binary_file(test_string!(localFile)?).await?;
+    let request_document = context.load_binary_file(local_file.clone()).await?;
 
     let request = GetListsOnlineRequest::new(
-        (requestDocument).into()
+        (request_document).into()
     );
 
     context.api().get_lists_online(request).await?;
@@ -83,20 +79,18 @@ async fn lists_get_lists_online() -> TestResult<()> {
 #[tokio::test]
 async fn lists_get_list() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/DocumentElements/Lists")?;
-    let localFile = test_string!("DocumentElements/Lists/ListsGet.doc")?;
-    let remoteFileName = test_string!("TestGetList.doc")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentElements/Lists";
+    let local_file = "DocumentElements/Lists/ListsGet.doc".to_owned();
+    let remote_file_name = "TestGetList.doc".to_owned();
 
-    context.upload_file(test_string!(localFile)?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
     let request = GetListRequest::new(
-        (test_string!(remoteFileName)?).into(),
+        (remote_file_name.clone()).into(),
         (1).into()
-    ).with_folder((test_string!(remoteDataFolder)?).into());
+    ).with_folder((remote_data_folder.clone()).into());
 
     let result = context.api().get_list(request).await?;
     let result_json = serialize_result(&result)?;
@@ -109,16 +103,14 @@ async fn lists_get_list() -> TestResult<()> {
 #[tokio::test]
 async fn lists_get_list_online() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let localFile = test_string!("DocumentElements/Lists/ListsGet.doc")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let local_file = "DocumentElements/Lists/ListsGet.doc".to_owned();
 
-    let requestDocument = context.load_binary_file(test_string!(localFile)?).await?;
+    let request_document = context.load_binary_file(local_file.clone()).await?;
 
     let request = GetListOnlineRequest::new(
-        (requestDocument).into(),
+        (request_document).into(),
         (1).into()
     );
 
@@ -130,23 +122,21 @@ async fn lists_get_list_online() -> TestResult<()> {
 #[tokio::test]
 async fn lists_update_list() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/DocumentElements/Lists")?;
-    let localFile = test_string!("DocumentElements/Lists/ListsGet.doc")?;
-    let remoteFileName = test_string!("TestUpdateList.doc")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentElements/Lists";
+    let local_file = "DocumentElements/Lists/ListsGet.doc".to_owned();
+    let remote_file_name = "TestUpdateList.doc".to_owned();
 
-    context.upload_file(test_string!(localFile)?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
-    let mut requestListUpdate = ListUpdate::default();
-    requestListUpdate.r#is_restart_at_each_section = Some((true).into());
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
+    let mut request_list_update = ListUpdate::default();
+    request_list_update.is_restart_at_each_section = Some((true).into());
 
     let request = UpdateListRequest::new(
-        (test_string!(remoteFileName)?).into(),
+        (remote_file_name.clone()).into(),
         (1).into(),
-        (requestListUpdate).into()
-    ).with_folder((test_string!(remoteDataFolder)?).into());
+        (request_list_update).into()
+    ).with_folder((remote_data_folder.clone()).into());
 
     context.api().update_list(request).await?;
     Ok(())
@@ -156,20 +146,18 @@ async fn lists_update_list() -> TestResult<()> {
 #[tokio::test]
 async fn lists_update_list_online() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let localFile = test_string!("DocumentElements/Lists/ListsGet.doc")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let local_file = "DocumentElements/Lists/ListsGet.doc".to_owned();
 
-    let requestDocument = context.load_binary_file(test_string!(localFile)?).await?;
-    let mut requestListUpdate = ListUpdate::default();
-    requestListUpdate.r#is_restart_at_each_section = Some((true).into());
+    let request_document = context.load_binary_file(local_file.clone()).await?;
+    let mut request_list_update = ListUpdate::default();
+    request_list_update.is_restart_at_each_section = Some((true).into());
 
     let request = UpdateListOnlineRequest::new(
-        (requestDocument).into(),
+        (request_document).into(),
         (1).into(),
-        (requestListUpdate).into()
+        (request_list_update).into()
     );
 
     let result = context.api().update_list_online(request).await?;
@@ -184,24 +172,22 @@ async fn lists_update_list_online() -> TestResult<()> {
 #[tokio::test]
 async fn lists_update_list_level() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/DocumentElements/Lists")?;
-    let localFile = test_string!("DocumentElements/Lists/ListsGet.doc")?;
-    let remoteFileName = test_string!("TestUpdateListLevel.doc")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentElements/Lists";
+    let local_file = "DocumentElements/Lists/ListsGet.doc".to_owned();
+    let remote_file_name = "TestUpdateListLevel.doc".to_owned();
 
-    context.upload_file(test_string!(localFile)?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
-    let mut requestListUpdate = ListLevelUpdate::default();
-    requestListUpdate.r#alignment = Some((ListLevelUpdate_AlignmentEnum::Right).into());
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
+    let mut request_list_update = ListLevelUpdate::default();
+    request_list_update.alignment = Some((ListLevelUpdateAlignmentEnum::Right).into());
 
     let request = UpdateListLevelRequest::new(
-        (test_string!(remoteFileName)?).into(),
+        (remote_file_name.clone()).into(),
         (1).into(),
         (1).into(),
-        (requestListUpdate).into()
-    ).with_folder((test_string!(remoteDataFolder)?).into());
+        (request_list_update).into()
+    ).with_folder((remote_data_folder.clone()).into());
 
     context.api().update_list_level(request).await?;
     Ok(())
@@ -211,20 +197,18 @@ async fn lists_update_list_level() -> TestResult<()> {
 #[tokio::test]
 async fn lists_update_list_level_online() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let localFile = test_string!("DocumentElements/Lists/ListsGet.doc")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let local_file = "DocumentElements/Lists/ListsGet.doc".to_owned();
 
-    let requestDocument = context.load_binary_file(test_string!(localFile)?).await?;
-    let mut requestListUpdate = ListLevelUpdate::default();
-    requestListUpdate.r#alignment = Some((ListLevelUpdate_AlignmentEnum::Right).into());
+    let request_document = context.load_binary_file(local_file.clone()).await?;
+    let mut request_list_update = ListLevelUpdate::default();
+    request_list_update.alignment = Some((ListLevelUpdateAlignmentEnum::Right).into());
 
     let request = UpdateListLevelOnlineRequest::new(
-        (requestDocument).into(),
+        (request_document).into(),
         (1).into(),
-        (requestListUpdate).into(),
+        (request_list_update).into(),
         (1).into()
     );
 
@@ -242,22 +226,20 @@ async fn lists_update_list_level_online() -> TestResult<()> {
 #[tokio::test]
 async fn lists_insert_list() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/DocumentElements/Lists")?;
-    let localFile = test_string!("DocumentElements/Lists/ListsGet.doc")?;
-    let remoteFileName = test_string!("TestInsertList.doc")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentElements/Lists";
+    let local_file = "DocumentElements/Lists/ListsGet.doc".to_owned();
+    let remote_file_name = "TestInsertList.doc".to_owned();
 
-    context.upload_file(test_string!(localFile)?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
-    let mut requestListInsert = ListInsert::default();
-    requestListInsert.r#template = Some((ListInsert_TemplateEnum::OutlineLegal).into());
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
+    let mut request_list_insert = ListInsert::default();
+    request_list_insert.template = Some((ListInsertTemplateEnum::OutlineLegal).into());
 
     let request = InsertListRequest::new(
-        (test_string!(remoteFileName)?).into(),
-        (requestListInsert).into()
-    ).with_folder((test_string!(remoteDataFolder)?).into());
+        (remote_file_name.clone()).into(),
+        (request_list_insert).into()
+    ).with_folder((remote_data_folder.clone()).into());
 
     let result = context.api().insert_list(request).await?;
     let result_json = serialize_result(&result)?;
@@ -270,19 +252,17 @@ async fn lists_insert_list() -> TestResult<()> {
 #[tokio::test]
 async fn lists_insert_list_online() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let localFile = test_string!("DocumentElements/Lists/ListsGet.doc")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let local_file = "DocumentElements/Lists/ListsGet.doc".to_owned();
 
-    let requestDocument = context.load_binary_file(test_string!(localFile)?).await?;
-    let mut requestListInsert = ListInsert::default();
-    requestListInsert.r#template = Some((ListInsert_TemplateEnum::OutlineLegal).into());
+    let request_document = context.load_binary_file(local_file.clone()).await?;
+    let mut request_list_insert = ListInsert::default();
+    request_list_insert.template = Some((ListInsertTemplateEnum::OutlineLegal).into());
 
     let request = InsertListOnlineRequest::new(
-        (requestDocument).into(),
-        (requestListInsert).into()
+        (request_document).into(),
+        (request_list_insert).into()
     );
 
     context.api().insert_list_online(request).await?;

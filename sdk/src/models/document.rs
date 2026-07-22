@@ -34,77 +34,77 @@ use super::*;
 pub struct Document {
         /// Gets or sets the list of links that originate from this document.
         #[serde(rename = "Links", skip_serializing_if = "Option::is_none")]
-        pub r#links: Option<Vec<Link>>,
+        pub links: Option<Vec<Link>>,
 
 
         /// Gets or sets the document properties.
         #[serde(rename = "DocumentProperties", skip_serializing_if = "Option::is_none")]
-        pub r#document_properties: Option<DocumentProperties>,
+        pub document_properties: Option<DocumentProperties>,
 
 
         /// Gets or sets the name of the file.
         #[serde(rename = "FileName", skip_serializing_if = "Option::is_none")]
-        pub r#file_name: Option<String>,
+        pub file_name: Option<String>,
 
 
         /// Gets or sets the file size.
         #[serde(rename = "FileSize", skip_serializing_if = "Option::is_none")]
-        pub r#file_size: Option<i32>,
+        pub file_size: Option<i32>,
 
 
         /// Gets or sets a value indicating whether the document is encrypted and requires a password to open.
         #[serde(rename = "IsEncrypted", skip_serializing_if = "Option::is_none")]
-        pub r#is_encrypted: Option<bool>,
+        pub is_encrypted: Option<bool>,
 
 
         /// Gets or sets a value indicating whether the document contains a digital signature. This property merely informs that a digital signature is present on a document, but it does not specify whether the signature is valid or not.
         #[serde(rename = "IsSigned", skip_serializing_if = "Option::is_none")]
-        pub r#is_signed: Option<bool>,
+        pub is_signed: Option<bool>,
 
 
         /// Gets or sets the original format of the document.
         #[serde(rename = "SourceFormat", skip_serializing_if = "Option::is_none")]
-        pub r#source_format: Option<Document_SourceFormatEnum>,
+        pub source_format: Option<DocumentSourceFormatEnum>,
 
 }
 
 impl Default for Document {
     fn default() -> Self {
         Self {
-            r#links: None,
-            r#document_properties: None,
-            r#file_name: None,
-            r#file_size: None,
-            r#is_encrypted: None,
-            r#is_signed: None,
-            r#source_format: None,
+            links: None,
+            document_properties: None,
+            file_name: None,
+            file_size: None,
+            is_encrypted: None,
+            is_signed: None,
+            source_format: None,
         }
     }
 }
 
 impl Model for Document {
     fn validate(&self) -> SdkResult<()> {
-        if self.r#is_encrypted.is_none() {
+        if self.is_encrypted.is_none() {
             return Err(SdkError::InvalidRequest(
                 "property IsEncrypted in Document is required".to_owned(),
             ));
         }
-        if self.r#is_signed.is_none() {
+        if self.is_signed.is_none() {
             return Err(SdkError::InvalidRequest(
                 "property IsSigned in Document is required".to_owned(),
             ));
         }
-        if self.r#source_format.is_none() {
+        if self.source_format.is_none() {
             return Err(SdkError::InvalidRequest(
                 "property SourceFormat in Document is required".to_owned(),
             ));
         }
-        if let Some(values) = &self.r#links {
+        if let Some(values) = &self.links {
         for value in values {
         value.validate()?;
         }
         }
-        if let Some(value) = &self.r#document_properties {
+        if let Some(value) = &self.document_properties {
         value.validate()?;
         }
 
@@ -115,7 +115,7 @@ impl Model for Document {
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
     }
 
     fn as_any(&self) -> &dyn Any {
@@ -124,9 +124,8 @@ impl Model for Document {
 }
 
 /// Gets or sets the original format of the document.
-#[allow(non_camel_case_types)]
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
-pub enum Document_SourceFormatEnum {
+pub enum DocumentSourceFormatEnum {
     #[serde(rename = "Unknown")]
         Unknown,
     #[serde(rename = "Doc")]
@@ -148,7 +147,7 @@ pub enum Document_SourceFormatEnum {
     #[serde(rename = "Rtf")]
         Rtf,
     #[serde(rename = "WordML")]
-        WordML,
+        WordMl,
     #[serde(rename = "Html")]
         Html,
     #[serde(rename = "Mhtml")]

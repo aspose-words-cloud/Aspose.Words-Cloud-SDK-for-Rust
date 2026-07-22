@@ -34,45 +34,45 @@ use super::*;
 pub struct TableRowInsert {
         /// Gets or sets the count of columns. The default value is 1.
         #[serde(rename = "ColumnsCount", skip_serializing_if = "Option::is_none")]
-        pub r#columns_count: Option<i32>,
+        pub columns_count: Option<i32>,
 
 
         /// Gets or sets the position of the table row that will be used to determine the placement of a new row.
         #[serde(rename = "ExistingRowPosition", skip_serializing_if = "Option::is_none", default, deserialize_with = "deserialize_optional_model")]
-        pub r#existing_row_position: Option<ModelBox>,
+        pub existing_row_position: Option<ModelBox>,
 
 
         /// Gets or sets table row will be inserted after row with specified 0-based index.
         #[serde(rename = "InsertAfter", skip_serializing_if = "Option::is_none")]
-        pub r#insert_after: Option<i32>,
+        pub insert_after: Option<i32>,
 
 }
 
 impl Default for TableRowInsert {
     fn default() -> Self {
         Self {
-            r#columns_count: None,
-            r#existing_row_position: None,
-            r#insert_after: None,
+            columns_count: None,
+            existing_row_position: None,
+            insert_after: None,
         }
     }
 }
 
 impl Model for TableRowInsert {
     fn validate(&self) -> SdkResult<()> {
-        if self.r#columns_count.is_none() {
+        if self.columns_count.is_none() {
             return Err(SdkError::InvalidRequest(
                 "property ColumnsCount in TableRowInsert is required".to_owned(),
             ));
         }
-        if let Some(value) = &self.r#existing_row_position {
+        if let Some(value) = &self.existing_row_position {
         value.validate()?;
         }
 
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
     }
 
     fn as_any(&self) -> &dyn Any {

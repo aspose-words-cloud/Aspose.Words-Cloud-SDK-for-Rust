@@ -37,57 +37,57 @@ pub struct CsvDataLoadOptions {
         /// Gets or sets the character that is used to comment lines of CSV data.
             /// The default value is '#' (number sign).
         #[serde(rename = "CommentChar", skip_serializing_if = "Option::is_none")]
-        pub r#comment_char: Option<String>,
+        pub comment_char: Option<String>,
 
 
         /// Gets or sets the character to be used as a column delimiter.
             /// The default value is ',' (comma).
         #[serde(rename = "Delimiter", skip_serializing_if = "Option::is_none")]
-        pub r#delimiter: Option<String>,
+        pub delimiter: Option<String>,
 
 
         /// Gets or sets a value indicating whether the first record of CSV data contains column names.
             /// The default value is false.
         #[serde(rename = "HasHeaders", skip_serializing_if = "Option::is_none")]
-        pub r#has_headers: Option<bool>,
+        pub has_headers: Option<bool>,
 
 
         /// Gets or sets the character that is used to quote field values.
             /// The default value is '"' (quotation mark).Double the character to place it into quoted text.
         #[serde(rename = "QuoteChar", skip_serializing_if = "Option::is_none")]
-        pub r#quote_char: Option<String>,
+        pub quote_char: Option<String>,
 
 }
 
 impl Default for CsvDataLoadOptions {
     fn default() -> Self {
         Self {
-            r#comment_char: None,
-            r#delimiter: None,
-            r#has_headers: None,
-            r#quote_char: None,
+            comment_char: None,
+            delimiter: None,
+            has_headers: None,
+            quote_char: None,
         }
     }
 }
 
 impl Model for CsvDataLoadOptions {
     fn validate(&self) -> SdkResult<()> {
-        if self.r#comment_char.is_none() {
+        if self.comment_char.is_none() {
             return Err(SdkError::InvalidRequest(
                 "property CommentChar in CsvDataLoadOptions is required".to_owned(),
             ));
         }
-        if self.r#delimiter.is_none() {
+        if self.delimiter.is_none() {
             return Err(SdkError::InvalidRequest(
                 "property Delimiter in CsvDataLoadOptions is required".to_owned(),
             ));
         }
-        if self.r#has_headers.is_none() {
+        if self.has_headers.is_none() {
             return Err(SdkError::InvalidRequest(
                 "property HasHeaders in CsvDataLoadOptions is required".to_owned(),
             ));
         }
-        if self.r#quote_char.is_none() {
+        if self.quote_char.is_none() {
             return Err(SdkError::InvalidRequest(
                 "property QuoteChar in CsvDataLoadOptions is required".to_owned(),
             ));
@@ -95,7 +95,7 @@ impl Model for CsvDataLoadOptions {
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
     }
 
     fn as_any(&self) -> &dyn Any {

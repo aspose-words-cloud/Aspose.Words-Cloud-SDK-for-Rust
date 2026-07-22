@@ -34,26 +34,26 @@ use super::*;
 pub struct PdfEncryptionDetailsData {
         /// Gets or sets the owner password for the encrypted PDF document.
         #[serde(rename = "OwnerPassword", skip_serializing_if = "Option::is_none")]
-        pub r#owner_password: Option<String>,
+        pub owner_password: Option<String>,
 
 
         /// Gets or sets the operations that are allowed to a user on the encrypted PDF document.
         #[serde(rename = "Permissions", skip_serializing_if = "Option::is_none")]
-        pub r#permissions: Option<Vec<PdfPermissionsEnum>>,
+        pub permissions: Option<Vec<PdfPermissionsEnum>>,
 
 
         /// Gets or sets the user password required for opening the encrypted PDF document.
         #[serde(rename = "UserPassword", skip_serializing_if = "Option::is_none")]
-        pub r#user_password: Option<String>,
+        pub user_password: Option<String>,
 
 }
 
 impl Default for PdfEncryptionDetailsData {
     fn default() -> Self {
         Self {
-            r#owner_password: None,
-            r#permissions: None,
-            r#user_password: None,
+            owner_password: None,
+            permissions: None,
+            user_password: None,
         }
     }
 }
@@ -63,7 +63,7 @@ impl Model for PdfEncryptionDetailsData {
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
     }
 
     fn as_any(&self) -> &dyn Any {

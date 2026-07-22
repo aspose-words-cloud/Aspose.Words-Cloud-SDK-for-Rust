@@ -37,7 +37,7 @@ pub struct BordersCollection {
     pub parent: LinkElement,
         /// Gets or sets the collection of comments.
         #[serde(rename = "List", skip_serializing_if = "Option::is_none")]
-        pub r#list: Option<Vec<Border>>,
+        pub list: Option<Vec<Border>>,
 
 }
 
@@ -46,7 +46,7 @@ impl Default for BordersCollection {
         let mut parent = LinkElement::default();
         Self {
             parent,
-            r#list: None,
+            list: None,
         }
     }
 }
@@ -68,7 +68,7 @@ impl DerefMut for BordersCollection {
 impl Model for BordersCollection {
     fn validate(&self) -> SdkResult<()> {
         self.parent.validate()?;
-        if let Some(values) = &self.r#list {
+        if let Some(values) = &self.list {
         for value in values {
         value.validate()?;
         }
@@ -76,8 +76,8 @@ impl Model for BordersCollection {
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
-        self.parent.collect_file_references(output);
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+        self.parent.collect_file_references(_output);
     }
 
     fn as_any(&self) -> &dyn Any {

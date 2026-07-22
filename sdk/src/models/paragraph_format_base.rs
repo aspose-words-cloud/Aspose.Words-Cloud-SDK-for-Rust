@@ -37,140 +37,140 @@ pub struct ParagraphFormatBase {
     pub parent: LinkElement,
         /// Gets or sets a value indicating whether inter-character spacing is automatically adjusted between regions of Latin text and regions of East Asian text in the current paragraph.
         #[serde(rename = "AddSpaceBetweenFarEastAndAlpha", skip_serializing_if = "Option::is_none")]
-        pub r#add_space_between_far_east_and_alpha: Option<bool>,
+        pub add_space_between_far_east_and_alpha: Option<bool>,
 
 
         /// Gets or sets a value indicating whether inter-character spacing is automatically adjusted between regions of numbers and regions of East Asian text in the current paragraph.
         #[serde(rename = "AddSpaceBetweenFarEastAndDigit", skip_serializing_if = "Option::is_none")]
-        pub r#add_space_between_far_east_and_digit: Option<bool>,
+        pub add_space_between_far_east_and_digit: Option<bool>,
 
 
         /// Gets or sets text alignment for the paragraph.
         #[serde(rename = "Alignment", skip_serializing_if = "Option::is_none")]
-        pub r#alignment: Option<ParagraphFormatBase_AlignmentEnum>,
+        pub alignment: Option<ParagraphFormatBaseAlignmentEnum>,
 
 
         /// Gets or sets a value indicating whether this is a right-to-left paragraph.
             /// When true, the runs and other inline objects in this paragraph are laid out right to left.
         #[serde(rename = "Bidi", skip_serializing_if = "Option::is_none")]
-        pub r#bidi: Option<bool>,
+        pub bidi: Option<bool>,
 
 
         /// Gets or sets the position for a drop cap text.
         #[serde(rename = "DropCapPosition", skip_serializing_if = "Option::is_none")]
-        pub r#drop_cap_position: Option<ParagraphFormatBase_DropCapPositionEnum>,
+        pub drop_cap_position: Option<ParagraphFormatBaseDropCapPositionEnum>,
 
 
         /// Gets or sets the value (in points) for a first line or hanging indent.
             /// Use a positive value to set a first-line indent, and use a negative value to set a hanging indent.
         #[serde(rename = "FirstLineIndent", skip_serializing_if = "Option::is_none")]
-        pub r#first_line_indent: Option<f64>,
+        pub first_line_indent: Option<f64>,
 
 
         /// Gets or sets a value indicating whether all lines in the paragraph are to remain on the same page.
         #[serde(rename = "KeepTogether", skip_serializing_if = "Option::is_none")]
-        pub r#keep_together: Option<bool>,
+        pub keep_together: Option<bool>,
 
 
         /// Gets or sets a value indicating whether the paragraph is to remains on the same page as the paragraph that follows it.
         #[serde(rename = "KeepWithNext", skip_serializing_if = "Option::is_none")]
-        pub r#keep_with_next: Option<bool>,
+        pub keep_with_next: Option<bool>,
 
 
         /// Gets or sets the value (in points), that represents the left indent for paragraph.
         #[serde(rename = "LeftIndent", skip_serializing_if = "Option::is_none")]
-        pub r#left_indent: Option<f64>,
+        pub left_indent: Option<f64>,
 
 
         /// Gets or sets the line spacing (in points) for the paragraph.
             /// When LineSpacingRule property is set to AtLeast, the line spacing can be greater than or equal to, but never less than the specified LineSpacing value.When LineSpacingRule property is set to Exactly, the line spacing never changes from the specified LineSpacing value, even if a larger font is used within the paragraph.
         #[serde(rename = "LineSpacing", skip_serializing_if = "Option::is_none")]
-        pub r#line_spacing: Option<f64>,
+        pub line_spacing: Option<f64>,
 
 
         /// Gets or sets the line spacing for the paragraph.
         #[serde(rename = "LineSpacingRule", skip_serializing_if = "Option::is_none")]
-        pub r#line_spacing_rule: Option<ParagraphFormatBase_LineSpacingRuleEnum>,
+        pub line_spacing_rule: Option<ParagraphFormatBaseLineSpacingRuleEnum>,
 
 
         /// Gets or sets the number of lines of the paragraph text used to calculate the drop cap height.
         #[serde(rename = "LinesToDrop", skip_serializing_if = "Option::is_none")]
-        pub r#lines_to_drop: Option<i32>,
+        pub lines_to_drop: Option<i32>,
 
 
         /// Gets or sets a value indicating whether SpaceBefore and SpaceAfter will be ignored between the paragraphs of the same style.
             /// This setting only takes affect when applied to a paragraph style. If applied to a paragraph directly, it has no effect.
         #[serde(rename = "NoSpaceBetweenParagraphsOfSameStyle", skip_serializing_if = "Option::is_none")]
-        pub r#no_space_between_paragraphs_of_same_style: Option<bool>,
+        pub no_space_between_paragraphs_of_same_style: Option<bool>,
 
 
         /// Gets or sets the outline level of the paragraph in the document.
         #[serde(rename = "OutlineLevel", skip_serializing_if = "Option::is_none")]
-        pub r#outline_level: Option<ParagraphFormatBase_OutlineLevelEnum>,
+        pub outline_level: Option<ParagraphFormatBaseOutlineLevelEnum>,
 
 
         /// Gets or sets a value indicating whether a page break is forced before the paragraph.
         #[serde(rename = "PageBreakBefore", skip_serializing_if = "Option::is_none")]
-        pub r#page_break_before: Option<bool>,
+        pub page_break_before: Option<bool>,
 
 
         /// Gets or sets the value (in points) that represents the right indent for paragraph.
         #[serde(rename = "RightIndent", skip_serializing_if = "Option::is_none")]
-        pub r#right_indent: Option<f64>,
+        pub right_indent: Option<f64>,
 
 
         /// Gets or sets the amount of spacing (in points) after the paragraph.
             /// Has no effect when SpaceAfterAuto is true.
         #[serde(rename = "SpaceAfter", skip_serializing_if = "Option::is_none")]
-        pub r#space_after: Option<f64>,
+        pub space_after: Option<f64>,
 
 
         /// Gets or sets a value indicating whether the amount of spacing after the paragraph is set automatically.
             /// When set to true, overrides the effect of SpaceAfter.
         #[serde(rename = "SpaceAfterAuto", skip_serializing_if = "Option::is_none")]
-        pub r#space_after_auto: Option<bool>,
+        pub space_after_auto: Option<bool>,
 
 
         /// Gets or sets the amount of spacing (in points) before the paragraph.
             /// Has no effect when SpaceBeforeAuto is true.
         #[serde(rename = "SpaceBefore", skip_serializing_if = "Option::is_none")]
-        pub r#space_before: Option<f64>,
+        pub space_before: Option<f64>,
 
 
         /// Gets or sets a value indicating whether the amount of spacing before the paragraph is set automatically.
             /// When set to true, overrides the effect of SpaceBefore.
         #[serde(rename = "SpaceBeforeAuto", skip_serializing_if = "Option::is_none")]
-        pub r#space_before_auto: Option<bool>,
+        pub space_before_auto: Option<bool>,
 
 
         /// Gets or sets the locale independent style identifier of the paragraph style applied to this formatting.
         #[serde(rename = "StyleIdentifier", skip_serializing_if = "Option::is_none")]
-        pub r#style_identifier: Option<ParagraphFormatBase_StyleIdentifierEnum>,
+        pub style_identifier: Option<ParagraphFormatBaseStyleIdentifierEnum>,
 
 
         /// Gets or sets the name of the paragraph style applied to this formatting.
         #[serde(rename = "StyleName", skip_serializing_if = "Option::is_none")]
-        pub r#style_name: Option<String>,
+        pub style_name: Option<String>,
 
 
         /// Gets or sets a value indicating whether the current paragraph should be exempted from any hyphenation which is applied in the document settings.
         #[serde(rename = "SuppressAutoHyphens", skip_serializing_if = "Option::is_none")]
-        pub r#suppress_auto_hyphens: Option<bool>,
+        pub suppress_auto_hyphens: Option<bool>,
 
 
         /// Gets or sets a value indicating whether the current paragraph's lines should be exempted from line numbering which is applied in the parent section.
         #[serde(rename = "SuppressLineNumbers", skip_serializing_if = "Option::is_none")]
-        pub r#suppress_line_numbers: Option<bool>,
+        pub suppress_line_numbers: Option<bool>,
 
 
         /// Gets or sets a value indicating whether the first and last lines in the paragraph are to remain on the same page as the rest of the paragraph.
         #[serde(rename = "WidowControl", skip_serializing_if = "Option::is_none")]
-        pub r#widow_control: Option<bool>,
+        pub widow_control: Option<bool>,
 
 
         /// Gets or sets the Shading object, that refers to the shading formatting for the paragraph.
         #[serde(rename = "Shading", skip_serializing_if = "Option::is_none")]
-        pub r#shading: Option<Shading>,
+        pub shading: Option<Shading>,
 
 }
 
@@ -179,32 +179,32 @@ impl Default for ParagraphFormatBase {
         let mut parent = LinkElement::default();
         Self {
             parent,
-            r#add_space_between_far_east_and_alpha: None,
-            r#add_space_between_far_east_and_digit: None,
-            r#alignment: None,
-            r#bidi: None,
-            r#drop_cap_position: None,
-            r#first_line_indent: None,
-            r#keep_together: None,
-            r#keep_with_next: None,
-            r#left_indent: None,
-            r#line_spacing: None,
-            r#line_spacing_rule: None,
-            r#lines_to_drop: None,
-            r#no_space_between_paragraphs_of_same_style: None,
-            r#outline_level: None,
-            r#page_break_before: None,
-            r#right_indent: None,
-            r#space_after: None,
-            r#space_after_auto: None,
-            r#space_before: None,
-            r#space_before_auto: None,
-            r#style_identifier: None,
-            r#style_name: None,
-            r#suppress_auto_hyphens: None,
-            r#suppress_line_numbers: None,
-            r#widow_control: None,
-            r#shading: None,
+            add_space_between_far_east_and_alpha: None,
+            add_space_between_far_east_and_digit: None,
+            alignment: None,
+            bidi: None,
+            drop_cap_position: None,
+            first_line_indent: None,
+            keep_together: None,
+            keep_with_next: None,
+            left_indent: None,
+            line_spacing: None,
+            line_spacing_rule: None,
+            lines_to_drop: None,
+            no_space_between_paragraphs_of_same_style: None,
+            outline_level: None,
+            page_break_before: None,
+            right_indent: None,
+            space_after: None,
+            space_after_auto: None,
+            space_before: None,
+            space_before_auto: None,
+            style_identifier: None,
+            style_name: None,
+            suppress_auto_hyphens: None,
+            suppress_line_numbers: None,
+            widow_control: None,
+            shading: None,
         }
     }
 }
@@ -226,14 +226,14 @@ impl DerefMut for ParagraphFormatBase {
 impl Model for ParagraphFormatBase {
     fn validate(&self) -> SdkResult<()> {
         self.parent.validate()?;
-        if let Some(value) = &self.r#shading {
+        if let Some(value) = &self.shading {
         value.validate()?;
         }
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
-        self.parent.collect_file_references(output);
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+        self.parent.collect_file_references(_output);
     }
 
     fn as_any(&self) -> &dyn Any {
@@ -242,9 +242,8 @@ impl Model for ParagraphFormatBase {
 }
 
 /// Gets or sets text alignment for the paragraph.
-#[allow(non_camel_case_types)]
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
-pub enum ParagraphFormatBase_AlignmentEnum {
+pub enum ParagraphFormatBaseAlignmentEnum {
     #[serde(rename = "Left")]
         Left,
     #[serde(rename = "Center")]
@@ -268,9 +267,8 @@ pub enum ParagraphFormatBase_AlignmentEnum {
 }
 
 /// Gets or sets the position for a drop cap text.
-#[allow(non_camel_case_types)]
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
-pub enum ParagraphFormatBase_DropCapPositionEnum {
+pub enum ParagraphFormatBaseDropCapPositionEnum {
     #[serde(rename = "None")]
         None,
     #[serde(rename = "Normal")]
@@ -280,9 +278,8 @@ pub enum ParagraphFormatBase_DropCapPositionEnum {
 }
 
 /// Gets or sets the line spacing for the paragraph.
-#[allow(non_camel_case_types)]
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
-pub enum ParagraphFormatBase_LineSpacingRuleEnum {
+pub enum ParagraphFormatBaseLineSpacingRuleEnum {
     #[serde(rename = "AtLeast")]
         AtLeast,
     #[serde(rename = "Exactly")]
@@ -292,9 +289,8 @@ pub enum ParagraphFormatBase_LineSpacingRuleEnum {
 }
 
 /// Gets or sets the outline level of the paragraph in the document.
-#[allow(non_camel_case_types)]
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
-pub enum ParagraphFormatBase_OutlineLevelEnum {
+pub enum ParagraphFormatBaseOutlineLevelEnum {
     #[serde(rename = "Level1")]
         Level1,
     #[serde(rename = "Level2")]
@@ -318,9 +314,8 @@ pub enum ParagraphFormatBase_OutlineLevelEnum {
 }
 
 /// Gets or sets the locale independent style identifier of the paragraph style applied to this formatting.
-#[allow(non_camel_case_types)]
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
-pub enum ParagraphFormatBase_StyleIdentifierEnum {
+pub enum ParagraphFormatBaseStyleIdentifierEnum {
     #[serde(rename = "Normal")]
         Normal,
     #[serde(rename = "Heading1")]

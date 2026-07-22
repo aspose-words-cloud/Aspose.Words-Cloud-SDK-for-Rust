@@ -37,22 +37,22 @@ pub struct RtfSaveOptionsData {
     pub parent: SaveOptionsData,
         /// Gets or sets a value indicating whether to make output RTF documents smaller in size, but if they contain RTL (right-to-left) text, it will not be displayed correctly.
         #[serde(rename = "ExportCompactSize", skip_serializing_if = "Option::is_none")]
-        pub r#export_compact_size: Option<bool>,
+        pub export_compact_size: Option<bool>,
 
 
         /// Gets or sets a value indicating whether the keywords for "old readers" are written to RTF or not.
         #[serde(rename = "ExportImagesForOldReaders", skip_serializing_if = "Option::is_none")]
-        pub r#export_images_for_old_readers: Option<bool>,
+        pub export_images_for_old_readers: Option<bool>,
 
 
         /// Gets or sets a value indicating whether to use pretty formats output.
         #[serde(rename = "PrettyFormat", skip_serializing_if = "Option::is_none")]
-        pub r#pretty_format: Option<bool>,
+        pub pretty_format: Option<bool>,
 
 
         /// Gets or sets a value indicating whether when true all images will be saved as WMF. This option might help to avoid WordPad warning messages.
         #[serde(rename = "SaveImagesAsWmf", skip_serializing_if = "Option::is_none")]
-        pub r#save_images_as_wmf: Option<bool>,
+        pub save_images_as_wmf: Option<bool>,
 
 
 }
@@ -60,13 +60,13 @@ pub struct RtfSaveOptionsData {
 impl Default for RtfSaveOptionsData {
     fn default() -> Self {
         let mut parent = SaveOptionsData::default();
-        parent.r#save_format = Some("rtf".to_owned());
+        parent.save_format = Some("rtf".to_owned());
         Self {
             parent,
-            r#export_compact_size: None,
-            r#export_images_for_old_readers: None,
-            r#pretty_format: None,
-            r#save_images_as_wmf: None,
+            export_compact_size: None,
+            export_images_for_old_readers: None,
+            pretty_format: None,
+            save_images_as_wmf: None,
 
         }
     }
@@ -92,8 +92,8 @@ impl Model for RtfSaveOptionsData {
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
-        self.parent.collect_file_references(output);
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+        self.parent.collect_file_references(_output);
     }
 
     fn as_any(&self) -> &dyn Any {

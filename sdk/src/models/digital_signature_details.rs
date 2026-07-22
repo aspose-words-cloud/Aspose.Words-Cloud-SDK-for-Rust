@@ -34,33 +34,33 @@ use super::*;
 pub struct DigitalSignatureDetails {
         /// Gets or sets the certificate's filename using for signing.
         #[serde(rename = "CertificateFilename", skip_serializing_if = "Option::is_none")]
-        pub r#certificate_filename: Option<String>,
+        pub certificate_filename: Option<String>,
 
 
         /// Gets or sets signing options.
         #[serde(rename = "SignOptions", skip_serializing_if = "Option::is_none")]
-        pub r#sign_options: Option<SignOptions>,
+        pub sign_options: Option<SignOptions>,
 
 }
 
 impl Default for DigitalSignatureDetails {
     fn default() -> Self {
         Self {
-            r#certificate_filename: None,
-            r#sign_options: None,
+            certificate_filename: None,
+            sign_options: None,
         }
     }
 }
 
 impl Model for DigitalSignatureDetails {
     fn validate(&self) -> SdkResult<()> {
-        if let Some(value) = &self.r#sign_options {
+        if let Some(value) = &self.sign_options {
         value.validate()?;
         }
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
     }
 
     fn as_any(&self) -> &dyn Any {

@@ -34,39 +34,39 @@ use super::*;
 pub struct Revision {
         /// Gets or sets the revision author.
         #[serde(rename = "RevisionAuthor", skip_serializing_if = "Option::is_none")]
-        pub r#revision_author: Option<String>,
+        pub revision_author: Option<String>,
 
 
         /// Gets or sets the revision date time.
         #[serde(rename = "RevisionDateTime", skip_serializing_if = "Option::is_none")]
-        pub r#revision_date_time: Option<DateTime<Utc>>,
+        pub revision_date_time: Option<chrono::DateTime<chrono::Utc>>,
 
 
         /// Gets or sets the revision text.
         #[serde(rename = "RevisionText", skip_serializing_if = "Option::is_none")]
-        pub r#revision_text: Option<String>,
+        pub revision_text: Option<String>,
 
 
         /// Gets or sets the revision type.
         #[serde(rename = "RevisionType", skip_serializing_if = "Option::is_none")]
-        pub r#revision_type: Option<String>,
+        pub revision_type: Option<String>,
 
 }
 
 impl Default for Revision {
     fn default() -> Self {
         Self {
-            r#revision_author: None,
-            r#revision_date_time: None,
-            r#revision_text: None,
-            r#revision_type: None,
+            revision_author: None,
+            revision_date_time: None,
+            revision_text: None,
+            revision_type: None,
         }
     }
 }
 
 impl Model for Revision {
     fn validate(&self) -> SdkResult<()> {
-        if self.r#revision_date_time.is_none() {
+        if self.revision_date_time.is_none() {
             return Err(SdkError::InvalidRequest(
                 "property RevisionDateTime in Revision is required".to_owned(),
             ));
@@ -74,7 +74,7 @@ impl Model for Revision {
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
     }
 
     fn as_any(&self) -> &dyn Any {

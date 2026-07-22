@@ -38,23 +38,23 @@ pub struct DocSaveOptionsData {
         /// Gets or sets a value indicating when False, that small metafiles are not compressed for performance reason.
             /// The default value is true, all metafiles are compressed regardless of its size.
         #[serde(rename = "AlwaysCompressMetafiles", skip_serializing_if = "Option::is_none")]
-        pub r#always_compress_metafiles: Option<bool>,
+        pub always_compress_metafiles: Option<bool>,
 
 
         /// Gets or sets the password.
         #[serde(rename = "Password", skip_serializing_if = "Option::is_none")]
-        pub r#password: Option<String>,
+        pub password: Option<String>,
 
 
         /// Gets or sets a value indicating when False, that PictureBullet data is not saved to the output document.
             /// The default value is true.
         #[serde(rename = "SavePictureBullet", skip_serializing_if = "Option::is_none")]
-        pub r#save_picture_bullet: Option<bool>,
+        pub save_picture_bullet: Option<bool>,
 
 
         /// Gets or sets a value indicating whether to save RoutingSlip data to output document.
         #[serde(rename = "SaveRoutingSlip", skip_serializing_if = "Option::is_none")]
-        pub r#save_routing_slip: Option<bool>,
+        pub save_routing_slip: Option<bool>,
 
 
 }
@@ -62,13 +62,13 @@ pub struct DocSaveOptionsData {
 impl Default for DocSaveOptionsData {
     fn default() -> Self {
         let mut parent = SaveOptionsData::default();
-        parent.r#save_format = Some("doc".to_owned());
+        parent.save_format = Some("doc".to_owned());
         Self {
             parent,
-            r#always_compress_metafiles: None,
-            r#password: None,
-            r#save_picture_bullet: None,
-            r#save_routing_slip: None,
+            always_compress_metafiles: None,
+            password: None,
+            save_picture_bullet: None,
+            save_routing_slip: None,
 
         }
     }
@@ -94,8 +94,8 @@ impl Model for DocSaveOptionsData {
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
-        self.parent.collect_file_references(output);
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+        self.parent.collect_file_references(_output);
     }
 
     fn as_any(&self) -> &dyn Any {

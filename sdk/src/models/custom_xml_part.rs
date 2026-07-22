@@ -38,13 +38,13 @@ pub struct CustomXmlPart {
         /// Gets or sets the custom xml part id.
             /// Cannot be null.
         #[serde(rename = "Id", skip_serializing_if = "Option::is_none")]
-        pub r#id: Option<String>,
+        pub id: Option<String>,
 
 
         /// Gets or sets the custom xml part data.
             /// Cannot be null.Default is an empty string.
         #[serde(rename = "Data", skip_serializing_if = "Option::is_none")]
-        pub r#data: Option<String>,
+        pub data: Option<String>,
 
 }
 
@@ -53,8 +53,8 @@ impl Default for CustomXmlPart {
         let mut parent = CustomXmlPartLink::default();
         Self {
             parent,
-            r#id: None,
-            r#data: None,
+            id: None,
+            data: None,
         }
     }
 }
@@ -76,7 +76,7 @@ impl DerefMut for CustomXmlPart {
 impl Model for CustomXmlPart {
     fn validate(&self) -> SdkResult<()> {
         self.parent.validate()?;
-        if self.r#data.is_none() {
+        if self.data.is_none() {
             return Err(SdkError::InvalidRequest(
                 "property Data in CustomXmlPart is required".to_owned(),
             ));
@@ -84,8 +84,8 @@ impl Model for CustomXmlPart {
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
-        self.parent.collect_file_references(output);
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+        self.parent.collect_file_references(_output);
     }
 
     fn as_any(&self) -> &dyn Any {

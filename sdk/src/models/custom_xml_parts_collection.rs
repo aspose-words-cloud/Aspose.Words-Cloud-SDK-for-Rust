@@ -37,7 +37,7 @@ pub struct CustomXmlPartsCollection {
     pub parent: LinkElement,
         /// Gets or sets the collection of CustomXmlPart.
         #[serde(rename = "CustomXmlPartsList", skip_serializing_if = "Option::is_none")]
-        pub r#custom_xml_parts_list: Option<Vec<CustomXmlPart>>,
+        pub custom_xml_parts_list: Option<Vec<CustomXmlPart>>,
 
 }
 
@@ -46,7 +46,7 @@ impl Default for CustomXmlPartsCollection {
         let mut parent = LinkElement::default();
         Self {
             parent,
-            r#custom_xml_parts_list: None,
+            custom_xml_parts_list: None,
         }
     }
 }
@@ -68,7 +68,7 @@ impl DerefMut for CustomXmlPartsCollection {
 impl Model for CustomXmlPartsCollection {
     fn validate(&self) -> SdkResult<()> {
         self.parent.validate()?;
-        if let Some(values) = &self.r#custom_xml_parts_list {
+        if let Some(values) = &self.custom_xml_parts_list {
         for value in values {
         value.validate()?;
         }
@@ -76,8 +76,8 @@ impl Model for CustomXmlPartsCollection {
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
-        self.parent.collect_file_references(output);
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+        self.parent.collect_file_references(_output);
     }
 
     fn as_any(&self) -> &dyn Any {

@@ -38,7 +38,7 @@ pub struct FormFieldResponse {
     pub parent: WordsResponse,
         /// Gets or sets the form field.
         #[serde(rename = "FormField", skip_serializing_if = "Option::is_none", default, deserialize_with = "deserialize_optional_model")]
-        pub r#form_field: Option<ModelBox>,
+        pub form_field: Option<ModelBox>,
 
 }
 
@@ -47,7 +47,7 @@ impl Default for FormFieldResponse {
         let mut parent = WordsResponse::default();
         Self {
             parent,
-            r#form_field: None,
+            form_field: None,
         }
     }
 }
@@ -69,14 +69,14 @@ impl DerefMut for FormFieldResponse {
 impl Model for FormFieldResponse {
     fn validate(&self) -> SdkResult<()> {
         self.parent.validate()?;
-        if let Some(value) = &self.r#form_field {
+        if let Some(value) = &self.form_field {
         value.validate()?;
         }
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
-        self.parent.collect_file_references(output);
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+        self.parent.collect_file_references(_output);
     }
 
     fn as_any(&self) -> &dyn Any {

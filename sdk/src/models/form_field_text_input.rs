@@ -38,23 +38,23 @@ pub struct FormFieldTextInput {
         /// Gets or sets text formatting for the text form field.
             /// If the text form field contains regular text, then valid format strings are "", "UPPERCASE", "LOWERCASE", "FIRST CAPITAL" and "TITLE CASE". The strings are case-insensitive.If the text form field contains a number or a date/time value, then valid format strings are number or date and time format strings.
         #[serde(rename = "TextInputFormat", skip_serializing_if = "Option::is_none")]
-        pub r#text_input_format: Option<String>,
+        pub text_input_format: Option<String>,
 
 
         /// Gets or sets the type of the text form field.
         #[serde(rename = "TextInputType", skip_serializing_if = "Option::is_none")]
-        pub r#text_input_type: Option<FormFieldTextInput_TextInputTypeEnum>,
+        pub text_input_type: Option<FormFieldTextInputTextInputTypeEnum>,
 
 
         /// Gets or sets the default string or a calculation expression of the text form field.
             /// The meaning of this property depends on the value of the TextInputType property.When TextInputType is Regular or Number, this string specifies the default string for the text form field. This string is the content that Microsoft Word will display in the document when the form field is empty.When TextInputType is Calculated, then this string holds the expression to be calculated. The expression needs to be a formula valid according to Microsoft Word formula field requirements. When you set a new expression using this property, Aspose.Words calculates the formula result automatically and inserts it into the form field.
         #[serde(rename = "TextInputDefault", skip_serializing_if = "Option::is_none")]
-        pub r#text_input_default: Option<String>,
+        pub text_input_default: Option<String>,
 
 
         /// Gets or sets the maximum length for the text field. Zero when the length is not limited.
         #[serde(rename = "MaxLength", skip_serializing_if = "Option::is_none")]
-        pub r#max_length: Option<i32>,
+        pub max_length: Option<i32>,
 
 }
 
@@ -63,10 +63,10 @@ impl Default for FormFieldTextInput {
         let mut parent = FormField::default();
         Self {
             parent,
-            r#text_input_format: None,
-            r#text_input_type: None,
-            r#text_input_default: None,
-            r#max_length: None,
+            text_input_format: None,
+            text_input_type: None,
+            text_input_default: None,
+            max_length: None,
         }
     }
 }
@@ -88,12 +88,12 @@ impl DerefMut for FormFieldTextInput {
 impl Model for FormFieldTextInput {
     fn validate(&self) -> SdkResult<()> {
         self.parent.validate()?;
-        if self.r#text_input_format.is_none() {
+        if self.text_input_format.is_none() {
             return Err(SdkError::InvalidRequest(
                 "property TextInputFormat in FormFieldTextInput is required".to_owned(),
             ));
         }
-        if self.r#text_input_default.is_none() {
+        if self.text_input_default.is_none() {
             return Err(SdkError::InvalidRequest(
                 "property TextInputDefault in FormFieldTextInput is required".to_owned(),
             ));
@@ -101,8 +101,8 @@ impl Model for FormFieldTextInput {
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
-        self.parent.collect_file_references(output);
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+        self.parent.collect_file_references(_output);
     }
 
     fn as_any(&self) -> &dyn Any {
@@ -111,9 +111,8 @@ impl Model for FormFieldTextInput {
 }
 
 /// Gets or sets the type of the text form field.
-#[allow(non_camel_case_types)]
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
-pub enum FormFieldTextInput_TextInputTypeEnum {
+pub enum FormFieldTextInputTextInputTypeEnum {
     #[serde(rename = "Regular")]
         Regular,
     #[serde(rename = "Number")]

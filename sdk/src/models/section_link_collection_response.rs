@@ -38,7 +38,7 @@ pub struct SectionLinkCollectionResponse {
     pub parent: WordsResponse,
         /// Gets or sets the collection of sections.
         #[serde(rename = "Sections", skip_serializing_if = "Option::is_none")]
-        pub r#sections: Option<SectionLinkCollection>,
+        pub sections: Option<SectionLinkCollection>,
 
 }
 
@@ -47,7 +47,7 @@ impl Default for SectionLinkCollectionResponse {
         let mut parent = WordsResponse::default();
         Self {
             parent,
-            r#sections: None,
+            sections: None,
         }
     }
 }
@@ -69,14 +69,14 @@ impl DerefMut for SectionLinkCollectionResponse {
 impl Model for SectionLinkCollectionResponse {
     fn validate(&self) -> SdkResult<()> {
         self.parent.validate()?;
-        if let Some(value) = &self.r#sections {
+        if let Some(value) = &self.sections {
         value.validate()?;
         }
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
-        self.parent.collect_file_references(output);
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+        self.parent.collect_file_references(_output);
     }
 
     fn as_any(&self) -> &dyn Any {

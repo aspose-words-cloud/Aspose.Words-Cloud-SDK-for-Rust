@@ -38,37 +38,37 @@ pub struct HtmlFixedSaveOptionsData {
         /// Gets or sets the prefix which is added to all class names in style.css file.
             /// The default value is "aw".
         #[serde(rename = "CssClassNamesPrefix", skip_serializing_if = "Option::is_none")]
-        pub r#css_class_names_prefix: Option<String>,
+        pub css_class_names_prefix: Option<String>,
 
 
         /// Gets or sets the character encoding.
         #[serde(rename = "Encoding", skip_serializing_if = "Option::is_none")]
-        pub r#encoding: Option<String>,
+        pub encoding: Option<String>,
 
 
         /// Gets or sets a value indicating whether the CSS (Cascading Style Sheet) should be embedded into the Html document.
         #[serde(rename = "ExportEmbeddedCss", skip_serializing_if = "Option::is_none")]
-        pub r#export_embedded_css: Option<bool>,
+        pub export_embedded_css: Option<bool>,
 
 
         /// Gets or sets a value indicating whether fonts should be embedded into the Html document in Base64 format.
         #[serde(rename = "ExportEmbeddedFonts", skip_serializing_if = "Option::is_none")]
-        pub r#export_embedded_fonts: Option<bool>,
+        pub export_embedded_fonts: Option<bool>,
 
 
         /// Gets or sets a value indicating whether images should be embedded into the Html document in Base64 format.
         #[serde(rename = "ExportEmbeddedImages", skip_serializing_if = "Option::is_none")]
-        pub r#export_embedded_images: Option<bool>,
+        pub export_embedded_images: Option<bool>,
 
 
         /// Gets or sets a value indicating whether form fields are exported as interactive items (as 'input' tag) rather than converted to text or graphics.
         #[serde(rename = "ExportFormFields", skip_serializing_if = "Option::is_none")]
-        pub r#export_form_fields: Option<bool>,
+        pub export_form_fields: Option<bool>,
 
 
         /// Gets or sets the export format of fonts.
         #[serde(rename = "FontFormat", skip_serializing_if = "Option::is_none")]
-        pub r#font_format: Option<HtmlFixedSaveOptionsData_FontFormatEnum>,
+        pub font_format: Option<HtmlFixedSaveOptionsDataFontFormatEnum>,
 
 
         /// Gets or sets a prefix that is prepended to all generated element IDs in the output document.
@@ -76,13 +76,13 @@ pub struct HtmlFixedSaveOptionsData {
             /// If the prefix is specified, it can contain only letters, digits, underscores, and hyphens,
             /// and must start with a letter.
         #[serde(rename = "IdPrefix", skip_serializing_if = "Option::is_none")]
-        pub r#id_prefix: Option<String>,
+        pub id_prefix: Option<String>,
 
 
         /// Gets or sets the horizontal alignment of pages in the HTML document.
             /// The default value is HtmlFixedHorizontalPageAlignment.Center.
         #[serde(rename = "PageHorizontalAlignment", skip_serializing_if = "Option::is_none")]
-        pub r#page_horizontal_alignment: Option<HtmlFixedSaveOptionsData_PageHorizontalAlignmentEnum>,
+        pub page_horizontal_alignment: Option<HtmlFixedSaveOptionsDataPageHorizontalAlignmentEnum>,
 
 
         /// Gets or sets the margin around pages in HTML document.
@@ -93,33 +93,33 @@ pub struct HtmlFixedSaveOptionsData {
             /// Defines top, bottom and right page margins if the value is Right.
             /// Defines top and bottom page margins if the value is Center.
         #[serde(rename = "PageMargins", skip_serializing_if = "Option::is_none")]
-        pub r#page_margins: Option<f64>,
+        pub page_margins: Option<f64>,
 
 
         /// Gets or sets the physical folder where resources are saved when exporting the document.
         #[serde(rename = "ResourcesFolder", skip_serializing_if = "Option::is_none")]
-        pub r#resources_folder: Option<String>,
+        pub resources_folder: Option<String>,
 
 
         /// Gets or sets the name of the folder used to construct resource URIs.
         #[serde(rename = "ResourcesFolderAlias", skip_serializing_if = "Option::is_none")]
-        pub r#resources_folder_alias: Option<String>,
+        pub resources_folder_alias: Option<String>,
 
 
         /// Gets or sets a value indicating whether "@font-face" CSS rules should be placed into a separate file "fontFaces.css" when a document is being saved with external stylesheet (that is, when Aspose.Words.Saving.HtmlFixedSaveOptions.ExportEmbeddedCss is false). The default value is false, all CSS rules are written into single file "styles.css".
             /// Setting this property to true restores the old behavior (separate files) for compatibility with legacy code.
         #[serde(rename = "SaveFontFaceCssSeparately", skip_serializing_if = "Option::is_none")]
-        pub r#save_font_face_css_separately: Option<bool>,
+        pub save_font_face_css_separately: Option<bool>,
 
 
         /// Gets or sets a value indicating whether to show border around pages.
         #[serde(rename = "ShowPageBorder", skip_serializing_if = "Option::is_none")]
-        pub r#show_page_border: Option<bool>,
+        pub show_page_border: Option<bool>,
 
 
         /// Gets or sets a value indicating whether fonts from target machine must be used to display the document. If this flag is set to true, Aspose.Words.Saving.HtmlFixedSaveOptions.FontFormat and Aspose.Words.Saving.HtmlFixedSaveOptions.ExportEmbeddedFonts properties do not have effect, also Aspose.Words.Saving.HtmlFixedSaveOptions.ResourceSavingCallback is not fired for fonts. The default value is false.
         #[serde(rename = "UseTargetMachineFonts", skip_serializing_if = "Option::is_none")]
-        pub r#use_target_machine_fonts: Option<bool>,
+        pub use_target_machine_fonts: Option<bool>,
 
 
 }
@@ -127,24 +127,24 @@ pub struct HtmlFixedSaveOptionsData {
 impl Default for HtmlFixedSaveOptionsData {
     fn default() -> Self {
         let mut parent = FixedPageSaveOptionsData::default();
-        parent.r#save_format = Some("htmlfixed".to_owned());
+        parent.save_format = Some("htmlfixed".to_owned());
         Self {
             parent,
-            r#css_class_names_prefix: None,
-            r#encoding: None,
-            r#export_embedded_css: None,
-            r#export_embedded_fonts: None,
-            r#export_embedded_images: None,
-            r#export_form_fields: None,
-            r#font_format: None,
-            r#id_prefix: None,
-            r#page_horizontal_alignment: None,
-            r#page_margins: None,
-            r#resources_folder: None,
-            r#resources_folder_alias: None,
-            r#save_font_face_css_separately: None,
-            r#show_page_border: None,
-            r#use_target_machine_fonts: None,
+            css_class_names_prefix: None,
+            encoding: None,
+            export_embedded_css: None,
+            export_embedded_fonts: None,
+            export_embedded_images: None,
+            export_form_fields: None,
+            font_format: None,
+            id_prefix: None,
+            page_horizontal_alignment: None,
+            page_margins: None,
+            resources_folder: None,
+            resources_folder_alias: None,
+            save_font_face_css_separately: None,
+            show_page_border: None,
+            use_target_machine_fonts: None,
 
         }
     }
@@ -170,8 +170,8 @@ impl Model for HtmlFixedSaveOptionsData {
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
-        self.parent.collect_file_references(output);
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+        self.parent.collect_file_references(_output);
     }
 
     fn as_any(&self) -> &dyn Any {
@@ -180,9 +180,8 @@ impl Model for HtmlFixedSaveOptionsData {
 }
 
 /// Gets or sets the export format of fonts.
-#[allow(non_camel_case_types)]
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
-pub enum HtmlFixedSaveOptionsData_FontFormatEnum {
+pub enum HtmlFixedSaveOptionsDataFontFormatEnum {
     #[serde(rename = "Woff")]
         Woff,
     #[serde(rename = "Ttf")]
@@ -191,9 +190,8 @@ pub enum HtmlFixedSaveOptionsData_FontFormatEnum {
 
 /// Gets or sets the horizontal alignment of pages in the HTML document.
 /// The default value is HtmlFixedHorizontalPageAlignment.Center.
-#[allow(non_camel_case_types)]
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
-pub enum HtmlFixedSaveOptionsData_PageHorizontalAlignmentEnum {
+pub enum HtmlFixedSaveOptionsDataPageHorizontalAlignmentEnum {
     #[serde(rename = "Left")]
         Left,
     #[serde(rename = "Center")]

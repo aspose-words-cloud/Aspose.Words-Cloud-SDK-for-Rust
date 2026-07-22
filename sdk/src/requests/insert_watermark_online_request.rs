@@ -36,76 +36,76 @@ use super::*;
 /// Request parameters for the InsertWatermarkOnline operation.
 pub struct InsertWatermarkOnlineRequest {
     /// The document.
-    pub r#document: Vec<u8>,
+    pub document: Vec<u8>,
     /// The watermark data.
-    pub r#watermark_data: ModelBox,
+    pub watermark_data: ModelBox,
     /// Encoding that will be used to load an HTML (or TXT) document if the encoding is not specified in HTML.
-    pub r#load_encoding: Option<String>,
+    pub load_encoding: Option<String>,
     /// Password of protected Word document. Use the parameter to pass a password via SDK. SDK encrypts it automatically. We don't recommend to use the parameter to pass a plain password for direct call of API.
-    pub r#password: Option<String>,
+    pub password: Option<String>,
     /// Password of protected Word document. Use the parameter to pass an encrypted password for direct calls of API. See SDK code for encyption details.
-    pub r#encrypted_password: Option<String>,
+    pub encrypted_password: Option<String>,
     /// The value indicates whether OpenType support is on.
-    pub r#open_type_support: Option<bool>,
+    pub open_type_support: Option<bool>,
     /// Result path of the document after the operation. If this parameter is omitted then result of the operation will be saved as the source document.
-    pub r#dest_file_name: Option<String>,
+    pub dest_file_name: Option<String>,
     /// Initials of the author to use for revisions.If you set this parameter and then make some changes to the document programmatically, save the document and later open the document in MS Word you will see these changes as revisions.
-    pub r#revision_author: Option<String>,
+    pub revision_author: Option<String>,
     /// The date and time to use for revisions.
-    pub r#revision_date_time: Option<String>,
+    pub revision_date_time: Option<String>,
     pub send_progress: Option<ProgressCallback>,
     pub receive_progress: Option<ProgressCallback>,
 }
 
 impl InsertWatermarkOnlineRequest {
-    pub fn new(r#document: Vec<u8>, r#watermark_data: ModelBox) -> Self {
+    pub fn new(document: Vec<u8>, watermark_data: ModelBox) -> Self {
         Self {
-            r#document,
-            r#watermark_data,
-            r#load_encoding: None,
-            r#password: None,
-            r#encrypted_password: None,
-            r#open_type_support: None,
-            r#dest_file_name: None,
-            r#revision_author: None,
-            r#revision_date_time: None,
+            document,
+            watermark_data,
+            load_encoding: None,
+            password: None,
+            encrypted_password: None,
+            open_type_support: None,
+            dest_file_name: None,
+            revision_author: None,
+            revision_date_time: None,
             send_progress: None,
             receive_progress: None,
         }
     }
 
     pub fn with_load_encoding(mut self, value: String) -> Self {
-        self.r#load_encoding = Some(value);
+        self.load_encoding = Some(value);
         self
     }
 
     pub fn with_password(mut self, value: String) -> Self {
-        self.r#password = Some(value);
+        self.password = Some(value);
         self
     }
 
     pub fn with_encrypted_password(mut self, value: String) -> Self {
-        self.r#encrypted_password = Some(value);
+        self.encrypted_password = Some(value);
         self
     }
 
     pub fn with_open_type_support(mut self, value: bool) -> Self {
-        self.r#open_type_support = Some(value);
+        self.open_type_support = Some(value);
         self
     }
 
     pub fn with_dest_file_name(mut self, value: String) -> Self {
-        self.r#dest_file_name = Some(value);
+        self.dest_file_name = Some(value);
         self
     }
 
     pub fn with_revision_author(mut self, value: String) -> Self {
-        self.r#revision_author = Some(value);
+        self.revision_author = Some(value);
         self
     }
 
     pub fn with_revision_date_time(mut self, value: String) -> Self {
-        self.r#revision_date_time = Some(value);
+        self.revision_date_time = Some(value);
         self
     }
 
@@ -142,29 +142,29 @@ impl Request for InsertWatermarkOnlineRequest {
         let mut headers = Vec::new();
         let mut body_parts = Vec::new();
 
-        if let Some(value) = &self.r#load_encoding {
+        if let Some(value) = &self.load_encoding {
         query.push(("loadEncoding".to_owned(), client.query_value(value)?));
         }
-        if let Some(value) = &self.r#password {
+        if let Some(value) = &self.password {
         query.push(("encryptedPassword".to_owned(), client.encrypt_password(value).await?));
         }
-        if let Some(value) = &self.r#encrypted_password {
+        if let Some(value) = &self.encrypted_password {
         query.push(("encryptedPassword".to_owned(), client.query_value(value)?));
         }
-        if let Some(value) = &self.r#open_type_support {
+        if let Some(value) = &self.open_type_support {
         query.push(("openTypeSupport".to_owned(), client.query_value(value)?));
         }
-        if let Some(value) = &self.r#dest_file_name {
+        if let Some(value) = &self.dest_file_name {
         query.push(("destFileName".to_owned(), client.query_value(value)?));
         }
-        if let Some(value) = &self.r#revision_author {
+        if let Some(value) = &self.revision_author {
         query.push(("revisionAuthor".to_owned(), client.query_value(value)?));
         }
-        if let Some(value) = &self.r#revision_date_time {
+        if let Some(value) = &self.revision_date_time {
         query.push(("revisionDateTime".to_owned(), client.query_value(value)?));
         }
-        client.add_binary_part(&mut body_parts, "Document", &self.r#document);
-        client.add_model_part(&mut body_parts, "WatermarkData", self.r#watermark_data.as_ref()).await?;
+        client.add_binary_part(&mut body_parts, "Document", &self.document);
+        client.add_model_part(&mut body_parts, "WatermarkData", self.watermark_data.as_ref()).await?;
 
         let url = client.build_url(&path, &query)?;
         let body = client.request_body_from_parts(&mut headers, body_parts);

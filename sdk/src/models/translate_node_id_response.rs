@@ -38,7 +38,7 @@ pub struct TranslateNodeIdResponse {
     pub parent: WordsResponse,
         /// Gets or sets the node path.
         #[serde(rename = "Path", skip_serializing_if = "Option::is_none")]
-        pub r#path: Option<String>,
+        pub path: Option<String>,
 
 }
 
@@ -47,7 +47,7 @@ impl Default for TranslateNodeIdResponse {
         let mut parent = WordsResponse::default();
         Self {
             parent,
-            r#path: None,
+            path: None,
         }
     }
 }
@@ -72,8 +72,8 @@ impl Model for TranslateNodeIdResponse {
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
-        self.parent.collect_file_references(output);
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+        self.parent.collect_file_references(_output);
     }
 
     fn as_any(&self) -> &dyn Any {

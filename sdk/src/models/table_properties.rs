@@ -38,75 +38,75 @@ pub struct TableProperties {
         /// Gets or sets the option that controls how an inline table is aligned in the document.
             /// The default value is Left.
         #[serde(rename = "Alignment", skip_serializing_if = "Option::is_none")]
-        pub r#alignment: Option<TableProperties_AlignmentEnum>,
+        pub alignment: Option<TablePropertiesAlignmentEnum>,
 
 
         /// Gets or sets a value indicating whether to automatically resize cells in a table to fit their contents.
             /// The default value is true.
         #[serde(rename = "AllowAutoFit", skip_serializing_if = "Option::is_none")]
-        pub r#allow_auto_fit: Option<bool>,
+        pub allow_auto_fit: Option<bool>,
 
 
         /// Gets or sets a value indicating whether this is a right-to-left table.
             /// When true, the cells in this row are laid out right to left.The default value is false.
         #[serde(rename = "Bidi", skip_serializing_if = "Option::is_none")]
-        pub r#bidi: Option<bool>,
+        pub bidi: Option<bool>,
 
 
         /// Gets or sets the amount of space (in points) to add below the contents of cells.
         #[serde(rename = "BottomPadding", skip_serializing_if = "Option::is_none")]
-        pub r#bottom_padding: Option<f64>,
+        pub bottom_padding: Option<f64>,
 
 
         /// Gets or sets the amount of space (in points) between the cells.
         #[serde(rename = "CellSpacing", skip_serializing_if = "Option::is_none")]
-        pub r#cell_spacing: Option<f64>,
+        pub cell_spacing: Option<f64>,
 
 
         /// Gets or sets the value, that represents the left indent of the table.
         #[serde(rename = "LeftIndent", skip_serializing_if = "Option::is_none")]
-        pub r#left_indent: Option<f64>,
+        pub left_indent: Option<f64>,
 
 
         /// Gets or sets the amount of space (in points) to add to the left of the contents of cells.
         #[serde(rename = "LeftPadding", skip_serializing_if = "Option::is_none")]
-        pub r#left_padding: Option<f64>,
+        pub left_padding: Option<f64>,
 
 
         /// Gets or sets the table preferred width.
             /// Preferred width can be specified as a percentage, number of points or a special "auto" value.
         #[serde(rename = "PreferredWidth", skip_serializing_if = "Option::is_none")]
-        pub r#preferred_width: Option<PreferredWidth>,
+        pub preferred_width: Option<PreferredWidth>,
 
 
         /// Gets or sets the amount of space (in points) to add to the right of the contents of cells.
         #[serde(rename = "RightPadding", skip_serializing_if = "Option::is_none")]
-        pub r#right_padding: Option<f64>,
+        pub right_padding: Option<f64>,
 
 
         /// Gets or sets the locale independent style identifier of the table style applied to this table.
         #[serde(rename = "StyleIdentifier", skip_serializing_if = "Option::is_none")]
-        pub r#style_identifier: Option<TableProperties_StyleIdentifierEnum>,
+        pub style_identifier: Option<TablePropertiesStyleIdentifierEnum>,
 
 
         /// Gets or sets the name of the table style applied to this table.
         #[serde(rename = "StyleName", skip_serializing_if = "Option::is_none")]
-        pub r#style_name: Option<String>,
+        pub style_name: Option<String>,
 
 
         /// Gets or sets the bit flags, that specify how a table style is applied to this table.
         #[serde(rename = "StyleOptions", skip_serializing_if = "Option::is_none")]
-        pub r#style_options: Option<TableProperties_StyleOptionsEnum>,
+        pub style_options: Option<TablePropertiesStyleOptionsEnum>,
 
 
         /// Gets or sets the option that controls text wrapping for the table.
         #[serde(rename = "TextWrapping", skip_serializing_if = "Option::is_none")]
-        pub r#text_wrapping: Option<TableProperties_TextWrappingEnum>,
+        pub text_wrapping: Option<TablePropertiesTextWrappingEnum>,
 
 
         /// Gets or sets the amount of space (in points) to add above the contents of cells.
         #[serde(rename = "TopPadding", skip_serializing_if = "Option::is_none")]
-        pub r#top_padding: Option<f64>,
+        pub top_padding: Option<f64>,
 
 }
 
@@ -115,20 +115,20 @@ impl Default for TableProperties {
         let mut parent = LinkElement::default();
         Self {
             parent,
-            r#alignment: None,
-            r#allow_auto_fit: None,
-            r#bidi: None,
-            r#bottom_padding: None,
-            r#cell_spacing: None,
-            r#left_indent: None,
-            r#left_padding: None,
-            r#preferred_width: None,
-            r#right_padding: None,
-            r#style_identifier: None,
-            r#style_name: None,
-            r#style_options: None,
-            r#text_wrapping: None,
-            r#top_padding: None,
+            alignment: None,
+            allow_auto_fit: None,
+            bidi: None,
+            bottom_padding: None,
+            cell_spacing: None,
+            left_indent: None,
+            left_padding: None,
+            preferred_width: None,
+            right_padding: None,
+            style_identifier: None,
+            style_name: None,
+            style_options: None,
+            text_wrapping: None,
+            top_padding: None,
         }
     }
 }
@@ -150,7 +150,7 @@ impl DerefMut for TableProperties {
 impl Model for TableProperties {
     fn validate(&self) -> SdkResult<()> {
         self.parent.validate()?;
-        if let Some(value) = &self.r#preferred_width {
+        if let Some(value) = &self.preferred_width {
         value.validate()?;
         }
 
@@ -162,8 +162,8 @@ impl Model for TableProperties {
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
-        self.parent.collect_file_references(output);
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+        self.parent.collect_file_references(_output);
     }
 
     fn as_any(&self) -> &dyn Any {
@@ -173,9 +173,8 @@ impl Model for TableProperties {
 
 /// Gets or sets the option that controls how an inline table is aligned in the document.
 /// The default value is Left.
-#[allow(non_camel_case_types)]
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
-pub enum TableProperties_AlignmentEnum {
+pub enum TablePropertiesAlignmentEnum {
     #[serde(rename = "Left")]
         Left,
     #[serde(rename = "Center")]
@@ -185,9 +184,8 @@ pub enum TableProperties_AlignmentEnum {
 }
 
 /// Gets or sets the locale independent style identifier of the table style applied to this table.
-#[allow(non_camel_case_types)]
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
-pub enum TableProperties_StyleIdentifierEnum {
+pub enum TablePropertiesStyleIdentifierEnum {
     #[serde(rename = "Normal")]
         Normal,
     #[serde(rename = "Heading1")]
@@ -947,9 +945,8 @@ pub enum TableProperties_StyleIdentifierEnum {
 }
 
 /// Gets or sets the bit flags, that specify how a table style is applied to this table.
-#[allow(non_camel_case_types)]
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
-pub enum TableProperties_StyleOptionsEnum {
+pub enum TablePropertiesStyleOptionsEnum {
     #[serde(rename = "None")]
         None,
     #[serde(rename = "FirstRow")]
@@ -971,9 +968,8 @@ pub enum TableProperties_StyleOptionsEnum {
 }
 
 /// Gets or sets the option that controls text wrapping for the table.
-#[allow(non_camel_case_types)]
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
-pub enum TableProperties_TextWrappingEnum {
+pub enum TablePropertiesTextWrappingEnum {
     #[serde(rename = "None")]
         None,
     #[serde(rename = "Default")]

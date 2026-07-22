@@ -38,7 +38,7 @@ pub struct ParagraphListFormatResponse {
     pub parent: WordsResponse,
         /// Gets or sets the list format for a paragraph.
         #[serde(rename = "ListFormat", skip_serializing_if = "Option::is_none")]
-        pub r#list_format: Option<ListFormat>,
+        pub list_format: Option<ListFormat>,
 
 }
 
@@ -47,7 +47,7 @@ impl Default for ParagraphListFormatResponse {
         let mut parent = WordsResponse::default();
         Self {
             parent,
-            r#list_format: None,
+            list_format: None,
         }
     }
 }
@@ -69,14 +69,14 @@ impl DerefMut for ParagraphListFormatResponse {
 impl Model for ParagraphListFormatResponse {
     fn validate(&self) -> SdkResult<()> {
         self.parent.validate()?;
-        if let Some(value) = &self.r#list_format {
+        if let Some(value) = &self.list_format {
         value.validate()?;
         }
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
-        self.parent.collect_file_references(output);
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+        self.parent.collect_file_references(_output);
     }
 
     fn as_any(&self) -> &dyn Any {

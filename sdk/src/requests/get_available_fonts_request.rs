@@ -36,7 +36,7 @@ use super::*;
 /// Request parameters for the GetAvailableFonts operation.
 pub struct GetAvailableFontsRequest {
     /// The folder in cloud storage with custom fonts.
-    pub r#fonts_location: Option<String>,
+    pub fonts_location: Option<String>,
     pub send_progress: Option<ProgressCallback>,
     pub receive_progress: Option<ProgressCallback>,
 }
@@ -44,14 +44,14 @@ pub struct GetAvailableFontsRequest {
 impl GetAvailableFontsRequest {
     pub fn new() -> Self {
         Self {
-            r#fonts_location: None,
+            fonts_location: None,
             send_progress: None,
             receive_progress: None,
         }
     }
 
     pub fn with_fonts_location(mut self, value: String) -> Self {
-        self.r#fonts_location = Some(value);
+        self.fonts_location = Some(value);
         self
     }
 
@@ -88,7 +88,7 @@ impl Request for GetAvailableFontsRequest {
         let mut headers = Vec::new();
         let mut body_parts = Vec::new();
 
-        if let Some(value) = &self.r#fonts_location {
+        if let Some(value) = &self.fonts_location {
         query.push(("fontsLocation".to_owned(), client.query_value(value)?));
         }
 

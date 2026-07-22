@@ -35,62 +35,62 @@ use super::*;
 pub struct Signature {
         /// Gets or sets the signing purpose comment.
         #[serde(rename = "Comments", skip_serializing_if = "Option::is_none")]
-        pub r#comments: Option<String>,
+        pub comments: Option<String>,
 
 
         /// Gets or sets the subject distinguished name of the certificate issuer.
         #[serde(rename = "IssuerName", skip_serializing_if = "Option::is_none")]
-        pub r#issuer_name: Option<String>,
+        pub issuer_name: Option<String>,
 
 
         /// Gets or sets a value indicating whether this digital signature is valid.
         #[serde(rename = "IsValid", skip_serializing_if = "Option::is_none")]
-        pub r#is_valid: Option<bool>,
+        pub is_valid: Option<bool>,
 
 
         /// Gets or sets the type of the digital signature.
         #[serde(rename = "SignatureType", skip_serializing_if = "Option::is_none")]
-        pub r#signature_type: Option<String>,
+        pub signature_type: Option<String>,
 
 
         /// Gets or sets an array of bytes representing a signature value as base64 string.
         #[serde(rename = "SignatureValue", skip_serializing_if = "Option::is_none")]
-        pub r#signature_value: Option<String>,
+        pub signature_value: Option<String>,
 
 
         /// Gets or sets the time the document was signed.
         #[serde(rename = "SignTime", skip_serializing_if = "Option::is_none")]
-        pub r#sign_time: Option<DateTime<Utc>>,
+        pub sign_time: Option<chrono::DateTime<chrono::Utc>>,
 
 
         /// Gets or sets the subject distinguished name of the certificate that was used to sign the document.
         #[serde(rename = "SubjectName", skip_serializing_if = "Option::is_none")]
-        pub r#subject_name: Option<String>,
+        pub subject_name: Option<String>,
 
 }
 
 impl Default for Signature {
     fn default() -> Self {
         Self {
-            r#comments: None,
-            r#issuer_name: None,
-            r#is_valid: None,
-            r#signature_type: None,
-            r#signature_value: None,
-            r#sign_time: None,
-            r#subject_name: None,
+            comments: None,
+            issuer_name: None,
+            is_valid: None,
+            signature_type: None,
+            signature_value: None,
+            sign_time: None,
+            subject_name: None,
         }
     }
 }
 
 impl Model for Signature {
     fn validate(&self) -> SdkResult<()> {
-        if self.r#is_valid.is_none() {
+        if self.is_valid.is_none() {
             return Err(SdkError::InvalidRequest(
                 "property IsValid in Signature is required".to_owned(),
             ));
         }
-        if self.r#sign_time.is_none() {
+        if self.sign_time.is_none() {
             return Err(SdkError::InvalidRequest(
                 "property SignTime in Signature is required".to_owned(),
             ));
@@ -98,7 +98,7 @@ impl Model for Signature {
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
     }
 
     fn as_any(&self) -> &dyn Any {

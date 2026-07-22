@@ -36,38 +36,36 @@ use crate::test_context::*;
 #[tokio::test]
 async fn append_document_append_document() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/DocumentActions/AppendDocument")?;
-    let localFile = test_string!("Common/test_multi_pages.docx")?;
-    let remoteFileName = test_string!("TestAppendDocument.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentActions/AppendDocument";
+    let local_file = "Common/test_multi_pages.docx".to_owned();
+    let remote_file_name = "TestAppendDocument.docx".to_owned();
 
-    context.upload_file(test_string!(localFile)?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
-    let requestDocumentListDocumentEntries0FileReference = FileReference::remote(
-    test_string!(remoteDataFolder + "/" + remoteFileName)?,
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
+    let request_document_list_document_entries0_file_reference = FileReference::remote(
+    remote_data_folder.clone() + "/" + &remote_file_name,
     None,
     );
-    let mut requestDocumentListDocumentEntries0 = DocumentEntry::default();
-    requestDocumentListDocumentEntries0.r#file_reference = Some((requestDocumentListDocumentEntries0FileReference).into());
-    requestDocumentListDocumentEntries0.r#import_format_mode = Some((DocumentEntry_ImportFormatModeEnum::KeepSourceFormatting).into());
-    let requestDocumentListDocumentEntries = vec![
-    requestDocumentListDocumentEntries0
+    let mut request_document_list_document_entries0 = DocumentEntry::default();
+    request_document_list_document_entries0.file_reference = Some((request_document_list_document_entries0_file_reference).into());
+    request_document_list_document_entries0.import_format_mode = Some((DocumentEntryImportFormatModeEnum::KeepSourceFormatting).into());
+    let request_document_list_document_entries = vec![
+    request_document_list_document_entries0
     ];
-    let mut requestDocumentList = DocumentEntryList::default();
-    requestDocumentList.r#document_entries = Some((requestDocumentListDocumentEntries).into());
+    let mut request_document_list = DocumentEntryList::default();
+    request_document_list.document_entries = Some((request_document_list_document_entries).into());
 
     let request = AppendDocumentRequest::new(
-        (test_string!(remoteFileName)?).into(),
-        (requestDocumentList).into()
-    ).with_folder((test_string!(remoteDataFolder)?).into())
-.with_dest_file_name((test_string!(baseTestOutPath + "/" + remoteFileName)?).into());
+        (remote_file_name.clone()).into(),
+        (request_document_list).into()
+    ).with_folder((remote_data_folder.clone()).into())
+.with_dest_file_name((base_test_out_path.clone() + "/" + &remote_file_name).into());
 
     let result = context.api().append_document(request).await?;
     let result_json = serialize_result(&result)?;
     assert_not_null(&result_json, "Document")?;
-    assert_string(&result_json, "Document.FileName", test_string!("TestAppendDocument.docx")?)?;
+    assert_string(&result_json, "Document.FileName", "TestAppendDocument.docx".to_owned())?;
     Ok(())
 }
 
@@ -75,39 +73,37 @@ async fn append_document_append_document() -> TestResult<()> {
 #[tokio::test]
 async fn append_document_append_document_job() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/DocumentActions/AppendDocument")?;
-    let localFile = test_string!("Common/test_multi_pages.docx")?;
-    let remoteFileName = test_string!("TestAppendDocument.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentActions/AppendDocument";
+    let local_file = "Common/test_multi_pages.docx".to_owned();
+    let remote_file_name = "TestAppendDocument.docx".to_owned();
 
-    context.upload_file(test_string!(localFile)?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
-    let requestDocumentListDocumentEntries0FileReference = FileReference::remote(
-    test_string!(remoteDataFolder + "/" + remoteFileName)?,
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
+    let request_document_list_document_entries0_file_reference = FileReference::remote(
+    remote_data_folder.clone() + "/" + &remote_file_name,
     None,
     );
-    let mut requestDocumentListDocumentEntries0 = DocumentEntry::default();
-    requestDocumentListDocumentEntries0.r#file_reference = Some((requestDocumentListDocumentEntries0FileReference).into());
-    requestDocumentListDocumentEntries0.r#import_format_mode = Some((DocumentEntry_ImportFormatModeEnum::KeepSourceFormatting).into());
-    let requestDocumentListDocumentEntries = vec![
-    requestDocumentListDocumentEntries0
+    let mut request_document_list_document_entries0 = DocumentEntry::default();
+    request_document_list_document_entries0.file_reference = Some((request_document_list_document_entries0_file_reference).into());
+    request_document_list_document_entries0.import_format_mode = Some((DocumentEntryImportFormatModeEnum::KeepSourceFormatting).into());
+    let request_document_list_document_entries = vec![
+    request_document_list_document_entries0
     ];
-    let mut requestDocumentList = DocumentEntryList::default();
-    requestDocumentList.r#document_entries = Some((requestDocumentListDocumentEntries).into());
+    let mut request_document_list = DocumentEntryList::default();
+    request_document_list.document_entries = Some((request_document_list_document_entries).into());
 
     let request = AppendDocumentJobRequest::new(
-        (test_string!(remoteFileName)?).into(),
-        (requestDocumentList).into()
-    ).with_folder((test_string!(remoteDataFolder)?).into())
-.with_dest_file_name((test_string!(baseTestOutPath + "/" + remoteFileName)?).into());
+        (remote_file_name.clone()).into(),
+        (request_document_list).into()
+    ).with_folder((remote_data_folder.clone()).into())
+.with_dest_file_name((base_test_out_path.clone() + "/" + &remote_file_name).into());
 
     let job_handler = context.api().append_document_job(request).await?;
     let result = job_handler.wait_result(Duration::from_secs(3)).await?;
     let result_json = serialize_result(&result)?;
     assert_not_null(&result_json, "Document")?;
-    assert_string(&result_json, "Document.FileName", test_string!("TestAppendDocument.docx")?)?;
+    assert_string(&result_json, "Document.FileName", "TestAppendDocument.docx".to_owned())?;
     Ok(())
 }
 
@@ -115,30 +111,28 @@ async fn append_document_append_document_job() -> TestResult<()> {
 #[tokio::test]
 async fn append_document_append_document_online() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let localFile = test_string!("Common/test_multi_pages.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let local_file = "Common/test_multi_pages.docx".to_owned();
 
-    let requestDocument = context.load_binary_file(test_string!(localFile)?).await?;
-    let requestDocumentListDocumentEntries0FileReferenceContent = context.load_binary_file(test_string!(localFile)?).await?;
-    let requestDocumentListDocumentEntries0FileReference = FileReference::local(
-    requestDocumentListDocumentEntries0FileReferenceContent,
+    let request_document = context.load_binary_file(local_file.clone()).await?;
+    let request_document_list_document_entries0_file_reference_content = context.load_binary_file(local_file.clone()).await?;
+    let request_document_list_document_entries0_file_reference = FileReference::local(
+    request_document_list_document_entries0_file_reference_content,
     None,
     );
-    let mut requestDocumentListDocumentEntries0 = DocumentEntry::default();
-    requestDocumentListDocumentEntries0.r#file_reference = Some((requestDocumentListDocumentEntries0FileReference).into());
-    requestDocumentListDocumentEntries0.r#import_format_mode = Some((DocumentEntry_ImportFormatModeEnum::KeepSourceFormatting).into());
-    let requestDocumentListDocumentEntries = vec![
-    requestDocumentListDocumentEntries0
+    let mut request_document_list_document_entries0 = DocumentEntry::default();
+    request_document_list_document_entries0.file_reference = Some((request_document_list_document_entries0_file_reference).into());
+    request_document_list_document_entries0.import_format_mode = Some((DocumentEntryImportFormatModeEnum::KeepSourceFormatting).into());
+    let request_document_list_document_entries = vec![
+    request_document_list_document_entries0
     ];
-    let mut requestDocumentList = DocumentEntryList::default();
-    requestDocumentList.r#document_entries = Some((requestDocumentListDocumentEntries).into());
+    let mut request_document_list = DocumentEntryList::default();
+    request_document_list.document_entries = Some((request_document_list_document_entries).into());
 
     let request = AppendDocumentOnlineRequest::new(
-        (requestDocument).into(),
-        (requestDocumentList).into()
+        (request_document).into(),
+        (request_document_list).into()
     );
 
     context.api().append_document_online(request).await?;
@@ -149,30 +143,28 @@ async fn append_document_append_document_online() -> TestResult<()> {
 #[tokio::test]
 async fn append_document_append_document_online_job() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let localFile = test_string!("Common/test_multi_pages.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let local_file = "Common/test_multi_pages.docx".to_owned();
 
-    let requestDocument = context.load_binary_file(test_string!(localFile)?).await?;
-    let requestDocumentListDocumentEntries0FileReferenceContent = context.load_binary_file(test_string!(localFile)?).await?;
-    let requestDocumentListDocumentEntries0FileReference = FileReference::local(
-    requestDocumentListDocumentEntries0FileReferenceContent,
+    let request_document = context.load_binary_file(local_file.clone()).await?;
+    let request_document_list_document_entries0_file_reference_content = context.load_binary_file(local_file.clone()).await?;
+    let request_document_list_document_entries0_file_reference = FileReference::local(
+    request_document_list_document_entries0_file_reference_content,
     None,
     );
-    let mut requestDocumentListDocumentEntries0 = DocumentEntry::default();
-    requestDocumentListDocumentEntries0.r#file_reference = Some((requestDocumentListDocumentEntries0FileReference).into());
-    requestDocumentListDocumentEntries0.r#import_format_mode = Some((DocumentEntry_ImportFormatModeEnum::KeepSourceFormatting).into());
-    let requestDocumentListDocumentEntries = vec![
-    requestDocumentListDocumentEntries0
+    let mut request_document_list_document_entries0 = DocumentEntry::default();
+    request_document_list_document_entries0.file_reference = Some((request_document_list_document_entries0_file_reference).into());
+    request_document_list_document_entries0.import_format_mode = Some((DocumentEntryImportFormatModeEnum::KeepSourceFormatting).into());
+    let request_document_list_document_entries = vec![
+    request_document_list_document_entries0
     ];
-    let mut requestDocumentList = DocumentEntryList::default();
-    requestDocumentList.r#document_entries = Some((requestDocumentListDocumentEntries).into());
+    let mut request_document_list = DocumentEntryList::default();
+    request_document_list.document_entries = Some((request_document_list_document_entries).into());
 
     let request = AppendDocumentOnlineJobRequest::new(
-        (requestDocument).into(),
-        (requestDocumentList).into()
+        (request_document).into(),
+        (request_document_list).into()
     );
 
     let job_handler = context.api().append_document_online_job(request).await?;

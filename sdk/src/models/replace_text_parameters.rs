@@ -34,71 +34,71 @@ use super::*;
 pub struct ReplaceTextParameters {
         /// Gets or sets a value indicating whether apply superscript to font or not.
         #[serde(rename = "ApplySuperscript", skip_serializing_if = "Option::is_none")]
-        pub r#apply_superscript: Option<bool>,
+        pub apply_superscript: Option<bool>,
 
 
         /// Gets or sets a value indicating whether flag, true means the search is case-sensitive; false means the search is not case-sensitive.
         #[serde(rename = "IsMatchCase", skip_serializing_if = "Option::is_none")]
-        pub r#is_match_case: Option<bool>,
+        pub is_match_case: Option<bool>,
 
 
         /// Gets or sets a value indicating whether flag, means that only whole word matched are replaced.
         #[serde(rename = "IsMatchWholeWord", skip_serializing_if = "Option::is_none")]
-        pub r#is_match_whole_word: Option<bool>,
+        pub is_match_whole_word: Option<bool>,
 
 
         /// Gets or sets a value indicating whether flag, means that OldValue contains regex expression.
         #[serde(rename = "IsOldValueRegex", skip_serializing_if = "Option::is_none")]
-        pub r#is_old_value_regex: Option<bool>,
+        pub is_old_value_regex: Option<bool>,
 
 
         /// Gets or sets the new text value to replace by.
         #[serde(rename = "NewValue", skip_serializing_if = "Option::is_none")]
-        pub r#new_value: Option<String>,
+        pub new_value: Option<String>,
 
 
         /// Gets or sets the old text value (or regex pattern IsOldValueRegex) to replace.
         #[serde(rename = "OldValue", skip_serializing_if = "Option::is_none")]
-        pub r#old_value: Option<String>,
+        pub old_value: Option<String>,
 
 }
 
 impl Default for ReplaceTextParameters {
     fn default() -> Self {
         Self {
-            r#apply_superscript: None,
-            r#is_match_case: None,
-            r#is_match_whole_word: None,
-            r#is_old_value_regex: None,
-            r#new_value: None,
-            r#old_value: None,
+            apply_superscript: None,
+            is_match_case: None,
+            is_match_whole_word: None,
+            is_old_value_regex: None,
+            new_value: None,
+            old_value: None,
         }
     }
 }
 
 impl Model for ReplaceTextParameters {
     fn validate(&self) -> SdkResult<()> {
-        if self.r#is_match_case.is_none() {
+        if self.is_match_case.is_none() {
             return Err(SdkError::InvalidRequest(
                 "property IsMatchCase in ReplaceTextParameters is required".to_owned(),
             ));
         }
-        if self.r#is_match_whole_word.is_none() {
+        if self.is_match_whole_word.is_none() {
             return Err(SdkError::InvalidRequest(
                 "property IsMatchWholeWord in ReplaceTextParameters is required".to_owned(),
             ));
         }
-        if self.r#is_old_value_regex.is_none() {
+        if self.is_old_value_regex.is_none() {
             return Err(SdkError::InvalidRequest(
                 "property IsOldValueRegex in ReplaceTextParameters is required".to_owned(),
             ));
         }
-        if self.r#new_value.is_none() {
+        if self.new_value.is_none() {
             return Err(SdkError::InvalidRequest(
                 "property NewValue in ReplaceTextParameters is required".to_owned(),
             ));
         }
-        if self.r#old_value.is_none() {
+        if self.old_value.is_none() {
             return Err(SdkError::InvalidRequest(
                 "property OldValue in ReplaceTextParameters is required".to_owned(),
             ));
@@ -106,7 +106,7 @@ impl Model for ReplaceTextParameters {
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
     }
 
     fn as_any(&self) -> &dyn Any {

@@ -37,12 +37,12 @@ pub struct XamlFlowSaveOptionsData {
     pub parent: SaveOptionsData,
         /// Gets or sets the physical folder where images are saved when exporting.
         #[serde(rename = "ImagesFolder", skip_serializing_if = "Option::is_none")]
-        pub r#images_folder: Option<String>,
+        pub images_folder: Option<String>,
 
 
         /// Gets or sets the name of the folder used to construct image URIs.
         #[serde(rename = "ImagesFolderAlias", skip_serializing_if = "Option::is_none")]
-        pub r#images_folder_alias: Option<String>,
+        pub images_folder_alias: Option<String>,
 
 
         /// Gets or sets the flag that indicates whether backslash characters should be replaced with yen signs.
@@ -51,7 +51,7 @@ pub struct XamlFlowSaveOptionsData {
             /// generated HTML documents. However, previous versions of Aspose.Words performed such replacements in certain
             /// scenarios. This flag enables backward compatibility with previous versions of Aspose.Words.
         #[serde(rename = "ReplaceBackslashWithYenSign", skip_serializing_if = "Option::is_none")]
-        pub r#replace_backslash_with_yen_sign: Option<bool>,
+        pub replace_backslash_with_yen_sign: Option<bool>,
 
 
 }
@@ -59,12 +59,12 @@ pub struct XamlFlowSaveOptionsData {
 impl Default for XamlFlowSaveOptionsData {
     fn default() -> Self {
         let mut parent = SaveOptionsData::default();
-        parent.r#save_format = Some("xamlflow".to_owned());
+        parent.save_format = Some("xamlflow".to_owned());
         Self {
             parent,
-            r#images_folder: None,
-            r#images_folder_alias: None,
-            r#replace_backslash_with_yen_sign: None,
+            images_folder: None,
+            images_folder_alias: None,
+            replace_backslash_with_yen_sign: None,
 
         }
     }
@@ -90,8 +90,8 @@ impl Model for XamlFlowSaveOptionsData {
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
-        self.parent.collect_file_references(output);
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+        self.parent.collect_file_references(_output);
     }
 
     fn as_any(&self) -> &dyn Any {

@@ -38,18 +38,18 @@ pub struct ListFormat {
         /// Gets or sets the list level number (0 to 8) for the paragraph.
             /// In Word documents, lists may consist of 1 or 9 levels, numbered 0 to 8. Has effect only when the Aspose.Words.ListFormat.List property is set to reference a valid list. Aspose.Words.ListFormat.List.
         #[serde(rename = "ListLevelNumber", skip_serializing_if = "Option::is_none")]
-        pub r#list_level_number: Option<i32>,
+        pub list_level_number: Option<i32>,
 
 
         /// Gets or sets the list id of this paragraph.
             /// The list that is being assigned to this property must belong to the current document.The list that is being assigned to this property must not be a list style definition.
         #[serde(rename = "ListId", skip_serializing_if = "Option::is_none")]
-        pub r#list_id: Option<i32>,
+        pub list_id: Option<i32>,
 
 
         /// Gets or sets a value indicating whether the paragraph has bulleted or numbered formatting applied to it.
         #[serde(rename = "IsListItem", skip_serializing_if = "Option::is_none")]
-        pub r#is_list_item: Option<bool>,
+        pub is_list_item: Option<bool>,
 
 }
 
@@ -58,9 +58,9 @@ impl Default for ListFormat {
         let mut parent = LinkElement::default();
         Self {
             parent,
-            r#list_level_number: None,
-            r#list_id: None,
-            r#is_list_item: None,
+            list_level_number: None,
+            list_id: None,
+            is_list_item: None,
         }
     }
 }
@@ -82,12 +82,12 @@ impl DerefMut for ListFormat {
 impl Model for ListFormat {
     fn validate(&self) -> SdkResult<()> {
         self.parent.validate()?;
-        if self.r#list_level_number.is_none() {
+        if self.list_level_number.is_none() {
             return Err(SdkError::InvalidRequest(
                 "property ListLevelNumber in ListFormat is required".to_owned(),
             ));
         }
-        if self.r#is_list_item.is_none() {
+        if self.is_list_item.is_none() {
             return Err(SdkError::InvalidRequest(
                 "property IsListItem in ListFormat is required".to_owned(),
             ));
@@ -95,8 +95,8 @@ impl Model for ListFormat {
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
-        self.parent.collect_file_references(output);
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+        self.parent.collect_file_references(_output);
     }
 
     fn as_any(&self) -> &dyn Any {

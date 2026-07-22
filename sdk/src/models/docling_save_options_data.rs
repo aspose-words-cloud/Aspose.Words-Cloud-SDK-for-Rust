@@ -40,7 +40,7 @@ pub struct DoclingSaveOptionsData {
             /// If the property is false, non-image shapes are not exported to the output document.
             /// The default value is false.
         #[serde(rename = "RenderNonImageShapes", skip_serializing_if = "Option::is_none")]
-        pub r#render_non_image_shapes: Option<bool>,
+        pub render_non_image_shapes: Option<bool>,
 
 
 }
@@ -48,10 +48,10 @@ pub struct DoclingSaveOptionsData {
 impl Default for DoclingSaveOptionsData {
     fn default() -> Self {
         let mut parent = SaveOptionsData::default();
-        parent.r#save_format = Some("docling".to_owned());
+        parent.save_format = Some("docling".to_owned());
         Self {
             parent,
-            r#render_non_image_shapes: None,
+            render_non_image_shapes: None,
 
         }
     }
@@ -77,8 +77,8 @@ impl Model for DoclingSaveOptionsData {
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
-        self.parent.collect_file_references(output);
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+        self.parent.collect_file_references(_output);
     }
 
     fn as_any(&self) -> &dyn Any {

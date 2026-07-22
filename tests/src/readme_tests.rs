@@ -34,16 +34,19 @@ async fn readme_example() -> TestResult<()> {
     .with_base_url(context.api().configuration().base_url.clone());
     let words_api = WordsApi::new(configuration)?;
 
-    let content = context.load_binary_file("Common/test_doc.docx").await?;
-    let upload_request = UploadFileRequest::new(content, "fileStoredInCloud.docx".to_owned());
-    let _upload_result = words_api.upload_file(upload_request).await?;
+    // Upload a document to cloud storage.
+    let file_content = context.load_binary_file("Common/test_doc.docx").await?;
+    let upload_request =
+        UploadFileRequest::new(file_content, "fileStoredInCloud.docx".to_owned());
+    words_api.upload_file(upload_request).await?;
 
+    // Save the document as PDF in cloud storage.
     let mut save_options = PdfSaveOptionsData::default();
     save_options.r#file_name = Some("destStoredInCloud.pdf".to_owned());
     let save_request = SaveAsRequest::new(
         "fileStoredInCloud.docx".to_owned(),
         save_options.into(),
     );
-    let _save_result = words_api.save_as(save_request).await?;
+    words_api.save_as(save_request).await?;
     Ok(())
 }

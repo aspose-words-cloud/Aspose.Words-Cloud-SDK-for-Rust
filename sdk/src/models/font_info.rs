@@ -34,32 +34,32 @@ use super::*;
 pub struct FontInfo {
         /// Gets or sets the path to the font file if any.
         #[serde(rename = "FilePath", skip_serializing_if = "Option::is_none")]
-        pub r#file_path: Option<String>,
+        pub file_path: Option<String>,
 
 
         /// Gets or sets the family name of the font.
         #[serde(rename = "FontFamilyName", skip_serializing_if = "Option::is_none")]
-        pub r#font_family_name: Option<String>,
+        pub font_family_name: Option<String>,
 
 
         /// Gets or sets the full name of the font.
         #[serde(rename = "FullFontName", skip_serializing_if = "Option::is_none")]
-        pub r#full_font_name: Option<String>,
+        pub full_font_name: Option<String>,
 
 
         /// Gets or sets the version string of the font.
         #[serde(rename = "Version", skip_serializing_if = "Option::is_none")]
-        pub r#version: Option<String>,
+        pub version: Option<String>,
 
 }
 
 impl Default for FontInfo {
     fn default() -> Self {
         Self {
-            r#file_path: None,
-            r#font_family_name: None,
-            r#full_font_name: None,
-            r#version: None,
+            file_path: None,
+            font_family_name: None,
+            full_font_name: None,
+            version: None,
         }
     }
 }
@@ -69,7 +69,7 @@ impl Model for FontInfo {
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
     }
 
     fn as_any(&self) -> &dyn Any {

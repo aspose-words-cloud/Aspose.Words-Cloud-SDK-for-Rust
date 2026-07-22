@@ -36,79 +36,79 @@ use super::*;
 /// Request parameters for the RenderParagraphOnline operation.
 pub struct RenderParagraphOnlineRequest {
     /// The document.
-    pub r#document: Vec<u8>,
+    pub document: Vec<u8>,
     /// The destination format.
-    pub r#format: String,
+    pub format: String,
     /// Object index.
-    pub r#index: i32,
+    pub index: i32,
     /// The path to the node in the document tree.
-    pub r#node_path: Option<String>,
+    pub node_path: Option<String>,
     /// Encoding that will be used to load an HTML (or TXT) document if the encoding is not specified in HTML.
-    pub r#load_encoding: Option<String>,
+    pub load_encoding: Option<String>,
     /// Password of protected Word document. Use the parameter to pass a password via SDK. SDK encrypts it automatically. We don't recommend to use the parameter to pass a plain password for direct call of API.
-    pub r#password: Option<String>,
+    pub password: Option<String>,
     /// Password of protected Word document. Use the parameter to pass an encrypted password for direct calls of API. See SDK code for encyption details.
-    pub r#encrypted_password: Option<String>,
+    pub encrypted_password: Option<String>,
     /// The value indicates whether OpenType support is on.
-    pub r#open_type_support: Option<bool>,
+    pub open_type_support: Option<bool>,
     /// Result path of the document after the operation. If this parameter is omitted then result of the operation will be saved as the source document.
-    pub r#dest_file_name: Option<String>,
+    pub dest_file_name: Option<String>,
     /// Folder in filestorage with custom fonts.
-    pub r#fonts_location: Option<String>,
+    pub fonts_location: Option<String>,
     pub send_progress: Option<ProgressCallback>,
     pub receive_progress: Option<ProgressCallback>,
 }
 
 impl RenderParagraphOnlineRequest {
-    pub fn new(r#document: Vec<u8>, r#format: String, r#index: i32) -> Self {
+    pub fn new(document: Vec<u8>, format: String, index: i32) -> Self {
         Self {
-            r#document,
-            r#format,
-            r#index,
-            r#node_path: None,
-            r#load_encoding: None,
-            r#password: None,
-            r#encrypted_password: None,
-            r#open_type_support: None,
-            r#dest_file_name: None,
-            r#fonts_location: None,
+            document,
+            format,
+            index,
+            node_path: None,
+            load_encoding: None,
+            password: None,
+            encrypted_password: None,
+            open_type_support: None,
+            dest_file_name: None,
+            fonts_location: None,
             send_progress: None,
             receive_progress: None,
         }
     }
 
     pub fn with_node_path(mut self, value: String) -> Self {
-        self.r#node_path = Some(value);
+        self.node_path = Some(value);
         self
     }
 
     pub fn with_load_encoding(mut self, value: String) -> Self {
-        self.r#load_encoding = Some(value);
+        self.load_encoding = Some(value);
         self
     }
 
     pub fn with_password(mut self, value: String) -> Self {
-        self.r#password = Some(value);
+        self.password = Some(value);
         self
     }
 
     pub fn with_encrypted_password(mut self, value: String) -> Self {
-        self.r#encrypted_password = Some(value);
+        self.encrypted_password = Some(value);
         self
     }
 
     pub fn with_open_type_support(mut self, value: bool) -> Self {
-        self.r#open_type_support = Some(value);
+        self.open_type_support = Some(value);
         self
     }
 
     pub fn with_dest_file_name(mut self, value: String) -> Self {
-        self.r#dest_file_name = Some(value);
+        self.dest_file_name = Some(value);
         self
     }
 
     pub fn with_fonts_location(mut self, value: String) -> Self {
-        self.r#fonts_location = Some(value);
+        self.fonts_location = Some(value);
         self
     }
 
@@ -145,31 +145,31 @@ impl Request for RenderParagraphOnlineRequest {
         let mut headers = Vec::new();
         let mut body_parts = Vec::new();
 
-        let value = client.query_value(&self.r#index)?;
+        let value = client.query_value(&self.index)?;
         path = path.replace("{index}", &value);
-        if let Some(value) = &self.r#node_path {
+        if let Some(value) = &self.node_path {
         path = path.replace("{nodePath}", &client.query_value(value)?);
         }
-        query.push(("format".to_owned(), client.query_value(&self.r#format)?));
-        if let Some(value) = &self.r#load_encoding {
+        query.push(("format".to_owned(), client.query_value(&self.format)?));
+        if let Some(value) = &self.load_encoding {
         query.push(("loadEncoding".to_owned(), client.query_value(value)?));
         }
-        if let Some(value) = &self.r#password {
+        if let Some(value) = &self.password {
         query.push(("encryptedPassword".to_owned(), client.encrypt_password(value).await?));
         }
-        if let Some(value) = &self.r#encrypted_password {
+        if let Some(value) = &self.encrypted_password {
         query.push(("encryptedPassword".to_owned(), client.query_value(value)?));
         }
-        if let Some(value) = &self.r#open_type_support {
+        if let Some(value) = &self.open_type_support {
         query.push(("openTypeSupport".to_owned(), client.query_value(value)?));
         }
-        if let Some(value) = &self.r#dest_file_name {
+        if let Some(value) = &self.dest_file_name {
         query.push(("destFileName".to_owned(), client.query_value(value)?));
         }
-        if let Some(value) = &self.r#fonts_location {
+        if let Some(value) = &self.fonts_location {
         query.push(("fontsLocation".to_owned(), client.query_value(value)?));
         }
-        client.add_binary_part(&mut body_parts, "Document", &self.r#document);
+        client.add_binary_part(&mut body_parts, "Document", &self.document);
 
         let url = client.build_url(&path, &query)?;
         let body = client.request_body_from_parts(&mut headers, body_parts);

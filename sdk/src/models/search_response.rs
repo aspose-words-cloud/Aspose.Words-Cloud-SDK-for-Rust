@@ -38,12 +38,12 @@ pub struct SearchResponse {
     pub parent: WordsResponse,
         /// Gets or sets the regular expression pattern used to find matches.
         #[serde(rename = "SearchingPattern", skip_serializing_if = "Option::is_none")]
-        pub r#searching_pattern: Option<String>,
+        pub searching_pattern: Option<String>,
 
 
         /// Gets or sets the collection of search results.
         #[serde(rename = "SearchResults", skip_serializing_if = "Option::is_none")]
-        pub r#search_results: Option<SearchResultsCollection>,
+        pub search_results: Option<SearchResultsCollection>,
 
 }
 
@@ -52,8 +52,8 @@ impl Default for SearchResponse {
         let mut parent = WordsResponse::default();
         Self {
             parent,
-            r#searching_pattern: None,
-            r#search_results: None,
+            searching_pattern: None,
+            search_results: None,
         }
     }
 }
@@ -75,14 +75,14 @@ impl DerefMut for SearchResponse {
 impl Model for SearchResponse {
     fn validate(&self) -> SdkResult<()> {
         self.parent.validate()?;
-        if let Some(value) = &self.r#search_results {
+        if let Some(value) = &self.search_results {
         value.validate()?;
         }
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
-        self.parent.collect_file_references(output);
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+        self.parent.collect_file_references(_output);
     }
 
     fn as_any(&self) -> &dyn Any {

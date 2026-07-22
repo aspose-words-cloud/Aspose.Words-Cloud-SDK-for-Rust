@@ -36,79 +36,79 @@ use super::*;
 /// Request parameters for the SignDocument operation.
 pub struct SignDocumentRequest {
     /// Name of the document to sign.
-    pub r#name: String,
+    pub name: String,
     /// certificate file path.
-    pub r#certificate_path: String,
+    pub certificate_path: String,
     /// certificate password.
-    pub r#certificate_password: String,
+    pub certificate_password: String,
     /// Original document folder.
-    pub r#folder: Option<String>,
+    pub folder: Option<String>,
     /// Original document storage.
-    pub r#storage: Option<String>,
+    pub storage: Option<String>,
     /// Encoding that will be used to load an HTML (or TXT) document if the encoding is not specified in HTML.
-    pub r#load_encoding: Option<String>,
+    pub load_encoding: Option<String>,
     /// Password of protected Word document. Use the parameter to pass a password via SDK. SDK encrypts it automatically. We don't recommend to use the parameter to pass a plain password for direct call of API.
-    pub r#password: Option<String>,
+    pub password: Option<String>,
     /// Password of protected Word document. Use the parameter to pass an encrypted password for direct calls of API. See SDK code for encyption details.
-    pub r#encrypted_password: Option<String>,
+    pub encrypted_password: Option<String>,
     /// The value indicates whether OpenType support is on.
-    pub r#open_type_support: Option<bool>,
+    pub open_type_support: Option<bool>,
     /// Result path of the document after the operation. If this parameter is omitted then result of the operation will be saved as the source document.
-    pub r#dest_file_name: Option<String>,
+    pub dest_file_name: Option<String>,
     pub send_progress: Option<ProgressCallback>,
     pub receive_progress: Option<ProgressCallback>,
 }
 
 impl SignDocumentRequest {
-    pub fn new(r#name: String, r#certificate_path: String, r#certificate_password: String) -> Self {
+    pub fn new(name: String, certificate_path: String, certificate_password: String) -> Self {
         Self {
-            r#name,
-            r#certificate_path,
-            r#certificate_password,
-            r#folder: None,
-            r#storage: None,
-            r#load_encoding: None,
-            r#password: None,
-            r#encrypted_password: None,
-            r#open_type_support: None,
-            r#dest_file_name: None,
+            name,
+            certificate_path,
+            certificate_password,
+            folder: None,
+            storage: None,
+            load_encoding: None,
+            password: None,
+            encrypted_password: None,
+            open_type_support: None,
+            dest_file_name: None,
             send_progress: None,
             receive_progress: None,
         }
     }
 
     pub fn with_folder(mut self, value: String) -> Self {
-        self.r#folder = Some(value);
+        self.folder = Some(value);
         self
     }
 
     pub fn with_storage(mut self, value: String) -> Self {
-        self.r#storage = Some(value);
+        self.storage = Some(value);
         self
     }
 
     pub fn with_load_encoding(mut self, value: String) -> Self {
-        self.r#load_encoding = Some(value);
+        self.load_encoding = Some(value);
         self
     }
 
     pub fn with_password(mut self, value: String) -> Self {
-        self.r#password = Some(value);
+        self.password = Some(value);
         self
     }
 
     pub fn with_encrypted_password(mut self, value: String) -> Self {
-        self.r#encrypted_password = Some(value);
+        self.encrypted_password = Some(value);
         self
     }
 
     pub fn with_open_type_support(mut self, value: bool) -> Self {
-        self.r#open_type_support = Some(value);
+        self.open_type_support = Some(value);
         self
     }
 
     pub fn with_dest_file_name(mut self, value: String) -> Self {
-        self.r#dest_file_name = Some(value);
+        self.dest_file_name = Some(value);
         self
     }
 
@@ -145,29 +145,29 @@ impl Request for SignDocumentRequest {
         let mut headers = Vec::new();
         let mut body_parts = Vec::new();
 
-        let value = client.query_value(&self.r#name)?;
+        let value = client.query_value(&self.name)?;
         path = path.replace("{name}", &value);
-        query.push(("certificatePath".to_owned(), client.query_value(&self.r#certificate_path)?));
-        query.push(("certificatePassword".to_owned(), client.query_value(&self.r#certificate_password)?));
-        if let Some(value) = &self.r#folder {
+        query.push(("certificatePath".to_owned(), client.query_value(&self.certificate_path)?));
+        query.push(("certificatePassword".to_owned(), client.query_value(&self.certificate_password)?));
+        if let Some(value) = &self.folder {
         query.push(("folder".to_owned(), client.query_value(value)?));
         }
-        if let Some(value) = &self.r#storage {
+        if let Some(value) = &self.storage {
         query.push(("storage".to_owned(), client.query_value(value)?));
         }
-        if let Some(value) = &self.r#load_encoding {
+        if let Some(value) = &self.load_encoding {
         query.push(("loadEncoding".to_owned(), client.query_value(value)?));
         }
-        if let Some(value) = &self.r#password {
+        if let Some(value) = &self.password {
         query.push(("encryptedPassword".to_owned(), client.encrypt_password(value).await?));
         }
-        if let Some(value) = &self.r#encrypted_password {
+        if let Some(value) = &self.encrypted_password {
         query.push(("encryptedPassword".to_owned(), client.query_value(value)?));
         }
-        if let Some(value) = &self.r#open_type_support {
+        if let Some(value) = &self.open_type_support {
         query.push(("openTypeSupport".to_owned(), client.query_value(value)?));
         }
-        if let Some(value) = &self.r#dest_file_name {
+        if let Some(value) = &self.dest_file_name {
         query.push(("destFileName".to_owned(), client.query_value(value)?));
         }
 

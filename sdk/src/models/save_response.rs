@@ -37,7 +37,7 @@ pub struct SaveResponse {
     pub parent: WordsResponse,
         /// Gets or sets the save result.
         #[serde(rename = "SaveResult", skip_serializing_if = "Option::is_none")]
-        pub r#save_result: Option<SaveResult>,
+        pub save_result: Option<SaveResult>,
 
 }
 
@@ -46,7 +46,7 @@ impl Default for SaveResponse {
         let mut parent = WordsResponse::default();
         Self {
             parent,
-            r#save_result: None,
+            save_result: None,
         }
     }
 }
@@ -68,14 +68,14 @@ impl DerefMut for SaveResponse {
 impl Model for SaveResponse {
     fn validate(&self) -> SdkResult<()> {
         self.parent.validate()?;
-        if let Some(value) = &self.r#save_result {
+        if let Some(value) = &self.save_result {
         value.validate()?;
         }
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
-        self.parent.collect_file_references(output);
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+        self.parent.collect_file_references(_output);
     }
 
     fn as_any(&self) -> &dyn Any {

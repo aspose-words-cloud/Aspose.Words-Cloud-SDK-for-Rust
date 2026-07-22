@@ -36,42 +36,40 @@ use crate::test_context::*;
 #[tokio::test]
 async fn compare_document_compare_document() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteFolder = test_string!(remoteBaseTestDataFolder + "/DocumentActions/CompareDocument")?;
-    let localFolder = test_string!("DocumentActions/CompareDocument")?;
-    let localName1 = test_string!("compareTestDoc1.doc")?;
-    let localName2 = test_string!("compareTestDoc2.doc")?;
-    let remoteName1 = test_string!("TestCompareDocument1.doc")?;
-    let remoteName2 = test_string!("TestCompareDocument2.doc")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_folder = remote_base_test_data_folder.clone() + "/DocumentActions/CompareDocument";
+    let local_folder = "DocumentActions/CompareDocument".to_owned();
+    let local_name1 = "compareTestDoc1.doc".to_owned();
+    let local_name2 = "compareTestDoc2.doc".to_owned();
+    let remote_name1 = "TestCompareDocument1.doc".to_owned();
+    let remote_name2 = "TestCompareDocument2.doc".to_owned();
 
-    context.upload_file(test_string!(localFolder + "/" + localName1)?, test_string!(remoteFolder + "/" + remoteName1)?).await?;
-    context.upload_file(test_string!(localFolder + "/" + localName2)?, test_string!(remoteFolder + "/" + remoteName2)?).await?;
-    let requestCompareDataFileReference = FileReference::remote(
-    test_string!(remoteFolder + "/" + remoteName2)?,
+    context.upload_file(local_folder.clone() + "/" + &local_name1, remote_folder.clone() + "/" + &remote_name1).await?;
+    context.upload_file(local_folder.clone() + "/" + &local_name2, remote_folder.clone() + "/" + &remote_name2).await?;
+    let request_compare_data_file_reference = FileReference::remote(
+    remote_folder.clone() + "/" + &remote_name2,
     None,
     );
-    let requestCompareDataDateTime = Utc.with_ymd_and_hms(
+    let request_compare_data_date_time = Utc.with_ymd_and_hms(
     2015, 10, 26,
     0, 0, 0,
     ).single().ok_or_else(|| TestError::Assertion("invalid generated date".to_owned()))?;
-    let mut requestCompareData = CompareData::default();
-    requestCompareData.r#author = Some((test_string!("author")?).into());
-    requestCompareData.r#date_time = Some((requestCompareDataDateTime).into());
-    requestCompareData.r#file_reference = Some((requestCompareDataFileReference).into());
+    let mut request_compare_data = CompareData::default();
+    request_compare_data.author = Some(("author".to_owned()).into());
+    request_compare_data.date_time = Some((request_compare_data_date_time).into());
+    request_compare_data.file_reference = Some((request_compare_data_file_reference).into());
 
     let request = CompareDocumentRequest::new(
-        (test_string!(remoteName1)?).into(),
-        (requestCompareData).into()
-    ).with_folder((test_string!(remoteFolder)?).into())
-.with_dest_file_name((test_string!(baseTestOutPath + "/TestCompareDocumentOut.doc")?).into());
+        (remote_name1.clone()).into(),
+        (request_compare_data).into()
+    ).with_folder((remote_folder.clone()).into())
+.with_dest_file_name((base_test_out_path.clone() + "/TestCompareDocumentOut.doc").into());
 
     let result = context.api().compare_document(request).await?;
     let result_json = serialize_result(&result)?;
     assert_not_null(&result_json, "Document")?;
-    assert_string(&result_json, "Document.FileName", test_string!("TestCompareDocumentOut.doc")?)?;
+    assert_string(&result_json, "Document.FileName", "TestCompareDocumentOut.doc".to_owned())?;
     Ok(())
 }
 
@@ -79,35 +77,33 @@ async fn compare_document_compare_document() -> TestResult<()> {
 #[tokio::test]
 async fn compare_document_compare_document_online() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteFolder = test_string!(remoteBaseTestDataFolder + "/DocumentActions/CompareDocument")?;
-    let localFolder = test_string!("DocumentActions/CompareDocument")?;
-    let localName1 = test_string!("compareTestDoc1.doc")?;
-    let localName2 = test_string!("compareTestDoc2.doc")?;
-    let remoteName2 = test_string!("TestCompareDocument2.doc")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_folder = remote_base_test_data_folder.clone() + "/DocumentActions/CompareDocument";
+    let local_folder = "DocumentActions/CompareDocument".to_owned();
+    let local_name1 = "compareTestDoc1.doc".to_owned();
+    let local_name2 = "compareTestDoc2.doc".to_owned();
+    let remote_name2 = "TestCompareDocument2.doc".to_owned();
 
-    context.upload_file(test_string!(localFolder + "/" + localName2)?, test_string!(remoteFolder + "/" + remoteName2)?).await?;
-    let requestDocument = context.load_binary_file(test_string!(localFolder + "/" + localName1)?).await?;
-    let requestCompareDataFileReference = FileReference::remote(
-    test_string!(remoteFolder + "/" + remoteName2)?,
+    context.upload_file(local_folder.clone() + "/" + &local_name2, remote_folder.clone() + "/" + &remote_name2).await?;
+    let request_document = context.load_binary_file(local_folder.clone() + "/" + &local_name1).await?;
+    let request_compare_data_file_reference = FileReference::remote(
+    remote_folder.clone() + "/" + &remote_name2,
     None,
     );
-    let requestCompareDataDateTime = Utc.with_ymd_and_hms(
+    let request_compare_data_date_time = Utc.with_ymd_and_hms(
     2015, 10, 26,
     0, 0, 0,
     ).single().ok_or_else(|| TestError::Assertion("invalid generated date".to_owned()))?;
-    let mut requestCompareData = CompareData::default();
-    requestCompareData.r#author = Some((test_string!("author")?).into());
-    requestCompareData.r#date_time = Some((requestCompareDataDateTime).into());
-    requestCompareData.r#file_reference = Some((requestCompareDataFileReference).into());
+    let mut request_compare_data = CompareData::default();
+    request_compare_data.author = Some(("author".to_owned()).into());
+    request_compare_data.date_time = Some((request_compare_data_date_time).into());
+    request_compare_data.file_reference = Some((request_compare_data_file_reference).into());
 
     let request = CompareDocumentOnlineRequest::new(
-        (requestDocument).into(),
-        (requestCompareData).into()
-    ).with_dest_file_name((test_string!(baseTestOutPath + "/TestCompareDocumentOut.doc")?).into());
+        (request_document).into(),
+        (request_compare_data).into()
+    ).with_dest_file_name((base_test_out_path.clone() + "/TestCompareDocumentOut.doc").into());
 
     context.api().compare_document_online(request).await?;
     Ok(())
@@ -117,36 +113,34 @@ async fn compare_document_compare_document_online() -> TestResult<()> {
 #[tokio::test]
 async fn compare_document_compare_two_document_online() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteFolder = test_string!(remoteBaseTestDataFolder + "/DocumentActions/CompareDocument")?;
-    let localFolder = test_string!("DocumentActions/CompareDocument")?;
-    let localName1 = test_string!("compareTestDoc1.doc")?;
-    let localName2 = test_string!("compareTestDoc2.doc")?;
-    let remoteName2 = test_string!("TestCompareDocument2.doc")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_folder = remote_base_test_data_folder.clone() + "/DocumentActions/CompareDocument";
+    let local_folder = "DocumentActions/CompareDocument".to_owned();
+    let local_name1 = "compareTestDoc1.doc".to_owned();
+    let local_name2 = "compareTestDoc2.doc".to_owned();
+    let remote_name2 = "TestCompareDocument2.doc".to_owned();
 
-    context.upload_file(test_string!(localFolder + "/" + localName2)?, test_string!(remoteFolder + "/" + remoteName2)?).await?;
-    let requestDocument = context.load_binary_file(test_string!(localFolder + "/" + localName1)?).await?;
-    let requestCompareDataFileReferenceContent = context.load_binary_file(test_string!(localFolder + "/" + localName2)?).await?;
-    let requestCompareDataFileReference = FileReference::local(
-    requestCompareDataFileReferenceContent,
+    context.upload_file(local_folder.clone() + "/" + &local_name2, remote_folder.clone() + "/" + &remote_name2).await?;
+    let request_document = context.load_binary_file(local_folder.clone() + "/" + &local_name1).await?;
+    let request_compare_data_file_reference_content = context.load_binary_file(local_folder.clone() + "/" + &local_name2).await?;
+    let request_compare_data_file_reference = FileReference::local(
+    request_compare_data_file_reference_content,
     None,
     );
-    let requestCompareDataDateTime = Utc.with_ymd_and_hms(
+    let request_compare_data_date_time = Utc.with_ymd_and_hms(
     2015, 10, 26,
     0, 0, 0,
     ).single().ok_or_else(|| TestError::Assertion("invalid generated date".to_owned()))?;
-    let mut requestCompareData = CompareData::default();
-    requestCompareData.r#author = Some((test_string!("author")?).into());
-    requestCompareData.r#date_time = Some((requestCompareDataDateTime).into());
-    requestCompareData.r#file_reference = Some((requestCompareDataFileReference).into());
+    let mut request_compare_data = CompareData::default();
+    request_compare_data.author = Some(("author".to_owned()).into());
+    request_compare_data.date_time = Some((request_compare_data_date_time).into());
+    request_compare_data.file_reference = Some((request_compare_data_file_reference).into());
 
     let request = CompareDocumentOnlineRequest::new(
-        (requestDocument).into(),
-        (requestCompareData).into()
-    ).with_dest_file_name((test_string!(baseTestOutPath + "/TestCompareDocumentOut.doc")?).into());
+        (request_document).into(),
+        (request_compare_data).into()
+    ).with_dest_file_name((base_test_out_path.clone() + "/TestCompareDocumentOut.doc").into());
 
     context.api().compare_document_online(request).await?;
     Ok(())
@@ -156,40 +150,38 @@ async fn compare_document_compare_two_document_online() -> TestResult<()> {
 #[tokio::test]
 async fn compare_document_compare_document_with_password() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteFolder = test_string!(remoteBaseTestDataFolder + "/DocumentActions/CompareDocument")?;
-    let localName = test_string!("DocWithPassword.docx")?;
-    let remoteName1 = test_string!("TestCompareDocument1.docx")?;
-    let remoteName2 = test_string!("TestCompareDocument2.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_folder = remote_base_test_data_folder.clone() + "/DocumentActions/CompareDocument";
+    let local_name = "DocWithPassword.docx".to_owned();
+    let remote_name1 = "TestCompareDocument1.docx".to_owned();
+    let remote_name2 = "TestCompareDocument2.docx".to_owned();
 
-    context.upload_file(test_string!("Common/" + localName)?, test_string!(remoteFolder + "/" + remoteName1)?).await?;
-    context.upload_file(test_string!("Common/" + localName)?, test_string!(remoteFolder + "/" + remoteName2)?).await?;
-    let requestCompareDataFileReference = FileReference::remote(
-    test_string!(remoteFolder + "/" + remoteName2)?,
+    context.upload_file("Common/".to_owned() + &local_name, remote_folder.clone() + "/" + &remote_name1).await?;
+    context.upload_file("Common/".to_owned() + &local_name, remote_folder.clone() + "/" + &remote_name2).await?;
+    let request_compare_data_file_reference = FileReference::remote(
+    remote_folder.clone() + "/" + &remote_name2,
     Some("12345".to_owned()),
     );
-    let requestCompareDataDateTime = Utc.with_ymd_and_hms(
+    let request_compare_data_date_time = Utc.with_ymd_and_hms(
     2015, 10, 26,
     0, 0, 0,
     ).single().ok_or_else(|| TestError::Assertion("invalid generated date".to_owned()))?;
-    let mut requestCompareData = CompareData::default();
-    requestCompareData.r#author = Some((test_string!("author")?).into());
-    requestCompareData.r#date_time = Some((requestCompareDataDateTime).into());
-    requestCompareData.r#file_reference = Some((requestCompareDataFileReference).into());
+    let mut request_compare_data = CompareData::default();
+    request_compare_data.author = Some(("author".to_owned()).into());
+    request_compare_data.date_time = Some((request_compare_data_date_time).into());
+    request_compare_data.file_reference = Some((request_compare_data_file_reference).into());
 
     let request = CompareDocumentRequest::new(
-        (test_string!(remoteName1)?).into(),
-        (requestCompareData).into()
-    ).with_folder((test_string!(remoteFolder)?).into())
-.with_password((test_string!("12345")?).into())
-.with_dest_file_name((test_string!(baseTestOutPath + "/TestCompareDocumentOut.docx")?).into());
+        (remote_name1.clone()).into(),
+        (request_compare_data).into()
+    ).with_folder((remote_folder.clone()).into())
+.with_password(("12345".to_owned()).into())
+.with_dest_file_name((base_test_out_path.clone() + "/TestCompareDocumentOut.docx").into());
 
     let result = context.api().compare_document(request).await?;
     let result_json = serialize_result(&result)?;
     assert_not_null(&result_json, "Document")?;
-    assert_string(&result_json, "Document.FileName", test_string!("TestCompareDocumentOut.docx")?)?;
+    assert_string(&result_json, "Document.FileName", "TestCompareDocumentOut.docx".to_owned())?;
     Ok(())
 }

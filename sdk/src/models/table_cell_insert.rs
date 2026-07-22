@@ -34,34 +34,34 @@ use super::*;
 pub struct TableCellInsert {
         /// Gets or sets the position of the table cell that will be used to determine the placement of a new cell.
         #[serde(rename = "ExistingCellPosition", skip_serializing_if = "Option::is_none", default, deserialize_with = "deserialize_optional_model")]
-        pub r#existing_cell_position: Option<ModelBox>,
+        pub existing_cell_position: Option<ModelBox>,
 
 
         /// Gets or sets the 0-based index, the table cell will be inserted after.
         #[serde(rename = "InsertAfter", skip_serializing_if = "Option::is_none")]
-        pub r#insert_after: Option<i32>,
+        pub insert_after: Option<i32>,
 
 }
 
 impl Default for TableCellInsert {
     fn default() -> Self {
         Self {
-            r#existing_cell_position: None,
-            r#insert_after: None,
+            existing_cell_position: None,
+            insert_after: None,
         }
     }
 }
 
 impl Model for TableCellInsert {
     fn validate(&self) -> SdkResult<()> {
-        if let Some(value) = &self.r#existing_cell_position {
+        if let Some(value) = &self.existing_cell_position {
         value.validate()?;
         }
 
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
     }
 
     fn as_any(&self) -> &dyn Any {

@@ -34,22 +34,22 @@ use super::*;
 pub struct CompressOptions {
         /// Gets or sets the quality level of images from 0 to 100. The default value is 75.
         #[serde(rename = "ImagesQuality", skip_serializing_if = "Option::is_none")]
-        pub r#images_quality: Option<i32>,
+        pub images_quality: Option<i32>,
 
 
         /// Gets or sets the resize factor of images.
             /// This value determines how many times the size of the images in the document will be reduced.
             /// The parameter value must be greater than 1 for resizing. The default value is 1 and has no effect on images size.
         #[serde(rename = "ImagesReduceSizeFactor", skip_serializing_if = "Option::is_none")]
-        pub r#images_reduce_size_factor: Option<i32>,
+        pub images_reduce_size_factor: Option<i32>,
 
 }
 
 impl Default for CompressOptions {
     fn default() -> Self {
         Self {
-            r#images_quality: None,
-            r#images_reduce_size_factor: None,
+            images_quality: None,
+            images_reduce_size_factor: None,
         }
     }
 }
@@ -59,7 +59,7 @@ impl Model for CompressOptions {
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
     }
 
     fn as_any(&self) -> &dyn Any {

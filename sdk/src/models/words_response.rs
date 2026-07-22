@@ -34,14 +34,14 @@ use super::*;
 pub struct WordsResponse {
         /// Gets or sets the request Id.
         #[serde(rename = "RequestId", skip_serializing_if = "Option::is_none")]
-        pub r#request_id: Option<String>,
+        pub request_id: Option<String>,
 
 }
 
 impl Default for WordsResponse {
     fn default() -> Self {
         Self {
-            r#request_id: None,
+            request_id: None,
         }
     }
 }
@@ -51,7 +51,7 @@ impl Model for WordsResponse {
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
     }
 
     fn as_any(&self) -> &dyn Any {

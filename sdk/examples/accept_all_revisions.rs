@@ -20,7 +20,7 @@
 // SOFTWARE.
 // --------------------------------------------------------------------------------
 
-#![allow(non_snake_case, unused_imports)]
+#![allow(dead_code, unused_imports)]
 // Example expressions use the same schema-independent conversion rules as tests.
 #![allow(clippy::unnecessary_to_owned, clippy::useless_conversion)]
 
@@ -29,6 +29,18 @@ use std::path::PathBuf;
 
 use aspose_words_cloud::*;
 use chrono::{TimeZone, Utc};
+use uuid::Uuid;
+
+fn create_random_guid() -> String {
+    Uuid::new_v4().to_string()
+}
+
+async fn read_text_file(path: String) -> SdkResult<String> {
+    let examples_data = env::var_os("ASPOSE_EXAMPLES_DATA_DIR")
+        .map(PathBuf::from)
+        .unwrap_or_else(|| PathBuf::from("examples_data"));
+    Ok(tokio::fs::read_to_string(examples_data.join(path)).await?)
+}
 
 #[tokio::main]
 async fn main() -> SdkResult<()> {
@@ -47,24 +59,24 @@ async fn main() -> SdkResult<()> {
         .map(PathBuf::from)
         .unwrap_or_else(|| PathBuf::from("examples_data"));
 
-    let fileName = ("test_doc.docx").to_string();
+    let file_name = "test_doc.docx".to_owned();
 
     // Upload original document to cloud storage.
-    let myVar1 = tokio::fs::read(
-    examples_data.join((fileName).to_string()),
+    let my_var1 = tokio::fs::read(
+    examples_data.join(file_name.clone()),
     ).await?;
-    let myVar2 = (fileName).to_string();
-    let uploadFileRequest = UploadFileRequest::new(
-        (myVar1).into(),
-        (myVar2).into()
+    let my_var2 = file_name.clone();
+    let upload_file_request = UploadFileRequest::new(
+        (my_var1).into(),
+        (my_var2).into()
     );
-    let _result = words_api.upload_file(uploadFileRequest).await?;
+    let _result = words_api.upload_file(upload_file_request).await?;
 
 
     // Calls AcceptAllRevisions method for document in cloud.
-    let myVar3 = (fileName).to_string();
+    let my_var3 = file_name.clone();
     let request = AcceptAllRevisionsRequest::new(
-        (myVar3).into()
+        (my_var3).into()
     );
     let _result = words_api.accept_all_revisions(request).await?;
 

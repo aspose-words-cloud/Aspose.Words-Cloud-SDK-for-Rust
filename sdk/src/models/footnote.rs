@@ -37,30 +37,30 @@ pub struct Footnote {
     pub parent: FootnoteLink,
         /// Gets or sets the link to comment range start node.
         #[serde(rename = "Position", skip_serializing_if = "Option::is_none")]
-        pub r#position: Option<DocumentPosition>,
+        pub position: Option<DocumentPosition>,
 
 
         /// Gets or sets the value, that specifies whether this is a footnote or endnote.
         #[serde(rename = "FootnoteType", skip_serializing_if = "Option::is_none")]
-        pub r#footnote_type: Option<Footnote_FootnoteTypeEnum>,
+        pub footnote_type: Option<FootnoteFootnoteTypeEnum>,
 
 
         /// Gets or sets the custom reference mark to be used for this footnote.
             /// The default value is Empty, meaning auto-numbered footnotes are used.
             /// RTF-format can only store 1 symbol as custom reference mark, so upon export only the first symbol will be written others will be discard.
         #[serde(rename = "ReferenceMark", skip_serializing_if = "Option::is_none")]
-        pub r#reference_mark: Option<String>,
+        pub reference_mark: Option<String>,
 
 
         /// Gets or sets text of the footnote.
             /// This method allows to quickly set text of a footnote from a string. The string can contain paragraph breaks, this will create paragraphs of text in the footnote accordingly.
         #[serde(rename = "Text", skip_serializing_if = "Option::is_none")]
-        pub r#text: Option<String>,
+        pub text: Option<String>,
 
 
         /// Gets or sets the content of the footnote.
         #[serde(rename = "Content", skip_serializing_if = "Option::is_none")]
-        pub r#content: Option<StoryChildNodes>,
+        pub content: Option<StoryChildNodes>,
 
 }
 
@@ -69,11 +69,11 @@ impl Default for Footnote {
         let mut parent = FootnoteLink::default();
         Self {
             parent,
-            r#position: None,
-            r#footnote_type: None,
-            r#reference_mark: None,
-            r#text: None,
-            r#content: None,
+            position: None,
+            footnote_type: None,
+            reference_mark: None,
+            text: None,
+            content: None,
         }
     }
 }
@@ -95,20 +95,20 @@ impl DerefMut for Footnote {
 impl Model for Footnote {
     fn validate(&self) -> SdkResult<()> {
         self.parent.validate()?;
-        if let Some(value) = &self.r#position {
+        if let Some(value) = &self.position {
         value.validate()?;
         }
 
 
 
-        if let Some(value) = &self.r#content {
+        if let Some(value) = &self.content {
         value.validate()?;
         }
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
-        self.parent.collect_file_references(output);
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+        self.parent.collect_file_references(_output);
     }
 
     fn as_any(&self) -> &dyn Any {
@@ -117,9 +117,8 @@ impl Model for Footnote {
 }
 
 /// Gets or sets the value, that specifies whether this is a footnote or endnote.
-#[allow(non_camel_case_types)]
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
-pub enum Footnote_FootnoteTypeEnum {
+pub enum FootnoteFootnoteTypeEnum {
     #[serde(rename = "Footnote")]
         Footnote,
     #[serde(rename = "Endnote")]

@@ -36,20 +36,18 @@ use crate::test_context::*;
 #[tokio::test]
 async fn revisions_accept_all_revisions() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/DocumentActions/Revisions")?;
-    let localFile = test_string!("DocumentElements/Revisions/TestRevisions.doc")?;
-    let remoteFileName = test_string!("TestAcceptAllRevisions.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentActions/Revisions";
+    let local_file = "DocumentElements/Revisions/TestRevisions.doc".to_owned();
+    let remote_file_name = "TestAcceptAllRevisions.docx".to_owned();
 
-    context.upload_file(test_string!(localFile)?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
     let request = AcceptAllRevisionsRequest::new(
-        (test_string!(remoteFileName)?).into()
-    ).with_folder((test_string!(remoteDataFolder)?).into())
-.with_dest_file_name((test_string!(baseTestOutPath + "/" + remoteFileName)?).into());
+        (remote_file_name.clone()).into()
+    ).with_folder((remote_data_folder.clone()).into())
+.with_dest_file_name((base_test_out_path.clone() + "/" + &remote_file_name).into());
 
     let result = context.api().accept_all_revisions(request).await?;
     let result_json = serialize_result(&result)?;
@@ -62,16 +60,14 @@ async fn revisions_accept_all_revisions() -> TestResult<()> {
 #[tokio::test]
 async fn revisions_accept_all_revisions_online() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let localFile = test_string!("DocumentElements/Revisions/TestRevisions.doc")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let local_file = "DocumentElements/Revisions/TestRevisions.doc".to_owned();
 
-    let requestDocument = context.load_binary_file(test_string!(localFile)?).await?;
+    let request_document = context.load_binary_file(local_file.clone()).await?;
 
     let request = AcceptAllRevisionsOnlineRequest::new(
-        (requestDocument).into()
+        (request_document).into()
     );
 
     let result = context.api().accept_all_revisions_online(request).await?;
@@ -87,20 +83,18 @@ async fn revisions_accept_all_revisions_online() -> TestResult<()> {
 #[tokio::test]
 async fn revisions_reject_all_revisions() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/DocumentActions/Revisions")?;
-    let localFile = test_string!("DocumentElements/Revisions/TestRevisions.doc")?;
-    let remoteFileName = test_string!("TestRejectAllRevisions.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentActions/Revisions";
+    let local_file = "DocumentElements/Revisions/TestRevisions.doc".to_owned();
+    let remote_file_name = "TestRejectAllRevisions.docx".to_owned();
 
-    context.upload_file(test_string!(localFile)?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
     let request = RejectAllRevisionsRequest::new(
-        (test_string!(remoteFileName)?).into()
-    ).with_folder((test_string!(remoteDataFolder)?).into())
-.with_dest_file_name((test_string!(baseTestOutPath + "/" + remoteFileName)?).into());
+        (remote_file_name.clone()).into()
+    ).with_folder((remote_data_folder.clone()).into())
+.with_dest_file_name((base_test_out_path.clone() + "/" + &remote_file_name).into());
 
     let result = context.api().reject_all_revisions(request).await?;
     let result_json = serialize_result(&result)?;
@@ -113,16 +107,14 @@ async fn revisions_reject_all_revisions() -> TestResult<()> {
 #[tokio::test]
 async fn revisions_reject_all_revisions_online() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let localFile = test_string!("DocumentElements/Revisions/TestRevisions.doc")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let local_file = "DocumentElements/Revisions/TestRevisions.doc".to_owned();
 
-    let requestDocument = context.load_binary_file(test_string!(localFile)?).await?;
+    let request_document = context.load_binary_file(local_file.clone()).await?;
 
     let request = RejectAllRevisionsOnlineRequest::new(
-        (requestDocument).into()
+        (request_document).into()
     );
 
     let result = context.api().reject_all_revisions_online(request).await?;
@@ -138,19 +130,17 @@ async fn revisions_reject_all_revisions_online() -> TestResult<()> {
 #[tokio::test]
 async fn revisions_get_all_revisions() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/DocumentActions/Revisions")?;
-    let localFile = test_string!("DocumentElements/Revisions/TestRevisions.doc")?;
-    let remoteFileName = test_string!("TestAcceptAllRevisions.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentActions/Revisions";
+    let local_file = "DocumentElements/Revisions/TestRevisions.doc".to_owned();
+    let remote_file_name = "TestAcceptAllRevisions.docx".to_owned();
 
-    context.upload_file(test_string!(localFile)?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
     let request = GetAllRevisionsRequest::new(
-        (test_string!(remoteFileName)?).into()
-    ).with_folder((test_string!(remoteDataFolder)?).into());
+        (remote_file_name.clone()).into()
+    ).with_folder((remote_data_folder.clone()).into());
 
     let result = context.api().get_all_revisions(request).await?;
     let result_json = serialize_result(&result)?;
@@ -163,16 +153,14 @@ async fn revisions_get_all_revisions() -> TestResult<()> {
 #[tokio::test]
 async fn revisions_get_all_revisions_online() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let localFile = test_string!("DocumentElements/Revisions/TestRevisions.doc")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let local_file = "DocumentElements/Revisions/TestRevisions.doc".to_owned();
 
-    let requestDocument = context.load_binary_file(test_string!(localFile)?).await?;
+    let request_document = context.load_binary_file(local_file.clone()).await?;
 
     let request = GetAllRevisionsOnlineRequest::new(
-        (requestDocument).into()
+        (request_document).into()
     );
 
     let result = context.api().get_all_revisions_online(request).await?;

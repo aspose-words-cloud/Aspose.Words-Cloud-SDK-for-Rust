@@ -36,25 +36,23 @@ use crate::test_context::*;
 #[tokio::test]
 async fn styles_get_styles() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/DocumentElements/Styles")?;
-    let localFile = test_string!("DocumentElements/Styles/GetStyles.docx")?;
-    let remoteFileName = test_string!("TestGetStyles.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentElements/Styles";
+    let local_file = "DocumentElements/Styles/GetStyles.docx".to_owned();
+    let remote_file_name = "TestGetStyles.docx".to_owned();
 
-    context.upload_file(test_string!(localFile)?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
     let request = GetStylesRequest::new(
-        (test_string!(remoteFileName)?).into()
-    ).with_folder((test_string!(remoteDataFolder)?).into());
+        (remote_file_name.clone()).into()
+    ).with_folder((remote_data_folder.clone()).into());
 
     let result = context.api().get_styles(request).await?;
     let result_json = serialize_result(&result)?;
     assert_not_null(&result_json, "Styles")?;
     assert_length(&result_json, "Styles", 22)?;
-    assert_string(&result_json, "Styles[0].Name", test_string!("Default Paragraph Font")?)?;
+    assert_string(&result_json, "Styles[0].Name", "Default Paragraph Font".to_owned())?;
     Ok(())
 }
 
@@ -62,16 +60,14 @@ async fn styles_get_styles() -> TestResult<()> {
 #[tokio::test]
 async fn styles_get_styles_online() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let localFile = test_string!("DocumentElements/Styles/GetStyles.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let local_file = "DocumentElements/Styles/GetStyles.docx".to_owned();
 
-    let requestDocument = context.load_binary_file(test_string!(localFile)?).await?;
+    let request_document = context.load_binary_file(local_file.clone()).await?;
 
     let request = GetStylesOnlineRequest::new(
-        (requestDocument).into()
+        (request_document).into()
     );
 
     context.api().get_styles_online(request).await?;
@@ -82,25 +78,23 @@ async fn styles_get_styles_online() -> TestResult<()> {
 #[tokio::test]
 async fn styles_get_style() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/DocumentElements/Styles")?;
-    let localFile = test_string!("DocumentElements/Styles/GetStyles.docx")?;
-    let remoteFileName = test_string!("TestGetStyle.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentElements/Styles";
+    let local_file = "DocumentElements/Styles/GetStyles.docx".to_owned();
+    let remote_file_name = "TestGetStyle.docx".to_owned();
 
-    context.upload_file(test_string!(localFile)?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
     let request = GetStyleRequest::new(
-        (test_string!(remoteFileName)?).into(),
-        (test_string!("Heading 1")?).into()
-    ).with_folder((test_string!(remoteDataFolder)?).into());
+        (remote_file_name.clone()).into(),
+        ("Heading 1".to_owned()).into()
+    ).with_folder((remote_data_folder.clone()).into());
 
     let result = context.api().get_style(request).await?;
     let result_json = serialize_result(&result)?;
     assert_not_null(&result_json, "Style")?;
-    assert_string(&result_json, "Style.Name", test_string!("Heading 1")?)?;
+    assert_string(&result_json, "Style.Name", "Heading 1".to_owned())?;
     Ok(())
 }
 
@@ -108,17 +102,15 @@ async fn styles_get_style() -> TestResult<()> {
 #[tokio::test]
 async fn styles_get_style_online() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let localFile = test_string!("DocumentElements/Styles/GetStyles.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let local_file = "DocumentElements/Styles/GetStyles.docx".to_owned();
 
-    let requestDocument = context.load_binary_file(test_string!(localFile)?).await?;
+    let request_document = context.load_binary_file(local_file.clone()).await?;
 
     let request = GetStyleOnlineRequest::new(
-        (requestDocument).into(),
-        (test_string!("Heading 1")?).into()
+        (request_document).into(),
+        ("Heading 1".to_owned()).into()
     );
 
     context.api().get_style_online(request).await?;
@@ -129,28 +121,26 @@ async fn styles_get_style_online() -> TestResult<()> {
 #[tokio::test]
 async fn styles_update_style() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/DocumentElements/Styles")?;
-    let localFile = test_string!("DocumentElements/Styles/GetStyles.docx")?;
-    let remoteFileName = test_string!("TestUpdateStyle.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentElements/Styles";
+    let local_file = "DocumentElements/Styles/GetStyles.docx".to_owned();
+    let remote_file_name = "TestUpdateStyle.docx".to_owned();
 
-    context.upload_file(test_string!(localFile)?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
-    let mut requestStyleUpdate = StyleUpdate::default();
-    requestStyleUpdate.r#name = Some((test_string!("My Style")?).into());
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
+    let mut request_style_update = StyleUpdate::default();
+    request_style_update.name = Some(("My Style".to_owned()).into());
 
     let request = UpdateStyleRequest::new(
-        (test_string!(remoteFileName)?).into(),
-        (test_string!("Heading 1")?).into(),
-        (requestStyleUpdate).into()
-    ).with_folder((test_string!(remoteDataFolder)?).into());
+        (remote_file_name.clone()).into(),
+        ("Heading 1".to_owned()).into(),
+        (request_style_update).into()
+    ).with_folder((remote_data_folder.clone()).into());
 
     let result = context.api().update_style(request).await?;
     let result_json = serialize_result(&result)?;
     assert_not_null(&result_json, "Style")?;
-    assert_string(&result_json, "Style.Name", test_string!("My Style")?)?;
+    assert_string(&result_json, "Style.Name", "My Style".to_owned())?;
     Ok(())
 }
 
@@ -158,20 +148,18 @@ async fn styles_update_style() -> TestResult<()> {
 #[tokio::test]
 async fn styles_update_style_online() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let localFile = test_string!("DocumentElements/Styles/GetStyles.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let local_file = "DocumentElements/Styles/GetStyles.docx".to_owned();
 
-    let requestDocument = context.load_binary_file(test_string!(localFile)?).await?;
-    let mut requestStyleUpdate = StyleUpdate::default();
-    requestStyleUpdate.r#name = Some((test_string!("My Style")?).into());
+    let request_document = context.load_binary_file(local_file.clone()).await?;
+    let mut request_style_update = StyleUpdate::default();
+    request_style_update.name = Some(("My Style".to_owned()).into());
 
     let request = UpdateStyleOnlineRequest::new(
-        (requestDocument).into(),
-        (test_string!("Heading 1")?).into(),
-        (requestStyleUpdate).into()
+        (request_document).into(),
+        ("Heading 1".to_owned()).into(),
+        (request_style_update).into()
     );
 
     context.api().update_style_online(request).await?;
@@ -182,28 +170,26 @@ async fn styles_update_style_online() -> TestResult<()> {
 #[tokio::test]
 async fn styles_insert_style() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/DocumentElements/Styles")?;
-    let localFile = test_string!("DocumentElements/Styles/GetStyles.docx")?;
-    let remoteFileName = test_string!("TestInsertStyle.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentElements/Styles";
+    let local_file = "DocumentElements/Styles/GetStyles.docx".to_owned();
+    let remote_file_name = "TestInsertStyle.docx".to_owned();
 
-    context.upload_file(test_string!(localFile)?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
-    let mut requestStyleInsert = StyleInsert::default();
-    requestStyleInsert.r#style_name = Some((test_string!("My Style")?).into());
-    requestStyleInsert.r#style_type = Some((StyleInsert_StyleTypeEnum::Paragraph).into());
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
+    let mut request_style_insert = StyleInsert::default();
+    request_style_insert.style_name = Some(("My Style".to_owned()).into());
+    request_style_insert.style_type = Some((StyleInsertStyleTypeEnum::Paragraph).into());
 
     let request = InsertStyleRequest::new(
-        (test_string!(remoteFileName)?).into(),
-        (requestStyleInsert).into()
-    ).with_folder((test_string!(remoteDataFolder)?).into());
+        (remote_file_name.clone()).into(),
+        (request_style_insert).into()
+    ).with_folder((remote_data_folder.clone()).into());
 
     let result = context.api().insert_style(request).await?;
     let result_json = serialize_result(&result)?;
     assert_not_null(&result_json, "Style")?;
-    assert_string(&result_json, "Style.Name", test_string!("My Style")?)?;
+    assert_string(&result_json, "Style.Name", "My Style".to_owned())?;
     Ok(())
 }
 
@@ -211,20 +197,18 @@ async fn styles_insert_style() -> TestResult<()> {
 #[tokio::test]
 async fn styles_insert_style_online() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let localFile = test_string!("DocumentElements/Styles/GetStyles.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let local_file = "DocumentElements/Styles/GetStyles.docx".to_owned();
 
-    let requestDocument = context.load_binary_file(test_string!(localFile)?).await?;
-    let mut requestStyleInsert = StyleInsert::default();
-    requestStyleInsert.r#style_name = Some((test_string!("My Style")?).into());
-    requestStyleInsert.r#style_type = Some((StyleInsert_StyleTypeEnum::Paragraph).into());
+    let request_document = context.load_binary_file(local_file.clone()).await?;
+    let mut request_style_insert = StyleInsert::default();
+    request_style_insert.style_name = Some(("My Style".to_owned()).into());
+    request_style_insert.style_type = Some((StyleInsertStyleTypeEnum::Paragraph).into());
 
     let request = InsertStyleOnlineRequest::new(
-        (requestDocument).into(),
-        (requestStyleInsert).into()
+        (request_document).into(),
+        (request_style_insert).into()
     );
 
     context.api().insert_style_online(request).await?;
@@ -235,27 +219,25 @@ async fn styles_insert_style_online() -> TestResult<()> {
 #[tokio::test]
 async fn styles_copy_style() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/DocumentElements/Styles")?;
-    let localFile = test_string!("DocumentElements/Styles/GetStyles.docx")?;
-    let remoteFileName = test_string!("TestCopyStyle.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentElements/Styles";
+    let local_file = "DocumentElements/Styles/GetStyles.docx".to_owned();
+    let remote_file_name = "TestCopyStyle.docx".to_owned();
 
-    context.upload_file(test_string!(localFile)?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
-    let mut requestStyleCopy = StyleCopy::default();
-    requestStyleCopy.r#style_name = Some((test_string!("Heading 1")?).into());
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
+    let mut request_style_copy = StyleCopy::default();
+    request_style_copy.style_name = Some(("Heading 1".to_owned()).into());
 
     let request = CopyStyleRequest::new(
-        (test_string!(remoteFileName)?).into(),
-        (requestStyleCopy).into()
-    ).with_folder((test_string!(remoteDataFolder)?).into());
+        (remote_file_name.clone()).into(),
+        (request_style_copy).into()
+    ).with_folder((remote_data_folder.clone()).into());
 
     let result = context.api().copy_style(request).await?;
     let result_json = serialize_result(&result)?;
     assert_not_null(&result_json, "Style")?;
-    assert_string(&result_json, "Style.Name", test_string!("Heading 1_0")?)?;
+    assert_string(&result_json, "Style.Name", "Heading 1_0".to_owned())?;
     Ok(())
 }
 
@@ -263,19 +245,17 @@ async fn styles_copy_style() -> TestResult<()> {
 #[tokio::test]
 async fn styles_copy_style_online() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let localFile = test_string!("DocumentElements/Styles/GetStyles.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let local_file = "DocumentElements/Styles/GetStyles.docx".to_owned();
 
-    let requestDocument = context.load_binary_file(test_string!(localFile)?).await?;
-    let mut requestStyleCopy = StyleCopy::default();
-    requestStyleCopy.r#style_name = Some((test_string!("Heading 1")?).into());
+    let request_document = context.load_binary_file(local_file.clone()).await?;
+    let mut request_style_copy = StyleCopy::default();
+    request_style_copy.style_name = Some(("Heading 1".to_owned()).into());
 
     let request = CopyStyleOnlineRequest::new(
-        (requestDocument).into(),
-        (requestStyleCopy).into()
+        (request_document).into(),
+        (request_style_copy).into()
     );
 
     context.api().copy_style_online(request).await?;
@@ -286,25 +266,23 @@ async fn styles_copy_style_online() -> TestResult<()> {
 #[tokio::test]
 async fn styles_get_style_from_document_element() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/DocumentElements/Styles")?;
-    let localFile = test_string!("DocumentElements/Styles/GetStyles.docx")?;
-    let remoteFileName = test_string!("TestGetStyleFromDocumentElement.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentElements/Styles";
+    let local_file = "DocumentElements/Styles/GetStyles.docx".to_owned();
+    let remote_file_name = "TestGetStyleFromDocumentElement.docx".to_owned();
 
-    context.upload_file(test_string!(localFile)?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
     let request = GetStyleFromDocumentElementRequest::new(
-        (test_string!(remoteFileName)?).into(),
-        (test_string!("paragraphs/1/paragraphFormat")?).into()
-    ).with_folder((test_string!(remoteDataFolder)?).into());
+        (remote_file_name.clone()).into(),
+        ("paragraphs/1/paragraphFormat".to_owned()).into()
+    ).with_folder((remote_data_folder.clone()).into());
 
     let result = context.api().get_style_from_document_element(request).await?;
     let result_json = serialize_result(&result)?;
     assert_not_null(&result_json, "Style")?;
-    assert_string(&result_json, "Style.Name", test_string!("TOC 1")?)?;
+    assert_string(&result_json, "Style.Name", "TOC 1".to_owned())?;
     Ok(())
 }
 
@@ -312,17 +290,15 @@ async fn styles_get_style_from_document_element() -> TestResult<()> {
 #[tokio::test]
 async fn styles_get_style_from_document_element_online() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let localFile = test_string!("DocumentElements/Styles/GetStyles.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let local_file = "DocumentElements/Styles/GetStyles.docx".to_owned();
 
-    let requestDocument = context.load_binary_file(test_string!(localFile)?).await?;
+    let request_document = context.load_binary_file(local_file.clone()).await?;
 
     let request = GetStyleFromDocumentElementOnlineRequest::new(
-        (requestDocument).into(),
-        (test_string!("paragraphs/1/paragraphFormat")?).into()
+        (request_document).into(),
+        ("paragraphs/1/paragraphFormat".to_owned()).into()
     );
 
     context.api().get_style_from_document_element_online(request).await?;
@@ -333,23 +309,21 @@ async fn styles_get_style_from_document_element_online() -> TestResult<()> {
 #[tokio::test]
 async fn styles_apply_style_to_document_element() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/DocumentElements/Styles")?;
-    let localFile = test_string!("DocumentElements/Styles/GetStyles.docx")?;
-    let remoteFileName = test_string!("TestApplyStyleToDocumentElement.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentElements/Styles";
+    let local_file = "DocumentElements/Styles/GetStyles.docx".to_owned();
+    let remote_file_name = "TestApplyStyleToDocumentElement.docx".to_owned();
 
-    context.upload_file(test_string!(localFile)?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
-    let mut requestStyleApply = StyleApply::default();
-    requestStyleApply.r#style_name = Some((test_string!("Heading 1")?).into());
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
+    let mut request_style_apply = StyleApply::default();
+    request_style_apply.style_name = Some(("Heading 1".to_owned()).into());
 
     let request = ApplyStyleToDocumentElementRequest::new(
-        (test_string!(remoteFileName)?).into(),
-        (test_string!("paragraphs/1/paragraphFormat")?).into(),
-        (requestStyleApply).into()
-    ).with_folder((test_string!(remoteDataFolder)?).into());
+        (remote_file_name.clone()).into(),
+        ("paragraphs/1/paragraphFormat".to_owned()).into(),
+        (request_style_apply).into()
+    ).with_folder((remote_data_folder.clone()).into());
 
     context.api().apply_style_to_document_element(request).await?;
     Ok(())
@@ -359,20 +333,18 @@ async fn styles_apply_style_to_document_element() -> TestResult<()> {
 #[tokio::test]
 async fn styles_apply_style_to_document_element_online() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let localFile = test_string!("DocumentElements/Styles/GetStyles.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let local_file = "DocumentElements/Styles/GetStyles.docx".to_owned();
 
-    let requestDocument = context.load_binary_file(test_string!(localFile)?).await?;
-    let mut requestStyleApply = StyleApply::default();
-    requestStyleApply.r#style_name = Some((test_string!("Heading 1")?).into());
+    let request_document = context.load_binary_file(local_file.clone()).await?;
+    let mut request_style_apply = StyleApply::default();
+    request_style_apply.style_name = Some(("Heading 1".to_owned()).into());
 
     let request = ApplyStyleToDocumentElementOnlineRequest::new(
-        (requestDocument).into(),
-        (test_string!("paragraphs/1/paragraphFormat")?).into(),
-        (requestStyleApply).into()
+        (request_document).into(),
+        ("paragraphs/1/paragraphFormat".to_owned()).into(),
+        (request_style_apply).into()
     );
 
     context.api().apply_style_to_document_element_online(request).await?;
@@ -383,23 +355,21 @@ async fn styles_apply_style_to_document_element_online() -> TestResult<()> {
 #[tokio::test]
 async fn styles_copy_styles_from_template() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/DocumentElements/Styles")?;
-    let localFile = test_string!("DocumentElements/Styles/GetStyles.docx")?;
-    let remoteFileName = test_string!("TestCopyStylesFromTemplate.docx")?;
-    let templateFolder = test_string!("DocumentElements/Styles")?;
-    let templateName = test_string!("StyleTemplate.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentElements/Styles";
+    let local_file = "DocumentElements/Styles/GetStyles.docx".to_owned();
+    let remote_file_name = "TestCopyStylesFromTemplate.docx".to_owned();
+    let template_folder = "DocumentElements/Styles".to_owned();
+    let template_name = "StyleTemplate.docx".to_owned();
 
-    context.upload_file(test_string!(localFile)?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
-    context.upload_file(test_string!(templateFolder + "/" + templateName)?, test_string!(remoteDataFolder + "/" + templateName)?).await?;
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
+    context.upload_file(template_folder.clone() + "/" + &template_name, remote_data_folder.clone() + "/" + &template_name).await?;
 
     let request = CopyStylesFromTemplateRequest::new(
-        (test_string!(remoteFileName)?).into(),
-        (test_string!(templateName)?).into()
-    ).with_folder((test_string!(remoteDataFolder)?).into());
+        (remote_file_name.clone()).into(),
+        (template_name.clone()).into()
+    ).with_folder((remote_data_folder.clone()).into());
 
     context.api().copy_styles_from_template(request).await?;
     Ok(())

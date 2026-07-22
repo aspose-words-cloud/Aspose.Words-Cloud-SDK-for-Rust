@@ -34,27 +34,27 @@ use super::*;
 pub struct BookmarksOutlineLevelData {
         /// Gets or sets the bookmark's level.
         #[serde(rename = "BookmarksOutlineLevel", skip_serializing_if = "Option::is_none")]
-        pub r#bookmarks_outline_level: Option<i32>,
+        pub bookmarks_outline_level: Option<i32>,
 
 
         /// Gets or sets the bookmark's name.
         #[serde(rename = "Name", skip_serializing_if = "Option::is_none")]
-        pub r#name: Option<String>,
+        pub name: Option<String>,
 
 }
 
 impl Default for BookmarksOutlineLevelData {
     fn default() -> Self {
         Self {
-            r#bookmarks_outline_level: None,
-            r#name: None,
+            bookmarks_outline_level: None,
+            name: None,
         }
     }
 }
 
 impl Model for BookmarksOutlineLevelData {
     fn validate(&self) -> SdkResult<()> {
-        if self.r#bookmarks_outline_level.is_none() {
+        if self.bookmarks_outline_level.is_none() {
             return Err(SdkError::InvalidRequest(
                 "property BookmarksOutlineLevel in BookmarksOutlineLevelData is required".to_owned(),
             ));
@@ -62,7 +62,7 @@ impl Model for BookmarksOutlineLevelData {
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
     }
 
     fn as_any(&self) -> &dyn Any {

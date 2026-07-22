@@ -36,26 +36,24 @@ use crate::test_context::*;
 #[tokio::test]
 async fn file_upload_file() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/Storage")?;
-    let localFile = test_string!("Common/test_multi_pages.docx")?;
-    let remoteFileName = test_string!("TestUploadFile.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/Storage";
+    let local_file = "Common/test_multi_pages.docx".to_owned();
+    let remote_file_name = "TestUploadFile.docx".to_owned();
 
-    let requestFileContent = context.load_binary_file(test_string!(localFile)?).await?;
+    let request_file_content = context.load_binary_file(local_file.clone()).await?;
 
     let request = UploadFileRequest::new(
-        (requestFileContent).into(),
-        (test_string!(remoteDataFolder + "/" + remoteFileName)?).into()
+        (request_file_content).into(),
+        (remote_data_folder.clone() + "/" + &remote_file_name).into()
     );
 
     let result = context.api().upload_file(request).await?;
     let result_json = serialize_result(&result)?;
     assert_not_null(&result_json, "Uploaded")?;
     assert_length(&result_json, "Uploaded", 1)?;
-    assert_string(&result_json, "Uploaded[0]", test_string!("TestUploadFile.docx")?)?;
+    assert_string(&result_json, "Uploaded[0]", "TestUploadFile.docx".to_owned())?;
     Ok(())
 }
 
@@ -63,19 +61,17 @@ async fn file_upload_file() -> TestResult<()> {
 #[tokio::test]
 async fn file_copy_file() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/Storage")?;
-    let localFile = test_string!("Common/test_multi_pages.docx")?;
-    let remoteFileName = test_string!("TestCopyFileSrc.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/Storage";
+    let local_file = "Common/test_multi_pages.docx".to_owned();
+    let remote_file_name = "TestCopyFileSrc.docx".to_owned();
 
-    context.upload_file(test_string!(localFile)?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
     let request = CopyFileRequest::new(
-        (test_string!(remoteDataFolder + "/TestCopyFileDest.docx")?).into(),
-        (test_string!(remoteDataFolder + "/" + remoteFileName)?).into()
+        (remote_data_folder.clone() + "/TestCopyFileDest.docx").into(),
+        (remote_data_folder.clone() + "/" + &remote_file_name).into()
     );
 
     context.api().copy_file(request).await?;
@@ -86,19 +82,17 @@ async fn file_copy_file() -> TestResult<()> {
 #[tokio::test]
 async fn file_move_file() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/Storage")?;
-    let localFile = test_string!("Common/test_multi_pages.docx")?;
-    let remoteFileName = test_string!("TestMoveFileSrc.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/Storage";
+    let local_file = "Common/test_multi_pages.docx".to_owned();
+    let remote_file_name = "TestMoveFileSrc.docx".to_owned();
 
-    context.upload_file(test_string!(localFile)?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
     let request = MoveFileRequest::new(
-        (test_string!(baseTestOutPath + "/TestMoveFileDest_" + CreateRandomGuid() + ".docx")?).into(),
-        (test_string!(remoteDataFolder + "/" + remoteFileName)?).into()
+        (base_test_out_path.clone() + "/TestMoveFileDest_" + &create_random_guid() + ".docx").into(),
+        (remote_data_folder.clone() + "/" + &remote_file_name).into()
     );
 
     context.api().move_file(request).await?;
@@ -109,18 +103,16 @@ async fn file_move_file() -> TestResult<()> {
 #[tokio::test]
 async fn file_delete_file() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/Storage")?;
-    let localFile = test_string!("Common/test_multi_pages.docx")?;
-    let remoteFileName = test_string!("TestDeleteFile.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/Storage";
+    let local_file = "Common/test_multi_pages.docx".to_owned();
+    let remote_file_name = "TestDeleteFile.docx".to_owned();
 
-    context.upload_file(test_string!(localFile)?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
     let request = DeleteFileRequest::new(
-        (test_string!(remoteDataFolder + "/" + remoteFileName)?).into()
+        (remote_data_folder.clone() + "/" + &remote_file_name).into()
     );
 
     context.api().delete_file(request).await?;
@@ -131,18 +123,16 @@ async fn file_delete_file() -> TestResult<()> {
 #[tokio::test]
 async fn file_download_file() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/Storage")?;
-    let localFile = test_string!("Common/test_multi_pages.docx")?;
-    let remoteFileName = test_string!("TestDownloadFile.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/Storage";
+    let local_file = "Common/test_multi_pages.docx".to_owned();
+    let remote_file_name = "TestDownloadFile.docx".to_owned();
 
-    context.upload_file(test_string!(localFile)?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
     let request = DownloadFileRequest::new(
-        (test_string!(remoteDataFolder + "/" + remoteFileName)?).into()
+        (remote_data_folder.clone() + "/" + &remote_file_name).into()
     );
 
     context.api().download_file(request).await?;

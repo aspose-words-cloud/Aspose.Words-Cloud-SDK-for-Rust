@@ -37,7 +37,7 @@ pub struct FieldLink {
     pub parent: NodeLink,
         /// Gets or sets the field code.
         #[serde(rename = "FieldCode", skip_serializing_if = "Option::is_none")]
-        pub r#field_code: Option<String>,
+        pub field_code: Option<String>,
 
 }
 
@@ -46,7 +46,7 @@ impl Default for FieldLink {
         let mut parent = NodeLink::default();
         Self {
             parent,
-            r#field_code: None,
+            field_code: None,
         }
     }
 }
@@ -71,8 +71,8 @@ impl Model for FieldLink {
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
-        self.parent.collect_file_references(output);
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+        self.parent.collect_file_references(_output);
     }
 
     fn as_any(&self) -> &dyn Any {

@@ -37,12 +37,12 @@ pub struct Hyperlink {
     pub parent: LinkElement,
         /// Gets or sets the hypelink's display text.
         #[serde(rename = "DisplayText", skip_serializing_if = "Option::is_none")]
-        pub r#display_text: Option<String>,
+        pub display_text: Option<String>,
 
 
         /// Gets or sets the value.
         #[serde(rename = "Value", skip_serializing_if = "Option::is_none")]
-        pub r#value: Option<String>,
+        pub value: Option<String>,
 
 }
 
@@ -51,8 +51,8 @@ impl Default for Hyperlink {
         let mut parent = LinkElement::default();
         Self {
             parent,
-            r#display_text: None,
-            r#value: None,
+            display_text: None,
+            value: None,
         }
     }
 }
@@ -77,8 +77,8 @@ impl Model for Hyperlink {
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
-        self.parent.collect_file_references(output);
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+        self.parent.collect_file_references(_output);
     }
 
     fn as_any(&self) -> &dyn Any {

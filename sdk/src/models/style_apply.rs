@@ -34,21 +34,21 @@ use super::*;
 pub struct StyleApply {
         /// Gets or sets the case sensitive name of the style to apply.
         #[serde(rename = "StyleName", skip_serializing_if = "Option::is_none")]
-        pub r#style_name: Option<String>,
+        pub style_name: Option<String>,
 
 }
 
 impl Default for StyleApply {
     fn default() -> Self {
         Self {
-            r#style_name: None,
+            style_name: None,
         }
     }
 }
 
 impl Model for StyleApply {
     fn validate(&self) -> SdkResult<()> {
-        if self.r#style_name.is_none() {
+        if self.style_name.is_none() {
             return Err(SdkError::InvalidRequest(
                 "property StyleName in StyleApply is required".to_owned(),
             ));
@@ -56,7 +56,7 @@ impl Model for StyleApply {
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
     }
 
     fn as_any(&self) -> &dyn Any {

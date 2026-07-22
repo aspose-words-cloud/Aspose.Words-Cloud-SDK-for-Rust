@@ -37,7 +37,7 @@ pub struct CompressResponse {
     pub parent: WordsResponse,
         /// Gets or sets the destination document info.
         #[serde(rename = "Document", skip_serializing_if = "Option::is_none")]
-        pub r#document: Option<Document>,
+        pub document: Option<Document>,
 
 }
 
@@ -46,7 +46,7 @@ impl Default for CompressResponse {
         let mut parent = WordsResponse::default();
         Self {
             parent,
-            r#document: None,
+            document: None,
         }
     }
 }
@@ -68,14 +68,14 @@ impl DerefMut for CompressResponse {
 impl Model for CompressResponse {
     fn validate(&self) -> SdkResult<()> {
         self.parent.validate()?;
-        if let Some(value) = &self.r#document {
+        if let Some(value) = &self.document {
         value.validate()?;
         }
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
-        self.parent.collect_file_references(output);
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+        self.parent.collect_file_references(_output);
     }
 
     fn as_any(&self) -> &dyn Any {

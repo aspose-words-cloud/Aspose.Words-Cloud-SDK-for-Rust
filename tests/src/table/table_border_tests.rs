@@ -36,20 +36,18 @@ use crate::test_context::*;
 #[tokio::test]
 async fn table_border_get_borders() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/DocumentElements/Tables")?;
-    let localFile = test_string!("DocumentElements/Tables/TablesGet.docx")?;
-    let remoteFileName = test_string!("TestGetBorders.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentElements/Tables";
+    let local_file = "DocumentElements/Tables/TablesGet.docx".to_owned();
+    let remote_file_name = "TestGetBorders.docx".to_owned();
 
-    context.upload_file(test_string!(localFile)?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
     let request = GetBordersRequest::new(
-        (test_string!(remoteFileName)?).into()
-    ).with_node_path((test_string!("tables/1/rows/0/cells/0")?).into())
-.with_folder((test_string!(remoteDataFolder)?).into());
+        (remote_file_name.clone()).into()
+    ).with_node_path(("tables/1/rows/0/cells/0".to_owned()).into())
+.with_folder((remote_data_folder.clone()).into());
 
     let result = context.api().get_borders(request).await?;
     let result_json = serialize_result(&result)?;
@@ -57,7 +55,7 @@ async fn table_border_get_borders() -> TestResult<()> {
     assert_not_null(&result_json, "Borders.List")?;
     assert_length(&result_json, "Borders.List", 6)?;
     assert_not_null(&result_json, "Borders.List[0].Color")?;
-    assert_string(&result_json, "Borders.List[0].Color.Web", test_string!("#000000")?)?;
+    assert_string(&result_json, "Borders.List[0].Color.Web", "#000000".to_owned())?;
     Ok(())
 }
 
@@ -65,17 +63,15 @@ async fn table_border_get_borders() -> TestResult<()> {
 #[tokio::test]
 async fn table_border_get_borders_online() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let localFile = test_string!("DocumentElements/Tables/TablesGet.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let local_file = "DocumentElements/Tables/TablesGet.docx".to_owned();
 
-    let requestDocument = context.load_binary_file(test_string!(localFile)?).await?;
+    let request_document = context.load_binary_file(local_file.clone()).await?;
 
     let request = GetBordersOnlineRequest::new(
-        (requestDocument).into()
-    ).with_node_path((test_string!("tables/1/rows/0/cells/0")?).into());
+        (request_document).into()
+    ).with_node_path(("tables/1/rows/0/cells/0".to_owned()).into());
 
     context.api().get_borders_online(request).await?;
     Ok(())
@@ -85,27 +81,25 @@ async fn table_border_get_borders_online() -> TestResult<()> {
 #[tokio::test]
 async fn table_border_get_border() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/DocumentElements/Tables")?;
-    let localFile = test_string!("DocumentElements/Tables/TablesGet.docx")?;
-    let remoteFileName = test_string!("TestGetBorder.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentElements/Tables";
+    let local_file = "DocumentElements/Tables/TablesGet.docx".to_owned();
+    let remote_file_name = "TestGetBorder.docx".to_owned();
 
-    context.upload_file(test_string!(localFile)?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
     let request = GetBorderRequest::new(
-        (test_string!(remoteFileName)?).into(),
-        (test_string!("left")?).into()
-    ).with_node_path((test_string!("tables/1/rows/0/cells/0")?).into())
-.with_folder((test_string!(remoteDataFolder)?).into());
+        (remote_file_name.clone()).into(),
+        ("left".to_owned()).into()
+    ).with_node_path(("tables/1/rows/0/cells/0".to_owned()).into())
+.with_folder((remote_data_folder.clone()).into());
 
     let result = context.api().get_border(request).await?;
     let result_json = serialize_result(&result)?;
     assert_not_null(&result_json, "Border")?;
     assert_not_null(&result_json, "Border.Color")?;
-    assert_string(&result_json, "Border.Color.Web", test_string!("#000000")?)?;
+    assert_string(&result_json, "Border.Color.Web", "#000000".to_owned())?;
     Ok(())
 }
 
@@ -113,18 +107,16 @@ async fn table_border_get_border() -> TestResult<()> {
 #[tokio::test]
 async fn table_border_get_border_online() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let localFile = test_string!("DocumentElements/Tables/TablesGet.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let local_file = "DocumentElements/Tables/TablesGet.docx".to_owned();
 
-    let requestDocument = context.load_binary_file(test_string!(localFile)?).await?;
+    let request_document = context.load_binary_file(local_file.clone()).await?;
 
     let request = GetBorderOnlineRequest::new(
-        (requestDocument).into(),
-        (test_string!("left")?).into()
-    ).with_node_path((test_string!("tables/1/rows/0/cells/0")?).into());
+        (request_document).into(),
+        ("left".to_owned()).into()
+    ).with_node_path(("tables/1/rows/0/cells/0".to_owned()).into());
 
     context.api().get_border_online(request).await?;
     Ok(())
@@ -134,20 +126,18 @@ async fn table_border_get_border_online() -> TestResult<()> {
 #[tokio::test]
 async fn table_border_delete_borders() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/DocumentElements/Tables")?;
-    let localFile = test_string!("DocumentElements/Tables/TablesGet.docx")?;
-    let remoteFileName = test_string!("TestDeleteBorders.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentElements/Tables";
+    let local_file = "DocumentElements/Tables/TablesGet.docx".to_owned();
+    let remote_file_name = "TestDeleteBorders.docx".to_owned();
 
-    context.upload_file(test_string!(localFile)?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
     let request = DeleteBordersRequest::new(
-        (test_string!(remoteFileName)?).into()
-    ).with_node_path((test_string!("tables/1/rows/0/cells/0")?).into())
-.with_folder((test_string!(remoteDataFolder)?).into());
+        (remote_file_name.clone()).into()
+    ).with_node_path(("tables/1/rows/0/cells/0".to_owned()).into())
+.with_folder((remote_data_folder.clone()).into());
 
     context.api().delete_borders(request).await?;
     Ok(())
@@ -157,17 +147,15 @@ async fn table_border_delete_borders() -> TestResult<()> {
 #[tokio::test]
 async fn table_border_delete_borders_online() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let localFile = test_string!("DocumentElements/Tables/TablesGet.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let local_file = "DocumentElements/Tables/TablesGet.docx".to_owned();
 
-    let requestDocument = context.load_binary_file(test_string!(localFile)?).await?;
+    let request_document = context.load_binary_file(local_file.clone()).await?;
 
     let request = DeleteBordersOnlineRequest::new(
-        (requestDocument).into()
-    ).with_node_path((test_string!("tables/1/rows/0/cells/0")?).into());
+        (request_document).into()
+    ).with_node_path(("tables/1/rows/0/cells/0".to_owned()).into());
 
     context.api().delete_borders_online(request).await?;
     Ok(())
@@ -177,21 +165,19 @@ async fn table_border_delete_borders_online() -> TestResult<()> {
 #[tokio::test]
 async fn table_border_delete_border() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/DocumentElements/Tables")?;
-    let localFile = test_string!("DocumentElements/Tables/TablesGet.docx")?;
-    let remoteFileName = test_string!("TestDeleteBorder.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentElements/Tables";
+    let local_file = "DocumentElements/Tables/TablesGet.docx".to_owned();
+    let remote_file_name = "TestDeleteBorder.docx".to_owned();
 
-    context.upload_file(test_string!(localFile)?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
     let request = DeleteBorderRequest::new(
-        (test_string!(remoteFileName)?).into(),
-        (test_string!("left")?).into()
-    ).with_node_path((test_string!("tables/1/rows/0/cells/0")?).into())
-.with_folder((test_string!(remoteDataFolder)?).into());
+        (remote_file_name.clone()).into(),
+        ("left".to_owned()).into()
+    ).with_node_path(("tables/1/rows/0/cells/0".to_owned()).into())
+.with_folder((remote_data_folder.clone()).into());
 
     context.api().delete_border(request).await?;
     Ok(())
@@ -201,18 +187,16 @@ async fn table_border_delete_border() -> TestResult<()> {
 #[tokio::test]
 async fn table_border_delete_border_online() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let localFile = test_string!("DocumentElements/Tables/TablesGet.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let local_file = "DocumentElements/Tables/TablesGet.docx".to_owned();
 
-    let requestDocument = context.load_binary_file(test_string!(localFile)?).await?;
+    let request_document = context.load_binary_file(local_file.clone()).await?;
 
     let request = DeleteBorderOnlineRequest::new(
-        (requestDocument).into(),
-        (test_string!("left")?).into()
-    ).with_node_path((test_string!("tables/1/rows/0/cells/0")?).into());
+        (request_document).into(),
+        ("left".to_owned()).into()
+    ).with_node_path(("tables/1/rows/0/cells/0".to_owned()).into());
 
     context.api().delete_border_online(request).await?;
     Ok(())
@@ -222,37 +206,35 @@ async fn table_border_delete_border_online() -> TestResult<()> {
 #[tokio::test]
 async fn table_border_update_border() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/DocumentElements/Tables")?;
-    let localFile = test_string!("DocumentElements/Tables/TablesGet.docx")?;
-    let remoteFileName = test_string!("TestUpdateBorder.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentElements/Tables";
+    let local_file = "DocumentElements/Tables/TablesGet.docx".to_owned();
+    let remote_file_name = "TestUpdateBorder.docx".to_owned();
 
-    context.upload_file(test_string!(localFile)?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
-    let mut requestBorderPropertiesColor = XmlColor::default();
-    requestBorderPropertiesColor.r#web = Some((test_string!("#AABBCC")?).into());
-    let mut requestBorderProperties = Border::default();
-    requestBorderProperties.r#border_type = Some((Border_BorderTypeEnum::Left).into());
-    requestBorderProperties.r#color = Some((requestBorderPropertiesColor).into());
-    requestBorderProperties.r#distance_from_text = Some(((6.0) as f64).into());
-    requestBorderProperties.r#line_style = Some((Border_LineStyleEnum::DashDotStroker).into());
-    requestBorderProperties.r#line_width = Some(((2.0) as f64).into());
-    requestBorderProperties.r#shadow = Some((true).into());
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
+    let mut request_border_properties_color = XmlColor::default();
+    request_border_properties_color.web = Some(("#AABBCC".to_owned()).into());
+    let mut request_border_properties = Border::default();
+    request_border_properties.border_type = Some((BorderBorderTypeEnum::Left).into());
+    request_border_properties.color = Some((request_border_properties_color).into());
+    request_border_properties.distance_from_text = Some(((6.0) as f64).into());
+    request_border_properties.line_style = Some((BorderLineStyleEnum::DashDotStroker).into());
+    request_border_properties.line_width = Some(((2.0) as f64).into());
+    request_border_properties.shadow = Some((true).into());
 
     let request = UpdateBorderRequest::new(
-        (test_string!(remoteFileName)?).into(),
-        (test_string!("left")?).into(),
-        (requestBorderProperties).into()
-    ).with_node_path((test_string!("tables/1/rows/0/cells/0")?).into())
-.with_folder((test_string!(remoteDataFolder)?).into());
+        (remote_file_name.clone()).into(),
+        ("left".to_owned()).into(),
+        (request_border_properties).into()
+    ).with_node_path(("tables/1/rows/0/cells/0".to_owned()).into())
+.with_folder((remote_data_folder.clone()).into());
 
     let result = context.api().update_border(request).await?;
     let result_json = serialize_result(&result)?;
     assert_not_null(&result_json, "Border")?;
     assert_not_null(&result_json, "Border.Color")?;
-    assert_string(&result_json, "Border.Color.Web", test_string!("#AABBCC")?)?;
+    assert_string(&result_json, "Border.Color.Web", "#AABBCC".to_owned())?;
     assert_float(&result_json, "Border.DistanceFromText", (6.0) as f64)?;
     assert_float(&result_json, "Border.LineWidth", (2.0) as f64)?;
     assert_bool(&result_json, "Border.Shadow", true)?;
@@ -263,28 +245,26 @@ async fn table_border_update_border() -> TestResult<()> {
 #[tokio::test]
 async fn table_border_update_border_online() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let localFile = test_string!("DocumentElements/Tables/TablesGet.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let local_file = "DocumentElements/Tables/TablesGet.docx".to_owned();
 
-    let requestDocument = context.load_binary_file(test_string!(localFile)?).await?;
-    let mut requestBorderPropertiesColor = XmlColor::default();
-    requestBorderPropertiesColor.r#web = Some((test_string!("#AABBCC")?).into());
-    let mut requestBorderProperties = Border::default();
-    requestBorderProperties.r#border_type = Some((Border_BorderTypeEnum::Left).into());
-    requestBorderProperties.r#color = Some((requestBorderPropertiesColor).into());
-    requestBorderProperties.r#distance_from_text = Some(((6) as f64).into());
-    requestBorderProperties.r#line_style = Some((Border_LineStyleEnum::DashDotStroker).into());
-    requestBorderProperties.r#line_width = Some(((2) as f64).into());
-    requestBorderProperties.r#shadow = Some((true).into());
+    let request_document = context.load_binary_file(local_file.clone()).await?;
+    let mut request_border_properties_color = XmlColor::default();
+    request_border_properties_color.web = Some(("#AABBCC".to_owned()).into());
+    let mut request_border_properties = Border::default();
+    request_border_properties.border_type = Some((BorderBorderTypeEnum::Left).into());
+    request_border_properties.color = Some((request_border_properties_color).into());
+    request_border_properties.distance_from_text = Some(((6) as f64).into());
+    request_border_properties.line_style = Some((BorderLineStyleEnum::DashDotStroker).into());
+    request_border_properties.line_width = Some(((2) as f64).into());
+    request_border_properties.shadow = Some((true).into());
 
     let request = UpdateBorderOnlineRequest::new(
-        (requestDocument).into(),
-        (requestBorderProperties).into(),
-        (test_string!("left")?).into()
-    ).with_node_path((test_string!("tables/1/rows/0/cells/0")?).into());
+        (request_document).into(),
+        (request_border_properties).into(),
+        ("left".to_owned()).into()
+    ).with_node_path(("tables/1/rows/0/cells/0".to_owned()).into());
 
     context.api().update_border_online(request).await?;
     Ok(())

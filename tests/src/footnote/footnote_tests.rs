@@ -36,30 +36,28 @@ use crate::test_context::*;
 #[tokio::test]
 async fn footnote_insert_footnote() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/DocumentElements/Footnotes")?;
-    let footnoteFolder = test_string!("DocumentElements/Footnotes")?;
-    let remoteFileName = test_string!("TestInsertFootnote.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentElements/Footnotes";
+    let footnote_folder = "DocumentElements/Footnotes".to_owned();
+    let remote_file_name = "TestInsertFootnote.docx".to_owned();
 
-    context.upload_file(test_string!(footnoteFolder + "/Footnote.doc")?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
-    let mut requestFootnoteDto = FootnoteInsert::default();
-    requestFootnoteDto.r#footnote_type = Some((FootnoteBase_FootnoteTypeEnum::Endnote).into());
-    requestFootnoteDto.r#text = Some((test_string!("test endnote")?).into());
+    context.upload_file(footnote_folder.clone() + "/Footnote.doc", remote_data_folder.clone() + "/" + &remote_file_name).await?;
+    let mut request_footnote_dto = FootnoteInsert::default();
+    request_footnote_dto.footnote_type = Some((FootnoteBaseFootnoteTypeEnum::Endnote).into());
+    request_footnote_dto.text = Some(("test endnote".to_owned()).into());
 
     let request = InsertFootnoteRequest::new(
-        (test_string!(remoteFileName)?).into(),
-        (requestFootnoteDto).into()
-    ).with_node_path((test_string!("")?).into())
-.with_folder((test_string!(remoteDataFolder)?).into());
+        (remote_file_name.clone()).into(),
+        (request_footnote_dto).into()
+    ).with_node_path(("".to_owned()).into())
+.with_folder((remote_data_folder.clone()).into());
 
     let result = context.api().insert_footnote(request).await?;
     let result_json = serialize_result(&result)?;
     assert_not_null(&result_json, "Footnote")?;
-    assert_string(&result_json, "Footnote.NodeId", test_string!("0.1.7.1")?)?;
-    assert_string(&result_json, "Footnote.Text", test_string!(" test endnote" + "\r\n")?)?;
+    assert_string(&result_json, "Footnote.NodeId", "0.1.7.1".to_owned())?;
+    assert_string(&result_json, "Footnote.Text", " test endnote".to_owned() + "\r\n")?;
     Ok(())
 }
 
@@ -67,21 +65,19 @@ async fn footnote_insert_footnote() -> TestResult<()> {
 #[tokio::test]
 async fn footnote_insert_footnote_online() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let footnoteFolder = test_string!("DocumentElements/Footnotes")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let footnote_folder = "DocumentElements/Footnotes".to_owned();
 
-    let requestDocument = context.load_binary_file(test_string!(footnoteFolder + "/Footnote.doc")?).await?;
-    let mut requestFootnoteDto = FootnoteInsert::default();
-    requestFootnoteDto.r#footnote_type = Some((FootnoteBase_FootnoteTypeEnum::Endnote).into());
-    requestFootnoteDto.r#text = Some((test_string!("test endnote")?).into());
+    let request_document = context.load_binary_file(footnote_folder.clone() + "/Footnote.doc").await?;
+    let mut request_footnote_dto = FootnoteInsert::default();
+    request_footnote_dto.footnote_type = Some((FootnoteBaseFootnoteTypeEnum::Endnote).into());
+    request_footnote_dto.text = Some(("test endnote".to_owned()).into());
 
     let request = InsertFootnoteOnlineRequest::new(
-        (requestDocument).into(),
-        (requestFootnoteDto).into()
-    ).with_node_path((test_string!("")?).into());
+        (request_document).into(),
+        (request_footnote_dto).into()
+    ).with_node_path(("".to_owned()).into());
 
     context.api().insert_footnote_online(request).await?;
     Ok(())
@@ -91,29 +87,27 @@ async fn footnote_insert_footnote_online() -> TestResult<()> {
 #[tokio::test]
 async fn footnote_insert_footnote_without_node_path() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/DocumentElements/Footnotes")?;
-    let footnoteFolder = test_string!("DocumentElements/Footnotes")?;
-    let remoteFileName = test_string!("TestInsertFootnoteWithoutNodePath.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentElements/Footnotes";
+    let footnote_folder = "DocumentElements/Footnotes".to_owned();
+    let remote_file_name = "TestInsertFootnoteWithoutNodePath.docx".to_owned();
 
-    context.upload_file(test_string!(footnoteFolder + "/Footnote.doc")?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
-    let mut requestFootnoteDto = FootnoteInsert::default();
-    requestFootnoteDto.r#footnote_type = Some((FootnoteBase_FootnoteTypeEnum::Endnote).into());
-    requestFootnoteDto.r#text = Some((test_string!("test endnote")?).into());
+    context.upload_file(footnote_folder.clone() + "/Footnote.doc", remote_data_folder.clone() + "/" + &remote_file_name).await?;
+    let mut request_footnote_dto = FootnoteInsert::default();
+    request_footnote_dto.footnote_type = Some((FootnoteBaseFootnoteTypeEnum::Endnote).into());
+    request_footnote_dto.text = Some(("test endnote".to_owned()).into());
 
     let request = InsertFootnoteRequest::new(
-        (test_string!(remoteFileName)?).into(),
-        (requestFootnoteDto).into()
-    ).with_folder((test_string!(remoteDataFolder)?).into());
+        (remote_file_name.clone()).into(),
+        (request_footnote_dto).into()
+    ).with_folder((remote_data_folder.clone()).into());
 
     let result = context.api().insert_footnote(request).await?;
     let result_json = serialize_result(&result)?;
     assert_not_null(&result_json, "Footnote")?;
-    assert_string(&result_json, "Footnote.NodeId", test_string!("0.1.7.1")?)?;
-    assert_string(&result_json, "Footnote.Text", test_string!(" test endnote" + "\r\n")?)?;
+    assert_string(&result_json, "Footnote.NodeId", "0.1.7.1".to_owned())?;
+    assert_string(&result_json, "Footnote.Text", " test endnote".to_owned() + "\r\n")?;
     Ok(())
 }
 
@@ -121,21 +115,19 @@ async fn footnote_insert_footnote_without_node_path() -> TestResult<()> {
 #[tokio::test]
 async fn footnote_delete_footnote() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/DocumentElements/Footnotes")?;
-    let footnoteFolder = test_string!("DocumentElements/Footnotes")?;
-    let remoteFileName = test_string!("TestDeleteFootnote.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentElements/Footnotes";
+    let footnote_folder = "DocumentElements/Footnotes".to_owned();
+    let remote_file_name = "TestDeleteFootnote.docx".to_owned();
 
-    context.upload_file(test_string!(footnoteFolder + "/Footnote.doc")?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
+    context.upload_file(footnote_folder.clone() + "/Footnote.doc", remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
     let request = DeleteFootnoteRequest::new(
-        (test_string!(remoteFileName)?).into(),
+        (remote_file_name.clone()).into(),
         (0).into()
-    ).with_node_path((test_string!("")?).into())
-.with_folder((test_string!(remoteDataFolder)?).into());
+    ).with_node_path(("".to_owned()).into())
+.with_folder((remote_data_folder.clone()).into());
 
     context.api().delete_footnote(request).await?;
     Ok(())
@@ -145,18 +137,16 @@ async fn footnote_delete_footnote() -> TestResult<()> {
 #[tokio::test]
 async fn footnote_delete_footnote_online() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let footnoteFolder = test_string!("DocumentElements/Footnotes")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let footnote_folder = "DocumentElements/Footnotes".to_owned();
 
-    let requestDocument = context.load_binary_file(test_string!(footnoteFolder + "/Footnote.doc")?).await?;
+    let request_document = context.load_binary_file(footnote_folder.clone() + "/Footnote.doc").await?;
 
     let request = DeleteFootnoteOnlineRequest::new(
-        (requestDocument).into(),
+        (request_document).into(),
         (0).into()
-    ).with_node_path((test_string!("")?).into());
+    ).with_node_path(("".to_owned()).into());
 
     context.api().delete_footnote_online(request).await?;
     Ok(())
@@ -166,20 +156,18 @@ async fn footnote_delete_footnote_online() -> TestResult<()> {
 #[tokio::test]
 async fn footnote_delete_footnote_without_node_path() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/DocumentElements/Footnotes")?;
-    let footnoteFolder = test_string!("DocumentElements/Footnotes")?;
-    let remoteFileName = test_string!("TestDeleteFootnoteWithoutNodePath.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentElements/Footnotes";
+    let footnote_folder = "DocumentElements/Footnotes".to_owned();
+    let remote_file_name = "TestDeleteFootnoteWithoutNodePath.docx".to_owned();
 
-    context.upload_file(test_string!(footnoteFolder + "/Footnote.doc")?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
+    context.upload_file(footnote_folder.clone() + "/Footnote.doc", remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
     let request = DeleteFootnoteRequest::new(
-        (test_string!(remoteFileName)?).into(),
+        (remote_file_name.clone()).into(),
         (0).into()
-    ).with_folder((test_string!(remoteDataFolder)?).into());
+    ).with_folder((remote_data_folder.clone()).into());
 
     context.api().delete_footnote(request).await?;
     Ok(())
@@ -189,27 +177,25 @@ async fn footnote_delete_footnote_without_node_path() -> TestResult<()> {
 #[tokio::test]
 async fn footnote_get_footnotes() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/DocumentElements/Footnotes")?;
-    let footnoteFolder = test_string!("DocumentElements/Footnotes")?;
-    let remoteFileName = test_string!("TestGetFootnotes.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentElements/Footnotes";
+    let footnote_folder = "DocumentElements/Footnotes".to_owned();
+    let remote_file_name = "TestGetFootnotes.docx".to_owned();
 
-    context.upload_file(test_string!(footnoteFolder + "/Footnote.doc")?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
+    context.upload_file(footnote_folder.clone() + "/Footnote.doc", remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
     let request = GetFootnotesRequest::new(
-        (test_string!(remoteFileName)?).into()
-    ).with_node_path((test_string!("")?).into())
-.with_folder((test_string!(remoteDataFolder)?).into());
+        (remote_file_name.clone()).into()
+    ).with_node_path(("".to_owned()).into())
+.with_folder((remote_data_folder.clone()).into());
 
     let result = context.api().get_footnotes(request).await?;
     let result_json = serialize_result(&result)?;
     assert_not_null(&result_json, "Footnotes")?;
     assert_not_null(&result_json, "Footnotes.List")?;
     assert_length(&result_json, "Footnotes.List", 6)?;
-    assert_string(&result_json, "Footnotes.List[0].Text", test_string!(" Footnote 1." + "\r\n")?)?;
+    assert_string(&result_json, "Footnotes.List[0].Text", " Footnote 1.".to_owned() + "\r\n")?;
     Ok(())
 }
 
@@ -217,17 +203,15 @@ async fn footnote_get_footnotes() -> TestResult<()> {
 #[tokio::test]
 async fn footnote_get_footnotes_online() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let footnoteFolder = test_string!("DocumentElements/Footnotes")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let footnote_folder = "DocumentElements/Footnotes".to_owned();
 
-    let requestDocument = context.load_binary_file(test_string!(footnoteFolder + "/Footnote.doc")?).await?;
+    let request_document = context.load_binary_file(footnote_folder.clone() + "/Footnote.doc").await?;
 
     let request = GetFootnotesOnlineRequest::new(
-        (requestDocument).into()
-    ).with_node_path((test_string!("")?).into());
+        (request_document).into()
+    ).with_node_path(("".to_owned()).into());
 
     context.api().get_footnotes_online(request).await?;
     Ok(())
@@ -237,26 +221,24 @@ async fn footnote_get_footnotes_online() -> TestResult<()> {
 #[tokio::test]
 async fn footnote_get_footnotes_without_node_path() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/DocumentElements/Footnotes")?;
-    let footnoteFolder = test_string!("DocumentElements/Footnotes")?;
-    let remoteFileName = test_string!("TestGetFootnotesWithoutNodePath.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentElements/Footnotes";
+    let footnote_folder = "DocumentElements/Footnotes".to_owned();
+    let remote_file_name = "TestGetFootnotesWithoutNodePath.docx".to_owned();
 
-    context.upload_file(test_string!(footnoteFolder + "/Footnote.doc")?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
+    context.upload_file(footnote_folder.clone() + "/Footnote.doc", remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
     let request = GetFootnotesRequest::new(
-        (test_string!(remoteFileName)?).into()
-    ).with_folder((test_string!(remoteDataFolder)?).into());
+        (remote_file_name.clone()).into()
+    ).with_folder((remote_data_folder.clone()).into());
 
     let result = context.api().get_footnotes(request).await?;
     let result_json = serialize_result(&result)?;
     assert_not_null(&result_json, "Footnotes")?;
     assert_not_null(&result_json, "Footnotes.List")?;
     assert_length(&result_json, "Footnotes.List", 6)?;
-    assert_string(&result_json, "Footnotes.List[0].Text", test_string!(" Footnote 1." + "\r\n")?)?;
+    assert_string(&result_json, "Footnotes.List[0].Text", " Footnote 1.".to_owned() + "\r\n")?;
     Ok(())
 }
 
@@ -264,26 +246,24 @@ async fn footnote_get_footnotes_without_node_path() -> TestResult<()> {
 #[tokio::test]
 async fn footnote_get_footnote() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/DocumentElements/Footnotes")?;
-    let footnoteFolder = test_string!("DocumentElements/Footnotes")?;
-    let remoteFileName = test_string!("TestGetFootnote.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentElements/Footnotes";
+    let footnote_folder = "DocumentElements/Footnotes".to_owned();
+    let remote_file_name = "TestGetFootnote.docx".to_owned();
 
-    context.upload_file(test_string!(footnoteFolder + "/Footnote.doc")?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
+    context.upload_file(footnote_folder.clone() + "/Footnote.doc", remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
     let request = GetFootnoteRequest::new(
-        (test_string!(remoteFileName)?).into(),
+        (remote_file_name.clone()).into(),
         (0).into()
-    ).with_node_path((test_string!("")?).into())
-.with_folder((test_string!(remoteDataFolder)?).into());
+    ).with_node_path(("".to_owned()).into())
+.with_folder((remote_data_folder.clone()).into());
 
     let result = context.api().get_footnote(request).await?;
     let result_json = serialize_result(&result)?;
     assert_not_null(&result_json, "Footnote")?;
-    assert_string(&result_json, "Footnote.Text", test_string!(" Footnote 1." + "\r\n")?)?;
+    assert_string(&result_json, "Footnote.Text", " Footnote 1.".to_owned() + "\r\n")?;
     Ok(())
 }
 
@@ -291,18 +271,16 @@ async fn footnote_get_footnote() -> TestResult<()> {
 #[tokio::test]
 async fn footnote_get_footnote_online() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let footnoteFolder = test_string!("DocumentElements/Footnotes")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let footnote_folder = "DocumentElements/Footnotes".to_owned();
 
-    let requestDocument = context.load_binary_file(test_string!(footnoteFolder + "/Footnote.doc")?).await?;
+    let request_document = context.load_binary_file(footnote_folder.clone() + "/Footnote.doc").await?;
 
     let request = GetFootnoteOnlineRequest::new(
-        (requestDocument).into(),
+        (request_document).into(),
         (0).into()
-    ).with_node_path((test_string!("")?).into());
+    ).with_node_path(("".to_owned()).into());
 
     context.api().get_footnote_online(request).await?;
     Ok(())
@@ -312,25 +290,23 @@ async fn footnote_get_footnote_online() -> TestResult<()> {
 #[tokio::test]
 async fn footnote_get_footnote_without_node_path() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/DocumentElements/Footnotes")?;
-    let footnoteFolder = test_string!("DocumentElements/Footnotes")?;
-    let remoteFileName = test_string!("TestGetFootnoteWithoutNodePath.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentElements/Footnotes";
+    let footnote_folder = "DocumentElements/Footnotes".to_owned();
+    let remote_file_name = "TestGetFootnoteWithoutNodePath.docx".to_owned();
 
-    context.upload_file(test_string!(footnoteFolder + "/Footnote.doc")?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
+    context.upload_file(footnote_folder.clone() + "/Footnote.doc", remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
     let request = GetFootnoteRequest::new(
-        (test_string!(remoteFileName)?).into(),
+        (remote_file_name.clone()).into(),
         (0).into()
-    ).with_folder((test_string!(remoteDataFolder)?).into());
+    ).with_folder((remote_data_folder.clone()).into());
 
     let result = context.api().get_footnote(request).await?;
     let result_json = serialize_result(&result)?;
     assert_not_null(&result_json, "Footnote")?;
-    assert_string(&result_json, "Footnote.Text", test_string!(" Footnote 1." + "\r\n")?)?;
+    assert_string(&result_json, "Footnote.Text", " Footnote 1.".to_owned() + "\r\n")?;
     Ok(())
 }
 
@@ -338,29 +314,27 @@ async fn footnote_get_footnote_without_node_path() -> TestResult<()> {
 #[tokio::test]
 async fn footnote_update_footnote() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/DocumentElements/Footnotes")?;
-    let footnoteFolder = test_string!("DocumentElements/Footnotes")?;
-    let remoteFileName = test_string!("TestUpdateFootnote.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentElements/Footnotes";
+    let footnote_folder = "DocumentElements/Footnotes".to_owned();
+    let remote_file_name = "TestUpdateFootnote.docx".to_owned();
 
-    context.upload_file(test_string!(footnoteFolder + "/Footnote.doc")?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
-    let mut requestFootnoteDto = FootnoteUpdate::default();
-    requestFootnoteDto.r#text = Some((test_string!("new text is here")?).into());
+    context.upload_file(footnote_folder.clone() + "/Footnote.doc", remote_data_folder.clone() + "/" + &remote_file_name).await?;
+    let mut request_footnote_dto = FootnoteUpdate::default();
+    request_footnote_dto.text = Some(("new text is here".to_owned()).into());
 
     let request = UpdateFootnoteRequest::new(
-        (test_string!(remoteFileName)?).into(),
+        (remote_file_name.clone()).into(),
         (0).into(),
-        (requestFootnoteDto).into()
-    ).with_node_path((test_string!("")?).into())
-.with_folder((test_string!(remoteDataFolder)?).into());
+        (request_footnote_dto).into()
+    ).with_node_path(("".to_owned()).into())
+.with_folder((remote_data_folder.clone()).into());
 
     let result = context.api().update_footnote(request).await?;
     let result_json = serialize_result(&result)?;
     assert_not_null(&result_json, "Footnote")?;
-    assert_string(&result_json, "Footnote.Text", test_string!(" new text is here" + "\r\n")?)?;
+    assert_string(&result_json, "Footnote.Text", " new text is here".to_owned() + "\r\n")?;
     Ok(())
 }
 
@@ -368,21 +342,19 @@ async fn footnote_update_footnote() -> TestResult<()> {
 #[tokio::test]
 async fn footnote_update_footnote_online() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let footnoteFolder = test_string!("DocumentElements/Footnotes")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let footnote_folder = "DocumentElements/Footnotes".to_owned();
 
-    let requestDocument = context.load_binary_file(test_string!(footnoteFolder + "/Footnote.doc")?).await?;
-    let mut requestFootnoteDto = FootnoteUpdate::default();
-    requestFootnoteDto.r#text = Some((test_string!("new text is here")?).into());
+    let request_document = context.load_binary_file(footnote_folder.clone() + "/Footnote.doc").await?;
+    let mut request_footnote_dto = FootnoteUpdate::default();
+    request_footnote_dto.text = Some(("new text is here".to_owned()).into());
 
     let request = UpdateFootnoteOnlineRequest::new(
-        (requestDocument).into(),
-        (requestFootnoteDto).into(),
+        (request_document).into(),
+        (request_footnote_dto).into(),
         (0).into()
-    ).with_node_path((test_string!("")?).into());
+    ).with_node_path(("".to_owned()).into());
 
     context.api().update_footnote_online(request).await?;
     Ok(())
@@ -392,27 +364,25 @@ async fn footnote_update_footnote_online() -> TestResult<()> {
 #[tokio::test]
 async fn footnote_update_footnote_without_node_path() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/DocumentElements/Footnotes")?;
-    let footnoteFolder = test_string!("DocumentElements/Footnotes")?;
-    let remoteFileName = test_string!("TestUpdateFootnoteWithoutNodePath.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentElements/Footnotes";
+    let footnote_folder = "DocumentElements/Footnotes".to_owned();
+    let remote_file_name = "TestUpdateFootnoteWithoutNodePath.docx".to_owned();
 
-    context.upload_file(test_string!(footnoteFolder + "/Footnote.doc")?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
-    let mut requestFootnoteDto = FootnoteUpdate::default();
-    requestFootnoteDto.r#text = Some((test_string!("new text is here")?).into());
+    context.upload_file(footnote_folder.clone() + "/Footnote.doc", remote_data_folder.clone() + "/" + &remote_file_name).await?;
+    let mut request_footnote_dto = FootnoteUpdate::default();
+    request_footnote_dto.text = Some(("new text is here".to_owned()).into());
 
     let request = UpdateFootnoteRequest::new(
-        (test_string!(remoteFileName)?).into(),
+        (remote_file_name.clone()).into(),
         (0).into(),
-        (requestFootnoteDto).into()
-    ).with_folder((test_string!(remoteDataFolder)?).into());
+        (request_footnote_dto).into()
+    ).with_folder((remote_data_folder.clone()).into());
 
     let result = context.api().update_footnote(request).await?;
     let result_json = serialize_result(&result)?;
     assert_not_null(&result_json, "Footnote")?;
-    assert_string(&result_json, "Footnote.Text", test_string!(" new text is here" + "\r\n")?)?;
+    assert_string(&result_json, "Footnote.Text", " new text is here".to_owned() + "\r\n")?;
     Ok(())
 }

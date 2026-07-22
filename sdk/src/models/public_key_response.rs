@@ -37,12 +37,12 @@ pub struct PublicKeyResponse {
     pub parent: WordsResponse,
         /// Gets or sets RSA key exponent as Base64 string.
         #[serde(rename = "Exponent", skip_serializing_if = "Option::is_none")]
-        pub r#exponent: Option<String>,
+        pub exponent: Option<String>,
 
 
         /// Gets or sets RSA key modulus as Base64 string.
         #[serde(rename = "Modulus", skip_serializing_if = "Option::is_none")]
-        pub r#modulus: Option<String>,
+        pub modulus: Option<String>,
 
 }
 
@@ -51,8 +51,8 @@ impl Default for PublicKeyResponse {
         let mut parent = WordsResponse::default();
         Self {
             parent,
-            r#exponent: None,
-            r#modulus: None,
+            exponent: None,
+            modulus: None,
         }
     }
 }
@@ -77,8 +77,8 @@ impl Model for PublicKeyResponse {
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
-        self.parent.collect_file_references(output);
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+        self.parent.collect_file_references(_output);
     }
 
     fn as_any(&self) -> &dyn Any {

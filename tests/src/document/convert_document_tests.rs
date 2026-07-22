@@ -36,22 +36,20 @@ use crate::test_context::*;
 #[tokio::test]
 async fn convert_document_save_as() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteFolder = test_string!(remoteBaseTestDataFolder + "/DocumentActions/ConvertDocument")?;
-    let localName = test_string!("test_multi_pages.docx")?;
-    let remoteName = test_string!("TestSaveAs.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_folder = remote_base_test_data_folder.clone() + "/DocumentActions/ConvertDocument";
+    let local_name = "test_multi_pages.docx".to_owned();
+    let remote_name = "TestSaveAs.docx".to_owned();
 
-    context.upload_file(test_string!("Common/" + localName)?, test_string!(remoteFolder + "/" + remoteName)?).await?;
-    let mut requestSaveOptionsData = PdfSaveOptionsData::default();
-    requestSaveOptionsData.r#file_name = Some((test_string!(baseTestOutPath + "/TestSaveAs.pdf")?).into());
+    context.upload_file("Common/".to_owned() + &local_name, remote_folder.clone() + "/" + &remote_name).await?;
+    let mut request_save_options_data = PdfSaveOptionsData::default();
+    request_save_options_data.file_name = Some((base_test_out_path.clone() + "/TestSaveAs.pdf").into());
 
     let request = SaveAsRequest::new(
-        (test_string!(remoteName)?).into(),
-        (requestSaveOptionsData).into()
-    ).with_folder((test_string!(remoteFolder)?).into());
+        (remote_name.clone()).into(),
+        (request_save_options_data).into()
+    ).with_folder((remote_folder.clone()).into());
 
     let result = context.api().save_as(request).await?;
     let result_json = serialize_result(&result)?;
@@ -64,19 +62,17 @@ async fn convert_document_save_as() -> TestResult<()> {
 #[tokio::test]
 async fn convert_document_save_as_online() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let localName = test_string!("test_multi_pages.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let local_name = "test_multi_pages.docx".to_owned();
 
-    let requestDocument = context.load_binary_file(test_string!("Common/" + localName)?).await?;
-    let mut requestSaveOptionsData = PdfSaveOptionsData::default();
-    requestSaveOptionsData.r#file_name = Some((test_string!(baseTestOutPath + "/TestSaveAs.pdf")?).into());
+    let request_document = context.load_binary_file("Common/".to_owned() + &local_name).await?;
+    let mut request_save_options_data = PdfSaveOptionsData::default();
+    request_save_options_data.file_name = Some((base_test_out_path.clone() + "/TestSaveAs.pdf").into());
 
     let request = SaveAsOnlineRequest::new(
-        (requestDocument).into(),
-        (requestSaveOptionsData).into()
+        (request_document).into(),
+        (request_save_options_data).into()
     );
 
     context.api().save_as_online(request).await?;
@@ -87,21 +83,19 @@ async fn convert_document_save_as_online() -> TestResult<()> {
 #[tokio::test]
 async fn convert_document_save_as_online_html_multifile() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let localName = test_string!("test_multi_pages.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let local_name = "test_multi_pages.docx".to_owned();
 
-    let requestDocument = context.load_binary_file(test_string!("Common/" + localName)?).await?;
-    let mut requestSaveOptionsData = HtmlSaveOptionsData::default();
-    requestSaveOptionsData.r#file_name = Some((test_string!(baseTestOutPath + "/TestSaveAsHtml.html")?).into());
-    requestSaveOptionsData.r#css_style_sheet_type = Some((HtmlSaveOptionsData_CssStyleSheetTypeEnum::External).into());
-    requestSaveOptionsData.r#css_style_sheet_file_name = Some((test_string!(baseTestOutPath + "/TestSaveAsHtml.css")?).into());
+    let request_document = context.load_binary_file("Common/".to_owned() + &local_name).await?;
+    let mut request_save_options_data = HtmlSaveOptionsData::default();
+    request_save_options_data.file_name = Some((base_test_out_path.clone() + "/TestSaveAsHtml.html").into());
+    request_save_options_data.css_style_sheet_type = Some((HtmlSaveOptionsDataCssStyleSheetTypeEnum::External).into());
+    request_save_options_data.css_style_sheet_file_name = Some((base_test_out_path.clone() + "/TestSaveAsHtml.css").into());
 
     let request = SaveAsOnlineRequest::new(
-        (requestDocument).into(),
-        (requestSaveOptionsData).into()
+        (request_document).into(),
+        (request_save_options_data).into()
     );
 
     context.api().save_as_online(request).await?;
@@ -112,23 +106,21 @@ async fn convert_document_save_as_online_html_multifile() -> TestResult<()> {
 #[tokio::test]
 async fn convert_document_save_as_docx() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteFolder = test_string!(remoteBaseTestDataFolder + "/DocumentActions/ConvertDocument")?;
-    let localFolder = test_string!("DocumentActions/ConvertDocument")?;
-    let localName = test_string!("45.pdf")?;
-    let remoteName = test_string!("TestSaveAsFromPdfToDoc.pdf")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_folder = remote_base_test_data_folder.clone() + "/DocumentActions/ConvertDocument";
+    let local_folder = "DocumentActions/ConvertDocument".to_owned();
+    let local_name = "45.pdf".to_owned();
+    let remote_name = "TestSaveAsFromPdfToDoc.pdf".to_owned();
 
-    context.upload_file(test_string!(localFolder + "/" + localName)?, test_string!(remoteFolder + "/" + remoteName)?).await?;
-    let mut requestSaveOptionsData = DocxSaveOptionsData::default();
-    requestSaveOptionsData.r#file_name = Some((test_string!(baseTestOutPath + "/TestSaveAsFromPdfToDoc.docx")?).into());
+    context.upload_file(local_folder.clone() + "/" + &local_name, remote_folder.clone() + "/" + &remote_name).await?;
+    let mut request_save_options_data = DocxSaveOptionsData::default();
+    request_save_options_data.file_name = Some((base_test_out_path.clone() + "/TestSaveAsFromPdfToDoc.docx").into());
 
     let request = SaveAsRequest::new(
-        (test_string!(remoteName)?).into(),
-        (requestSaveOptionsData).into()
-    ).with_folder((test_string!(remoteFolder)?).into());
+        (remote_name.clone()).into(),
+        (request_save_options_data).into()
+    ).with_folder((remote_folder.clone()).into());
 
     let result = context.api().save_as(request).await?;
     let result_json = serialize_result(&result)?;
@@ -141,22 +133,20 @@ async fn convert_document_save_as_docx() -> TestResult<()> {
 #[tokio::test]
 async fn convert_document_save_as_tiff() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteFolder = test_string!(remoteBaseTestDataFolder + "/DocumentActions/ConvertDocument")?;
-    let localName = test_string!("test_multi_pages.docx")?;
-    let remoteName = test_string!("TestSaveAsTiff.pdf")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_folder = remote_base_test_data_folder.clone() + "/DocumentActions/ConvertDocument";
+    let local_name = "test_multi_pages.docx".to_owned();
+    let remote_name = "TestSaveAsTiff.pdf".to_owned();
 
-    context.upload_file(test_string!("Common/" + localName)?, test_string!(remoteFolder + "/" + remoteName)?).await?;
-    let mut requestSaveOptions = TiffSaveOptionsData::default();
-    requestSaveOptions.r#file_name = Some((test_string!(baseTestOutPath + "/abc.tiff")?).into());
+    context.upload_file("Common/".to_owned() + &local_name, remote_folder.clone() + "/" + &remote_name).await?;
+    let mut request_save_options = TiffSaveOptionsData::default();
+    request_save_options.file_name = Some((base_test_out_path.clone() + "/abc.tiff").into());
 
     let request = SaveAsTiffRequest::new(
-        (test_string!(remoteName)?).into(),
-        (requestSaveOptions).into()
-    ).with_folder((test_string!(remoteFolder)?).into());
+        (remote_name.clone()).into(),
+        (request_save_options).into()
+    ).with_folder((remote_folder.clone()).into());
 
     let result = context.api().save_as_tiff(request).await?;
     let result_json = serialize_result(&result)?;
@@ -169,19 +159,17 @@ async fn convert_document_save_as_tiff() -> TestResult<()> {
 #[tokio::test]
 async fn convert_document_save_as_tiff_online() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let localName = test_string!("test_multi_pages.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let local_name = "test_multi_pages.docx".to_owned();
 
-    let requestDocument = context.load_binary_file(test_string!("Common/" + localName)?).await?;
-    let mut requestSaveOptions = TiffSaveOptionsData::default();
-    requestSaveOptions.r#file_name = Some((test_string!(baseTestOutPath + "/abc.tiff")?).into());
+    let request_document = context.load_binary_file("Common/".to_owned() + &local_name).await?;
+    let mut request_save_options = TiffSaveOptionsData::default();
+    request_save_options.file_name = Some((base_test_out_path.clone() + "/abc.tiff").into());
 
     let request = SaveAsTiffOnlineRequest::new(
-        (requestDocument).into(),
-        (requestSaveOptions).into()
+        (request_document).into(),
+        (request_save_options).into()
     );
 
     context.api().save_as_tiff_online(request).await?;
@@ -192,17 +180,15 @@ async fn convert_document_save_as_tiff_online() -> TestResult<()> {
 #[tokio::test]
 async fn convert_document_convert_document() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let localFolder = test_string!("DocumentActions/ConvertDocument")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let local_folder = "DocumentActions/ConvertDocument".to_owned();
 
-    let requestDocument = context.load_binary_file(test_string!(localFolder + "/test_uploadfile.docx")?).await?;
+    let request_document = context.load_binary_file(local_folder.clone() + "/test_uploadfile.docx").await?;
 
     let request = ConvertDocumentRequest::new(
-        (requestDocument).into(),
-        (test_string!("pdf")?).into()
+        (request_document).into(),
+        ("pdf".to_owned()).into()
     );
 
     context.api().convert_document(request).await?;
@@ -213,17 +199,15 @@ async fn convert_document_convert_document() -> TestResult<()> {
 #[tokio::test]
 async fn convert_document_convert_document_job() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let localFolder = test_string!("DocumentActions/ConvertDocument")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let local_folder = "DocumentActions/ConvertDocument".to_owned();
 
-    let requestDocument = context.load_binary_file(test_string!(localFolder + "/test_uploadfile.docx")?).await?;
+    let request_document = context.load_binary_file(local_folder.clone() + "/test_uploadfile.docx").await?;
 
     let request = ConvertDocumentJobRequest::new(
-        (requestDocument).into(),
-        (test_string!("pdf")?).into()
+        (request_document).into(),
+        ("pdf".to_owned()).into()
     );
 
     let job_handler = context.api().convert_document_job(request).await?;

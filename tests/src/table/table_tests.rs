@@ -36,27 +36,25 @@ use crate::test_context::*;
 #[tokio::test]
 async fn table_get_tables() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/DocumentElements/Tables")?;
-    let localFile = test_string!("DocumentElements/Tables/TablesGet.docx")?;
-    let remoteFileName = test_string!("TestGetTables.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentElements/Tables";
+    let local_file = "DocumentElements/Tables/TablesGet.docx".to_owned();
+    let remote_file_name = "TestGetTables.docx".to_owned();
 
-    context.upload_file(test_string!(localFile)?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
     let request = GetTablesRequest::new(
-        (test_string!(remoteFileName)?).into()
-    ).with_node_path((test_string!("")?).into())
-.with_folder((test_string!(remoteDataFolder)?).into());
+        (remote_file_name.clone()).into()
+    ).with_node_path(("".to_owned()).into())
+.with_folder((remote_data_folder.clone()).into());
 
     let result = context.api().get_tables(request).await?;
     let result_json = serialize_result(&result)?;
     assert_not_null(&result_json, "Tables")?;
     assert_not_null(&result_json, "Tables.TableLinkList")?;
     assert_length(&result_json, "Tables.TableLinkList", 5)?;
-    assert_string(&result_json, "Tables.TableLinkList[0].NodeId", test_string!("0.0.1")?)?;
+    assert_string(&result_json, "Tables.TableLinkList[0].NodeId", "0.0.1".to_owned())?;
     Ok(())
 }
 
@@ -64,17 +62,15 @@ async fn table_get_tables() -> TestResult<()> {
 #[tokio::test]
 async fn table_get_tables_online() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let localFile = test_string!("DocumentElements/Tables/TablesGet.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let local_file = "DocumentElements/Tables/TablesGet.docx".to_owned();
 
-    let requestDocument = context.load_binary_file(test_string!(localFile)?).await?;
+    let request_document = context.load_binary_file(local_file.clone()).await?;
 
     let request = GetTablesOnlineRequest::new(
-        (requestDocument).into()
-    ).with_node_path((test_string!("")?).into());
+        (request_document).into()
+    ).with_node_path(("".to_owned()).into());
 
     context.api().get_tables_online(request).await?;
     Ok(())
@@ -84,26 +80,24 @@ async fn table_get_tables_online() -> TestResult<()> {
 #[tokio::test]
 async fn table_get_tables_without_node_path() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/DocumentElements/Tables")?;
-    let localFile = test_string!("DocumentElements/Tables/TablesGet.docx")?;
-    let remoteFileName = test_string!("TestGetTablesWithoutNodePath.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentElements/Tables";
+    let local_file = "DocumentElements/Tables/TablesGet.docx".to_owned();
+    let remote_file_name = "TestGetTablesWithoutNodePath.docx".to_owned();
 
-    context.upload_file(test_string!(localFile)?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
     let request = GetTablesRequest::new(
-        (test_string!(remoteFileName)?).into()
-    ).with_folder((test_string!(remoteDataFolder)?).into());
+        (remote_file_name.clone()).into()
+    ).with_folder((remote_data_folder.clone()).into());
 
     let result = context.api().get_tables(request).await?;
     let result_json = serialize_result(&result)?;
     assert_not_null(&result_json, "Tables")?;
     assert_not_null(&result_json, "Tables.TableLinkList")?;
     assert_length(&result_json, "Tables.TableLinkList", 5)?;
-    assert_string(&result_json, "Tables.TableLinkList[0].NodeId", test_string!("0.0.1")?)?;
+    assert_string(&result_json, "Tables.TableLinkList[0].NodeId", "0.0.1".to_owned())?;
     Ok(())
 }
 
@@ -111,21 +105,19 @@ async fn table_get_tables_without_node_path() -> TestResult<()> {
 #[tokio::test]
 async fn table_get_table() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/DocumentElements/Tables")?;
-    let localFile = test_string!("DocumentElements/Tables/TablesGet.docx")?;
-    let remoteFileName = test_string!("TestGetTable.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentElements/Tables";
+    let local_file = "DocumentElements/Tables/TablesGet.docx".to_owned();
+    let remote_file_name = "TestGetTable.docx".to_owned();
 
-    context.upload_file(test_string!(localFile)?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
     let request = GetTableRequest::new(
-        (test_string!(remoteFileName)?).into(),
+        (remote_file_name.clone()).into(),
         (1).into()
-    ).with_node_path((test_string!("")?).into())
-.with_folder((test_string!(remoteDataFolder)?).into());
+    ).with_node_path(("".to_owned()).into())
+.with_folder((remote_data_folder.clone()).into());
 
     let result = context.api().get_table(request).await?;
     let result_json = serialize_result(&result)?;
@@ -141,18 +133,16 @@ async fn table_get_table() -> TestResult<()> {
 #[tokio::test]
 async fn table_get_table_online() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let localFile = test_string!("DocumentElements/Tables/TablesGet.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let local_file = "DocumentElements/Tables/TablesGet.docx".to_owned();
 
-    let requestDocument = context.load_binary_file(test_string!(localFile)?).await?;
+    let request_document = context.load_binary_file(local_file.clone()).await?;
 
     let request = GetTableOnlineRequest::new(
-        (requestDocument).into(),
+        (request_document).into(),
         (1).into()
-    ).with_node_path((test_string!("")?).into());
+    ).with_node_path(("".to_owned()).into());
 
     context.api().get_table_online(request).await?;
     Ok(())
@@ -162,20 +152,18 @@ async fn table_get_table_online() -> TestResult<()> {
 #[tokio::test]
 async fn table_get_table_without_node_path() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/DocumentElements/Tables")?;
-    let localFile = test_string!("DocumentElements/Tables/TablesGet.docx")?;
-    let remoteFileName = test_string!("TestGetTableWithoutNodePath.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentElements/Tables";
+    let local_file = "DocumentElements/Tables/TablesGet.docx".to_owned();
+    let remote_file_name = "TestGetTableWithoutNodePath.docx".to_owned();
 
-    context.upload_file(test_string!(localFile)?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
     let request = GetTableRequest::new(
-        (test_string!(remoteFileName)?).into(),
+        (remote_file_name.clone()).into(),
         (1).into()
-    ).with_folder((test_string!(remoteDataFolder)?).into());
+    ).with_folder((remote_data_folder.clone()).into());
 
     let result = context.api().get_table(request).await?;
     let result_json = serialize_result(&result)?;
@@ -191,21 +179,19 @@ async fn table_get_table_without_node_path() -> TestResult<()> {
 #[tokio::test]
 async fn table_delete_table() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/DocumentElements/Tables")?;
-    let localFile = test_string!("DocumentElements/Tables/TablesGet.docx")?;
-    let remoteFileName = test_string!("TestDeleteTable.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentElements/Tables";
+    let local_file = "DocumentElements/Tables/TablesGet.docx".to_owned();
+    let remote_file_name = "TestDeleteTable.docx".to_owned();
 
-    context.upload_file(test_string!(localFile)?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
     let request = DeleteTableRequest::new(
-        (test_string!(remoteFileName)?).into(),
+        (remote_file_name.clone()).into(),
         (1).into()
-    ).with_node_path((test_string!("")?).into())
-.with_folder((test_string!(remoteDataFolder)?).into());
+    ).with_node_path(("".to_owned()).into())
+.with_folder((remote_data_folder.clone()).into());
 
     context.api().delete_table(request).await?;
     Ok(())
@@ -215,18 +201,16 @@ async fn table_delete_table() -> TestResult<()> {
 #[tokio::test]
 async fn table_delete_table_online() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let localFile = test_string!("DocumentElements/Tables/TablesGet.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let local_file = "DocumentElements/Tables/TablesGet.docx".to_owned();
 
-    let requestDocument = context.load_binary_file(test_string!(localFile)?).await?;
+    let request_document = context.load_binary_file(local_file.clone()).await?;
 
     let request = DeleteTableOnlineRequest::new(
-        (requestDocument).into(),
+        (request_document).into(),
         (1).into()
-    ).with_node_path((test_string!("")?).into());
+    ).with_node_path(("".to_owned()).into());
 
     context.api().delete_table_online(request).await?;
     Ok(())
@@ -236,20 +220,18 @@ async fn table_delete_table_online() -> TestResult<()> {
 #[tokio::test]
 async fn table_delete_table_without_node_path() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/DocumentElements/Tables")?;
-    let localFile = test_string!("DocumentElements/Tables/TablesGet.docx")?;
-    let remoteFileName = test_string!("TestDeleteTableWithoutNodePath.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentElements/Tables";
+    let local_file = "DocumentElements/Tables/TablesGet.docx".to_owned();
+    let remote_file_name = "TestDeleteTableWithoutNodePath.docx".to_owned();
 
-    context.upload_file(test_string!(localFile)?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
     let request = DeleteTableRequest::new(
-        (test_string!(remoteFileName)?).into(),
+        (remote_file_name.clone()).into(),
         (1).into()
-    ).with_folder((test_string!(remoteDataFolder)?).into());
+    ).with_folder((remote_data_folder.clone()).into());
 
     context.api().delete_table(request).await?;
     Ok(())
@@ -259,24 +241,22 @@ async fn table_delete_table_without_node_path() -> TestResult<()> {
 #[tokio::test]
 async fn table_insert_table() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/DocumentElements/Tables")?;
-    let localFile = test_string!("DocumentElements/Tables/TablesGet.docx")?;
-    let remoteFileName = test_string!("TestInsertTable.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentElements/Tables";
+    let local_file = "DocumentElements/Tables/TablesGet.docx".to_owned();
+    let remote_file_name = "TestInsertTable.docx".to_owned();
 
-    context.upload_file(test_string!(localFile)?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
-    let mut requestTable = TableInsert::default();
-    requestTable.r#columns_count = Some((5).into());
-    requestTable.r#rows_count = Some((4).into());
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
+    let mut request_table = TableInsert::default();
+    request_table.columns_count = Some((5).into());
+    request_table.rows_count = Some((4).into());
 
     let request = InsertTableRequest::new(
-        (test_string!(remoteFileName)?).into(),
-        (requestTable).into()
-    ).with_node_path((test_string!("")?).into())
-.with_folder((test_string!(remoteDataFolder)?).into());
+        (remote_file_name.clone()).into(),
+        (request_table).into()
+    ).with_node_path(("".to_owned()).into())
+.with_folder((remote_data_folder.clone()).into());
 
     let result = context.api().insert_table(request).await?;
     let result_json = serialize_result(&result)?;
@@ -292,21 +272,19 @@ async fn table_insert_table() -> TestResult<()> {
 #[tokio::test]
 async fn table_insert_table_online() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let localFile = test_string!("DocumentElements/Tables/TablesGet.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let local_file = "DocumentElements/Tables/TablesGet.docx".to_owned();
 
-    let requestDocument = context.load_binary_file(test_string!(localFile)?).await?;
-    let mut requestTable = TableInsert::default();
-    requestTable.r#columns_count = Some((5).into());
-    requestTable.r#rows_count = Some((4).into());
+    let request_document = context.load_binary_file(local_file.clone()).await?;
+    let mut request_table = TableInsert::default();
+    request_table.columns_count = Some((5).into());
+    request_table.rows_count = Some((4).into());
 
     let request = InsertTableOnlineRequest::new(
-        (requestDocument).into(),
-        (requestTable).into()
-    ).with_node_path((test_string!("")?).into());
+        (request_document).into(),
+        (request_table).into()
+    ).with_node_path(("".to_owned()).into());
 
     context.api().insert_table_online(request).await?;
     Ok(())
@@ -316,23 +294,21 @@ async fn table_insert_table_online() -> TestResult<()> {
 #[tokio::test]
 async fn table_insert_table_without_node_path() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/DocumentElements/Tables")?;
-    let localFile = test_string!("DocumentElements/Tables/TablesGet.docx")?;
-    let remoteFileName = test_string!("TestInsertTableWithoutNodePath.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentElements/Tables";
+    let local_file = "DocumentElements/Tables/TablesGet.docx".to_owned();
+    let remote_file_name = "TestInsertTableWithoutNodePath.docx".to_owned();
 
-    context.upload_file(test_string!(localFile)?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
-    let mut requestTable = TableInsert::default();
-    requestTable.r#columns_count = Some((5).into());
-    requestTable.r#rows_count = Some((4).into());
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
+    let mut request_table = TableInsert::default();
+    request_table.columns_count = Some((5).into());
+    request_table.rows_count = Some((4).into());
 
     let request = InsertTableRequest::new(
-        (test_string!(remoteFileName)?).into(),
-        (requestTable).into()
-    ).with_folder((test_string!(remoteDataFolder)?).into());
+        (remote_file_name.clone()).into(),
+        (request_table).into()
+    ).with_folder((remote_data_folder.clone()).into());
 
     let result = context.api().insert_table(request).await?;
     let result_json = serialize_result(&result)?;
@@ -348,26 +324,24 @@ async fn table_insert_table_without_node_path() -> TestResult<()> {
 #[tokio::test]
 async fn table_get_table_properties() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/DocumentElements/Tables")?;
-    let localFile = test_string!("DocumentElements/Tables/TablesGet.docx")?;
-    let remoteFileName = test_string!("TestGetTableProperties.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentElements/Tables";
+    let local_file = "DocumentElements/Tables/TablesGet.docx".to_owned();
+    let remote_file_name = "TestGetTableProperties.docx".to_owned();
 
-    context.upload_file(test_string!(localFile)?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
     let request = GetTablePropertiesRequest::new(
-        (test_string!(remoteFileName)?).into(),
+        (remote_file_name.clone()).into(),
         (1).into()
-    ).with_node_path((test_string!("")?).into())
-.with_folder((test_string!(remoteDataFolder)?).into());
+    ).with_node_path(("".to_owned()).into())
+.with_folder((remote_data_folder.clone()).into());
 
     let result = context.api().get_table_properties(request).await?;
     let result_json = serialize_result(&result)?;
     assert_not_null(&result_json, "Properties")?;
-    assert_string(&result_json, "Properties.StyleName", test_string!("Table Grid")?)?;
+    assert_string(&result_json, "Properties.StyleName", "Table Grid".to_owned())?;
     Ok(())
 }
 
@@ -375,18 +349,16 @@ async fn table_get_table_properties() -> TestResult<()> {
 #[tokio::test]
 async fn table_get_table_properties_online() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let localFile = test_string!("DocumentElements/Tables/TablesGet.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let local_file = "DocumentElements/Tables/TablesGet.docx".to_owned();
 
-    let requestDocument = context.load_binary_file(test_string!(localFile)?).await?;
+    let request_document = context.load_binary_file(local_file.clone()).await?;
 
     let request = GetTablePropertiesOnlineRequest::new(
-        (requestDocument).into(),
+        (request_document).into(),
         (1).into()
-    ).with_node_path((test_string!("")?).into());
+    ).with_node_path(("".to_owned()).into());
 
     context.api().get_table_properties_online(request).await?;
     Ok(())
@@ -396,25 +368,23 @@ async fn table_get_table_properties_online() -> TestResult<()> {
 #[tokio::test]
 async fn table_get_table_properties_without_node_path() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/DocumentElements/Tables")?;
-    let localFile = test_string!("DocumentElements/Tables/TablesGet.docx")?;
-    let remoteFileName = test_string!("TestGetTablePropertiesWithoutNodePath.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentElements/Tables";
+    let local_file = "DocumentElements/Tables/TablesGet.docx".to_owned();
+    let remote_file_name = "TestGetTablePropertiesWithoutNodePath.docx".to_owned();
 
-    context.upload_file(test_string!(localFile)?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
     let request = GetTablePropertiesRequest::new(
-        (test_string!(remoteFileName)?).into(),
+        (remote_file_name.clone()).into(),
         (1).into()
-    ).with_folder((test_string!(remoteDataFolder)?).into());
+    ).with_folder((remote_data_folder.clone()).into());
 
     let result = context.api().get_table_properties(request).await?;
     let result_json = serialize_result(&result)?;
     assert_not_null(&result_json, "Properties")?;
-    assert_string(&result_json, "Properties.StyleName", test_string!("Table Grid")?)?;
+    assert_string(&result_json, "Properties.StyleName", "Table Grid".to_owned())?;
     Ok(())
 }
 
@@ -422,29 +392,27 @@ async fn table_get_table_properties_without_node_path() -> TestResult<()> {
 #[tokio::test]
 async fn table_update_table_properties() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/DocumentElements/Tables")?;
-    let localFile = test_string!("DocumentElements/Tables/TablesGet.docx")?;
-    let remoteFileName = test_string!("TestUpdateTableProperties.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentElements/Tables";
+    let local_file = "DocumentElements/Tables/TablesGet.docx".to_owned();
+    let remote_file_name = "TestUpdateTableProperties.docx".to_owned();
 
-    context.upload_file(test_string!(localFile)?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
-    let mut requestProperties = TableProperties::default();
-    requestProperties.r#alignment = Some((TableProperties_AlignmentEnum::Right).into());
-    requestProperties.r#allow_auto_fit = Some((false).into());
-    requestProperties.r#bidi = Some((true).into());
-    requestProperties.r#bottom_padding = Some(((1) as f64).into());
-    requestProperties.r#cell_spacing = Some(((2.0) as f64).into());
-    requestProperties.r#style_options = Some((TableProperties_StyleOptionsEnum::ColumnBands).into());
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
+    let mut request_properties = TableProperties::default();
+    request_properties.alignment = Some((TablePropertiesAlignmentEnum::Right).into());
+    request_properties.allow_auto_fit = Some((false).into());
+    request_properties.bidi = Some((true).into());
+    request_properties.bottom_padding = Some(((1) as f64).into());
+    request_properties.cell_spacing = Some(((2.0) as f64).into());
+    request_properties.style_options = Some((TablePropertiesStyleOptionsEnum::ColumnBands).into());
 
     let request = UpdateTablePropertiesRequest::new(
-        (test_string!(remoteFileName)?).into(),
+        (remote_file_name.clone()).into(),
         (1).into(),
-        (requestProperties).into()
-    ).with_node_path((test_string!("")?).into())
-.with_folder((test_string!(remoteDataFolder)?).into());
+        (request_properties).into()
+    ).with_node_path(("".to_owned()).into())
+.with_folder((remote_data_folder.clone()).into());
 
     let result = context.api().update_table_properties(request).await?;
     let result_json = serialize_result(&result)?;
@@ -460,26 +428,24 @@ async fn table_update_table_properties() -> TestResult<()> {
 #[tokio::test]
 async fn table_update_table_properties_online() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let localFile = test_string!("DocumentElements/Tables/TablesGet.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let local_file = "DocumentElements/Tables/TablesGet.docx".to_owned();
 
-    let requestDocument = context.load_binary_file(test_string!(localFile)?).await?;
-    let mut requestProperties = TableProperties::default();
-    requestProperties.r#alignment = Some((TableProperties_AlignmentEnum::Right).into());
-    requestProperties.r#allow_auto_fit = Some((false).into());
-    requestProperties.r#bidi = Some((true).into());
-    requestProperties.r#bottom_padding = Some(((1) as f64).into());
-    requestProperties.r#cell_spacing = Some(((2) as f64).into());
-    requestProperties.r#style_options = Some((TableProperties_StyleOptionsEnum::ColumnBands).into());
+    let request_document = context.load_binary_file(local_file.clone()).await?;
+    let mut request_properties = TableProperties::default();
+    request_properties.alignment = Some((TablePropertiesAlignmentEnum::Right).into());
+    request_properties.allow_auto_fit = Some((false).into());
+    request_properties.bidi = Some((true).into());
+    request_properties.bottom_padding = Some(((1) as f64).into());
+    request_properties.cell_spacing = Some(((2) as f64).into());
+    request_properties.style_options = Some((TablePropertiesStyleOptionsEnum::ColumnBands).into());
 
     let request = UpdateTablePropertiesOnlineRequest::new(
-        (requestDocument).into(),
-        (requestProperties).into(),
+        (request_document).into(),
+        (request_properties).into(),
         (1).into()
-    ).with_node_path((test_string!("")?).into());
+    ).with_node_path(("".to_owned()).into());
 
     context.api().update_table_properties_online(request).await?;
     Ok(())
@@ -489,28 +455,26 @@ async fn table_update_table_properties_online() -> TestResult<()> {
 #[tokio::test]
 async fn table_update_table_properties_without_node_path() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/DocumentElements/Tables")?;
-    let localFile = test_string!("DocumentElements/Tables/TablesGet.docx")?;
-    let remoteFileName = test_string!("TestUpdateTablePropertiesWithoutNodePath.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentElements/Tables";
+    let local_file = "DocumentElements/Tables/TablesGet.docx".to_owned();
+    let remote_file_name = "TestUpdateTablePropertiesWithoutNodePath.docx".to_owned();
 
-    context.upload_file(test_string!(localFile)?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
-    let mut requestProperties = TableProperties::default();
-    requestProperties.r#alignment = Some((TableProperties_AlignmentEnum::Right).into());
-    requestProperties.r#allow_auto_fit = Some((false).into());
-    requestProperties.r#bidi = Some((true).into());
-    requestProperties.r#bottom_padding = Some(((1.0) as f64).into());
-    requestProperties.r#cell_spacing = Some(((2.0) as f64).into());
-    requestProperties.r#style_options = Some((TableProperties_StyleOptionsEnum::ColumnBands).into());
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
+    let mut request_properties = TableProperties::default();
+    request_properties.alignment = Some((TablePropertiesAlignmentEnum::Right).into());
+    request_properties.allow_auto_fit = Some((false).into());
+    request_properties.bidi = Some((true).into());
+    request_properties.bottom_padding = Some(((1.0) as f64).into());
+    request_properties.cell_spacing = Some(((2.0) as f64).into());
+    request_properties.style_options = Some((TablePropertiesStyleOptionsEnum::ColumnBands).into());
 
     let request = UpdateTablePropertiesRequest::new(
-        (test_string!(remoteFileName)?).into(),
+        (remote_file_name.clone()).into(),
         (1).into(),
-        (requestProperties).into()
-    ).with_folder((test_string!(remoteDataFolder)?).into());
+        (request_properties).into()
+    ).with_folder((remote_data_folder.clone()).into());
 
     let result = context.api().update_table_properties(request).await?;
     let result_json = serialize_result(&result)?;
@@ -526,21 +490,19 @@ async fn table_update_table_properties_without_node_path() -> TestResult<()> {
 #[tokio::test]
 async fn table_get_table_row() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/DocumentElements/Tables")?;
-    let localFile = test_string!("DocumentElements/Tables/TablesGet.docx")?;
-    let remoteFileName = test_string!("TestGetTableRow.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentElements/Tables";
+    let local_file = "DocumentElements/Tables/TablesGet.docx".to_owned();
+    let remote_file_name = "TestGetTableRow.docx".to_owned();
 
-    context.upload_file(test_string!(localFile)?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
     let request = GetTableRowRequest::new(
-        (test_string!(remoteFileName)?).into(),
-        (test_string!("tables/1")?).into(),
+        (remote_file_name.clone()).into(),
+        ("tables/1".to_owned()).into(),
         (0).into()
-    ).with_folder((test_string!(remoteDataFolder)?).into());
+    ).with_folder((remote_data_folder.clone()).into());
 
     let result = context.api().get_table_row(request).await?;
     let result_json = serialize_result(&result)?;
@@ -554,17 +516,15 @@ async fn table_get_table_row() -> TestResult<()> {
 #[tokio::test]
 async fn table_get_table_row_online() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let localFile = test_string!("DocumentElements/Tables/TablesGet.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let local_file = "DocumentElements/Tables/TablesGet.docx".to_owned();
 
-    let requestDocument = context.load_binary_file(test_string!(localFile)?).await?;
+    let request_document = context.load_binary_file(local_file.clone()).await?;
 
     let request = GetTableRowOnlineRequest::new(
-        (requestDocument).into(),
-        (test_string!("tables/1")?).into(),
+        (request_document).into(),
+        ("tables/1".to_owned()).into(),
         (0).into()
     );
 
@@ -576,21 +536,19 @@ async fn table_get_table_row_online() -> TestResult<()> {
 #[tokio::test]
 async fn table_delete_table_row() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/DocumentElements/Tables")?;
-    let localFile = test_string!("DocumentElements/Tables/TablesGet.docx")?;
-    let remoteFileName = test_string!("TestDeleteTableRow.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentElements/Tables";
+    let local_file = "DocumentElements/Tables/TablesGet.docx".to_owned();
+    let remote_file_name = "TestDeleteTableRow.docx".to_owned();
 
-    context.upload_file(test_string!(localFile)?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
     let request = DeleteTableRowRequest::new(
-        (test_string!(remoteFileName)?).into(),
-        (test_string!("tables/1")?).into(),
+        (remote_file_name.clone()).into(),
+        ("tables/1".to_owned()).into(),
         (0).into()
-    ).with_folder((test_string!(remoteDataFolder)?).into());
+    ).with_folder((remote_data_folder.clone()).into());
 
     context.api().delete_table_row(request).await?;
     Ok(())
@@ -600,17 +558,15 @@ async fn table_delete_table_row() -> TestResult<()> {
 #[tokio::test]
 async fn table_delete_table_row_online() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let localFile = test_string!("DocumentElements/Tables/TablesGet.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let local_file = "DocumentElements/Tables/TablesGet.docx".to_owned();
 
-    let requestDocument = context.load_binary_file(test_string!(localFile)?).await?;
+    let request_document = context.load_binary_file(local_file.clone()).await?;
 
     let request = DeleteTableRowOnlineRequest::new(
-        (requestDocument).into(),
-        (test_string!("tables/1")?).into(),
+        (request_document).into(),
+        ("tables/1".to_owned()).into(),
         (0).into()
     );
 
@@ -622,23 +578,21 @@ async fn table_delete_table_row_online() -> TestResult<()> {
 #[tokio::test]
 async fn table_insert_table_row() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/DocumentElements/Tables")?;
-    let localFile = test_string!("DocumentElements/Tables/TablesGet.docx")?;
-    let remoteFileName = test_string!("TestInsertTableRow.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentElements/Tables";
+    let local_file = "DocumentElements/Tables/TablesGet.docx".to_owned();
+    let remote_file_name = "TestInsertTableRow.docx".to_owned();
 
-    context.upload_file(test_string!(localFile)?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
-    let mut requestRow = TableRowInsert::default();
-    requestRow.r#columns_count = Some((5).into());
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
+    let mut request_row = TableRowInsert::default();
+    request_row.columns_count = Some((5).into());
 
     let request = InsertTableRowRequest::new(
-        (test_string!(remoteFileName)?).into(),
-        (requestRow).into()
-    ).with_node_path((test_string!("sections/0/tables/2")?).into())
-.with_folder((test_string!(remoteDataFolder)?).into());
+        (remote_file_name.clone()).into(),
+        (request_row).into()
+    ).with_node_path(("sections/0/tables/2".to_owned()).into())
+.with_folder((remote_data_folder.clone()).into());
 
     let result = context.api().insert_table_row(request).await?;
     let result_json = serialize_result(&result)?;
@@ -652,20 +606,18 @@ async fn table_insert_table_row() -> TestResult<()> {
 #[tokio::test]
 async fn table_insert_table_row_online() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let localFile = test_string!("DocumentElements/Tables/TablesGet.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let local_file = "DocumentElements/Tables/TablesGet.docx".to_owned();
 
-    let requestDocument = context.load_binary_file(test_string!(localFile)?).await?;
-    let mut requestRow = TableRowInsert::default();
-    requestRow.r#columns_count = Some((5).into());
+    let request_document = context.load_binary_file(local_file.clone()).await?;
+    let mut request_row = TableRowInsert::default();
+    request_row.columns_count = Some((5).into());
 
     let request = InsertTableRowOnlineRequest::new(
-        (requestDocument).into(),
-        (requestRow).into()
-    ).with_node_path((test_string!("sections/0/tables/2")?).into());
+        (request_document).into(),
+        (request_row).into()
+    ).with_node_path(("sections/0/tables/2".to_owned()).into());
 
     context.api().insert_table_row_online(request).await?;
     Ok(())
@@ -675,21 +627,19 @@ async fn table_insert_table_row_online() -> TestResult<()> {
 #[tokio::test]
 async fn table_get_table_row_format() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/DocumentElements/Tables")?;
-    let localFile = test_string!("DocumentElements/Tables/TablesGet.docx")?;
-    let remoteFileName = test_string!("TestGetTableRowFormat.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentElements/Tables";
+    let local_file = "DocumentElements/Tables/TablesGet.docx".to_owned();
+    let remote_file_name = "TestGetTableRowFormat.docx".to_owned();
 
-    context.upload_file(test_string!(localFile)?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
     let request = GetTableRowFormatRequest::new(
-        (test_string!(remoteFileName)?).into(),
-        (test_string!("sections/0/tables/2")?).into(),
+        (remote_file_name.clone()).into(),
+        ("sections/0/tables/2".to_owned()).into(),
         (0).into()
-    ).with_folder((test_string!(remoteDataFolder)?).into());
+    ).with_folder((remote_data_folder.clone()).into());
 
     let result = context.api().get_table_row_format(request).await?;
     let result_json = serialize_result(&result)?;
@@ -702,17 +652,15 @@ async fn table_get_table_row_format() -> TestResult<()> {
 #[tokio::test]
 async fn table_get_table_row_format_online() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let localFile = test_string!("DocumentElements/Tables/TablesGet.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let local_file = "DocumentElements/Tables/TablesGet.docx".to_owned();
 
-    let requestDocument = context.load_binary_file(test_string!(localFile)?).await?;
+    let request_document = context.load_binary_file(local_file.clone()).await?;
 
     let request = GetTableRowFormatOnlineRequest::new(
-        (requestDocument).into(),
-        (test_string!("sections/0/tables/2")?).into(),
+        (request_document).into(),
+        ("sections/0/tables/2".to_owned()).into(),
         (0).into()
     );
 
@@ -724,27 +672,25 @@ async fn table_get_table_row_format_online() -> TestResult<()> {
 #[tokio::test]
 async fn table_update_table_row_format() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/DocumentElements/Tables")?;
-    let localFile = test_string!("DocumentElements/Tables/TablesGet.docx")?;
-    let remoteFileName = test_string!("TestUpdateTableRowFormat.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentElements/Tables";
+    let local_file = "DocumentElements/Tables/TablesGet.docx".to_owned();
+    let remote_file_name = "TestUpdateTableRowFormat.docx".to_owned();
 
-    context.upload_file(test_string!(localFile)?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
-    let mut requestFormat = TableRowFormat::default();
-    requestFormat.r#allow_break_across_pages = Some((true).into());
-    requestFormat.r#heading_format = Some((true).into());
-    requestFormat.r#height = Some(((10.0) as f64).into());
-    requestFormat.r#height_rule = Some((TableRowFormat_HeightRuleEnum::Exactly).into());
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
+    let mut request_format = TableRowFormat::default();
+    request_format.allow_break_across_pages = Some((true).into());
+    request_format.heading_format = Some((true).into());
+    request_format.height = Some(((10.0) as f64).into());
+    request_format.height_rule = Some((TableRowFormatHeightRuleEnum::Exactly).into());
 
     let request = UpdateTableRowFormatRequest::new(
-        (test_string!(remoteFileName)?).into(),
-        (test_string!("sections/0/tables/2")?).into(),
+        (remote_file_name.clone()).into(),
+        ("sections/0/tables/2".to_owned()).into(),
         (0).into(),
-        (requestFormat).into()
-    ).with_folder((test_string!(remoteDataFolder)?).into());
+        (request_format).into()
+    ).with_folder((remote_data_folder.clone()).into());
 
     let result = context.api().update_table_row_format(request).await?;
     let result_json = serialize_result(&result)?;
@@ -759,23 +705,21 @@ async fn table_update_table_row_format() -> TestResult<()> {
 #[tokio::test]
 async fn table_update_table_row_format_online() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let localFile = test_string!("DocumentElements/Tables/TablesGet.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let local_file = "DocumentElements/Tables/TablesGet.docx".to_owned();
 
-    let requestDocument = context.load_binary_file(test_string!(localFile)?).await?;
-    let mut requestFormat = TableRowFormat::default();
-    requestFormat.r#allow_break_across_pages = Some((true).into());
-    requestFormat.r#heading_format = Some((true).into());
-    requestFormat.r#height = Some(((10) as f64).into());
-    requestFormat.r#height_rule = Some((TableRowFormat_HeightRuleEnum::Auto).into());
+    let request_document = context.load_binary_file(local_file.clone()).await?;
+    let mut request_format = TableRowFormat::default();
+    request_format.allow_break_across_pages = Some((true).into());
+    request_format.heading_format = Some((true).into());
+    request_format.height = Some(((10) as f64).into());
+    request_format.height_rule = Some((TableRowFormatHeightRuleEnum::Auto).into());
 
     let request = UpdateTableRowFormatOnlineRequest::new(
-        (requestDocument).into(),
-        (test_string!("sections/0/tables/2")?).into(),
-        (requestFormat).into(),
+        (request_document).into(),
+        ("sections/0/tables/2".to_owned()).into(),
+        (request_format).into(),
         (0).into()
     );
 
@@ -787,26 +731,24 @@ async fn table_update_table_row_format_online() -> TestResult<()> {
 #[tokio::test]
 async fn table_get_table_cell() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/DocumentElements/Tables")?;
-    let localFile = test_string!("DocumentElements/Tables/TablesGet.docx")?;
-    let remoteFileName = test_string!("TestGetTableCell.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentElements/Tables";
+    let local_file = "DocumentElements/Tables/TablesGet.docx".to_owned();
+    let remote_file_name = "TestGetTableCell.docx".to_owned();
 
-    context.upload_file(test_string!(localFile)?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
     let request = GetTableCellRequest::new(
-        (test_string!(remoteFileName)?).into(),
-        (test_string!("sections/0/tables/2/rows/0")?).into(),
+        (remote_file_name.clone()).into(),
+        ("sections/0/tables/2/rows/0".to_owned()).into(),
         (0).into()
-    ).with_folder((test_string!(remoteDataFolder)?).into());
+    ).with_folder((remote_data_folder.clone()).into());
 
     let result = context.api().get_table_cell(request).await?;
     let result_json = serialize_result(&result)?;
     assert_not_null(&result_json, "Cell")?;
-    assert_string(&result_json, "Cell.NodeId", test_string!("0.0.5.0.0")?)?;
+    assert_string(&result_json, "Cell.NodeId", "0.0.5.0.0".to_owned())?;
     Ok(())
 }
 
@@ -814,17 +756,15 @@ async fn table_get_table_cell() -> TestResult<()> {
 #[tokio::test]
 async fn table_get_table_cell_online() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let localFile = test_string!("DocumentElements/Tables/TablesGet.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let local_file = "DocumentElements/Tables/TablesGet.docx".to_owned();
 
-    let requestDocument = context.load_binary_file(test_string!(localFile)?).await?;
+    let request_document = context.load_binary_file(local_file.clone()).await?;
 
     let request = GetTableCellOnlineRequest::new(
-        (requestDocument).into(),
-        (test_string!("sections/0/tables/2/rows/0")?).into(),
+        (request_document).into(),
+        ("sections/0/tables/2/rows/0".to_owned()).into(),
         (0).into()
     );
 
@@ -836,21 +776,19 @@ async fn table_get_table_cell_online() -> TestResult<()> {
 #[tokio::test]
 async fn table_delete_table_cell() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/DocumentElements/Tables")?;
-    let localFile = test_string!("DocumentElements/Tables/TablesGet.docx")?;
-    let remoteFileName = test_string!("TestDeleteTableCell.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentElements/Tables";
+    let local_file = "DocumentElements/Tables/TablesGet.docx".to_owned();
+    let remote_file_name = "TestDeleteTableCell.docx".to_owned();
 
-    context.upload_file(test_string!(localFile)?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
     let request = DeleteTableCellRequest::new(
-        (test_string!(remoteFileName)?).into(),
-        (test_string!("sections/0/tables/2/rows/0")?).into(),
+        (remote_file_name.clone()).into(),
+        ("sections/0/tables/2/rows/0".to_owned()).into(),
         (0).into()
-    ).with_folder((test_string!(remoteDataFolder)?).into());
+    ).with_folder((remote_data_folder.clone()).into());
 
     context.api().delete_table_cell(request).await?;
     Ok(())
@@ -860,17 +798,15 @@ async fn table_delete_table_cell() -> TestResult<()> {
 #[tokio::test]
 async fn table_delete_table_cell_online() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let localFile = test_string!("DocumentElements/Tables/TablesGet.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let local_file = "DocumentElements/Tables/TablesGet.docx".to_owned();
 
-    let requestDocument = context.load_binary_file(test_string!(localFile)?).await?;
+    let request_document = context.load_binary_file(local_file.clone()).await?;
 
     let request = DeleteTableCellOnlineRequest::new(
-        (requestDocument).into(),
-        (test_string!("sections/0/tables/2/rows/0")?).into(),
+        (request_document).into(),
+        ("sections/0/tables/2/rows/0".to_owned()).into(),
         (0).into()
     );
 
@@ -882,28 +818,26 @@ async fn table_delete_table_cell_online() -> TestResult<()> {
 #[tokio::test]
 async fn table_insert_table_cell() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/DocumentElements/Tables")?;
-    let localFile = test_string!("DocumentElements/Tables/TablesGet.docx")?;
-    let remoteFileName = test_string!("TestInsertTableCell.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentElements/Tables";
+    let local_file = "DocumentElements/Tables/TablesGet.docx".to_owned();
+    let remote_file_name = "TestInsertTableCell.docx".to_owned();
 
-    context.upload_file(test_string!(localFile)?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
-    let mut requestCell = TableCellInsert::default();
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
+    let mut request_cell = TableCellInsert::default();
 
 
     let request = InsertTableCellRequest::new(
-        (test_string!(remoteFileName)?).into(),
-        (requestCell).into()
-    ).with_table_row_path((test_string!("sections/0/tables/2/rows/0")?).into())
-.with_folder((test_string!(remoteDataFolder)?).into());
+        (remote_file_name.clone()).into(),
+        (request_cell).into()
+    ).with_table_row_path(("sections/0/tables/2/rows/0".to_owned()).into())
+.with_folder((remote_data_folder.clone()).into());
 
     let result = context.api().insert_table_cell(request).await?;
     let result_json = serialize_result(&result)?;
     assert_not_null(&result_json, "Cell")?;
-    assert_string(&result_json, "Cell.NodeId", test_string!("0.0.5.0.3")?)?;
+    assert_string(&result_json, "Cell.NodeId", "0.0.5.0.3".to_owned())?;
     Ok(())
 }
 
@@ -911,20 +845,18 @@ async fn table_insert_table_cell() -> TestResult<()> {
 #[tokio::test]
 async fn table_insert_table_cell_online() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let localFile = test_string!("DocumentElements/Tables/TablesGet.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let local_file = "DocumentElements/Tables/TablesGet.docx".to_owned();
 
-    let requestDocument = context.load_binary_file(test_string!(localFile)?).await?;
-    let mut requestCell = TableCellInsert::default();
+    let request_document = context.load_binary_file(local_file.clone()).await?;
+    let mut request_cell = TableCellInsert::default();
 
 
     let request = InsertTableCellOnlineRequest::new(
-        (requestDocument).into(),
-        (requestCell).into()
-    ).with_table_row_path((test_string!("sections/0/tables/2/rows/0")?).into());
+        (request_document).into(),
+        (request_cell).into()
+    ).with_table_row_path(("sections/0/tables/2/rows/0".to_owned()).into());
 
     context.api().insert_table_cell_online(request).await?;
     Ok(())
@@ -934,21 +866,19 @@ async fn table_insert_table_cell_online() -> TestResult<()> {
 #[tokio::test]
 async fn table_get_table_cell_format() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/DocumentElements/Tables")?;
-    let localFile = test_string!("DocumentElements/Tables/TablesGet.docx")?;
-    let remoteFileName = test_string!("TestGetTableCellFormat.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentElements/Tables";
+    let local_file = "DocumentElements/Tables/TablesGet.docx".to_owned();
+    let remote_file_name = "TestGetTableCellFormat.docx".to_owned();
 
-    context.upload_file(test_string!(localFile)?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
     let request = GetTableCellFormatRequest::new(
-        (test_string!(remoteFileName)?).into(),
-        (test_string!("sections/0/tables/2/rows/0")?).into(),
+        (remote_file_name.clone()).into(),
+        ("sections/0/tables/2/rows/0".to_owned()).into(),
         (0).into()
-    ).with_folder((test_string!(remoteDataFolder)?).into());
+    ).with_folder((remote_data_folder.clone()).into());
 
     let result = context.api().get_table_cell_format(request).await?;
     let result_json = serialize_result(&result)?;
@@ -961,17 +891,15 @@ async fn table_get_table_cell_format() -> TestResult<()> {
 #[tokio::test]
 async fn table_get_table_cell_format_online() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let localFile = test_string!("DocumentElements/Tables/TablesGet.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let local_file = "DocumentElements/Tables/TablesGet.docx".to_owned();
 
-    let requestDocument = context.load_binary_file(test_string!(localFile)?).await?;
+    let request_document = context.load_binary_file(local_file.clone()).await?;
 
     let request = GetTableCellFormatOnlineRequest::new(
-        (requestDocument).into(),
-        (test_string!("sections/0/tables/2/rows/0")?).into(),
+        (request_document).into(),
+        ("sections/0/tables/2/rows/0".to_owned()).into(),
         (0).into()
     );
 
@@ -983,27 +911,25 @@ async fn table_get_table_cell_format_online() -> TestResult<()> {
 #[tokio::test]
 async fn table_update_table_cell_format() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/DocumentElements/Tables")?;
-    let localFile = test_string!("DocumentElements/Tables/TablesGet.docx")?;
-    let remoteFileName = test_string!("TestUpdateTableCellFormat.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentElements/Tables";
+    let local_file = "DocumentElements/Tables/TablesGet.docx".to_owned();
+    let remote_file_name = "TestUpdateTableCellFormat.docx".to_owned();
 
-    context.upload_file(test_string!(localFile)?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
-    let mut requestFormat = TableCellFormat::default();
-    requestFormat.r#bottom_padding = Some(((5.0) as f64).into());
-    requestFormat.r#fit_text = Some((true).into());
-    requestFormat.r#horizontal_merge = Some((TableCellFormat_HorizontalMergeEnum::First).into());
-    requestFormat.r#wrap_text = Some((true).into());
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
+    let mut request_format = TableCellFormat::default();
+    request_format.bottom_padding = Some(((5.0) as f64).into());
+    request_format.fit_text = Some((true).into());
+    request_format.horizontal_merge = Some((TableCellFormatHorizontalMergeEnum::First).into());
+    request_format.wrap_text = Some((true).into());
 
     let request = UpdateTableCellFormatRequest::new(
-        (test_string!(remoteFileName)?).into(),
-        (test_string!("sections/0/tables/2/rows/0")?).into(),
+        (remote_file_name.clone()).into(),
+        ("sections/0/tables/2/rows/0".to_owned()).into(),
         (0).into(),
-        (requestFormat).into()
-    ).with_folder((test_string!(remoteDataFolder)?).into());
+        (request_format).into()
+    ).with_folder((remote_data_folder.clone()).into());
 
     let result = context.api().update_table_cell_format(request).await?;
     let result_json = serialize_result(&result)?;
@@ -1018,23 +944,21 @@ async fn table_update_table_cell_format() -> TestResult<()> {
 #[tokio::test]
 async fn table_update_table_cell_format_online() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let localFile = test_string!("DocumentElements/Tables/TablesGet.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let local_file = "DocumentElements/Tables/TablesGet.docx".to_owned();
 
-    let requestDocument = context.load_binary_file(test_string!(localFile)?).await?;
-    let mut requestFormat = TableCellFormat::default();
-    requestFormat.r#bottom_padding = Some(((5) as f64).into());
-    requestFormat.r#fit_text = Some((true).into());
-    requestFormat.r#horizontal_merge = Some((TableCellFormat_HorizontalMergeEnum::First).into());
-    requestFormat.r#wrap_text = Some((true).into());
+    let request_document = context.load_binary_file(local_file.clone()).await?;
+    let mut request_format = TableCellFormat::default();
+    request_format.bottom_padding = Some(((5) as f64).into());
+    request_format.fit_text = Some((true).into());
+    request_format.horizontal_merge = Some((TableCellFormatHorizontalMergeEnum::First).into());
+    request_format.wrap_text = Some((true).into());
 
     let request = UpdateTableCellFormatOnlineRequest::new(
-        (requestDocument).into(),
-        (test_string!("sections/0/tables/2/rows/0")?).into(),
-        (requestFormat).into(),
+        (request_document).into(),
+        ("sections/0/tables/2/rows/0".to_owned()).into(),
+        (request_format).into(),
         (0).into()
     );
 
@@ -1046,22 +970,20 @@ async fn table_update_table_cell_format_online() -> TestResult<()> {
 #[tokio::test]
 async fn table_render_table() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/DocumentElements/Tables")?;
-    let localFile = test_string!("DocumentElements/Tables/TablesGet.docx")?;
-    let remoteFileName = test_string!("TestRenderTable.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentElements/Tables";
+    let local_file = "DocumentElements/Tables/TablesGet.docx".to_owned();
+    let remote_file_name = "TestRenderTable.docx".to_owned();
 
-    context.upload_file(test_string!(localFile)?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
     let request = RenderTableRequest::new(
-        (test_string!(remoteFileName)?).into(),
-        (test_string!("png")?).into(),
+        (remote_file_name.clone()).into(),
+        ("png".to_owned()).into(),
         (0).into()
-    ).with_node_path((test_string!("")?).into())
-.with_folder((test_string!(remoteDataFolder)?).into());
+    ).with_node_path(("".to_owned()).into())
+.with_folder((remote_data_folder.clone()).into());
 
     context.api().render_table(request).await?;
     Ok(())
@@ -1071,19 +993,17 @@ async fn table_render_table() -> TestResult<()> {
 #[tokio::test]
 async fn table_render_table_online() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let localFile = test_string!("DocumentElements/Tables/TablesGet.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let local_file = "DocumentElements/Tables/TablesGet.docx".to_owned();
 
-    let requestDocument = context.load_binary_file(test_string!(localFile)?).await?;
+    let request_document = context.load_binary_file(local_file.clone()).await?;
 
     let request = RenderTableOnlineRequest::new(
-        (requestDocument).into(),
-        (test_string!("png")?).into(),
+        (request_document).into(),
+        ("png".to_owned()).into(),
         (0).into()
-    ).with_node_path((test_string!("")?).into());
+    ).with_node_path(("".to_owned()).into());
 
     context.api().render_table_online(request).await?;
     Ok(())
@@ -1093,21 +1013,19 @@ async fn table_render_table_online() -> TestResult<()> {
 #[tokio::test]
 async fn table_render_table_without_node_path() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/DocumentElements/Tables")?;
-    let localFile = test_string!("DocumentElements/Tables/TablesGet.docx")?;
-    let remoteFileName = test_string!("TestRenderTableWithoutNodePath.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentElements/Tables";
+    let local_file = "DocumentElements/Tables/TablesGet.docx".to_owned();
+    let remote_file_name = "TestRenderTableWithoutNodePath.docx".to_owned();
 
-    context.upload_file(test_string!(localFile)?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
     let request = RenderTableRequest::new(
-        (test_string!(remoteFileName)?).into(),
-        (test_string!("png")?).into(),
+        (remote_file_name.clone()).into(),
+        ("png".to_owned()).into(),
         (0).into()
-    ).with_folder((test_string!(remoteDataFolder)?).into());
+    ).with_folder((remote_data_folder.clone()).into());
 
     context.api().render_table(request).await?;
     Ok(())

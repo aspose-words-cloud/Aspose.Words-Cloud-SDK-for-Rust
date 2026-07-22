@@ -36,33 +36,33 @@ use super::*;
 /// Request parameters for the DeleteFolder operation.
 pub struct DeleteFolderRequest {
     /// Folder path e.g. '/folder'.
-    pub r#path: String,
+    pub path: String,
     /// Storage name.
-    pub r#storage_name: Option<String>,
+    pub storage_name: Option<String>,
     /// Enable to delete folders, subfolders and files.
-    pub r#recursive: Option<bool>,
+    pub recursive: Option<bool>,
     pub send_progress: Option<ProgressCallback>,
     pub receive_progress: Option<ProgressCallback>,
 }
 
 impl DeleteFolderRequest {
-    pub fn new(r#path: String) -> Self {
+    pub fn new(path: String) -> Self {
         Self {
-            r#path,
-            r#storage_name: None,
-            r#recursive: None,
+            path,
+            storage_name: None,
+            recursive: None,
             send_progress: None,
             receive_progress: None,
         }
     }
 
     pub fn with_storage_name(mut self, value: String) -> Self {
-        self.r#storage_name = Some(value);
+        self.storage_name = Some(value);
         self
     }
 
     pub fn with_recursive(mut self, value: bool) -> Self {
-        self.r#recursive = Some(value);
+        self.recursive = Some(value);
         self
     }
 
@@ -100,12 +100,12 @@ impl Request for DeleteFolderRequest {
         let mut headers = Vec::new();
         let mut body_parts = Vec::new();
 
-        let value = client.query_value(&self.r#path)?;
+        let value = client.query_value(&self.path)?;
         path = path.replace("{path}", &value);
-        if let Some(value) = &self.r#storage_name {
+        if let Some(value) = &self.storage_name {
         query.push(("storageName".to_owned(), client.query_value(value)?));
         }
-        if let Some(value) = &self.r#recursive {
+        if let Some(value) = &self.recursive {
         query.push(("recursive".to_owned(), client.query_value(value)?));
         }
 

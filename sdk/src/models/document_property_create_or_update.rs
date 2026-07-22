@@ -34,21 +34,21 @@ use super::*;
 pub struct DocumentPropertyCreateOrUpdate {
         /// Gets or sets the value of the document property.
         #[serde(rename = "Value", skip_serializing_if = "Option::is_none")]
-        pub r#value: Option<String>,
+        pub value: Option<String>,
 
 }
 
 impl Default for DocumentPropertyCreateOrUpdate {
     fn default() -> Self {
         Self {
-            r#value: None,
+            value: None,
         }
     }
 }
 
 impl Model for DocumentPropertyCreateOrUpdate {
     fn validate(&self) -> SdkResult<()> {
-        if self.r#value.is_none() {
+        if self.value.is_none() {
             return Err(SdkError::InvalidRequest(
                 "property Value in DocumentPropertyCreateOrUpdate is required".to_owned(),
             ));
@@ -56,7 +56,7 @@ impl Model for DocumentPropertyCreateOrUpdate {
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
     }
 
     fn as_any(&self) -> &dyn Any {

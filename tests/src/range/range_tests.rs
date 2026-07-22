@@ -36,25 +36,23 @@ use crate::test_context::*;
 #[tokio::test]
 async fn range_get_range_text() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/DocumentElements/Range")?;
-    let localFile = test_string!("DocumentElements/Range/RangeGet.doc")?;
-    let remoteFileName = test_string!("TestGetRangeText.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentElements/Range";
+    let local_file = "DocumentElements/Range/RangeGet.doc".to_owned();
+    let remote_file_name = "TestGetRangeText.docx".to_owned();
 
-    context.upload_file(test_string!(localFile)?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
     let request = GetRangeTextRequest::new(
-        (test_string!(remoteFileName)?).into(),
-        (test_string!("id0.0.0")?).into()
-    ).with_range_end_identifier((test_string!("id0.0.1")?).into())
-.with_folder((test_string!(remoteDataFolder)?).into());
+        (remote_file_name.clone()).into(),
+        ("id0.0.0".to_owned()).into()
+    ).with_range_end_identifier(("id0.0.1".to_owned()).into())
+.with_folder((remote_data_folder.clone()).into());
 
     let result = context.api().get_range_text(request).await?;
     let result_json = serialize_result(&result)?;
-    assert_string(&result_json, "Text", test_string!("This is HEADER ")?)?;
+    assert_string(&result_json, "Text", "This is HEADER ".to_owned())?;
     Ok(())
 }
 
@@ -62,18 +60,16 @@ async fn range_get_range_text() -> TestResult<()> {
 #[tokio::test]
 async fn range_get_range_text_online() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let localFile = test_string!("DocumentElements/Range/RangeGet.doc")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let local_file = "DocumentElements/Range/RangeGet.doc".to_owned();
 
-    let requestDocument = context.load_binary_file(test_string!(localFile)?).await?;
+    let request_document = context.load_binary_file(local_file.clone()).await?;
 
     let request = GetRangeTextOnlineRequest::new(
-        (requestDocument).into(),
-        (test_string!("id0.0.0")?).into()
-    ).with_range_end_identifier((test_string!("id0.0.1")?).into());
+        (request_document).into(),
+        ("id0.0.0".to_owned()).into()
+    ).with_range_end_identifier(("id0.0.1".to_owned()).into());
 
     context.api().get_range_text_online(request).await?;
     Ok(())
@@ -83,21 +79,19 @@ async fn range_get_range_text_online() -> TestResult<()> {
 #[tokio::test]
 async fn range_remove_range() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/DocumentElements/Range")?;
-    let localFile = test_string!("DocumentElements/Range/RangeGet.doc")?;
-    let remoteFileName = test_string!("TestRemoveRange.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentElements/Range";
+    let local_file = "DocumentElements/Range/RangeGet.doc".to_owned();
+    let remote_file_name = "TestRemoveRange.docx".to_owned();
 
-    context.upload_file(test_string!(localFile)?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
     let request = RemoveRangeRequest::new(
-        (test_string!(remoteFileName)?).into(),
-        (test_string!("id0.0.0")?).into()
-    ).with_range_end_identifier((test_string!("id0.0.1")?).into())
-.with_folder((test_string!(remoteDataFolder)?).into());
+        (remote_file_name.clone()).into(),
+        ("id0.0.0".to_owned()).into()
+    ).with_range_end_identifier(("id0.0.1".to_owned()).into())
+.with_folder((remote_data_folder.clone()).into());
 
     context.api().remove_range(request).await?;
     Ok(())
@@ -107,18 +101,16 @@ async fn range_remove_range() -> TestResult<()> {
 #[tokio::test]
 async fn range_remove_range_online() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let localFile = test_string!("DocumentElements/Range/RangeGet.doc")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let local_file = "DocumentElements/Range/RangeGet.doc".to_owned();
 
-    let requestDocument = context.load_binary_file(test_string!(localFile)?).await?;
+    let request_document = context.load_binary_file(local_file.clone()).await?;
 
     let request = RemoveRangeOnlineRequest::new(
-        (requestDocument).into(),
-        (test_string!("id0.0.0")?).into()
-    ).with_range_end_identifier((test_string!("id0.0.1")?).into());
+        (request_document).into(),
+        ("id0.0.0".to_owned()).into()
+    ).with_range_end_identifier(("id0.0.1".to_owned()).into());
 
     context.api().remove_range_online(request).await?;
     Ok(())
@@ -128,29 +120,27 @@ async fn range_remove_range_online() -> TestResult<()> {
 #[tokio::test]
 async fn range_save_as_range() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/DocumentElements/Range")?;
-    let localFile = test_string!("DocumentElements/Range/RangeGet.doc")?;
-    let remoteFileName = test_string!("TestSaveAsRange.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentElements/Range";
+    let local_file = "DocumentElements/Range/RangeGet.doc".to_owned();
+    let remote_file_name = "TestSaveAsRange.docx".to_owned();
 
-    context.upload_file(test_string!(localFile)?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
-    let mut requestDocumentParameters = RangeDocument::default();
-    requestDocumentParameters.r#document_name = Some((test_string!(remoteDataFolder + "/NewDoc.docx")?).into());
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
+    let mut request_document_parameters = RangeDocument::default();
+    request_document_parameters.document_name = Some((remote_data_folder.clone() + "/NewDoc.docx").into());
 
     let request = SaveAsRangeRequest::new(
-        (test_string!(remoteFileName)?).into(),
-        (test_string!("id0.0.0")?).into(),
-        (requestDocumentParameters).into()
-    ).with_range_end_identifier((test_string!("id0.0.1")?).into())
-.with_folder((test_string!(remoteDataFolder)?).into());
+        (remote_file_name.clone()).into(),
+        ("id0.0.0".to_owned()).into(),
+        (request_document_parameters).into()
+    ).with_range_end_identifier(("id0.0.1".to_owned()).into())
+.with_folder((remote_data_folder.clone()).into());
 
     let result = context.api().save_as_range(request).await?;
     let result_json = serialize_result(&result)?;
     assert_not_null(&result_json, "Document")?;
-    assert_string(&result_json, "Document.FileName", test_string!("NewDoc.docx")?)?;
+    assert_string(&result_json, "Document.FileName", "NewDoc.docx".to_owned())?;
     Ok(())
 }
 
@@ -158,22 +148,20 @@ async fn range_save_as_range() -> TestResult<()> {
 #[tokio::test]
 async fn range_save_as_range_online() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/DocumentElements/Range")?;
-    let localFile = test_string!("DocumentElements/Range/RangeGet.doc")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentElements/Range";
+    let local_file = "DocumentElements/Range/RangeGet.doc".to_owned();
 
-    let requestDocument = context.load_binary_file(test_string!(localFile)?).await?;
-    let mut requestDocumentParameters = RangeDocument::default();
-    requestDocumentParameters.r#document_name = Some((test_string!(remoteDataFolder + "/NewDoc.docx")?).into());
+    let request_document = context.load_binary_file(local_file.clone()).await?;
+    let mut request_document_parameters = RangeDocument::default();
+    request_document_parameters.document_name = Some((remote_data_folder.clone() + "/NewDoc.docx").into());
 
     let request = SaveAsRangeOnlineRequest::new(
-        (requestDocument).into(),
-        (test_string!("id0.0.0")?).into(),
-        (requestDocumentParameters).into()
-    ).with_range_end_identifier((test_string!("id0.0.1")?).into());
+        (request_document).into(),
+        ("id0.0.0".to_owned()).into(),
+        (request_document_parameters).into()
+    ).with_range_end_identifier(("id0.0.1".to_owned()).into());
 
     context.api().save_as_range_online(request).await?;
     Ok(())
@@ -183,29 +171,27 @@ async fn range_save_as_range_online() -> TestResult<()> {
 #[tokio::test]
 async fn range_replace_with_text() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/DocumentElements/Range")?;
-    let localFile = test_string!("DocumentElements/Range/RangeGet.doc")?;
-    let remoteFileName = test_string!("TestReplaceWithText.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentElements/Range";
+    let local_file = "DocumentElements/Range/RangeGet.doc".to_owned();
+    let remote_file_name = "TestReplaceWithText.docx".to_owned();
 
-    context.upload_file(test_string!(localFile)?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
-    let mut requestRangeText = ReplaceRange::default();
-    requestRangeText.r#text = Some((test_string!("Replaced header")?).into());
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
+    let mut request_range_text = ReplaceRange::default();
+    request_range_text.text = Some(("Replaced header".to_owned()).into());
 
     let request = ReplaceWithTextRequest::new(
-        (test_string!(remoteFileName)?).into(),
-        (test_string!("id0.0.0")?).into(),
-        (requestRangeText).into()
-    ).with_range_end_identifier((test_string!("id0.0.1")?).into())
-.with_folder((test_string!(remoteDataFolder)?).into());
+        (remote_file_name.clone()).into(),
+        ("id0.0.0".to_owned()).into(),
+        (request_range_text).into()
+    ).with_range_end_identifier(("id0.0.1".to_owned()).into())
+.with_folder((remote_data_folder.clone()).into());
 
     let result = context.api().replace_with_text(request).await?;
     let result_json = serialize_result(&result)?;
     assert_not_null(&result_json, "Document")?;
-    assert_string(&result_json, "Document.FileName", test_string!("TestReplaceWithText.docx")?)?;
+    assert_string(&result_json, "Document.FileName", "TestReplaceWithText.docx".to_owned())?;
     Ok(())
 }
 
@@ -213,21 +199,19 @@ async fn range_replace_with_text() -> TestResult<()> {
 #[tokio::test]
 async fn range_replace_with_text_online() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let localFile = test_string!("DocumentElements/Range/RangeGet.doc")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let local_file = "DocumentElements/Range/RangeGet.doc".to_owned();
 
-    let requestDocument = context.load_binary_file(test_string!(localFile)?).await?;
-    let mut requestRangeText = ReplaceRange::default();
-    requestRangeText.r#text = Some((test_string!("Replaced header")?).into());
+    let request_document = context.load_binary_file(local_file.clone()).await?;
+    let mut request_range_text = ReplaceRange::default();
+    request_range_text.text = Some(("Replaced header".to_owned()).into());
 
     let request = ReplaceWithTextOnlineRequest::new(
-        (requestDocument).into(),
-        (test_string!("id0.0.0")?).into(),
-        (requestRangeText).into()
-    ).with_range_end_identifier((test_string!("id0.0.1")?).into());
+        (request_document).into(),
+        ("id0.0.0".to_owned()).into(),
+        (request_range_text).into()
+    ).with_range_end_identifier(("id0.0.1".to_owned()).into());
 
     context.api().replace_with_text_online(request).await?;
     Ok(())
@@ -237,24 +221,22 @@ async fn range_replace_with_text_online() -> TestResult<()> {
 #[tokio::test]
 async fn range_translate_node_id() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/DocumentElements/Range")?;
-    let localFile = test_string!("DocumentElements/Range/RangeGet.doc")?;
-    let remoteFileName = test_string!("TestTranslateNodeId.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentElements/Range";
+    let local_file = "DocumentElements/Range/RangeGet.doc".to_owned();
+    let remote_file_name = "TestTranslateNodeId.docx".to_owned();
 
-    context.upload_file(test_string!(localFile)?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
     let request = TranslateNodeIdRequest::new(
-        (test_string!(remoteFileName)?).into(),
-        (test_string!("id0.0.0")?).into()
-    ).with_folder((test_string!(remoteDataFolder)?).into());
+        (remote_file_name.clone()).into(),
+        ("id0.0.0".to_owned()).into()
+    ).with_folder((remote_data_folder.clone()).into());
 
     let result = context.api().translate_node_id(request).await?;
     let result_json = serialize_result(&result)?;
-    assert_string(&result_json, "Path", test_string!("sections/0/body/paragraphs/0")?)?;
+    assert_string(&result_json, "Path", "sections/0/body/paragraphs/0".to_owned())?;
     Ok(())
 }
 
@@ -262,17 +244,15 @@ async fn range_translate_node_id() -> TestResult<()> {
 #[tokio::test]
 async fn range_translate_node_id_online() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let localFile = test_string!("DocumentElements/Range/RangeGet.doc")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let local_file = "DocumentElements/Range/RangeGet.doc".to_owned();
 
-    let requestDocument = context.load_binary_file(test_string!(localFile)?).await?;
+    let request_document = context.load_binary_file(local_file.clone()).await?;
 
     let request = TranslateNodeIdOnlineRequest::new(
-        (requestDocument).into(),
-        (test_string!("id0.0.0")?).into()
+        (request_document).into(),
+        ("id0.0.0".to_owned()).into()
     );
 
     context.api().translate_node_id_online(request).await?;

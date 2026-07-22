@@ -34,38 +34,38 @@ use super::*;
 pub struct PdfDigitalSignatureDetailsData {
         /// Gets or sets the certificate's filename using for signing.
         #[serde(rename = "CertificateFilename", skip_serializing_if = "Option::is_none")]
-        pub r#certificate_filename: Option<String>,
+        pub certificate_filename: Option<String>,
 
 
         /// Gets or sets the hash algorithm.
         #[serde(rename = "HashAlgorithm", skip_serializing_if = "Option::is_none")]
-        pub r#hash_algorithm: Option<PdfDigitalSignatureDetailsData_HashAlgorithmEnum>,
+        pub hash_algorithm: Option<PdfDigitalSignatureDetailsDataHashAlgorithmEnum>,
 
 
         /// Gets or sets the location of the signing.
         #[serde(rename = "Location", skip_serializing_if = "Option::is_none")]
-        pub r#location: Option<String>,
+        pub location: Option<String>,
 
 
         /// Gets or sets the reason for the signing.
         #[serde(rename = "Reason", skip_serializing_if = "Option::is_none")]
-        pub r#reason: Option<String>,
+        pub reason: Option<String>,
 
 
         /// Gets or sets the date of the signing.
         #[serde(rename = "SignatureDate", skip_serializing_if = "Option::is_none")]
-        pub r#signature_date: Option<DateTime<Utc>>,
+        pub signature_date: Option<chrono::DateTime<chrono::Utc>>,
 
 }
 
 impl Default for PdfDigitalSignatureDetailsData {
     fn default() -> Self {
         Self {
-            r#certificate_filename: None,
-            r#hash_algorithm: None,
-            r#location: None,
-            r#reason: None,
-            r#signature_date: None,
+            certificate_filename: None,
+            hash_algorithm: None,
+            location: None,
+            reason: None,
+            signature_date: None,
         }
     }
 }
@@ -75,7 +75,7 @@ impl Model for PdfDigitalSignatureDetailsData {
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
     }
 
     fn as_any(&self) -> &dyn Any {
@@ -84,9 +84,8 @@ impl Model for PdfDigitalSignatureDetailsData {
 }
 
 /// Gets or sets the hash algorithm.
-#[allow(non_camel_case_types)]
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
-pub enum PdfDigitalSignatureDetailsData_HashAlgorithmEnum {
+pub enum PdfDigitalSignatureDetailsDataHashAlgorithmEnum {
     #[serde(rename = "Sha256")]
         Sha256,
     #[serde(rename = "Sha384")]
@@ -94,5 +93,5 @@ pub enum PdfDigitalSignatureDetailsData_HashAlgorithmEnum {
     #[serde(rename = "Sha512")]
         Sha512,
     #[serde(rename = "RipeMD160")]
-        RipeMD160,
+        RipeMd160,
 }

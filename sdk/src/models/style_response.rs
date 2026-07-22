@@ -38,7 +38,7 @@ pub struct StyleResponse {
     pub parent: WordsResponse,
         /// Gets or sets the style, containded in the document.
         #[serde(rename = "Style", skip_serializing_if = "Option::is_none")]
-        pub r#style: Option<Style>,
+        pub style: Option<Style>,
 
 }
 
@@ -47,7 +47,7 @@ impl Default for StyleResponse {
         let mut parent = WordsResponse::default();
         Self {
             parent,
-            r#style: None,
+            style: None,
         }
     }
 }
@@ -69,14 +69,14 @@ impl DerefMut for StyleResponse {
 impl Model for StyleResponse {
     fn validate(&self) -> SdkResult<()> {
         self.parent.validate()?;
-        if let Some(value) = &self.r#style {
+        if let Some(value) = &self.style {
         value.validate()?;
         }
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
-        self.parent.collect_file_references(output);
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+        self.parent.collect_file_references(_output);
     }
 
     fn as_any(&self) -> &dyn Any {

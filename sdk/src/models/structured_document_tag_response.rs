@@ -37,7 +37,7 @@ pub struct StructuredDocumentTagResponse {
     pub parent: WordsResponse,
         /// Gets or sets the StructuredDocumentTag.
         #[serde(rename = "StructuredDocumentTag", skip_serializing_if = "Option::is_none")]
-        pub r#structured_document_tag: Option<StructuredDocumentTag>,
+        pub structured_document_tag: Option<StructuredDocumentTag>,
 
 }
 
@@ -46,7 +46,7 @@ impl Default for StructuredDocumentTagResponse {
         let mut parent = WordsResponse::default();
         Self {
             parent,
-            r#structured_document_tag: None,
+            structured_document_tag: None,
         }
     }
 }
@@ -68,14 +68,14 @@ impl DerefMut for StructuredDocumentTagResponse {
 impl Model for StructuredDocumentTagResponse {
     fn validate(&self) -> SdkResult<()> {
         self.parent.validate()?;
-        if let Some(value) = &self.r#structured_document_tag {
+        if let Some(value) = &self.structured_document_tag {
         value.validate()?;
         }
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
-        self.parent.collect_file_references(output);
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+        self.parent.collect_file_references(_output);
     }
 
     fn as_any(&self) -> &dyn Any {

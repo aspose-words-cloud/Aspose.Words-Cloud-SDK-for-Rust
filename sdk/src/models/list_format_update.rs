@@ -35,22 +35,22 @@ pub struct ListFormatUpdate {
         /// Gets or sets the list level number (0 to 8) for the paragraph.
             /// In Word documents, lists may consist of 1 or 9 levels, numbered 0 to 8. Has effect only when the Aspose.Words.ListFormat.List property is set to reference a valid list. Aspose.Words.ListFormat.List.
         #[serde(rename = "ListLevelNumber", skip_serializing_if = "Option::is_none")]
-        pub r#list_level_number: Option<i32>,
+        pub list_level_number: Option<i32>,
 
 
         /// Gets or sets the list id of this paragraph.
             /// The list that is being assigned to this property must belong to the current document.
             /// The list that is being assigned to this property must not be a list style definition.
         #[serde(rename = "ListId", skip_serializing_if = "Option::is_none")]
-        pub r#list_id: Option<i32>,
+        pub list_id: Option<i32>,
 
 }
 
 impl Default for ListFormatUpdate {
     fn default() -> Self {
         Self {
-            r#list_level_number: None,
-            r#list_id: None,
+            list_level_number: None,
+            list_id: None,
         }
     }
 }
@@ -60,7 +60,7 @@ impl Model for ListFormatUpdate {
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
     }
 
     fn as_any(&self) -> &dyn Any {

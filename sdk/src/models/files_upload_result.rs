@@ -34,27 +34,27 @@ use super::*;
 pub struct FilesUploadResult {
         /// List of errors.
         #[serde(rename = "Errors", skip_serializing_if = "Option::is_none")]
-        pub r#errors: Option<Vec<Error>>,
+        pub errors: Option<Vec<Error>>,
 
 
         /// List of uploaded file names.
         #[serde(rename = "Uploaded", skip_serializing_if = "Option::is_none")]
-        pub r#uploaded: Option<Vec<String>>,
+        pub uploaded: Option<Vec<String>>,
 
 }
 
 impl Default for FilesUploadResult {
     fn default() -> Self {
         Self {
-            r#errors: None,
-            r#uploaded: None,
+            errors: None,
+            uploaded: None,
         }
     }
 }
 
 impl Model for FilesUploadResult {
     fn validate(&self) -> SdkResult<()> {
-        if let Some(values) = &self.r#errors {
+        if let Some(values) = &self.errors {
         for value in values {
         value.validate()?;
         }
@@ -63,7 +63,7 @@ impl Model for FilesUploadResult {
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
     }
 
     fn as_any(&self) -> &dyn Any {

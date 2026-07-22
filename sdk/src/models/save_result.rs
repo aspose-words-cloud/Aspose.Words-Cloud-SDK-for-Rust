@@ -34,39 +34,39 @@ use super::*;
 pub struct SaveResult {
         /// Gets or sets the link to destination document.
         #[serde(rename = "DestDocument", skip_serializing_if = "Option::is_none")]
-        pub r#dest_document: Option<FileLink>,
+        pub dest_document: Option<FileLink>,
 
 
         /// Gets or sets the link to source document.
         #[serde(rename = "SourceDocument", skip_serializing_if = "Option::is_none")]
-        pub r#source_document: Option<FileLink>,
+        pub source_document: Option<FileLink>,
 
 
         /// Gets or sets the list of links to additional items (css, images etc).
         #[serde(rename = "AdditionalItems", skip_serializing_if = "Option::is_none")]
-        pub r#additional_items: Option<Vec<FileLink>>,
+        pub additional_items: Option<Vec<FileLink>>,
 
 }
 
 impl Default for SaveResult {
     fn default() -> Self {
         Self {
-            r#dest_document: None,
-            r#source_document: None,
-            r#additional_items: None,
+            dest_document: None,
+            source_document: None,
+            additional_items: None,
         }
     }
 }
 
 impl Model for SaveResult {
     fn validate(&self) -> SdkResult<()> {
-        if let Some(value) = &self.r#dest_document {
+        if let Some(value) = &self.dest_document {
         value.validate()?;
         }
-        if let Some(value) = &self.r#source_document {
+        if let Some(value) = &self.source_document {
         value.validate()?;
         }
-        if let Some(values) = &self.r#additional_items {
+        if let Some(values) = &self.additional_items {
         for value in values {
         value.validate()?;
         }
@@ -74,7 +74,7 @@ impl Model for SaveResult {
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
     }
 
     fn as_any(&self) -> &dyn Any {

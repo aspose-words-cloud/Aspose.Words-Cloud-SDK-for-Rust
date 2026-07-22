@@ -37,12 +37,12 @@ pub struct ProtectionDataResponse {
     pub parent: WordsResponse,
         /// Gets or sets the link to the document.
         #[serde(rename = "DocumentLink", skip_serializing_if = "Option::is_none")]
-        pub r#document_link: Option<FileLink>,
+        pub document_link: Option<FileLink>,
 
 
         /// Gets or sets the protection properties of the document.
         #[serde(rename = "ProtectionData", skip_serializing_if = "Option::is_none")]
-        pub r#protection_data: Option<ProtectionData>,
+        pub protection_data: Option<ProtectionData>,
 
 }
 
@@ -51,8 +51,8 @@ impl Default for ProtectionDataResponse {
         let mut parent = WordsResponse::default();
         Self {
             parent,
-            r#document_link: None,
-            r#protection_data: None,
+            document_link: None,
+            protection_data: None,
         }
     }
 }
@@ -74,17 +74,17 @@ impl DerefMut for ProtectionDataResponse {
 impl Model for ProtectionDataResponse {
     fn validate(&self) -> SdkResult<()> {
         self.parent.validate()?;
-        if let Some(value) = &self.r#document_link {
+        if let Some(value) = &self.document_link {
         value.validate()?;
         }
-        if let Some(value) = &self.r#protection_data {
+        if let Some(value) = &self.protection_data {
         value.validate()?;
         }
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
-        self.parent.collect_file_references(output);
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+        self.parent.collect_file_references(_output);
     }
 
     fn as_any(&self) -> &dyn Any {

@@ -37,7 +37,7 @@ pub struct FieldNames {
     pub parent: LinkElement,
         /// Gets or sets the collection of fields names.
         #[serde(rename = "Names", skip_serializing_if = "Option::is_none")]
-        pub r#names: Option<Vec<String>>,
+        pub names: Option<Vec<String>>,
 
 }
 
@@ -46,7 +46,7 @@ impl Default for FieldNames {
         let mut parent = LinkElement::default();
         Self {
             parent,
-            r#names: None,
+            names: None,
         }
     }
 }
@@ -71,8 +71,8 @@ impl Model for FieldNames {
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
-        self.parent.collect_file_references(output);
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+        self.parent.collect_file_references(_output);
     }
 
     fn as_any(&self) -> &dyn Any {

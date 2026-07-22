@@ -39,13 +39,13 @@ pub struct XamlFixedSaveOptionsData {
             /// The default value is null.
             /// When you save a Document in fixed page Xaml format, Aspose.Words needs to save all images embedded in the document as standalone files. ResourcesFolder allows you to specify where the images will be saved and ResourcesFolderAlias allows to specify how the image URIs will be constructed.If you save a document into a file and provide a file name, Aspose.Words, by default, saves the images in the same folder where the document file is saved. Use ResourcesFolder to override this behavior.If you save a document into a stream, Aspose.Words does not have a folder where to save the images, but still needs to save the images somewhere. In this case, you need to specify an accessible folder by using the ResourcesFolder property.
         #[serde(rename = "ResourcesFolder", skip_serializing_if = "Option::is_none")]
-        pub r#resources_folder: Option<String>,
+        pub resources_folder: Option<String>,
 
 
         /// Gets or sets the name of the folder used to construct image URIs written into an fixed page Xaml document. The default value is null.
             /// When you save a Document in fixed page Xaml format, Aspose.Words needs to save all images embedded in the document as standalone files. ResourcesFolder allows you to specify where the images will be saved and ResourcesFolderAlias allows to specify how the image URIs will be constructed.
         #[serde(rename = "ResourcesFolderAlias", skip_serializing_if = "Option::is_none")]
-        pub r#resources_folder_alias: Option<String>,
+        pub resources_folder_alias: Option<String>,
 
 
 }
@@ -53,11 +53,11 @@ pub struct XamlFixedSaveOptionsData {
 impl Default for XamlFixedSaveOptionsData {
     fn default() -> Self {
         let mut parent = FixedPageSaveOptionsData::default();
-        parent.r#save_format = Some("xamlfixed".to_owned());
+        parent.save_format = Some("xamlfixed".to_owned());
         Self {
             parent,
-            r#resources_folder: None,
-            r#resources_folder_alias: None,
+            resources_folder: None,
+            resources_folder_alias: None,
 
         }
     }
@@ -83,8 +83,8 @@ impl Model for XamlFixedSaveOptionsData {
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
-        self.parent.collect_file_references(output);
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+        self.parent.collect_file_references(_output);
     }
 
     fn as_any(&self) -> &dyn Any {

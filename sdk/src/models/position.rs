@@ -34,7 +34,7 @@ use super::*;
 pub struct Position {
         /// Gets or sets the node id.
         #[serde(rename = "NodeId", skip_serializing_if = "Option::is_none")]
-        pub r#node_id: Option<String>,
+        pub node_id: Option<String>,
 
 
         /// Gets position type.
@@ -46,7 +46,7 @@ pub struct Position {
 impl Default for Position {
     fn default() -> Self {
         Self {
-            r#node_id: None,
+            node_id: None,
             r#type: None,
         }
     }
@@ -54,7 +54,7 @@ impl Default for Position {
 
 impl Model for Position {
     fn validate(&self) -> SdkResult<()> {
-        if self.r#node_id.is_none() {
+        if self.node_id.is_none() {
             return Err(SdkError::InvalidRequest(
                 "property NodeId in Position is required".to_owned(),
             ));
@@ -62,7 +62,7 @@ impl Model for Position {
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
     }
 
     fn as_any(&self) -> &dyn Any {

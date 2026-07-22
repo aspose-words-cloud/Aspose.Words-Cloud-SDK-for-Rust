@@ -38,7 +38,7 @@ pub struct HeaderFootersResponse {
     pub parent: WordsResponse,
         /// Gets or sets the collection of HeaderFooter elements.
         #[serde(rename = "HeaderFooters", skip_serializing_if = "Option::is_none")]
-        pub r#header_footers: Option<HeaderFooterLinkCollection>,
+        pub header_footers: Option<HeaderFooterLinkCollection>,
 
 }
 
@@ -47,7 +47,7 @@ impl Default for HeaderFootersResponse {
         let mut parent = WordsResponse::default();
         Self {
             parent,
-            r#header_footers: None,
+            header_footers: None,
         }
     }
 }
@@ -69,14 +69,14 @@ impl DerefMut for HeaderFootersResponse {
 impl Model for HeaderFootersResponse {
     fn validate(&self) -> SdkResult<()> {
         self.parent.validate()?;
-        if let Some(value) = &self.r#header_footers {
+        if let Some(value) = &self.header_footers {
         value.validate()?;
         }
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
-        self.parent.collect_file_references(output);
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+        self.parent.collect_file_references(_output);
     }
 
     fn as_any(&self) -> &dyn Any {

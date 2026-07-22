@@ -34,46 +34,46 @@ use super::*;
 pub struct Error {
         /// Gets or sets Code.
         #[serde(rename = "Code", skip_serializing_if = "Option::is_none")]
-        pub r#code: Option<String>,
+        pub code: Option<String>,
 
 
         /// Gets or sets Description.
         #[serde(rename = "Description", skip_serializing_if = "Option::is_none")]
-        pub r#description: Option<String>,
+        pub description: Option<String>,
 
 
         /// Gets or sets InnerError.
         #[serde(rename = "InnerError", skip_serializing_if = "Option::is_none")]
-        pub r#inner_error: Option<Box<ApiError>>,
+        pub inner_error: Option<Box<ApiError>>,
 
 
         /// Gets or sets Message.
         #[serde(rename = "Message", skip_serializing_if = "Option::is_none")]
-        pub r#message: Option<String>,
+        pub message: Option<String>,
 
 }
 
 impl Default for Error {
     fn default() -> Self {
         Self {
-            r#code: None,
-            r#description: None,
-            r#inner_error: None,
-            r#message: None,
+            code: None,
+            description: None,
+            inner_error: None,
+            message: None,
         }
     }
 }
 
 impl Model for Error {
     fn validate(&self) -> SdkResult<()> {
-        if let Some(value) = &self.r#inner_error {
+        if let Some(value) = &self.inner_error {
         value.validate()?;
         }
 
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
     }
 
     fn as_any(&self) -> &dyn Any {

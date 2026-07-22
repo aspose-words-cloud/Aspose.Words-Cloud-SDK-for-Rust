@@ -34,21 +34,21 @@ use super::*;
 pub struct RunBase {
         /// Gets or sets the run's text.
         #[serde(rename = "Text", skip_serializing_if = "Option::is_none")]
-        pub r#text: Option<String>,
+        pub text: Option<String>,
 
 }
 
 impl Default for RunBase {
     fn default() -> Self {
         Self {
-            r#text: None,
+            text: None,
         }
     }
 }
 
 impl Model for RunBase {
     fn validate(&self) -> SdkResult<()> {
-        if self.r#text.is_none() {
+        if self.text.is_none() {
             return Err(SdkError::InvalidRequest(
                 "property Text in RunBase is required".to_owned(),
             ));
@@ -56,7 +56,7 @@ impl Model for RunBase {
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
     }
 
     fn as_any(&self) -> &dyn Any {

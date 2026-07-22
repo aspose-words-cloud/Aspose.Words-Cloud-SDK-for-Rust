@@ -38,12 +38,12 @@ pub struct SignatureCollectionResponse {
     pub parent: WordsResponse,
         /// Gets or sets a value indicating whether all signatures are valid. Returns true if there is no signatures.
         #[serde(rename = "IsValid", skip_serializing_if = "Option::is_none")]
-        pub r#is_valid: Option<bool>,
+        pub is_valid: Option<bool>,
 
 
         /// Gets or sets signatures.
         #[serde(rename = "Signatures", skip_serializing_if = "Option::is_none")]
-        pub r#signatures: Option<Vec<Signature>>,
+        pub signatures: Option<Vec<Signature>>,
 
 }
 
@@ -52,8 +52,8 @@ impl Default for SignatureCollectionResponse {
         let mut parent = WordsResponse::default();
         Self {
             parent,
-            r#is_valid: None,
-            r#signatures: None,
+            is_valid: None,
+            signatures: None,
         }
     }
 }
@@ -75,12 +75,12 @@ impl DerefMut for SignatureCollectionResponse {
 impl Model for SignatureCollectionResponse {
     fn validate(&self) -> SdkResult<()> {
         self.parent.validate()?;
-        if self.r#is_valid.is_none() {
+        if self.is_valid.is_none() {
             return Err(SdkError::InvalidRequest(
                 "property IsValid in SignatureCollectionResponse is required".to_owned(),
             ));
         }
-        if let Some(values) = &self.r#signatures {
+        if let Some(values) = &self.signatures {
         for value in values {
         value.validate()?;
         }
@@ -88,8 +88,8 @@ impl Model for SignatureCollectionResponse {
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
-        self.parent.collect_file_references(output);
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+        self.parent.collect_file_references(_output);
     }
 
     fn as_any(&self) -> &dyn Any {

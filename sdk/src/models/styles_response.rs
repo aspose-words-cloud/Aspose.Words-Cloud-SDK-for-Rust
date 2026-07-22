@@ -38,7 +38,7 @@ pub struct StylesResponse {
     pub parent: WordsResponse,
         /// Gets or sets the array of styles.
         #[serde(rename = "Styles", skip_serializing_if = "Option::is_none")]
-        pub r#styles: Option<Vec<Style>>,
+        pub styles: Option<Vec<Style>>,
 
 }
 
@@ -47,7 +47,7 @@ impl Default for StylesResponse {
         let mut parent = WordsResponse::default();
         Self {
             parent,
-            r#styles: None,
+            styles: None,
         }
     }
 }
@@ -69,7 +69,7 @@ impl DerefMut for StylesResponse {
 impl Model for StylesResponse {
     fn validate(&self) -> SdkResult<()> {
         self.parent.validate()?;
-        if let Some(values) = &self.r#styles {
+        if let Some(values) = &self.styles {
         for value in values {
         value.validate()?;
         }
@@ -77,8 +77,8 @@ impl Model for StylesResponse {
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
-        self.parent.collect_file_references(output);
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+        self.parent.collect_file_references(_output);
     }
 
     fn as_any(&self) -> &dyn Any {

@@ -38,12 +38,12 @@ pub struct FormFieldDropDown {
         /// Gets or sets the items array of a dropdown form field.
             /// Microsoft Word allows maximum 25 items in a dropdown form field.
         #[serde(rename = "DropDownItems", skip_serializing_if = "Option::is_none")]
-        pub r#drop_down_items: Option<Vec<String>>,
+        pub drop_down_items: Option<Vec<String>>,
 
 
         /// Gets or sets the index specifying the currently selected item in a dropdown form field.
         #[serde(rename = "DropDownSelectedIndex", skip_serializing_if = "Option::is_none")]
-        pub r#drop_down_selected_index: Option<i32>,
+        pub drop_down_selected_index: Option<i32>,
 
 }
 
@@ -52,8 +52,8 @@ impl Default for FormFieldDropDown {
         let mut parent = FormField::default();
         Self {
             parent,
-            r#drop_down_items: None,
-            r#drop_down_selected_index: None,
+            drop_down_items: None,
+            drop_down_selected_index: None,
         }
     }
 }
@@ -75,7 +75,7 @@ impl DerefMut for FormFieldDropDown {
 impl Model for FormFieldDropDown {
     fn validate(&self) -> SdkResult<()> {
         self.parent.validate()?;
-        if self.r#drop_down_items.is_none() {
+        if self.drop_down_items.is_none() {
             return Err(SdkError::InvalidRequest(
                 "property DropDownItems in FormFieldDropDown is required".to_owned(),
             ));
@@ -83,8 +83,8 @@ impl Model for FormFieldDropDown {
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
-        self.parent.collect_file_references(output);
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+        self.parent.collect_file_references(_output);
     }
 
     fn as_any(&self) -> &dyn Any {

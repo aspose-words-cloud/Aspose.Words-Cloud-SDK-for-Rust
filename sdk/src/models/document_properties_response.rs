@@ -38,7 +38,7 @@ pub struct DocumentPropertiesResponse {
     pub parent: WordsResponse,
         /// Gets or sets the collection of document properties.
         #[serde(rename = "DocumentProperties", skip_serializing_if = "Option::is_none")]
-        pub r#document_properties: Option<DocumentProperties>,
+        pub document_properties: Option<DocumentProperties>,
 
 }
 
@@ -47,7 +47,7 @@ impl Default for DocumentPropertiesResponse {
         let mut parent = WordsResponse::default();
         Self {
             parent,
-            r#document_properties: None,
+            document_properties: None,
         }
     }
 }
@@ -69,14 +69,14 @@ impl DerefMut for DocumentPropertiesResponse {
 impl Model for DocumentPropertiesResponse {
     fn validate(&self) -> SdkResult<()> {
         self.parent.validate()?;
-        if let Some(value) = &self.r#document_properties {
+        if let Some(value) = &self.document_properties {
         value.validate()?;
         }
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
-        self.parent.collect_file_references(output);
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+        self.parent.collect_file_references(_output);
     }
 
     fn as_any(&self) -> &dyn Any {

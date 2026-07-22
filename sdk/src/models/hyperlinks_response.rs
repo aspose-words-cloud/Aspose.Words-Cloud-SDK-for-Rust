@@ -38,7 +38,7 @@ pub struct HyperlinksResponse {
     pub parent: WordsResponse,
         /// Gets or sets the collection of hyperlinks.
         #[serde(rename = "Hyperlinks", skip_serializing_if = "Option::is_none")]
-        pub r#hyperlinks: Option<Hyperlinks>,
+        pub hyperlinks: Option<Hyperlinks>,
 
 }
 
@@ -47,7 +47,7 @@ impl Default for HyperlinksResponse {
         let mut parent = WordsResponse::default();
         Self {
             parent,
-            r#hyperlinks: None,
+            hyperlinks: None,
         }
     }
 }
@@ -69,14 +69,14 @@ impl DerefMut for HyperlinksResponse {
 impl Model for HyperlinksResponse {
     fn validate(&self) -> SdkResult<()> {
         self.parent.validate()?;
-        if let Some(value) = &self.r#hyperlinks {
+        if let Some(value) = &self.hyperlinks {
         value.validate()?;
         }
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
-        self.parent.collect_file_references(output);
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+        self.parent.collect_file_references(_output);
     }
 
     fn as_any(&self) -> &dyn Any {

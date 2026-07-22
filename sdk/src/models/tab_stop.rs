@@ -37,7 +37,7 @@ pub struct TabStop {
     pub parent: TabStopBase,
         /// Gets or sets a value indicating whether this tab stop clears any existing tab stops in this position.
         #[serde(rename = "IsClear", skip_serializing_if = "Option::is_none")]
-        pub r#is_clear: Option<bool>,
+        pub is_clear: Option<bool>,
 
 }
 
@@ -46,7 +46,7 @@ impl Default for TabStop {
         let mut parent = TabStopBase::default();
         Self {
             parent,
-            r#is_clear: None,
+            is_clear: None,
         }
     }
 }
@@ -68,7 +68,7 @@ impl DerefMut for TabStop {
 impl Model for TabStop {
     fn validate(&self) -> SdkResult<()> {
         self.parent.validate()?;
-        if self.r#is_clear.is_none() {
+        if self.is_clear.is_none() {
             return Err(SdkError::InvalidRequest(
                 "property IsClear in TabStop is required".to_owned(),
             ));
@@ -76,8 +76,8 @@ impl Model for TabStop {
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
-        self.parent.collect_file_references(output);
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+        self.parent.collect_file_references(_output);
     }
 
     fn as_any(&self) -> &dyn Any {

@@ -34,34 +34,34 @@ use super::*;
 pub struct BaseEntry {
         /// Gets or sets the file reference.
         #[serde(rename = "FileReference", skip_serializing_if = "Option::is_none")]
-        pub r#file_reference: Option<FileReference>,
+        pub file_reference: Option<FileReference>,
 
 }
 
 impl Default for BaseEntry {
     fn default() -> Self {
         Self {
-            r#file_reference: None,
+            file_reference: None,
         }
     }
 }
 
 impl Model for BaseEntry {
     fn validate(&self) -> SdkResult<()> {
-        if self.r#file_reference.is_none() {
+        if self.file_reference.is_none() {
             return Err(SdkError::InvalidRequest(
                 "property FileReference in BaseEntry is required".to_owned(),
             ));
         }
-        if let Some(value) = &self.r#file_reference {
+        if let Some(value) = &self.file_reference {
         value.validate()?;
         }
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
-        if let Some(value) = &self.r#file_reference {
-        value.collect_file_references(output);
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+        if let Some(value) = &self.file_reference {
+        value.collect_file_references(_output);
         }
     }
 

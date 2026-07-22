@@ -34,50 +34,50 @@ use super::*;
 pub struct StorageFile {
         /// True if it is a folder.
         #[serde(rename = "IsFolder", skip_serializing_if = "Option::is_none")]
-        pub r#is_folder: Option<bool>,
+        pub is_folder: Option<bool>,
 
 
         /// File or folder last modified DateTime.
         #[serde(rename = "ModifiedDate", skip_serializing_if = "Option::is_none")]
-        pub r#modified_date: Option<DateTime<Utc>>,
+        pub modified_date: Option<chrono::DateTime<chrono::Utc>>,
 
 
         /// File or folder name.
         #[serde(rename = "Name", skip_serializing_if = "Option::is_none")]
-        pub r#name: Option<String>,
+        pub name: Option<String>,
 
 
         /// File or folder path.
         #[serde(rename = "Path", skip_serializing_if = "Option::is_none")]
-        pub r#path: Option<String>,
+        pub path: Option<String>,
 
 
         /// File or folder size.
         #[serde(rename = "Size", skip_serializing_if = "Option::is_none")]
-        pub r#size: Option<i32>,
+        pub size: Option<i32>,
 
 }
 
 impl Default for StorageFile {
     fn default() -> Self {
         Self {
-            r#is_folder: None,
-            r#modified_date: None,
-            r#name: None,
-            r#path: None,
-            r#size: None,
+            is_folder: None,
+            modified_date: None,
+            name: None,
+            path: None,
+            size: None,
         }
     }
 }
 
 impl Model for StorageFile {
     fn validate(&self) -> SdkResult<()> {
-        if self.r#is_folder.is_none() {
+        if self.is_folder.is_none() {
             return Err(SdkError::InvalidRequest(
                 "property IsFolder in StorageFile is required".to_owned(),
             ));
         }
-        if self.r#size.is_none() {
+        if self.size.is_none() {
             return Err(SdkError::InvalidRequest(
                 "property Size in StorageFile is required".to_owned(),
             ));
@@ -85,7 +85,7 @@ impl Model for StorageFile {
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
     }
 
     fn as_any(&self) -> &dyn Any {

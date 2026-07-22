@@ -37,7 +37,7 @@ pub struct Lists {
     pub parent: LinkElement,
         /// Gets or sets the array of document lists.
         #[serde(rename = "ListInfo", skip_serializing_if = "Option::is_none")]
-        pub r#list_info: Option<Vec<ListInfo>>,
+        pub list_info: Option<Vec<ListInfo>>,
 
 }
 
@@ -46,7 +46,7 @@ impl Default for Lists {
         let mut parent = LinkElement::default();
         Self {
             parent,
-            r#list_info: None,
+            list_info: None,
         }
     }
 }
@@ -68,7 +68,7 @@ impl DerefMut for Lists {
 impl Model for Lists {
     fn validate(&self) -> SdkResult<()> {
         self.parent.validate()?;
-        if let Some(values) = &self.r#list_info {
+        if let Some(values) = &self.list_info {
         for value in values {
         value.validate()?;
         }
@@ -76,8 +76,8 @@ impl Model for Lists {
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
-        self.parent.collect_file_references(output);
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+        self.parent.collect_file_references(_output);
     }
 
     fn as_any(&self) -> &dyn Any {

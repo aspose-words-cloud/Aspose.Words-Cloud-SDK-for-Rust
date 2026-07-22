@@ -36,24 +36,22 @@ use crate::test_context::*;
 #[tokio::test]
 async fn document_get_document() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/DocumentActions/Document")?;
-    let localFile = test_string!("Common/test_multi_pages.docx")?;
-    let remoteFileName = test_string!("TestGetDocument.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentActions/Document";
+    let local_file = "Common/test_multi_pages.docx".to_owned();
+    let remote_file_name = "TestGetDocument.docx".to_owned();
 
-    context.upload_file(test_string!(localFile)?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
     let request = GetDocumentRequest::new(
-        (test_string!(remoteFileName)?).into()
-    ).with_folder((test_string!(remoteDataFolder)?).into());
+        (remote_file_name.clone()).into()
+    ).with_folder((remote_data_folder.clone()).into());
 
     let result = context.api().get_document(request).await?;
     let result_json = serialize_result(&result)?;
     assert_not_null(&result_json, "Document")?;
-    assert_string(&result_json, "Document.FileName", test_string!("TestGetDocument.docx")?)?;
+    assert_string(&result_json, "Document.FileName", "TestGetDocument.docx".to_owned())?;
     Ok(())
 }
 
@@ -61,21 +59,19 @@ async fn document_get_document() -> TestResult<()> {
 #[tokio::test]
 async fn document_create_document() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/DocumentActions/Document")?;
-    let remoteFileName = test_string!("TestCreateDocument.doc")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentActions/Document";
+    let remote_file_name = "TestCreateDocument.doc".to_owned();
 
 
     let request = CreateDocumentRequest::new(
-        (test_string!(remoteFileName)?).into()
-    ).with_folder((test_string!(remoteDataFolder)?).into());
+        (remote_file_name.clone()).into()
+    ).with_folder((remote_data_folder.clone()).into());
 
     let result = context.api().create_document(request).await?;
     let result_json = serialize_result(&result)?;
     assert_not_null(&result_json, "Document")?;
-    assert_string(&result_json, "Document.FileName", test_string!("TestCreateDocument.doc")?)?;
+    assert_string(&result_json, "Document.FileName", "TestCreateDocument.doc".to_owned())?;
     Ok(())
 }

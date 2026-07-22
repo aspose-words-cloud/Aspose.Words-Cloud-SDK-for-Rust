@@ -34,42 +34,42 @@ use super::*;
 pub struct FootnoteBase {
         /// Gets or sets the link to range start node.
         #[serde(rename = "Position", skip_serializing_if = "Option::is_none", default, deserialize_with = "deserialize_optional_model")]
-        pub r#position: Option<ModelBox>,
+        pub position: Option<ModelBox>,
 
 
         /// Gets or sets the option, that specifies whether this is a footnote or endnote.
         #[serde(rename = "FootnoteType", skip_serializing_if = "Option::is_none")]
-        pub r#footnote_type: Option<FootnoteBase_FootnoteTypeEnum>,
+        pub footnote_type: Option<FootnoteBaseFootnoteTypeEnum>,
 
 
         /// Gets or sets the custom reference mark to be used for this footnote.
             /// The default value is Empty, meaning auto-numbered footnotes are used.
             /// RTF-format can only store 1 symbol as custom reference mark, so upon export only the first symbol will be written others will be discard.
         #[serde(rename = "ReferenceMark", skip_serializing_if = "Option::is_none")]
-        pub r#reference_mark: Option<String>,
+        pub reference_mark: Option<String>,
 
 
         /// Gets or sets text of the footnote.
             /// This method allows to quickly set text of a footnote from a string. The string can contain paragraph breaks, this will create paragraphs of text in the footnote accordingly.
         #[serde(rename = "Text", skip_serializing_if = "Option::is_none")]
-        pub r#text: Option<String>,
+        pub text: Option<String>,
 
 }
 
 impl Default for FootnoteBase {
     fn default() -> Self {
         Self {
-            r#position: None,
-            r#footnote_type: None,
-            r#reference_mark: None,
-            r#text: None,
+            position: None,
+            footnote_type: None,
+            reference_mark: None,
+            text: None,
         }
     }
 }
 
 impl Model for FootnoteBase {
     fn validate(&self) -> SdkResult<()> {
-        if let Some(value) = &self.r#position {
+        if let Some(value) = &self.position {
         value.validate()?;
         }
 
@@ -78,7 +78,7 @@ impl Model for FootnoteBase {
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
     }
 
     fn as_any(&self) -> &dyn Any {
@@ -87,9 +87,8 @@ impl Model for FootnoteBase {
 }
 
 /// Gets or sets the option, that specifies whether this is a footnote or endnote.
-#[allow(non_camel_case_types)]
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
-pub enum FootnoteBase_FootnoteTypeEnum {
+pub enum FootnoteBaseFootnoteTypeEnum {
     #[serde(rename = "Footnote")]
         Footnote,
     #[serde(rename = "Endnote")]

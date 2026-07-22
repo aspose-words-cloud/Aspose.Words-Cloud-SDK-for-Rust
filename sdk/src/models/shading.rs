@@ -34,43 +34,43 @@ use super::*;
 pub struct Shading {
         /// Gets or sets the color that's applied to the background of the Shading object.
         #[serde(rename = "BackgroundPatternColor", skip_serializing_if = "Option::is_none")]
-        pub r#background_pattern_color: Option<XmlColor>,
+        pub background_pattern_color: Option<XmlColor>,
 
 
         /// Gets or sets the color that's applied to the foreground of the Shading object.
         #[serde(rename = "ForegroundPatternColor", skip_serializing_if = "Option::is_none")]
-        pub r#foreground_pattern_color: Option<XmlColor>,
+        pub foreground_pattern_color: Option<XmlColor>,
 
 
         /// Gets or sets the shading texture.
         #[serde(rename = "Texture", skip_serializing_if = "Option::is_none")]
-        pub r#texture: Option<Shading_TextureEnum>,
+        pub texture: Option<ShadingTextureEnum>,
 
 }
 
 impl Default for Shading {
     fn default() -> Self {
         Self {
-            r#background_pattern_color: None,
-            r#foreground_pattern_color: None,
-            r#texture: None,
+            background_pattern_color: None,
+            foreground_pattern_color: None,
+            texture: None,
         }
     }
 }
 
 impl Model for Shading {
     fn validate(&self) -> SdkResult<()> {
-        if let Some(value) = &self.r#background_pattern_color {
+        if let Some(value) = &self.background_pattern_color {
         value.validate()?;
         }
-        if let Some(value) = &self.r#foreground_pattern_color {
+        if let Some(value) = &self.foreground_pattern_color {
         value.validate()?;
         }
 
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
     }
 
     fn as_any(&self) -> &dyn Any {
@@ -79,9 +79,8 @@ impl Model for Shading {
 }
 
 /// Gets or sets the shading texture.
-#[allow(non_camel_case_types)]
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
-pub enum Shading_TextureEnum {
+pub enum ShadingTextureEnum {
     #[serde(rename = "TextureNone")]
         TextureNone,
     #[serde(rename = "TextureSolid")]

@@ -37,7 +37,7 @@ pub struct PsSaveOptionsData {
     pub parent: FixedPageSaveOptionsData,
         /// Gets or sets a value indicating whether the document should be saved using a booklet printing layout.
         #[serde(rename = "UseBookFoldPrintingSettings", skip_serializing_if = "Option::is_none")]
-        pub r#use_book_fold_printing_settings: Option<bool>,
+        pub use_book_fold_printing_settings: Option<bool>,
 
 
 }
@@ -45,10 +45,10 @@ pub struct PsSaveOptionsData {
 impl Default for PsSaveOptionsData {
     fn default() -> Self {
         let mut parent = FixedPageSaveOptionsData::default();
-        parent.r#save_format = Some("ps".to_owned());
+        parent.save_format = Some("ps".to_owned());
         Self {
             parent,
-            r#use_book_fold_printing_settings: None,
+            use_book_fold_printing_settings: None,
 
         }
     }
@@ -74,8 +74,8 @@ impl Model for PsSaveOptionsData {
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
-        self.parent.collect_file_references(output);
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+        self.parent.collect_file_references(_output);
     }
 
     fn as_any(&self) -> &dyn Any {

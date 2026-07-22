@@ -38,7 +38,7 @@ pub struct FootnoteResponse {
     pub parent: WordsResponse,
         /// Gets or sets the footnote.
         #[serde(rename = "Footnote", skip_serializing_if = "Option::is_none")]
-        pub r#footnote: Option<Footnote>,
+        pub footnote: Option<Footnote>,
 
 }
 
@@ -47,7 +47,7 @@ impl Default for FootnoteResponse {
         let mut parent = WordsResponse::default();
         Self {
             parent,
-            r#footnote: None,
+            footnote: None,
         }
     }
 }
@@ -69,14 +69,14 @@ impl DerefMut for FootnoteResponse {
 impl Model for FootnoteResponse {
     fn validate(&self) -> SdkResult<()> {
         self.parent.validate()?;
-        if let Some(value) = &self.r#footnote {
+        if let Some(value) = &self.footnote {
         value.validate()?;
         }
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
-        self.parent.collect_file_references(output);
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+        self.parent.collect_file_references(_output);
     }
 
     fn as_any(&self) -> &dyn Any {

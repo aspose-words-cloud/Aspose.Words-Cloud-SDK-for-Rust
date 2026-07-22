@@ -37,17 +37,17 @@ pub struct DocumentEntryList {
     pub parent: BaseEntryList,
         /// Gets or sets a value indicating whether to append all documents to the same section.
         #[serde(rename = "AppendAllEntriesToOneSection", skip_serializing_if = "Option::is_none")]
-        pub r#append_all_entries_to_one_section: Option<bool>,
+        pub append_all_entries_to_one_section: Option<bool>,
 
 
         /// Gets or sets a value indicating whether to apply headers and footers from base document to appending documents. The default value is true.
         #[serde(rename = "ApplyBaseDocumentHeadersAndFootersToAppendingDocuments", skip_serializing_if = "Option::is_none")]
-        pub r#apply_base_document_headers_and_footers_to_appending_documents: Option<bool>,
+        pub apply_base_document_headers_and_footers_to_appending_documents: Option<bool>,
 
 
         /// Gets or sets the list of documents.
         #[serde(rename = "DocumentEntries", skip_serializing_if = "Option::is_none")]
-        pub r#document_entries: Option<Vec<DocumentEntry>>,
+        pub document_entries: Option<Vec<DocumentEntry>>,
 
 }
 
@@ -56,9 +56,9 @@ impl Default for DocumentEntryList {
         let mut parent = BaseEntryList::default();
         Self {
             parent,
-            r#append_all_entries_to_one_section: None,
-            r#apply_base_document_headers_and_footers_to_appending_documents: None,
-            r#document_entries: None,
+            append_all_entries_to_one_section: None,
+            apply_base_document_headers_and_footers_to_appending_documents: None,
+            document_entries: None,
         }
     }
 }
@@ -80,12 +80,12 @@ impl DerefMut for DocumentEntryList {
 impl Model for DocumentEntryList {
     fn validate(&self) -> SdkResult<()> {
         self.parent.validate()?;
-        if self.r#document_entries.is_none() {
+        if self.document_entries.is_none() {
             return Err(SdkError::InvalidRequest(
                 "property DocumentEntries in DocumentEntryList is required".to_owned(),
             ));
         }
-        if let Some(values) = &self.r#document_entries {
+        if let Some(values) = &self.document_entries {
         for value in values {
         value.validate()?;
         }
@@ -93,11 +93,11 @@ impl Model for DocumentEntryList {
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
-        self.parent.collect_file_references(output);
-        if let Some(values) = &self.r#document_entries {
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+        self.parent.collect_file_references(_output);
+        if let Some(values) = &self.document_entries {
         for value in values {
-        value.collect_file_references(output);
+        value.collect_file_references(_output);
         }
         }
     }

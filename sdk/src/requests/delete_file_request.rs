@@ -36,33 +36,33 @@ use super::*;
 /// Request parameters for the DeleteFile operation.
 pub struct DeleteFileRequest {
     /// Path of the file including the file name and extension e.g. /folder1/file.ext.
-    pub r#path: String,
+    pub path: String,
     /// Storage name.
-    pub r#storage_name: Option<String>,
+    pub storage_name: Option<String>,
     /// File version ID to delete.
-    pub r#version_id: Option<String>,
+    pub version_id: Option<String>,
     pub send_progress: Option<ProgressCallback>,
     pub receive_progress: Option<ProgressCallback>,
 }
 
 impl DeleteFileRequest {
-    pub fn new(r#path: String) -> Self {
+    pub fn new(path: String) -> Self {
         Self {
-            r#path,
-            r#storage_name: None,
-            r#version_id: None,
+            path,
+            storage_name: None,
+            version_id: None,
             send_progress: None,
             receive_progress: None,
         }
     }
 
     pub fn with_storage_name(mut self, value: String) -> Self {
-        self.r#storage_name = Some(value);
+        self.storage_name = Some(value);
         self
     }
 
     pub fn with_version_id(mut self, value: String) -> Self {
-        self.r#version_id = Some(value);
+        self.version_id = Some(value);
         self
     }
 
@@ -100,12 +100,12 @@ impl Request for DeleteFileRequest {
         let mut headers = Vec::new();
         let mut body_parts = Vec::new();
 
-        let value = client.query_value(&self.r#path)?;
+        let value = client.query_value(&self.path)?;
         path = path.replace("{path}", &value);
-        if let Some(value) = &self.r#storage_name {
+        if let Some(value) = &self.storage_name {
         query.push(("storageName".to_owned(), client.query_value(value)?));
         }
-        if let Some(value) = &self.r#version_id {
+        if let Some(value) = &self.version_id {
         query.push(("versionId".to_owned(), client.query_value(value)?));
         }
 

@@ -34,27 +34,27 @@ use super::*;
 pub struct FieldBase {
         /// Gets or sets the LCID of the field.
         #[serde(rename = "LocaleId", skip_serializing_if = "Option::is_none")]
-        pub r#locale_id: Option<String>,
+        pub locale_id: Option<String>,
 
 
         /// Gets or sets the field code.
         #[serde(rename = "FieldCode", skip_serializing_if = "Option::is_none")]
-        pub r#field_code: Option<String>,
+        pub field_code: Option<String>,
 
 }
 
 impl Default for FieldBase {
     fn default() -> Self {
         Self {
-            r#locale_id: None,
-            r#field_code: None,
+            locale_id: None,
+            field_code: None,
         }
     }
 }
 
 impl Model for FieldBase {
     fn validate(&self) -> SdkResult<()> {
-        if self.r#field_code.is_none() {
+        if self.field_code.is_none() {
             return Err(SdkError::InvalidRequest(
                 "property FieldCode in FieldBase is required".to_owned(),
             ));
@@ -62,7 +62,7 @@ impl Model for FieldBase {
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
     }
 
     fn as_any(&self) -> &dyn Any {

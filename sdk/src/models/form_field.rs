@@ -37,55 +37,55 @@ pub struct FormField {
     pub parent: NodeLink,
         /// Gets or sets the form field name.
         #[serde(rename = "Name", skip_serializing_if = "Option::is_none")]
-        pub r#name: Option<String>,
+        pub name: Option<String>,
 
 
         /// Gets or sets a value indicating whether a form field is enabled.
             /// If a form field is enabled, its contents can be changed as the form is filled in.
         #[serde(rename = "Enabled", skip_serializing_if = "Option::is_none")]
-        pub r#enabled: Option<bool>,
+        pub enabled: Option<bool>,
 
 
         /// Gets or sets text, displayed in the status bar when a form field has the focus.
             /// If the OwnStatus property is set to true, the StatusText property specifies the status bar text. If the OwnStatus property is set to false, the StatusText property specifies the name of an AutoText entry that contains status bar text for the form field.
         #[serde(rename = "StatusText", skip_serializing_if = "Option::is_none")]
-        pub r#status_text: Option<String>,
+        pub status_text: Option<String>,
 
 
         /// Gets or sets a value indicating whether the source of the text that's displayed in the status bar when a form field has the focus.
             /// If true, the text specified by the StatusText property is displayed. If false, the text of the AutoText entry specified by the StatusText property is displayed.
         #[serde(rename = "OwnStatus", skip_serializing_if = "Option::is_none")]
-        pub r#own_status: Option<bool>,
+        pub own_status: Option<bool>,
 
 
         /// Gets or sets text, displayed in a message box when the form field has the focus and the user presses F1.
             /// If the OwnHelp property is set to True, HelpText specifies the text string value. If OwnHelp is set to False, HelpText specifies the name of an AutoText entry that contains help text for the form field.
         #[serde(rename = "HelpText", skip_serializing_if = "Option::is_none")]
-        pub r#help_text: Option<String>,
+        pub help_text: Option<String>,
 
 
         /// Gets or sets a value indicating whether the source of the text that's displayed in a message box when a form field has the focus and the user presses F1.
             /// If true, the text specified by the HelpText property is displayed. If False, the text in the AutoText entry specified by the HelpText property is displayed.
         #[serde(rename = "OwnHelp", skip_serializing_if = "Option::is_none")]
-        pub r#own_help: Option<bool>,
+        pub own_help: Option<bool>,
 
 
         /// Gets or sets a value indicating whether references to the specified form field are automatically updated whenever the field is exited.
             /// Setting CalculateOnExit only affects the behavior of the form field when the document is opened in Microsoft Word. Aspose.Words never updates references to the form field.
         #[serde(rename = "CalculateOnExit", skip_serializing_if = "Option::is_none")]
-        pub r#calculate_on_exit: Option<bool>,
+        pub calculate_on_exit: Option<bool>,
 
 
         /// Gets or sets the entry macro name for the form field.
             /// The entry macro runs when the form field gets the focus in Microsoft Word.
         #[serde(rename = "EntryMacro", skip_serializing_if = "Option::is_none")]
-        pub r#entry_macro: Option<String>,
+        pub entry_macro: Option<String>,
 
 
         /// Gets or sets the exit macro name for the form field.
             /// The exit macro runs when the form field loses the focus in Microsoft Word.
         #[serde(rename = "ExitMacro", skip_serializing_if = "Option::is_none")]
-        pub r#exit_macro: Option<String>,
+        pub exit_macro: Option<String>,
 
 }
 
@@ -94,15 +94,15 @@ impl Default for FormField {
         let mut parent = NodeLink::default();
         Self {
             parent,
-            r#name: None,
-            r#enabled: None,
-            r#status_text: None,
-            r#own_status: None,
-            r#help_text: None,
-            r#own_help: None,
-            r#calculate_on_exit: None,
-            r#entry_macro: None,
-            r#exit_macro: None,
+            name: None,
+            enabled: None,
+            status_text: None,
+            own_status: None,
+            help_text: None,
+            own_help: None,
+            calculate_on_exit: None,
+            entry_macro: None,
+            exit_macro: None,
         }
     }
 }
@@ -124,7 +124,7 @@ impl DerefMut for FormField {
 impl Model for FormField {
     fn validate(&self) -> SdkResult<()> {
         self.parent.validate()?;
-        if self.r#name.is_none() {
+        if self.name.is_none() {
             return Err(SdkError::InvalidRequest(
                 "property Name in FormField is required".to_owned(),
             ));
@@ -132,8 +132,8 @@ impl Model for FormField {
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
-        self.parent.collect_file_references(output);
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+        self.parent.collect_file_references(_output);
     }
 
     fn as_any(&self) -> &dyn Any {

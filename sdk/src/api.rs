@@ -317,7 +317,7 @@ impl WordsApi {
     pub async fn delete_bookmark_online(
         &self,
         request: DeleteBookmarkOnlineRequest,
-    ) -> SdkResult<HashMap<String, Vec<u8>>> {
+    ) -> SdkResult<std::collections::HashMap<String, Vec<u8>>> {
         let response = self.client.execute(&request).await?;
         request.parse_response(response).await
     }
@@ -335,7 +335,7 @@ impl WordsApi {
     pub async fn delete_bookmarks_online(
         &self,
         request: DeleteBookmarksOnlineRequest,
-    ) -> SdkResult<HashMap<String, Vec<u8>>> {
+    ) -> SdkResult<std::collections::HashMap<String, Vec<u8>>> {
         let response = self.client.execute(&request).await?;
         request.parse_response(response).await
     }
@@ -393,7 +393,7 @@ impl WordsApi {
     pub async fn delete_comment_online(
         &self,
         request: DeleteCommentOnlineRequest,
-    ) -> SdkResult<HashMap<String, Vec<u8>>> {
+    ) -> SdkResult<std::collections::HashMap<String, Vec<u8>>> {
         let response = self.client.execute(&request).await?;
         request.parse_response(response).await
     }
@@ -411,7 +411,7 @@ impl WordsApi {
     pub async fn delete_comments_online(
         &self,
         request: DeleteCommentsOnlineRequest,
-    ) -> SdkResult<HashMap<String, Vec<u8>>> {
+    ) -> SdkResult<std::collections::HashMap<String, Vec<u8>>> {
         let response = self.client.execute(&request).await?;
         request.parse_response(response).await
     }
@@ -429,7 +429,7 @@ impl WordsApi {
     pub async fn delete_custom_xml_part_online(
         &self,
         request: DeleteCustomXmlPartOnlineRequest,
-    ) -> SdkResult<HashMap<String, Vec<u8>>> {
+    ) -> SdkResult<std::collections::HashMap<String, Vec<u8>>> {
         let response = self.client.execute(&request).await?;
         request.parse_response(response).await
     }
@@ -447,7 +447,7 @@ impl WordsApi {
     pub async fn delete_custom_xml_parts_online(
         &self,
         request: DeleteCustomXmlPartsOnlineRequest,
-    ) -> SdkResult<HashMap<String, Vec<u8>>> {
+    ) -> SdkResult<std::collections::HashMap<String, Vec<u8>>> {
         let response = self.client.execute(&request).await?;
         request.parse_response(response).await
     }
@@ -465,7 +465,7 @@ impl WordsApi {
     pub async fn delete_document_property_online(
         &self,
         request: DeleteDocumentPropertyOnlineRequest,
-    ) -> SdkResult<HashMap<String, Vec<u8>>> {
+    ) -> SdkResult<std::collections::HashMap<String, Vec<u8>>> {
         let response = self.client.execute(&request).await?;
         request.parse_response(response).await
     }
@@ -483,7 +483,7 @@ impl WordsApi {
     pub async fn delete_drawing_object_online(
         &self,
         request: DeleteDrawingObjectOnlineRequest,
-    ) -> SdkResult<HashMap<String, Vec<u8>>> {
+    ) -> SdkResult<std::collections::HashMap<String, Vec<u8>>> {
         let response = self.client.execute(&request).await?;
         request.parse_response(response).await
     }
@@ -501,7 +501,7 @@ impl WordsApi {
     pub async fn delete_field_online(
         &self,
         request: DeleteFieldOnlineRequest,
-    ) -> SdkResult<HashMap<String, Vec<u8>>> {
+    ) -> SdkResult<std::collections::HashMap<String, Vec<u8>>> {
         let response = self.client.execute(&request).await?;
         request.parse_response(response).await
     }
@@ -519,7 +519,7 @@ impl WordsApi {
     pub async fn delete_fields_online(
         &self,
         request: DeleteFieldsOnlineRequest,
-    ) -> SdkResult<HashMap<String, Vec<u8>>> {
+    ) -> SdkResult<std::collections::HashMap<String, Vec<u8>>> {
         let response = self.client.execute(&request).await?;
         request.parse_response(response).await
     }
@@ -555,7 +555,7 @@ impl WordsApi {
     pub async fn delete_footnote_online(
         &self,
         request: DeleteFootnoteOnlineRequest,
-    ) -> SdkResult<HashMap<String, Vec<u8>>> {
+    ) -> SdkResult<std::collections::HashMap<String, Vec<u8>>> {
         let response = self.client.execute(&request).await?;
         request.parse_response(response).await
     }
@@ -573,7 +573,7 @@ impl WordsApi {
     pub async fn delete_form_field_online(
         &self,
         request: DeleteFormFieldOnlineRequest,
-    ) -> SdkResult<HashMap<String, Vec<u8>>> {
+    ) -> SdkResult<std::collections::HashMap<String, Vec<u8>>> {
         let response = self.client.execute(&request).await?;
         request.parse_response(response).await
     }
@@ -591,7 +591,7 @@ impl WordsApi {
     pub async fn delete_header_footer_online(
         &self,
         request: DeleteHeaderFooterOnlineRequest,
-    ) -> SdkResult<HashMap<String, Vec<u8>>> {
+    ) -> SdkResult<std::collections::HashMap<String, Vec<u8>>> {
         let response = self.client.execute(&request).await?;
         request.parse_response(response).await
     }
@@ -609,7 +609,7 @@ impl WordsApi {
     pub async fn delete_headers_footers_online(
         &self,
         request: DeleteHeadersFootersOnlineRequest,
-    ) -> SdkResult<HashMap<String, Vec<u8>>> {
+    ) -> SdkResult<std::collections::HashMap<String, Vec<u8>>> {
         let response = self.client.execute(&request).await?;
         request.parse_response(response).await
     }
@@ -627,7 +627,7 @@ impl WordsApi {
     pub async fn delete_macros_online(
         &self,
         request: DeleteMacrosOnlineRequest,
-    ) -> SdkResult<HashMap<String, Vec<u8>>> {
+    ) -> SdkResult<std::collections::HashMap<String, Vec<u8>>> {
         let response = self.client.execute(&request).await?;
         request.parse_response(response).await
     }
@@ -645,7 +645,7 @@ impl WordsApi {
     pub async fn delete_office_math_object_online(
         &self,
         request: DeleteOfficeMathObjectOnlineRequest,
-    ) -> SdkResult<HashMap<String, Vec<u8>>> {
+    ) -> SdkResult<std::collections::HashMap<String, Vec<u8>>> {
         let response = self.client.execute(&request).await?;
         request.parse_response(response).await
     }
@@ -663,7 +663,7 @@ impl WordsApi {
     pub async fn delete_office_math_objects_online(
         &self,
         request: DeleteOfficeMathObjectsOnlineRequest,
-    ) -> SdkResult<HashMap<String, Vec<u8>>> {
+    ) -> SdkResult<std::collections::HashMap<String, Vec<u8>>> {
         let response = self.client.execute(&request).await?;
         request.parse_response(response).await
     }
@@ -699,7 +699,7 @@ impl WordsApi {
     pub async fn delete_paragraph_online(
         &self,
         request: DeleteParagraphOnlineRequest,
-    ) -> SdkResult<HashMap<String, Vec<u8>>> {
+    ) -> SdkResult<std::collections::HashMap<String, Vec<u8>>> {
         let response = self.client.execute(&request).await?;
         request.parse_response(response).await
     }
@@ -735,7 +735,7 @@ impl WordsApi {
     pub async fn delete_run_online(
         &self,
         request: DeleteRunOnlineRequest,
-    ) -> SdkResult<HashMap<String, Vec<u8>>> {
+    ) -> SdkResult<std::collections::HashMap<String, Vec<u8>>> {
         let response = self.client.execute(&request).await?;
         request.parse_response(response).await
     }
@@ -753,7 +753,7 @@ impl WordsApi {
     pub async fn delete_section_online(
         &self,
         request: DeleteSectionOnlineRequest,
-    ) -> SdkResult<HashMap<String, Vec<u8>>> {
+    ) -> SdkResult<std::collections::HashMap<String, Vec<u8>>> {
         let response = self.client.execute(&request).await?;
         request.parse_response(response).await
     }
@@ -771,7 +771,7 @@ impl WordsApi {
     pub async fn delete_structured_document_tag_online(
         &self,
         request: DeleteStructuredDocumentTagOnlineRequest,
-    ) -> SdkResult<HashMap<String, Vec<u8>>> {
+    ) -> SdkResult<std::collections::HashMap<String, Vec<u8>>> {
         let response = self.client.execute(&request).await?;
         request.parse_response(response).await
     }
@@ -798,7 +798,7 @@ impl WordsApi {
     pub async fn delete_table_cell_online(
         &self,
         request: DeleteTableCellOnlineRequest,
-    ) -> SdkResult<HashMap<String, Vec<u8>>> {
+    ) -> SdkResult<std::collections::HashMap<String, Vec<u8>>> {
         let response = self.client.execute(&request).await?;
         request.parse_response(response).await
     }
@@ -807,7 +807,7 @@ impl WordsApi {
     pub async fn delete_table_online(
         &self,
         request: DeleteTableOnlineRequest,
-    ) -> SdkResult<HashMap<String, Vec<u8>>> {
+    ) -> SdkResult<std::collections::HashMap<String, Vec<u8>>> {
         let response = self.client.execute(&request).await?;
         request.parse_response(response).await
     }
@@ -825,7 +825,7 @@ impl WordsApi {
     pub async fn delete_table_row_online(
         &self,
         request: DeleteTableRowOnlineRequest,
-    ) -> SdkResult<HashMap<String, Vec<u8>>> {
+    ) -> SdkResult<std::collections::HashMap<String, Vec<u8>>> {
         let response = self.client.execute(&request).await?;
         request.parse_response(response).await
     }
@@ -2250,7 +2250,7 @@ impl WordsApi {
     pub async fn insert_section_online(
         &self,
         request: InsertSectionOnlineRequest,
-    ) -> SdkResult<HashMap<String, Vec<u8>>> {
+    ) -> SdkResult<std::collections::HashMap<String, Vec<u8>>> {
         let response = self.client.execute(&request).await?;
         request.parse_response(response).await
     }
@@ -2439,7 +2439,7 @@ impl WordsApi {
     pub async fn merge_with_next_online(
         &self,
         request: MergeWithNextOnlineRequest,
-    ) -> SdkResult<HashMap<String, Vec<u8>>> {
+    ) -> SdkResult<std::collections::HashMap<String, Vec<u8>>> {
         let response = self.client.execute(&request).await?;
         request.parse_response(response).await
     }
@@ -2475,7 +2475,7 @@ impl WordsApi {
     pub async fn optimize_document_online(
         &self,
         request: OptimizeDocumentOnlineRequest,
-    ) -> SdkResult<HashMap<String, Vec<u8>>> {
+    ) -> SdkResult<std::collections::HashMap<String, Vec<u8>>> {
         let response = self.client.execute(&request).await?;
         request.parse_response(response).await
     }

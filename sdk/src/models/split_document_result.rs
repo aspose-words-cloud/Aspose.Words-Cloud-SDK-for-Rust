@@ -34,39 +34,39 @@ use super::*;
 pub struct SplitDocumentResult {
         /// Gets or sets the link to the source document.
         #[serde(rename = "SourceDocument", skip_serializing_if = "Option::is_none")]
-        pub r#source_document: Option<FileLink>,
+        pub source_document: Option<FileLink>,
 
 
         /// Gets or sets the link to the file archive with pages.
         #[serde(rename = "ZippedPages", skip_serializing_if = "Option::is_none")]
-        pub r#zipped_pages: Option<FileLink>,
+        pub zipped_pages: Option<FileLink>,
 
 
         /// Gets or sets the list of pages.
         #[serde(rename = "Pages", skip_serializing_if = "Option::is_none")]
-        pub r#pages: Option<Vec<FileLink>>,
+        pub pages: Option<Vec<FileLink>>,
 
 }
 
 impl Default for SplitDocumentResult {
     fn default() -> Self {
         Self {
-            r#source_document: None,
-            r#zipped_pages: None,
-            r#pages: None,
+            source_document: None,
+            zipped_pages: None,
+            pages: None,
         }
     }
 }
 
 impl Model for SplitDocumentResult {
     fn validate(&self) -> SdkResult<()> {
-        if let Some(value) = &self.r#source_document {
+        if let Some(value) = &self.source_document {
         value.validate()?;
         }
-        if let Some(value) = &self.r#zipped_pages {
+        if let Some(value) = &self.zipped_pages {
         value.validate()?;
         }
-        if let Some(values) = &self.r#pages {
+        if let Some(values) = &self.pages {
         for value in values {
         value.validate()?;
         }
@@ -74,7 +74,7 @@ impl Model for SplitDocumentResult {
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
     }
 
     fn as_any(&self) -> &dyn Any {

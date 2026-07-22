@@ -38,7 +38,7 @@ pub struct FieldNamesResponse {
     pub parent: WordsResponse,
         /// Gets or sets the collection of mail merge fields.
         #[serde(rename = "FieldNames", skip_serializing_if = "Option::is_none")]
-        pub r#field_names: Option<FieldNames>,
+        pub field_names: Option<FieldNames>,
 
 }
 
@@ -47,7 +47,7 @@ impl Default for FieldNamesResponse {
         let mut parent = WordsResponse::default();
         Self {
             parent,
-            r#field_names: None,
+            field_names: None,
         }
     }
 }
@@ -69,14 +69,14 @@ impl DerefMut for FieldNamesResponse {
 impl Model for FieldNamesResponse {
     fn validate(&self) -> SdkResult<()> {
         self.parent.validate()?;
-        if let Some(value) = &self.r#field_names {
+        if let Some(value) = &self.field_names {
         value.validate()?;
         }
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
-        self.parent.collect_file_references(output);
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+        self.parent.collect_file_references(_output);
     }
 
     fn as_any(&self) -> &dyn Any {

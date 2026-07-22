@@ -37,17 +37,17 @@ pub struct HeaderFooter {
     pub parent: HeaderFooterLink,
         /// Gets or sets the child nodes.
         #[serde(rename = "ChildNodes", skip_serializing_if = "Option::is_none")]
-        pub r#child_nodes: Option<Vec<NodeLink>>,
+        pub child_nodes: Option<Vec<NodeLink>>,
 
 
         /// Gets or sets the link to Paragraphs resource.
         #[serde(rename = "Paragraphs", skip_serializing_if = "Option::is_none")]
-        pub r#paragraphs: Option<LinkElement>,
+        pub paragraphs: Option<LinkElement>,
 
 
         /// Gets or sets the link to DrawingObjects resource.
         #[serde(rename = "DrawingObjects", skip_serializing_if = "Option::is_none")]
-        pub r#drawing_objects: Option<LinkElement>,
+        pub drawing_objects: Option<LinkElement>,
 
 }
 
@@ -56,9 +56,9 @@ impl Default for HeaderFooter {
         let mut parent = HeaderFooterLink::default();
         Self {
             parent,
-            r#child_nodes: None,
-            r#paragraphs: None,
-            r#drawing_objects: None,
+            child_nodes: None,
+            paragraphs: None,
+            drawing_objects: None,
         }
     }
 }
@@ -80,22 +80,22 @@ impl DerefMut for HeaderFooter {
 impl Model for HeaderFooter {
     fn validate(&self) -> SdkResult<()> {
         self.parent.validate()?;
-        if let Some(values) = &self.r#child_nodes {
+        if let Some(values) = &self.child_nodes {
         for value in values {
         value.validate()?;
         }
         }
-        if let Some(value) = &self.r#paragraphs {
+        if let Some(value) = &self.paragraphs {
         value.validate()?;
         }
-        if let Some(value) = &self.r#drawing_objects {
+        if let Some(value) = &self.drawing_objects {
         value.validate()?;
         }
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
-        self.parent.collect_file_references(output);
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+        self.parent.collect_file_references(_output);
     }
 
     fn as_any(&self) -> &dyn Any {

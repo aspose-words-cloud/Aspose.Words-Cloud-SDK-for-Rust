@@ -40,7 +40,7 @@ pub struct FlatOpcMacroSaveOptionsData {
 impl Default for FlatOpcMacroSaveOptionsData {
     fn default() -> Self {
         let mut parent = OoxmlSaveOptionsData::default();
-        parent.r#save_format = Some("fopc_macro".to_owned());
+        parent.save_format = Some("fopc_macro".to_owned());
         Self {
             parent,
         }
@@ -67,8 +67,8 @@ impl Model for FlatOpcMacroSaveOptionsData {
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
-        self.parent.collect_file_references(output);
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+        self.parent.collect_file_references(_output);
     }
 
     fn as_any(&self) -> &dyn Any {

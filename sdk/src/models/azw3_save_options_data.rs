@@ -37,7 +37,7 @@ pub struct Azw3SaveOptionsData {
     pub parent: HtmlSaveOptionsData,
         /// Gets or sets the maximum level of headings populated to the navigation map when exporting.
         #[serde(rename = "NavigationMapLevel", skip_serializing_if = "Option::is_none")]
-        pub r#navigation_map_level: Option<i32>,
+        pub navigation_map_level: Option<i32>,
 
 
 }
@@ -45,10 +45,10 @@ pub struct Azw3SaveOptionsData {
 impl Default for Azw3SaveOptionsData {
     fn default() -> Self {
         let mut parent = HtmlSaveOptionsData::default();
-        parent.r#save_format = Some("azw3".to_owned());
+        parent.save_format = Some("azw3".to_owned());
         Self {
             parent,
-            r#navigation_map_level: None,
+            navigation_map_level: None,
 
         }
     }
@@ -74,8 +74,8 @@ impl Model for Azw3SaveOptionsData {
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
-        self.parent.collect_file_references(output);
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+        self.parent.collect_file_references(_output);
     }
 
     fn as_any(&self) -> &dyn Any {

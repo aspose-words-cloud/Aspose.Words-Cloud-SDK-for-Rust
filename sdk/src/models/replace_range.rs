@@ -34,27 +34,27 @@ use super::*;
 pub struct ReplaceRange {
         /// Gets or sets the range's text.
         #[serde(rename = "Text", skip_serializing_if = "Option::is_none")]
-        pub r#text: Option<String>,
+        pub text: Option<String>,
 
 
         /// Gets or sets the range's text type.
         #[serde(rename = "TextType", skip_serializing_if = "Option::is_none")]
-        pub r#text_type: Option<ReplaceRange_TextTypeEnum>,
+        pub text_type: Option<ReplaceRangeTextTypeEnum>,
 
 }
 
 impl Default for ReplaceRange {
     fn default() -> Self {
         Self {
-            r#text: None,
-            r#text_type: None,
+            text: None,
+            text_type: None,
         }
     }
 }
 
 impl Model for ReplaceRange {
     fn validate(&self) -> SdkResult<()> {
-        if self.r#text.is_none() {
+        if self.text.is_none() {
             return Err(SdkError::InvalidRequest(
                 "property Text in ReplaceRange is required".to_owned(),
             ));
@@ -62,7 +62,7 @@ impl Model for ReplaceRange {
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
     }
 
     fn as_any(&self) -> &dyn Any {
@@ -71,9 +71,8 @@ impl Model for ReplaceRange {
 }
 
 /// Gets or sets the range's text type.
-#[allow(non_camel_case_types)]
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
-pub enum ReplaceRange_TextTypeEnum {
+pub enum ReplaceRangeTextTypeEnum {
     #[serde(rename = "Text")]
         Text,
     #[serde(rename = "Html")]

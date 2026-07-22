@@ -20,7 +20,7 @@
 // SOFTWARE.
 // --------------------------------------------------------------------------------
 
-#![allow(non_snake_case, unused_imports)]
+#![allow(dead_code, unused_imports)]
 // Example expressions use the same schema-independent conversion rules as tests.
 #![allow(clippy::unnecessary_to_owned, clippy::useless_conversion)]
 
@@ -29,6 +29,18 @@ use std::path::PathBuf;
 
 use aspose_words_cloud::*;
 use chrono::{TimeZone, Utc};
+use uuid::Uuid;
+
+fn create_random_guid() -> String {
+    Uuid::new_v4().to_string()
+}
+
+async fn read_text_file(path: String) -> SdkResult<String> {
+    let examples_data = env::var_os("ASPOSE_EXAMPLES_DATA_DIR")
+        .map(PathBuf::from)
+        .unwrap_or_else(|| PathBuf::from("examples_data"));
+    Ok(tokio::fs::read_to_string(examples_data.join(path)).await?)
+}
 
 #[tokio::main]
 async fn main() -> SdkResult<()> {
@@ -47,14 +59,14 @@ async fn main() -> SdkResult<()> {
         .map(PathBuf::from)
         .unwrap_or_else(|| PathBuf::from("examples_data"));
 
-    let fileName = ("test_doc.docx").to_string();
+    let file_name = "test_doc.docx".to_owned();
 
     // Calls AcceptAllRevisionsOnline method for document in cloud.
-    let requestDocument = tokio::fs::read(
-    examples_data.join((fileName).to_string()),
+    let request_document = tokio::fs::read(
+    examples_data.join(file_name.clone()),
     ).await?;
     let request = AcceptAllRevisionsOnlineRequest::new(
-        (requestDocument).into()
+        (request_document).into()
     );
     let result = words_api.accept_all_revisions_online(request).await?;
     let files = result.r#document.ok_or_else(|| {

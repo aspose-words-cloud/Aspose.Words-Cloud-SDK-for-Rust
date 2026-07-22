@@ -34,104 +34,104 @@ use super::*;
 pub struct DrawingObjectInsert {
         /// Gets or sets the position, where the DrawingObject will be inserted.
         #[serde(rename = "Position", skip_serializing_if = "Option::is_none", default, deserialize_with = "deserialize_optional_model")]
-        pub r#position: Option<ModelBox>,
+        pub position: Option<ModelBox>,
 
 
         /// Gets or sets the relative horizontal position, from which the distance to the image is measured.
         #[serde(rename = "RelativeHorizontalPosition", skip_serializing_if = "Option::is_none")]
-        pub r#relative_horizontal_position: Option<DrawingObjectInsert_RelativeHorizontalPositionEnum>,
+        pub relative_horizontal_position: Option<DrawingObjectInsertRelativeHorizontalPositionEnum>,
 
 
         /// Gets or sets the distance in points from the origin to the left side of the image.
         #[serde(rename = "Left", skip_serializing_if = "Option::is_none")]
-        pub r#left: Option<f64>,
+        pub left: Option<f64>,
 
 
         /// Gets or sets the relative vertical position, from which the distance to the image is measured.
         #[serde(rename = "RelativeVerticalPosition", skip_serializing_if = "Option::is_none")]
-        pub r#relative_vertical_position: Option<DrawingObjectInsert_RelativeVerticalPositionEnum>,
+        pub relative_vertical_position: Option<DrawingObjectInsertRelativeVerticalPositionEnum>,
 
 
         /// Gets or sets the distance in points from the origin to the top side of the image.
         #[serde(rename = "Top", skip_serializing_if = "Option::is_none")]
-        pub r#top: Option<f64>,
+        pub top: Option<f64>,
 
 
         /// Gets or sets the width of the DrawingObjects in points.
         #[serde(rename = "Width", skip_serializing_if = "Option::is_none")]
-        pub r#width: Option<f64>,
+        pub width: Option<f64>,
 
 
         /// Gets or sets the height of the DrawingObject in points.
         #[serde(rename = "Height", skip_serializing_if = "Option::is_none")]
-        pub r#height: Option<f64>,
+        pub height: Option<f64>,
 
 
         /// Gets or sets the option indicating how to wrap text around the image.
         #[serde(rename = "WrapType", skip_serializing_if = "Option::is_none")]
-        pub r#wrap_type: Option<DrawingObjectInsert_WrapTypeEnum>,
+        pub wrap_type: Option<DrawingObjectInsertWrapTypeEnum>,
 
 
         /// Gets or sets a value indicating whether AspectRatioLocked option on or off.
         #[serde(rename = "AspectRatioLocked", skip_serializing_if = "Option::is_none")]
-        pub r#aspect_ratio_locked: Option<bool>,
+        pub aspect_ratio_locked: Option<bool>,
 
 }
 
 impl Default for DrawingObjectInsert {
     fn default() -> Self {
         Self {
-            r#position: None,
-            r#relative_horizontal_position: None,
-            r#left: None,
-            r#relative_vertical_position: None,
-            r#top: None,
-            r#width: None,
-            r#height: None,
-            r#wrap_type: None,
-            r#aspect_ratio_locked: None,
+            position: None,
+            relative_horizontal_position: None,
+            left: None,
+            relative_vertical_position: None,
+            top: None,
+            width: None,
+            height: None,
+            wrap_type: None,
+            aspect_ratio_locked: None,
         }
     }
 }
 
 impl Model for DrawingObjectInsert {
     fn validate(&self) -> SdkResult<()> {
-        if self.r#relative_horizontal_position.is_none() {
+        if self.relative_horizontal_position.is_none() {
             return Err(SdkError::InvalidRequest(
                 "property RelativeHorizontalPosition in DrawingObjectInsert is required".to_owned(),
             ));
         }
-        if self.r#left.is_none() {
+        if self.left.is_none() {
             return Err(SdkError::InvalidRequest(
                 "property Left in DrawingObjectInsert is required".to_owned(),
             ));
         }
-        if self.r#relative_vertical_position.is_none() {
+        if self.relative_vertical_position.is_none() {
             return Err(SdkError::InvalidRequest(
                 "property RelativeVerticalPosition in DrawingObjectInsert is required".to_owned(),
             ));
         }
-        if self.r#top.is_none() {
+        if self.top.is_none() {
             return Err(SdkError::InvalidRequest(
                 "property Top in DrawingObjectInsert is required".to_owned(),
             ));
         }
-        if self.r#width.is_none() {
+        if self.width.is_none() {
             return Err(SdkError::InvalidRequest(
                 "property Width in DrawingObjectInsert is required".to_owned(),
             ));
         }
-        if self.r#height.is_none() {
+        if self.height.is_none() {
             return Err(SdkError::InvalidRequest(
                 "property Height in DrawingObjectInsert is required".to_owned(),
             ));
         }
-        if self.r#wrap_type.is_none() {
+        if self.wrap_type.is_none() {
             return Err(SdkError::InvalidRequest(
                 "property WrapType in DrawingObjectInsert is required".to_owned(),
             ));
         }
-        if let Some(value) = &self.r#position {
+        if let Some(value) = &self.position {
         value.validate()?;
         }
 
@@ -145,7 +145,7 @@ impl Model for DrawingObjectInsert {
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
     }
 
     fn as_any(&self) -> &dyn Any {
@@ -154,9 +154,8 @@ impl Model for DrawingObjectInsert {
 }
 
 /// Gets or sets the relative horizontal position, from which the distance to the image is measured.
-#[allow(non_camel_case_types)]
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
-pub enum DrawingObjectInsert_RelativeHorizontalPositionEnum {
+pub enum DrawingObjectInsertRelativeHorizontalPositionEnum {
     #[serde(rename = "Margin")]
         Margin,
     #[serde(rename = "Page")]
@@ -178,9 +177,8 @@ pub enum DrawingObjectInsert_RelativeHorizontalPositionEnum {
 }
 
 /// Gets or sets the relative vertical position, from which the distance to the image is measured.
-#[allow(non_camel_case_types)]
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
-pub enum DrawingObjectInsert_RelativeVerticalPositionEnum {
+pub enum DrawingObjectInsertRelativeVerticalPositionEnum {
     #[serde(rename = "Margin")]
         Margin,
     #[serde(rename = "TableDefault")]
@@ -204,9 +202,8 @@ pub enum DrawingObjectInsert_RelativeVerticalPositionEnum {
 }
 
 /// Gets or sets the option indicating how to wrap text around the image.
-#[allow(non_camel_case_types)]
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
-pub enum DrawingObjectInsert_WrapTypeEnum {
+pub enum DrawingObjectInsertWrapTypeEnum {
     #[serde(rename = "Inline")]
         Inline,
     #[serde(rename = "TopBottom")]

@@ -37,7 +37,7 @@ pub struct TableLinkCollection {
     pub parent: LinkElement,
         /// Gets or sets the collection of table's links.
         #[serde(rename = "TableLinkList", skip_serializing_if = "Option::is_none")]
-        pub r#table_link_list: Option<Vec<TableLink>>,
+        pub table_link_list: Option<Vec<TableLink>>,
 
 }
 
@@ -46,7 +46,7 @@ impl Default for TableLinkCollection {
         let mut parent = LinkElement::default();
         Self {
             parent,
-            r#table_link_list: None,
+            table_link_list: None,
         }
     }
 }
@@ -68,7 +68,7 @@ impl DerefMut for TableLinkCollection {
 impl Model for TableLinkCollection {
     fn validate(&self) -> SdkResult<()> {
         self.parent.validate()?;
-        if let Some(values) = &self.r#table_link_list {
+        if let Some(values) = &self.table_link_list {
         for value in values {
         value.validate()?;
         }
@@ -76,8 +76,8 @@ impl Model for TableLinkCollection {
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
-        self.parent.collect_file_references(output);
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+        self.parent.collect_file_references(_output);
     }
 
     fn as_any(&self) -> &dyn Any {

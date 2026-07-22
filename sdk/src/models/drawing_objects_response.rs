@@ -38,7 +38,7 @@ pub struct DrawingObjectsResponse {
     pub parent: WordsResponse,
         /// Gets or sets the collection of DrawingObjects.
         #[serde(rename = "DrawingObjects", skip_serializing_if = "Option::is_none")]
-        pub r#drawing_objects: Option<DrawingObjectCollection>,
+        pub drawing_objects: Option<DrawingObjectCollection>,
 
 }
 
@@ -47,7 +47,7 @@ impl Default for DrawingObjectsResponse {
         let mut parent = WordsResponse::default();
         Self {
             parent,
-            r#drawing_objects: None,
+            drawing_objects: None,
         }
     }
 }
@@ -69,14 +69,14 @@ impl DerefMut for DrawingObjectsResponse {
 impl Model for DrawingObjectsResponse {
     fn validate(&self) -> SdkResult<()> {
         self.parent.validate()?;
-        if let Some(value) = &self.r#drawing_objects {
+        if let Some(value) = &self.drawing_objects {
         value.validate()?;
         }
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
-        self.parent.collect_file_references(output);
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+        self.parent.collect_file_references(_output);
     }
 
     fn as_any(&self) -> &dyn Any {

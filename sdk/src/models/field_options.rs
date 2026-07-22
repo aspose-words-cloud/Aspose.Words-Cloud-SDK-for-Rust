@@ -34,95 +34,95 @@ use super::*;
 pub struct FieldOptions {
         /// Gets or sets Current User.
         #[serde(rename = "CurrentUser", skip_serializing_if = "Option::is_none")]
-        pub r#current_user: Option<UserInformation>,
+        pub current_user: Option<UserInformation>,
 
 
         /// Gets or sets Custom Toc Style Separator.
         #[serde(rename = "CustomTocStyleSeparator", skip_serializing_if = "Option::is_none")]
-        pub r#custom_toc_style_separator: Option<String>,
+        pub custom_toc_style_separator: Option<String>,
 
 
         /// Gets or sets Default Document Author.
         #[serde(rename = "DefaultDocumentAuthor", skip_serializing_if = "Option::is_none")]
-        pub r#default_document_author: Option<String>,
+        pub default_document_author: Option<String>,
 
 
         /// Gets or sets Field Index Format.
         #[serde(rename = "FieldIndexFormat", skip_serializing_if = "Option::is_none")]
-        pub r#field_index_format: Option<FieldOptions_FieldIndexFormatEnum>,
+        pub field_index_format: Option<FieldOptionsFieldIndexFormatEnum>,
 
 
         /// Gets or sets Field Update Culture Name.
             /// It is used for all fields if FieldUpdateCultureSource is FieldCode.
         #[serde(rename = "FieldUpdateCultureName", skip_serializing_if = "Option::is_none")]
-        pub r#field_update_culture_name: Option<String>,
+        pub field_update_culture_name: Option<String>,
 
 
         /// Gets or sets Field Update Culture Source.
         #[serde(rename = "FieldUpdateCultureSource", skip_serializing_if = "Option::is_none")]
-        pub r#field_update_culture_source: Option<FieldOptions_FieldUpdateCultureSourceEnum>,
+        pub field_update_culture_source: Option<FieldOptionsFieldUpdateCultureSourceEnum>,
 
 
         /// Gets or sets File Name.
         #[serde(rename = "FileName", skip_serializing_if = "Option::is_none")]
-        pub r#file_name: Option<String>,
+        pub file_name: Option<String>,
 
 
         /// Gets or sets if Bidi Text Supported OnUpdate.
         #[serde(rename = "IsBidiTextSupportedOnUpdate", skip_serializing_if = "Option::is_none")]
-        pub r#is_bidi_text_supported_on_update: Option<bool>,
+        pub is_bidi_text_supported_on_update: Option<bool>,
 
 
         /// Gets or sets if Legacy Number Format.
         #[serde(rename = "LegacyNumberFormat", skip_serializing_if = "Option::is_none")]
-        pub r#legacy_number_format: Option<bool>,
+        pub legacy_number_format: Option<bool>,
 
 
         /// Gets or sets PreProcess Culture Name.
             /// It is a culture code for DOC fields.
         #[serde(rename = "PreProcessCultureName", skip_serializing_if = "Option::is_none")]
-        pub r#pre_process_culture_name: Option<String>,
+        pub pre_process_culture_name: Option<String>,
 
 
         /// Gets or sets Template Name.
         #[serde(rename = "TemplateName", skip_serializing_if = "Option::is_none")]
-        pub r#template_name: Option<String>,
+        pub template_name: Option<String>,
 
 
         /// Gets or sets if Use Invariant Culture Number Format.
         #[serde(rename = "UseInvariantCultureNumberFormat", skip_serializing_if = "Option::is_none")]
-        pub r#use_invariant_culture_number_format: Option<bool>,
+        pub use_invariant_culture_number_format: Option<bool>,
 
 
         /// Gets or sets BuiltIn Templates Paths.
         #[serde(rename = "BuiltInTemplatesPaths", skip_serializing_if = "Option::is_none")]
-        pub r#built_in_templates_paths: Option<Vec<String>>,
+        pub built_in_templates_paths: Option<Vec<String>>,
 
 }
 
 impl Default for FieldOptions {
     fn default() -> Self {
         Self {
-            r#current_user: None,
-            r#custom_toc_style_separator: None,
-            r#default_document_author: None,
-            r#field_index_format: None,
-            r#field_update_culture_name: None,
-            r#field_update_culture_source: None,
-            r#file_name: None,
-            r#is_bidi_text_supported_on_update: None,
-            r#legacy_number_format: None,
-            r#pre_process_culture_name: None,
-            r#template_name: None,
-            r#use_invariant_culture_number_format: None,
-            r#built_in_templates_paths: None,
+            current_user: None,
+            custom_toc_style_separator: None,
+            default_document_author: None,
+            field_index_format: None,
+            field_update_culture_name: None,
+            field_update_culture_source: None,
+            file_name: None,
+            is_bidi_text_supported_on_update: None,
+            legacy_number_format: None,
+            pre_process_culture_name: None,
+            template_name: None,
+            use_invariant_culture_number_format: None,
+            built_in_templates_paths: None,
         }
     }
 }
 
 impl Model for FieldOptions {
     fn validate(&self) -> SdkResult<()> {
-        if let Some(value) = &self.r#current_user {
+        if let Some(value) = &self.current_user {
         value.validate()?;
         }
 
@@ -140,7 +140,7 @@ impl Model for FieldOptions {
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
     }
 
     fn as_any(&self) -> &dyn Any {
@@ -149,9 +149,8 @@ impl Model for FieldOptions {
 }
 
 /// Gets or sets Field Index Format.
-#[allow(non_camel_case_types)]
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
-pub enum FieldOptions_FieldIndexFormatEnum {
+pub enum FieldOptionsFieldIndexFormatEnum {
     #[serde(rename = "Template")]
         Template,
     #[serde(rename = "Classic")]
@@ -169,9 +168,8 @@ pub enum FieldOptions_FieldIndexFormatEnum {
 }
 
 /// Gets or sets Field Update Culture Source.
-#[allow(non_camel_case_types)]
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
-pub enum FieldOptions_FieldUpdateCultureSourceEnum {
+pub enum FieldOptionsFieldUpdateCultureSourceEnum {
     #[serde(rename = "CurrentThread")]
         CurrentThread,
     #[serde(rename = "FieldCode")]

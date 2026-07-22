@@ -36,196 +36,196 @@ use super::*;
 /// Request parameters for the SaveAsTiffOnline operation.
 pub struct SaveAsTiffOnlineRequest {
     /// The document.
-    pub r#document: Vec<u8>,
+    pub document: Vec<u8>,
     /// Tiff save options.
-    pub r#save_options: TiffSaveOptionsData,
+    pub save_options: TiffSaveOptionsData,
     /// Encoding that will be used to load an HTML (or TXT) document if the encoding is not specified in HTML.
-    pub r#load_encoding: Option<String>,
+    pub load_encoding: Option<String>,
     /// Password of protected Word document. Use the parameter to pass a password via SDK. SDK encrypts it automatically. We don't recommend to use the parameter to pass a plain password for direct call of API.
-    pub r#password: Option<String>,
+    pub password: Option<String>,
     /// Password of protected Word document. Use the parameter to pass an encrypted password for direct calls of API. See SDK code for encyption details.
-    pub r#encrypted_password: Option<String>,
+    pub encrypted_password: Option<String>,
     /// The value indicates whether OpenType support is on.
-    pub r#open_type_support: Option<bool>,
+    pub open_type_support: Option<bool>,
     /// The flag indicating whether to use antialiasing.
-    pub r#use_anti_aliasing: Option<bool>,
+    pub use_anti_aliasing: Option<bool>,
     /// The flag indicating whether to use high quality.
-    pub r#use_high_quality_rendering: Option<bool>,
+    pub use_high_quality_rendering: Option<bool>,
     /// The level of brightness for the generated images.
-    pub r#image_brightness: Option<f64>,
+    pub image_brightness: Option<f64>,
     /// The color mode for the generated images.
-    pub r#image_color_mode: Option<String>,
+    pub image_color_mode: Option<String>,
     /// The contrast for the generated images.
-    pub r#image_contrast: Option<f64>,
+    pub image_contrast: Option<f64>,
     /// The images numeral format.
-    pub r#numeral_format: Option<String>,
+    pub numeral_format: Option<String>,
     /// The number of pages to render.
-    pub r#page_count: Option<i32>,
+    pub page_count: Option<i32>,
     /// The index of the page to start rendering.
-    pub r#page_index: Option<i32>,
+    pub page_index: Option<i32>,
     /// The background image color.
-    pub r#paper_color: Option<String>,
+    pub paper_color: Option<String>,
     /// The pixel format of the generated images.
-    pub r#pixel_format: Option<String>,
+    pub pixel_format: Option<String>,
     /// The resolution of the generated images.
-    pub r#resolution: Option<f64>,
+    pub resolution: Option<f64>,
     /// The zoom factor for the generated images.
-    pub r#scale: Option<f64>,
+    pub scale: Option<f64>,
     /// The compression tipe.
-    pub r#tiff_compression: Option<String>,
+    pub tiff_compression: Option<String>,
     /// The optional dml rendering mode. The default value is Fallback.
-    pub r#dml_rendering_mode: Option<String>,
+    pub dml_rendering_mode: Option<String>,
     /// The optional dml effects rendering mode. The default value is Simplified.
-    pub r#dml_effects_rendering_mode: Option<String>,
+    pub dml_effects_rendering_mode: Option<String>,
     /// The optional TIFF binarization method. Possible values are: FloydSteinbergDithering, Threshold.
-    pub r#tiff_binarization_method: Option<String>,
+    pub tiff_binarization_method: Option<String>,
     /// The flag indicating whether to ZIP the output.
-    pub r#zip_output: Option<bool>,
+    pub zip_output: Option<bool>,
     /// Folder in filestorage with custom fonts.
-    pub r#fonts_location: Option<String>,
+    pub fonts_location: Option<String>,
     pub send_progress: Option<ProgressCallback>,
     pub receive_progress: Option<ProgressCallback>,
 }
 
 impl SaveAsTiffOnlineRequest {
-    pub fn new(r#document: Vec<u8>, r#save_options: TiffSaveOptionsData) -> Self {
+    pub fn new(document: Vec<u8>, save_options: TiffSaveOptionsData) -> Self {
         Self {
-            r#document,
-            r#save_options,
-            r#load_encoding: None,
-            r#password: None,
-            r#encrypted_password: None,
-            r#open_type_support: None,
-            r#use_anti_aliasing: None,
-            r#use_high_quality_rendering: None,
-            r#image_brightness: None,
-            r#image_color_mode: None,
-            r#image_contrast: None,
-            r#numeral_format: None,
-            r#page_count: None,
-            r#page_index: None,
-            r#paper_color: None,
-            r#pixel_format: None,
-            r#resolution: None,
-            r#scale: None,
-            r#tiff_compression: None,
-            r#dml_rendering_mode: None,
-            r#dml_effects_rendering_mode: None,
-            r#tiff_binarization_method: None,
-            r#zip_output: None,
-            r#fonts_location: None,
+            document,
+            save_options,
+            load_encoding: None,
+            password: None,
+            encrypted_password: None,
+            open_type_support: None,
+            use_anti_aliasing: None,
+            use_high_quality_rendering: None,
+            image_brightness: None,
+            image_color_mode: None,
+            image_contrast: None,
+            numeral_format: None,
+            page_count: None,
+            page_index: None,
+            paper_color: None,
+            pixel_format: None,
+            resolution: None,
+            scale: None,
+            tiff_compression: None,
+            dml_rendering_mode: None,
+            dml_effects_rendering_mode: None,
+            tiff_binarization_method: None,
+            zip_output: None,
+            fonts_location: None,
             send_progress: None,
             receive_progress: None,
         }
     }
 
     pub fn with_load_encoding(mut self, value: String) -> Self {
-        self.r#load_encoding = Some(value);
+        self.load_encoding = Some(value);
         self
     }
 
     pub fn with_password(mut self, value: String) -> Self {
-        self.r#password = Some(value);
+        self.password = Some(value);
         self
     }
 
     pub fn with_encrypted_password(mut self, value: String) -> Self {
-        self.r#encrypted_password = Some(value);
+        self.encrypted_password = Some(value);
         self
     }
 
     pub fn with_open_type_support(mut self, value: bool) -> Self {
-        self.r#open_type_support = Some(value);
+        self.open_type_support = Some(value);
         self
     }
 
     pub fn with_use_anti_aliasing(mut self, value: bool) -> Self {
-        self.r#use_anti_aliasing = Some(value);
+        self.use_anti_aliasing = Some(value);
         self
     }
 
     pub fn with_use_high_quality_rendering(mut self, value: bool) -> Self {
-        self.r#use_high_quality_rendering = Some(value);
+        self.use_high_quality_rendering = Some(value);
         self
     }
 
     pub fn with_image_brightness(mut self, value: f64) -> Self {
-        self.r#image_brightness = Some(value);
+        self.image_brightness = Some(value);
         self
     }
 
     pub fn with_image_color_mode(mut self, value: String) -> Self {
-        self.r#image_color_mode = Some(value);
+        self.image_color_mode = Some(value);
         self
     }
 
     pub fn with_image_contrast(mut self, value: f64) -> Self {
-        self.r#image_contrast = Some(value);
+        self.image_contrast = Some(value);
         self
     }
 
     pub fn with_numeral_format(mut self, value: String) -> Self {
-        self.r#numeral_format = Some(value);
+        self.numeral_format = Some(value);
         self
     }
 
     pub fn with_page_count(mut self, value: i32) -> Self {
-        self.r#page_count = Some(value);
+        self.page_count = Some(value);
         self
     }
 
     pub fn with_page_index(mut self, value: i32) -> Self {
-        self.r#page_index = Some(value);
+        self.page_index = Some(value);
         self
     }
 
     pub fn with_paper_color(mut self, value: String) -> Self {
-        self.r#paper_color = Some(value);
+        self.paper_color = Some(value);
         self
     }
 
     pub fn with_pixel_format(mut self, value: String) -> Self {
-        self.r#pixel_format = Some(value);
+        self.pixel_format = Some(value);
         self
     }
 
     pub fn with_resolution(mut self, value: f64) -> Self {
-        self.r#resolution = Some(value);
+        self.resolution = Some(value);
         self
     }
 
     pub fn with_scale(mut self, value: f64) -> Self {
-        self.r#scale = Some(value);
+        self.scale = Some(value);
         self
     }
 
     pub fn with_tiff_compression(mut self, value: String) -> Self {
-        self.r#tiff_compression = Some(value);
+        self.tiff_compression = Some(value);
         self
     }
 
     pub fn with_dml_rendering_mode(mut self, value: String) -> Self {
-        self.r#dml_rendering_mode = Some(value);
+        self.dml_rendering_mode = Some(value);
         self
     }
 
     pub fn with_dml_effects_rendering_mode(mut self, value: String) -> Self {
-        self.r#dml_effects_rendering_mode = Some(value);
+        self.dml_effects_rendering_mode = Some(value);
         self
     }
 
     pub fn with_tiff_binarization_method(mut self, value: String) -> Self {
-        self.r#tiff_binarization_method = Some(value);
+        self.tiff_binarization_method = Some(value);
         self
     }
 
     pub fn with_zip_output(mut self, value: bool) -> Self {
-        self.r#zip_output = Some(value);
+        self.zip_output = Some(value);
         self
     }
 
     pub fn with_fonts_location(mut self, value: String) -> Self {
-        self.r#fonts_location = Some(value);
+        self.fonts_location = Some(value);
         self
     }
 
@@ -262,74 +262,74 @@ impl Request for SaveAsTiffOnlineRequest {
         let mut headers = Vec::new();
         let mut body_parts = Vec::new();
 
-        if let Some(value) = &self.r#load_encoding {
+        if let Some(value) = &self.load_encoding {
         query.push(("loadEncoding".to_owned(), client.query_value(value)?));
         }
-        if let Some(value) = &self.r#password {
+        if let Some(value) = &self.password {
         query.push(("encryptedPassword".to_owned(), client.encrypt_password(value).await?));
         }
-        if let Some(value) = &self.r#encrypted_password {
+        if let Some(value) = &self.encrypted_password {
         query.push(("encryptedPassword".to_owned(), client.query_value(value)?));
         }
-        if let Some(value) = &self.r#open_type_support {
+        if let Some(value) = &self.open_type_support {
         query.push(("openTypeSupport".to_owned(), client.query_value(value)?));
         }
-        if let Some(value) = &self.r#use_anti_aliasing {
+        if let Some(value) = &self.use_anti_aliasing {
         query.push(("useAntiAliasing".to_owned(), client.query_value(value)?));
         }
-        if let Some(value) = &self.r#use_high_quality_rendering {
+        if let Some(value) = &self.use_high_quality_rendering {
         query.push(("useHighQualityRendering".to_owned(), client.query_value(value)?));
         }
-        if let Some(value) = &self.r#image_brightness {
+        if let Some(value) = &self.image_brightness {
         query.push(("imageBrightness".to_owned(), client.query_value(value)?));
         }
-        if let Some(value) = &self.r#image_color_mode {
+        if let Some(value) = &self.image_color_mode {
         query.push(("imageColorMode".to_owned(), client.query_value(value)?));
         }
-        if let Some(value) = &self.r#image_contrast {
+        if let Some(value) = &self.image_contrast {
         query.push(("imageContrast".to_owned(), client.query_value(value)?));
         }
-        if let Some(value) = &self.r#numeral_format {
+        if let Some(value) = &self.numeral_format {
         query.push(("numeralFormat".to_owned(), client.query_value(value)?));
         }
-        if let Some(value) = &self.r#page_count {
+        if let Some(value) = &self.page_count {
         query.push(("pageCount".to_owned(), client.query_value(value)?));
         }
-        if let Some(value) = &self.r#page_index {
+        if let Some(value) = &self.page_index {
         query.push(("pageIndex".to_owned(), client.query_value(value)?));
         }
-        if let Some(value) = &self.r#paper_color {
+        if let Some(value) = &self.paper_color {
         query.push(("paperColor".to_owned(), client.query_value(value)?));
         }
-        if let Some(value) = &self.r#pixel_format {
+        if let Some(value) = &self.pixel_format {
         query.push(("pixelFormat".to_owned(), client.query_value(value)?));
         }
-        if let Some(value) = &self.r#resolution {
+        if let Some(value) = &self.resolution {
         query.push(("resolution".to_owned(), client.query_value(value)?));
         }
-        if let Some(value) = &self.r#scale {
+        if let Some(value) = &self.scale {
         query.push(("scale".to_owned(), client.query_value(value)?));
         }
-        if let Some(value) = &self.r#tiff_compression {
+        if let Some(value) = &self.tiff_compression {
         query.push(("tiffCompression".to_owned(), client.query_value(value)?));
         }
-        if let Some(value) = &self.r#dml_rendering_mode {
+        if let Some(value) = &self.dml_rendering_mode {
         query.push(("dmlRenderingMode".to_owned(), client.query_value(value)?));
         }
-        if let Some(value) = &self.r#dml_effects_rendering_mode {
+        if let Some(value) = &self.dml_effects_rendering_mode {
         query.push(("dmlEffectsRenderingMode".to_owned(), client.query_value(value)?));
         }
-        if let Some(value) = &self.r#tiff_binarization_method {
+        if let Some(value) = &self.tiff_binarization_method {
         query.push(("tiffBinarizationMethod".to_owned(), client.query_value(value)?));
         }
-        if let Some(value) = &self.r#zip_output {
+        if let Some(value) = &self.zip_output {
         query.push(("zipOutput".to_owned(), client.query_value(value)?));
         }
-        if let Some(value) = &self.r#fonts_location {
+        if let Some(value) = &self.fonts_location {
         query.push(("fontsLocation".to_owned(), client.query_value(value)?));
         }
-        client.add_binary_part(&mut body_parts, "Document", &self.r#document);
-        client.add_model_part(&mut body_parts, "SaveOptions", &self.r#save_options).await?;
+        client.add_binary_part(&mut body_parts, "Document", &self.document);
+        client.add_model_part(&mut body_parts, "SaveOptions", &self.save_options).await?;
 
         let url = client.build_url(&path, &query)?;
         let body = client.request_body_from_parts(&mut headers, body_parts);

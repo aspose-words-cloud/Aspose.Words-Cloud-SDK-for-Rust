@@ -36,27 +36,25 @@ use crate::test_context::*;
 #[tokio::test]
 async fn section_get_section() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/DocumentElements/Section")?;
-    let localFile = test_string!("Common/test_multi_pages.docx")?;
-    let remoteFileName = test_string!("TestGetSection.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentElements/Section";
+    let local_file = "Common/test_multi_pages.docx".to_owned();
+    let remote_file_name = "TestGetSection.docx".to_owned();
 
-    context.upload_file(test_string!(localFile)?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
     let request = GetSectionRequest::new(
-        (test_string!(remoteFileName)?).into(),
+        (remote_file_name.clone()).into(),
         (0).into()
-    ).with_folder((test_string!(remoteDataFolder)?).into());
+    ).with_folder((remote_data_folder.clone()).into());
 
     let result = context.api().get_section(request).await?;
     let result_json = serialize_result(&result)?;
     assert_not_null(&result_json, "Section")?;
     assert_not_null(&result_json, "Section.ChildNodes")?;
     assert_length(&result_json, "Section.ChildNodes", 13)?;
-    assert_string(&result_json, "Section.ChildNodes[0].NodeId", test_string!("0.3.0")?)?;
+    assert_string(&result_json, "Section.ChildNodes[0].NodeId", "0.3.0".to_owned())?;
     Ok(())
 }
 
@@ -64,16 +62,14 @@ async fn section_get_section() -> TestResult<()> {
 #[tokio::test]
 async fn section_get_section_online() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let localFile = test_string!("Common/test_multi_pages.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let local_file = "Common/test_multi_pages.docx".to_owned();
 
-    let requestDocument = context.load_binary_file(test_string!(localFile)?).await?;
+    let request_document = context.load_binary_file(local_file.clone()).await?;
 
     let request = GetSectionOnlineRequest::new(
-        (requestDocument).into(),
+        (request_document).into(),
         (0).into()
     );
 
@@ -85,26 +81,24 @@ async fn section_get_section_online() -> TestResult<()> {
 #[tokio::test]
 async fn section_get_sections() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/DocumentElements/Section")?;
-    let localFile = test_string!("Common/test_multi_pages.docx")?;
-    let remoteFileName = test_string!("TestGetSections.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentElements/Section";
+    let local_file = "Common/test_multi_pages.docx".to_owned();
+    let remote_file_name = "TestGetSections.docx".to_owned();
 
-    context.upload_file(test_string!(localFile)?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
     let request = GetSectionsRequest::new(
-        (test_string!(remoteFileName)?).into()
-    ).with_folder((test_string!(remoteDataFolder)?).into());
+        (remote_file_name.clone()).into()
+    ).with_folder((remote_data_folder.clone()).into());
 
     let result = context.api().get_sections(request).await?;
     let result_json = serialize_result(&result)?;
     assert_not_null(&result_json, "Sections")?;
     assert_not_null(&result_json, "Sections.SectionLinkList")?;
     assert_length(&result_json, "Sections.SectionLinkList", 1)?;
-    assert_string(&result_json, "Sections.SectionLinkList[0].NodeId", test_string!("0")?)?;
+    assert_string(&result_json, "Sections.SectionLinkList[0].NodeId", "0".to_owned())?;
     Ok(())
 }
 
@@ -112,16 +106,14 @@ async fn section_get_sections() -> TestResult<()> {
 #[tokio::test]
 async fn section_get_sections_online() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let localFile = test_string!("Common/test_multi_pages.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let local_file = "Common/test_multi_pages.docx".to_owned();
 
-    let requestDocument = context.load_binary_file(test_string!(localFile)?).await?;
+    let request_document = context.load_binary_file(local_file.clone()).await?;
 
     let request = GetSectionsOnlineRequest::new(
-        (requestDocument).into()
+        (request_document).into()
     );
 
     context.api().get_sections_online(request).await?;
@@ -132,20 +124,18 @@ async fn section_get_sections_online() -> TestResult<()> {
 #[tokio::test]
 async fn section_delete_section() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/DocumentElements/Section")?;
-    let localFile = test_string!("Common/test_multi_pages.docx")?;
-    let remoteFileName = test_string!("TestDeleteSection.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentElements/Section";
+    let local_file = "Common/test_multi_pages.docx".to_owned();
+    let remote_file_name = "TestDeleteSection.docx".to_owned();
 
-    context.upload_file(test_string!(localFile)?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
     let request = DeleteSectionRequest::new(
-        (test_string!(remoteFileName)?).into(),
+        (remote_file_name.clone()).into(),
         (0).into()
-    ).with_folder((test_string!(remoteDataFolder)?).into());
+    ).with_folder((remote_data_folder.clone()).into());
 
     context.api().delete_section(request).await?;
     Ok(())
@@ -155,16 +145,14 @@ async fn section_delete_section() -> TestResult<()> {
 #[tokio::test]
 async fn section_delete_section_online() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let localFile = test_string!("Common/test_multi_pages.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let local_file = "Common/test_multi_pages.docx".to_owned();
 
-    let requestDocument = context.load_binary_file(test_string!(localFile)?).await?;
+    let request_document = context.load_binary_file(local_file.clone()).await?;
 
     let request = DeleteSectionOnlineRequest::new(
-        (requestDocument).into(),
+        (request_document).into(),
         (0).into()
     );
 
@@ -176,19 +164,17 @@ async fn section_delete_section_online() -> TestResult<()> {
 #[tokio::test]
 async fn section_merge_with_next() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/DocumentElements/Section")?;
-    let remoteFileName = test_string!("TestMergeWithNext.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentElements/Section";
+    let remote_file_name = "TestMergeWithNext.docx".to_owned();
 
-    context.upload_file(test_string!("DocumentElements/Sections/Source.docx")?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
+    context.upload_file("DocumentElements/Sections/Source.docx".to_owned(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
     let request = MergeWithNextRequest::new(
-        (test_string!(remoteFileName)?).into(),
+        (remote_file_name.clone()).into(),
         (0).into()
-    ).with_folder((test_string!(remoteDataFolder)?).into());
+    ).with_folder((remote_data_folder.clone()).into());
 
     context.api().merge_with_next(request).await?;
     Ok(())
@@ -198,15 +184,13 @@ async fn section_merge_with_next() -> TestResult<()> {
 #[tokio::test]
 async fn section_merge_with_next_online() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
 
-    let requestDocument = context.load_binary_file(test_string!("DocumentElements/Sections/Source.docx")?).await?;
+    let request_document = context.load_binary_file("DocumentElements/Sections/Source.docx".to_owned()).await?;
 
     let request = MergeWithNextOnlineRequest::new(
-        (requestDocument).into(),
+        (request_document).into(),
         (0).into()
     );
 
@@ -218,20 +202,18 @@ async fn section_merge_with_next_online() -> TestResult<()> {
 #[tokio::test]
 async fn section_insert_section() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/DocumentElements/Section")?;
-    let localFile = test_string!("Common/test_multi_pages.docx")?;
-    let remoteFileName = test_string!("TestInsertSection.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentElements/Section";
+    let local_file = "Common/test_multi_pages.docx".to_owned();
+    let remote_file_name = "TestInsertSection.docx".to_owned();
 
-    context.upload_file(test_string!(localFile)?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
     let request = InsertSectionRequest::new(
-        (test_string!(remoteFileName)?).into(),
+        (remote_file_name.clone()).into(),
         (0).into()
-    ).with_folder((test_string!(remoteDataFolder)?).into());
+    ).with_folder((remote_data_folder.clone()).into());
 
     context.api().insert_section(request).await?;
     Ok(())
@@ -241,16 +223,14 @@ async fn section_insert_section() -> TestResult<()> {
 #[tokio::test]
 async fn section_insert_section_online() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let localFile = test_string!("Common/test_multi_pages.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let local_file = "Common/test_multi_pages.docx".to_owned();
 
-    let requestDocument = context.load_binary_file(test_string!(localFile)?).await?;
+    let request_document = context.load_binary_file(local_file.clone()).await?;
 
     let request = InsertSectionOnlineRequest::new(
-        (requestDocument).into(),
+        (request_document).into(),
         (0).into()
     );
 
@@ -262,19 +242,17 @@ async fn section_insert_section_online() -> TestResult<()> {
 #[tokio::test]
 async fn section_link_header_footers_to_previous() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/DocumentElements/Section")?;
-    let remoteFileName = test_string!("TestLinkHeaderFootersToPrevious.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentElements/Section";
+    let remote_file_name = "TestLinkHeaderFootersToPrevious.docx".to_owned();
 
-    context.upload_file(test_string!("DocumentElements/Sections/Source.docx")?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
+    context.upload_file("DocumentElements/Sections/Source.docx".to_owned(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
     let request = LinkHeaderFootersToPreviousRequest::new(
-        (test_string!(remoteFileName)?).into(),
+        (remote_file_name.clone()).into(),
         (1).into()
-    ).with_folder((test_string!(remoteDataFolder)?).into());
+    ).with_folder((remote_data_folder.clone()).into());
 
     context.api().link_header_footers_to_previous(request).await?;
     Ok(())

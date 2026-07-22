@@ -37,12 +37,12 @@ pub struct Field {
     pub parent: FieldLink,
         /// Gets or sets the LCID of the field.
         #[serde(rename = "LocaleId", skip_serializing_if = "Option::is_none")]
-        pub r#locale_id: Option<String>,
+        pub locale_id: Option<String>,
 
 
         /// Gets or sets the field result.
         #[serde(rename = "Result", skip_serializing_if = "Option::is_none")]
-        pub r#result: Option<String>,
+        pub result: Option<String>,
 
 }
 
@@ -51,8 +51,8 @@ impl Default for Field {
         let mut parent = FieldLink::default();
         Self {
             parent,
-            r#locale_id: None,
-            r#result: None,
+            locale_id: None,
+            result: None,
         }
     }
 }
@@ -77,8 +77,8 @@ impl Model for Field {
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
-        self.parent.collect_file_references(output);
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+        self.parent.collect_file_references(_output);
     }
 
     fn as_any(&self) -> &dyn Any {

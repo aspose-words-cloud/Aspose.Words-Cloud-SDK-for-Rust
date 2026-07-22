@@ -37,17 +37,17 @@ pub struct StructuredDocumentTagInsert {
     pub parent: StructuredDocumentTagBase,
         /// Gets or sets the level at which this SDT occurs in the document tree.
         #[serde(rename = "Level", skip_serializing_if = "Option::is_none")]
-        pub r#level: Option<StructuredDocumentTagInsert_LevelEnum>,
+        pub level: Option<StructuredDocumentTagInsertLevelEnum>,
 
 
         /// Gets or sets type of this Structured document tag.
         #[serde(rename = "SdtType", skip_serializing_if = "Option::is_none")]
-        pub r#sdt_type: Option<StructuredDocumentTagInsert_SdtTypeEnum>,
+        pub sdt_type: Option<StructuredDocumentTagInsertSdtTypeEnum>,
 
 
         /// Gets or sets the position of the node that will be used to determine the placement of a new node.
         #[serde(rename = "Position", skip_serializing_if = "Option::is_none", default, deserialize_with = "deserialize_optional_model")]
-        pub r#position: Option<ModelBox>,
+        pub position: Option<ModelBox>,
 
 }
 
@@ -56,9 +56,9 @@ impl Default for StructuredDocumentTagInsert {
         let mut parent = StructuredDocumentTagBase::default();
         Self {
             parent,
-            r#level: None,
-            r#sdt_type: None,
-            r#position: None,
+            level: None,
+            sdt_type: None,
+            position: None,
         }
     }
 }
@@ -80,24 +80,24 @@ impl DerefMut for StructuredDocumentTagInsert {
 impl Model for StructuredDocumentTagInsert {
     fn validate(&self) -> SdkResult<()> {
         self.parent.validate()?;
-        if self.r#level.is_none() {
+        if self.level.is_none() {
             return Err(SdkError::InvalidRequest(
                 "property Level in StructuredDocumentTagInsert is required".to_owned(),
             ));
         }
-        if self.r#sdt_type.is_none() {
+        if self.sdt_type.is_none() {
             return Err(SdkError::InvalidRequest(
                 "property SdtType in StructuredDocumentTagInsert is required".to_owned(),
             ));
         }
-        if let Some(value) = &self.r#position {
+        if let Some(value) = &self.position {
         value.validate()?;
         }
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
-        self.parent.collect_file_references(output);
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+        self.parent.collect_file_references(_output);
     }
 
     fn as_any(&self) -> &dyn Any {
@@ -106,9 +106,8 @@ impl Model for StructuredDocumentTagInsert {
 }
 
 /// Gets or sets the level at which this SDT occurs in the document tree.
-#[allow(non_camel_case_types)]
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
-pub enum StructuredDocumentTagInsert_LevelEnum {
+pub enum StructuredDocumentTagInsertLevelEnum {
     #[serde(rename = "Unknown")]
         Unknown,
     #[serde(rename = "Inline")]
@@ -122,9 +121,8 @@ pub enum StructuredDocumentTagInsert_LevelEnum {
 }
 
 /// Gets or sets type of this Structured document tag.
-#[allow(non_camel_case_types)]
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
-pub enum StructuredDocumentTagInsert_SdtTypeEnum {
+pub enum StructuredDocumentTagInsertSdtTypeEnum {
     #[serde(rename = "None")]
         None,
     #[serde(rename = "Bibliography")]

@@ -36,60 +36,60 @@ use super::*;
 /// Request parameters for the GetRangeTextOnline operation.
 pub struct GetRangeTextOnlineRequest {
     /// The document.
-    pub r#document: Vec<u8>,
+    pub document: Vec<u8>,
     /// The range start identifier. Identifier examples: id0.0.0, page0.
-    pub r#range_start_identifier: String,
+    pub range_start_identifier: String,
     /// The range end identifier. Identifier examples: id1.0.0, id0.0.0:end, page1, page1:end, document:end.
-    pub r#range_end_identifier: Option<String>,
+    pub range_end_identifier: Option<String>,
     /// Encoding that will be used to load an HTML (or TXT) document if the encoding is not specified in HTML.
-    pub r#load_encoding: Option<String>,
+    pub load_encoding: Option<String>,
     /// Password of protected Word document. Use the parameter to pass a password via SDK. SDK encrypts it automatically. We don't recommend to use the parameter to pass a plain password for direct call of API.
-    pub r#password: Option<String>,
+    pub password: Option<String>,
     /// Password of protected Word document. Use the parameter to pass an encrypted password for direct calls of API. See SDK code for encyption details.
-    pub r#encrypted_password: Option<String>,
+    pub encrypted_password: Option<String>,
     /// The value indicates whether OpenType support is on.
-    pub r#open_type_support: Option<bool>,
+    pub open_type_support: Option<bool>,
     pub send_progress: Option<ProgressCallback>,
     pub receive_progress: Option<ProgressCallback>,
 }
 
 impl GetRangeTextOnlineRequest {
-    pub fn new(r#document: Vec<u8>, r#range_start_identifier: String) -> Self {
+    pub fn new(document: Vec<u8>, range_start_identifier: String) -> Self {
         Self {
-            r#document,
-            r#range_start_identifier,
-            r#range_end_identifier: None,
-            r#load_encoding: None,
-            r#password: None,
-            r#encrypted_password: None,
-            r#open_type_support: None,
+            document,
+            range_start_identifier,
+            range_end_identifier: None,
+            load_encoding: None,
+            password: None,
+            encrypted_password: None,
+            open_type_support: None,
             send_progress: None,
             receive_progress: None,
         }
     }
 
     pub fn with_range_end_identifier(mut self, value: String) -> Self {
-        self.r#range_end_identifier = Some(value);
+        self.range_end_identifier = Some(value);
         self
     }
 
     pub fn with_load_encoding(mut self, value: String) -> Self {
-        self.r#load_encoding = Some(value);
+        self.load_encoding = Some(value);
         self
     }
 
     pub fn with_password(mut self, value: String) -> Self {
-        self.r#password = Some(value);
+        self.password = Some(value);
         self
     }
 
     pub fn with_encrypted_password(mut self, value: String) -> Self {
-        self.r#encrypted_password = Some(value);
+        self.encrypted_password = Some(value);
         self
     }
 
     pub fn with_open_type_support(mut self, value: bool) -> Self {
-        self.r#open_type_support = Some(value);
+        self.open_type_support = Some(value);
         self
     }
 
@@ -126,24 +126,24 @@ impl Request for GetRangeTextOnlineRequest {
         let mut headers = Vec::new();
         let mut body_parts = Vec::new();
 
-        let value = client.query_value(&self.r#range_start_identifier)?;
+        let value = client.query_value(&self.range_start_identifier)?;
         path = path.replace("{rangeStartIdentifier}", &value);
-        if let Some(value) = &self.r#range_end_identifier {
+        if let Some(value) = &self.range_end_identifier {
         path = path.replace("{rangeEndIdentifier}", &client.query_value(value)?);
         }
-        if let Some(value) = &self.r#load_encoding {
+        if let Some(value) = &self.load_encoding {
         query.push(("loadEncoding".to_owned(), client.query_value(value)?));
         }
-        if let Some(value) = &self.r#password {
+        if let Some(value) = &self.password {
         query.push(("encryptedPassword".to_owned(), client.encrypt_password(value).await?));
         }
-        if let Some(value) = &self.r#encrypted_password {
+        if let Some(value) = &self.encrypted_password {
         query.push(("encryptedPassword".to_owned(), client.query_value(value)?));
         }
-        if let Some(value) = &self.r#open_type_support {
+        if let Some(value) = &self.open_type_support {
         query.push(("openTypeSupport".to_owned(), client.query_value(value)?));
         }
-        client.add_binary_part(&mut body_parts, "Document", &self.r#document);
+        client.add_binary_part(&mut body_parts, "Document", &self.document);
 
         let url = client.build_url(&path, &query)?;
         let body = client.request_body_from_parts(&mut headers, body_parts);

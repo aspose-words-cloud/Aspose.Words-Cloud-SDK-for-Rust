@@ -38,7 +38,7 @@ pub struct MarkdownSaveOptionsData {
         /// Gets or sets the value, that specifies how to align contents in tables when exporting into the Markdown format.
             /// The default value is Auto.
         #[serde(rename = "TableContentAlignment", skip_serializing_if = "Option::is_none")]
-        pub r#table_content_alignment: Option<MarkdownSaveOptionsData_TableContentAlignmentEnum>,
+        pub table_content_alignment: Option<MarkdownSaveOptionsDataTableContentAlignmentEnum>,
 
 
 }
@@ -46,10 +46,10 @@ pub struct MarkdownSaveOptionsData {
 impl Default for MarkdownSaveOptionsData {
     fn default() -> Self {
         let mut parent = TxtSaveOptionsBaseData::default();
-        parent.r#save_format = Some("md".to_owned());
+        parent.save_format = Some("md".to_owned());
         Self {
             parent,
-            r#table_content_alignment: None,
+            table_content_alignment: None,
 
         }
     }
@@ -75,8 +75,8 @@ impl Model for MarkdownSaveOptionsData {
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
-        self.parent.collect_file_references(output);
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+        self.parent.collect_file_references(_output);
     }
 
     fn as_any(&self) -> &dyn Any {
@@ -86,9 +86,8 @@ impl Model for MarkdownSaveOptionsData {
 
 /// Gets or sets the value, that specifies how to align contents in tables when exporting into the Markdown format.
 /// The default value is Auto.
-#[allow(non_camel_case_types)]
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
-pub enum MarkdownSaveOptionsData_TableContentAlignmentEnum {
+pub enum MarkdownSaveOptionsDataTableContentAlignmentEnum {
     #[serde(rename = "Auto")]
         Auto,
     #[serde(rename = "Left")]

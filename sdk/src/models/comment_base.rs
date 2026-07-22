@@ -34,83 +34,83 @@ use super::*;
 pub struct CommentBase {
         /// Gets or sets the link to comment range start node.
         #[serde(rename = "RangeStart", skip_serializing_if = "Option::is_none")]
-        pub r#range_start: Option<PositionInsideNode>,
+        pub range_start: Option<PositionInsideNode>,
 
 
         /// Gets or sets the link to comment range end node.
         #[serde(rename = "RangeEnd", skip_serializing_if = "Option::is_none")]
-        pub r#range_end: Option<PositionInsideNode>,
+        pub range_end: Option<PositionInsideNode>,
 
 
         /// Gets or sets the author name for a comment.
             /// Cannot be null.Default is an empty string.
         #[serde(rename = "Author", skip_serializing_if = "Option::is_none")]
-        pub r#author: Option<String>,
+        pub author: Option<String>,
 
 
         /// Gets or sets the initials of the user associated with a specific comment.
             /// Cannot be null.Default is an empty string.
         #[serde(rename = "Initial", skip_serializing_if = "Option::is_none")]
-        pub r#initial: Option<String>,
+        pub initial: Option<String>,
 
 
         /// Gets or sets the date and time that the comment was made.
             /// Default is MinValue03.01.0001.
         #[serde(rename = "DateTime", skip_serializing_if = "Option::is_none")]
-        pub r#date_time: Option<DateTime<Utc>>,
+        pub date_time: Option<chrono::DateTime<chrono::Utc>>,
 
 
         /// Gets or sets text of the comment.
             /// This method allows to quickly set text of a comment from a string. The string can contain paragraph breaks, this will create paragraphs of text in the comment accordingly.
         #[serde(rename = "Text", skip_serializing_if = "Option::is_none")]
-        pub r#text: Option<String>,
+        pub text: Option<String>,
 
 }
 
 impl Default for CommentBase {
     fn default() -> Self {
         Self {
-            r#range_start: None,
-            r#range_end: None,
-            r#author: None,
-            r#initial: None,
-            r#date_time: None,
-            r#text: None,
+            range_start: None,
+            range_end: None,
+            author: None,
+            initial: None,
+            date_time: None,
+            text: None,
         }
     }
 }
 
 impl Model for CommentBase {
     fn validate(&self) -> SdkResult<()> {
-        if self.r#range_start.is_none() {
+        if self.range_start.is_none() {
             return Err(SdkError::InvalidRequest(
                 "property RangeStart in CommentBase is required".to_owned(),
             ));
         }
-        if self.r#range_end.is_none() {
+        if self.range_end.is_none() {
             return Err(SdkError::InvalidRequest(
                 "property RangeEnd in CommentBase is required".to_owned(),
             ));
         }
-        if self.r#author.is_none() {
+        if self.author.is_none() {
             return Err(SdkError::InvalidRequest(
                 "property Author in CommentBase is required".to_owned(),
             ));
         }
-        if self.r#initial.is_none() {
+        if self.initial.is_none() {
             return Err(SdkError::InvalidRequest(
                 "property Initial in CommentBase is required".to_owned(),
             ));
         }
-        if self.r#text.is_none() {
+        if self.text.is_none() {
             return Err(SdkError::InvalidRequest(
                 "property Text in CommentBase is required".to_owned(),
             ));
         }
-        if let Some(value) = &self.r#range_start {
+        if let Some(value) = &self.range_start {
         value.validate()?;
         }
-        if let Some(value) = &self.r#range_end {
+        if let Some(value) = &self.range_end {
         value.validate()?;
         }
 
@@ -120,7 +120,7 @@ impl Model for CommentBase {
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
     }
 
     fn as_any(&self) -> &dyn Any {

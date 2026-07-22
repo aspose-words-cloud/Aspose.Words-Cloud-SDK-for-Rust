@@ -37,12 +37,12 @@ pub struct StatDataResponse {
     pub parent: WordsResponse,
         /// Gets or sets the link to the document.
         #[serde(rename = "DocumentLink", skip_serializing_if = "Option::is_none")]
-        pub r#document_link: Option<FileLink>,
+        pub document_link: Option<FileLink>,
 
 
         /// Gets or sets the statistical data of the document.
         #[serde(rename = "StatData", skip_serializing_if = "Option::is_none")]
-        pub r#stat_data: Option<DocumentStatData>,
+        pub stat_data: Option<DocumentStatData>,
 
 }
 
@@ -51,8 +51,8 @@ impl Default for StatDataResponse {
         let mut parent = WordsResponse::default();
         Self {
             parent,
-            r#document_link: None,
-            r#stat_data: None,
+            document_link: None,
+            stat_data: None,
         }
     }
 }
@@ -74,17 +74,17 @@ impl DerefMut for StatDataResponse {
 impl Model for StatDataResponse {
     fn validate(&self) -> SdkResult<()> {
         self.parent.validate()?;
-        if let Some(value) = &self.r#document_link {
+        if let Some(value) = &self.document_link {
         value.validate()?;
         }
-        if let Some(value) = &self.r#stat_data {
+        if let Some(value) = &self.stat_data {
         value.validate()?;
         }
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
-        self.parent.collect_file_references(output);
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+        self.parent.collect_file_references(_output);
     }
 
     fn as_any(&self) -> &dyn Any {

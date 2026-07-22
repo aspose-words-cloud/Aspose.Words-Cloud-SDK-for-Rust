@@ -38,7 +38,7 @@ pub struct ParagraphResponse {
     pub parent: WordsResponse,
         /// Gets or sets the paragraph.
         #[serde(rename = "Paragraph", skip_serializing_if = "Option::is_none")]
-        pub r#paragraph: Option<Paragraph>,
+        pub paragraph: Option<Paragraph>,
 
 }
 
@@ -47,7 +47,7 @@ impl Default for ParagraphResponse {
         let mut parent = WordsResponse::default();
         Self {
             parent,
-            r#paragraph: None,
+            paragraph: None,
         }
     }
 }
@@ -69,14 +69,14 @@ impl DerefMut for ParagraphResponse {
 impl Model for ParagraphResponse {
     fn validate(&self) -> SdkResult<()> {
         self.parent.validate()?;
-        if let Some(value) = &self.r#paragraph {
+        if let Some(value) = &self.paragraph {
         value.validate()?;
         }
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
-        self.parent.collect_file_references(output);
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+        self.parent.collect_file_references(_output);
     }
 
     fn as_any(&self) -> &dyn Any {

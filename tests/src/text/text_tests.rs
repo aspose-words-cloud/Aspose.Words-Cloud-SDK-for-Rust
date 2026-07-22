@@ -36,27 +36,25 @@ use crate::test_context::*;
 #[tokio::test]
 async fn text_replace_text() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/DocumentElements/Text")?;
-    let remoteFileName = test_string!("TestReplaceText.docx")?;
-    let localFile = test_string!("Common/test_multi_pages.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentElements/Text";
+    let remote_file_name = "TestReplaceText.docx".to_owned();
+    let local_file = "Common/test_multi_pages.docx".to_owned();
 
-    context.upload_file(test_string!(localFile)?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
-    let mut requestReplaceText = ReplaceTextParameters::default();
-    requestReplaceText.r#old_value = Some((test_string!("Testing")?).into());
-    requestReplaceText.r#new_value = Some((test_string!("Aspose testing")?).into());
-    requestReplaceText.r#is_match_case = Some((true).into());
-    requestReplaceText.r#is_match_whole_word = Some((false).into());
-    requestReplaceText.r#is_old_value_regex = Some((false).into());
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
+    let mut request_replace_text = ReplaceTextParameters::default();
+    request_replace_text.old_value = Some(("Testing".to_owned()).into());
+    request_replace_text.new_value = Some(("Aspose testing".to_owned()).into());
+    request_replace_text.is_match_case = Some((true).into());
+    request_replace_text.is_match_whole_word = Some((false).into());
+    request_replace_text.is_old_value_regex = Some((false).into());
 
     let request = ReplaceTextRequest::new(
-        (test_string!(remoteFileName)?).into(),
-        (requestReplaceText).into()
-    ).with_folder((test_string!(remoteDataFolder)?).into())
-.with_dest_file_name((test_string!(baseTestOutPath + "/" + remoteFileName)?).into());
+        (remote_file_name.clone()).into(),
+        (request_replace_text).into()
+    ).with_folder((remote_data_folder.clone()).into())
+.with_dest_file_name((base_test_out_path.clone() + "/" + &remote_file_name).into());
 
     let result = context.api().replace_text(request).await?;
     let result_json = serialize_result(&result)?;
@@ -68,23 +66,21 @@ async fn text_replace_text() -> TestResult<()> {
 #[tokio::test]
 async fn text_replace_text_online() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let localFile = test_string!("Common/test_multi_pages.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let local_file = "Common/test_multi_pages.docx".to_owned();
 
-    let requestDocument = context.load_binary_file(test_string!(localFile)?).await?;
-    let mut requestReplaceText = ReplaceTextParameters::default();
-    requestReplaceText.r#old_value = Some((test_string!("aspose")?).into());
-    requestReplaceText.r#new_value = Some((test_string!("aspose new")?).into());
-    requestReplaceText.r#is_match_case = Some((true).into());
-    requestReplaceText.r#is_match_whole_word = Some((false).into());
-    requestReplaceText.r#is_old_value_regex = Some((false).into());
+    let request_document = context.load_binary_file(local_file.clone()).await?;
+    let mut request_replace_text = ReplaceTextParameters::default();
+    request_replace_text.old_value = Some(("aspose".to_owned()).into());
+    request_replace_text.new_value = Some(("aspose new".to_owned()).into());
+    request_replace_text.is_match_case = Some((true).into());
+    request_replace_text.is_match_whole_word = Some((false).into());
+    request_replace_text.is_old_value_regex = Some((false).into());
 
     let request = ReplaceTextOnlineRequest::new(
-        (requestDocument).into(),
-        (requestReplaceText).into()
+        (request_document).into(),
+        (request_replace_text).into()
     );
 
     context.api().replace_text_online(request).await?;
@@ -95,20 +91,18 @@ async fn text_replace_text_online() -> TestResult<()> {
 #[tokio::test]
 async fn text_search() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/DocumentElements/Text")?;
-    let remoteFileName = test_string!("TestSearch.docx")?;
-    let localFile = test_string!("DocumentElements/Text/SampleWordDocument.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentElements/Text";
+    let remote_file_name = "TestSearch.docx".to_owned();
+    let local_file = "DocumentElements/Text/SampleWordDocument.docx".to_owned();
 
-    context.upload_file(test_string!(localFile)?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
     let request = SearchRequest::new(
-        (test_string!(remoteFileName)?).into(),
-        (test_string!("aspose")?).into()
-    ).with_folder((test_string!(remoteDataFolder)?).into());
+        (remote_file_name.clone()).into(),
+        ("aspose".to_owned()).into()
+    ).with_folder((remote_data_folder.clone()).into());
 
     let result = context.api().search(request).await?;
     let result_json = serialize_result(&result)?;
@@ -124,17 +118,15 @@ async fn text_search() -> TestResult<()> {
 #[tokio::test]
 async fn text_search_online() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let localFile = test_string!("DocumentElements/Text/SampleWordDocument.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let local_file = "DocumentElements/Text/SampleWordDocument.docx".to_owned();
 
-    let requestDocument = context.load_binary_file(test_string!(localFile)?).await?;
+    let request_document = context.load_binary_file(local_file.clone()).await?;
 
     let request = SearchOnlineRequest::new(
-        (requestDocument).into(),
-        (test_string!("aspose")?).into()
+        (request_document).into(),
+        ("aspose".to_owned()).into()
     );
 
     context.api().search_online(request).await?;

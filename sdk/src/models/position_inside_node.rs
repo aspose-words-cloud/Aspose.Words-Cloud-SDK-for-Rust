@@ -37,7 +37,7 @@ pub struct PositionInsideNode {
     pub parent: Position,
         /// Gets or sets the offset in the node.
         #[serde(rename = "Offset", skip_serializing_if = "Option::is_none")]
-        pub r#offset: Option<i32>,
+        pub offset: Option<i32>,
 
 }
 
@@ -48,7 +48,7 @@ impl Default for PositionInsideNode {
 
         Self {
             parent,
-            r#offset: None,
+            offset: None,
         }
     }
 }
@@ -73,8 +73,8 @@ impl Model for PositionInsideNode {
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
-        self.parent.collect_file_references(output);
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+        self.parent.collect_file_references(_output);
     }
 
     fn as_any(&self) -> &dyn Any {

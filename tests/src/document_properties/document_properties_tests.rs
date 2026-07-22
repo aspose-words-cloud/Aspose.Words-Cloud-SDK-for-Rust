@@ -36,19 +36,17 @@ use crate::test_context::*;
 #[tokio::test]
 async fn document_properties_get_document_properties() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/DocumentElements/DocumentProperties")?;
-    let localFile = test_string!("Common/test_multi_pages.docx")?;
-    let remoteFileName = test_string!("TestGetDocumentProperties.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentElements/DocumentProperties";
+    let local_file = "Common/test_multi_pages.docx".to_owned();
+    let remote_file_name = "TestGetDocumentProperties.docx".to_owned();
 
-    context.upload_file(test_string!(localFile)?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
     let request = GetDocumentPropertiesRequest::new(
-        (test_string!(remoteFileName)?).into()
-    ).with_folder((test_string!(remoteDataFolder)?).into());
+        (remote_file_name.clone()).into()
+    ).with_folder((remote_data_folder.clone()).into());
 
     let result = context.api().get_document_properties(request).await?;
     let result_json = serialize_result(&result)?;
@@ -56,8 +54,8 @@ async fn document_properties_get_document_properties() -> TestResult<()> {
     assert_not_null(&result_json, "DocumentProperties.List")?;
     assert_length(&result_json, "DocumentProperties.List", 27)?;
     assert_not_null(&result_json, "DocumentProperties.List[0]")?;
-    assert_string(&result_json, "DocumentProperties.List[0].Name", test_string!("Author")?)?;
-    assert_string(&result_json, "DocumentProperties.List[0].Value", test_string!("")?)?;
+    assert_string(&result_json, "DocumentProperties.List[0].Name", "Author".to_owned())?;
+    assert_string(&result_json, "DocumentProperties.List[0].Value", "".to_owned())?;
     Ok(())
 }
 
@@ -65,16 +63,14 @@ async fn document_properties_get_document_properties() -> TestResult<()> {
 #[tokio::test]
 async fn document_properties_get_document_properties_online() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let localFile = test_string!("Common/test_multi_pages.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let local_file = "Common/test_multi_pages.docx".to_owned();
 
-    let requestDocument = context.load_binary_file(test_string!(localFile)?).await?;
+    let request_document = context.load_binary_file(local_file.clone()).await?;
 
     let request = GetDocumentPropertiesOnlineRequest::new(
-        (requestDocument).into()
+        (request_document).into()
     );
 
     context.api().get_document_properties_online(request).await?;
@@ -85,26 +81,24 @@ async fn document_properties_get_document_properties_online() -> TestResult<()> 
 #[tokio::test]
 async fn document_properties_get_document_property() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/DocumentElements/DocumentProperties")?;
-    let localFile = test_string!("Common/test_multi_pages.docx")?;
-    let remoteFileName = test_string!("TestGetDocumentProperty.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentElements/DocumentProperties";
+    let local_file = "Common/test_multi_pages.docx".to_owned();
+    let remote_file_name = "TestGetDocumentProperty.docx".to_owned();
 
-    context.upload_file(test_string!(localFile)?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
     let request = GetDocumentPropertyRequest::new(
-        (test_string!(remoteFileName)?).into(),
-        (test_string!("Author")?).into()
-    ).with_folder((test_string!(remoteDataFolder)?).into());
+        (remote_file_name.clone()).into(),
+        ("Author".to_owned()).into()
+    ).with_folder((remote_data_folder.clone()).into());
 
     let result = context.api().get_document_property(request).await?;
     let result_json = serialize_result(&result)?;
     assert_not_null(&result_json, "DocumentProperty")?;
-    assert_string(&result_json, "DocumentProperty.Name", test_string!("Author")?)?;
-    assert_string(&result_json, "DocumentProperty.Value", test_string!("")?)?;
+    assert_string(&result_json, "DocumentProperty.Name", "Author".to_owned())?;
+    assert_string(&result_json, "DocumentProperty.Value", "".to_owned())?;
     Ok(())
 }
 
@@ -112,17 +106,15 @@ async fn document_properties_get_document_property() -> TestResult<()> {
 #[tokio::test]
 async fn document_properties_get_document_property_online() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let localFile = test_string!("Common/test_multi_pages.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let local_file = "Common/test_multi_pages.docx".to_owned();
 
-    let requestDocument = context.load_binary_file(test_string!(localFile)?).await?;
+    let request_document = context.load_binary_file(local_file.clone()).await?;
 
     let request = GetDocumentPropertyOnlineRequest::new(
-        (requestDocument).into(),
-        (test_string!("Author")?).into()
+        (request_document).into(),
+        ("Author".to_owned()).into()
     );
 
     context.api().get_document_property_online(request).await?;
@@ -133,21 +125,19 @@ async fn document_properties_get_document_property_online() -> TestResult<()> {
 #[tokio::test]
 async fn document_properties_delete_document_property() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/DocumentElements/DocumentProperties")?;
-    let localFile = test_string!("Common/test_multi_pages.docx")?;
-    let remoteFileName = test_string!("TestDeleteDocumentProperty.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentElements/DocumentProperties";
+    let local_file = "Common/test_multi_pages.docx".to_owned();
+    let remote_file_name = "TestDeleteDocumentProperty.docx".to_owned();
 
-    context.upload_file(test_string!(localFile)?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
     let request = DeleteDocumentPropertyRequest::new(
-        (test_string!(remoteFileName)?).into(),
-        (test_string!("testProp")?).into()
-    ).with_folder((test_string!(remoteDataFolder)?).into())
-.with_dest_file_name((test_string!(baseTestOutPath + "/" + remoteFileName)?).into());
+        (remote_file_name.clone()).into(),
+        ("testProp".to_owned()).into()
+    ).with_folder((remote_data_folder.clone()).into())
+.with_dest_file_name((base_test_out_path.clone() + "/" + &remote_file_name).into());
 
     context.api().delete_document_property(request).await?;
     Ok(())
@@ -157,17 +147,15 @@ async fn document_properties_delete_document_property() -> TestResult<()> {
 #[tokio::test]
 async fn document_properties_delete_document_property_online() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let localFile = test_string!("Common/test_multi_pages.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let local_file = "Common/test_multi_pages.docx".to_owned();
 
-    let requestDocument = context.load_binary_file(test_string!(localFile)?).await?;
+    let request_document = context.load_binary_file(local_file.clone()).await?;
 
     let request = DeleteDocumentPropertyOnlineRequest::new(
-        (requestDocument).into(),
-        (test_string!("testProp")?).into()
+        (request_document).into(),
+        ("testProp".to_owned()).into()
     );
 
     context.api().delete_document_property_online(request).await?;
@@ -178,30 +166,28 @@ async fn document_properties_delete_document_property_online() -> TestResult<()>
 #[tokio::test]
 async fn document_properties_update_document_property() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/DocumentElements/DocumentProperties")?;
-    let localFile = test_string!("Common/test_multi_pages.docx")?;
-    let remoteFileName = test_string!("TestUpdateDocumentProperty.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentElements/DocumentProperties";
+    let local_file = "Common/test_multi_pages.docx".to_owned();
+    let remote_file_name = "TestUpdateDocumentProperty.docx".to_owned();
 
-    context.upload_file(test_string!(localFile)?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
-    let mut requestProperty = DocumentPropertyCreateOrUpdate::default();
-    requestProperty.r#value = Some((test_string!("Imran Anwar")?).into());
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
+    let mut request_property = DocumentPropertyCreateOrUpdate::default();
+    request_property.value = Some(("Imran Anwar".to_owned()).into());
 
     let request = CreateOrUpdateDocumentPropertyRequest::new(
-        (test_string!(remoteFileName)?).into(),
-        (test_string!("AsposeAuthor")?).into(),
-        (requestProperty).into()
-    ).with_folder((test_string!(remoteDataFolder)?).into())
-.with_dest_file_name((test_string!(baseTestOutPath + "/" + remoteFileName)?).into());
+        (remote_file_name.clone()).into(),
+        ("AsposeAuthor".to_owned()).into(),
+        (request_property).into()
+    ).with_folder((remote_data_folder.clone()).into())
+.with_dest_file_name((base_test_out_path.clone() + "/" + &remote_file_name).into());
 
     let result = context.api().create_or_update_document_property(request).await?;
     let result_json = serialize_result(&result)?;
     assert_not_null(&result_json, "DocumentProperty")?;
-    assert_string(&result_json, "DocumentProperty.Name", test_string!("AsposeAuthor")?)?;
-    assert_string(&result_json, "DocumentProperty.Value", test_string!("Imran Anwar")?)?;
+    assert_string(&result_json, "DocumentProperty.Name", "AsposeAuthor".to_owned())?;
+    assert_string(&result_json, "DocumentProperty.Value", "Imran Anwar".to_owned())?;
     Ok(())
 }
 
@@ -209,20 +195,18 @@ async fn document_properties_update_document_property() -> TestResult<()> {
 #[tokio::test]
 async fn document_properties_update_document_property_online() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let localFile = test_string!("Common/test_multi_pages.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let local_file = "Common/test_multi_pages.docx".to_owned();
 
-    let requestDocument = context.load_binary_file(test_string!(localFile)?).await?;
-    let mut requestProperty = DocumentPropertyCreateOrUpdate::default();
-    requestProperty.r#value = Some((test_string!("Imran Anwar")?).into());
+    let request_document = context.load_binary_file(local_file.clone()).await?;
+    let mut request_property = DocumentPropertyCreateOrUpdate::default();
+    request_property.value = Some(("Imran Anwar".to_owned()).into());
 
     let request = CreateOrUpdateDocumentPropertyOnlineRequest::new(
-        (requestDocument).into(),
-        (test_string!("AsposeAuthor")?).into(),
-        (requestProperty).into()
+        (request_document).into(),
+        ("AsposeAuthor".to_owned()).into(),
+        (request_property).into()
     );
 
     context.api().create_or_update_document_property_online(request).await?;

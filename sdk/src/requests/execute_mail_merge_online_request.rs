@@ -36,60 +36,60 @@ use super::*;
 /// Request parameters for the ExecuteMailMergeOnline operation.
 pub struct ExecuteMailMergeOnlineRequest {
     /// File with template.
-    pub r#template: Vec<u8>,
+    pub template: Vec<u8>,
     /// File with mailmerge data.
-    pub r#data: Vec<u8>,
+    pub data: Vec<u8>,
     /// Field options.
-    pub r#options: Option<FieldOptions>,
+    pub options: Option<FieldOptions>,
     /// The flag indicating whether to execute Mail Merge operation with regions.
-    pub r#with_regions: Option<bool>,
+    pub with_regions: Option<bool>,
     /// The flag indicating whether fields in whole document are updated while executing of a mail merge with regions.
-    pub r#merge_whole_document: Option<bool>,
+    pub merge_whole_document: Option<bool>,
     /// The cleanup options.
-    pub r#cleanup: Option<String>,
+    pub cleanup: Option<String>,
     /// The filename of the output document, that will be used when the resulting document has a dynamic field {filename}. If it is not set, the "template" will be used instead.
-    pub r#document_file_name: Option<String>,
+    pub document_file_name: Option<String>,
     pub send_progress: Option<ProgressCallback>,
     pub receive_progress: Option<ProgressCallback>,
 }
 
 impl ExecuteMailMergeOnlineRequest {
-    pub fn new(r#template: Vec<u8>, r#data: Vec<u8>) -> Self {
+    pub fn new(template: Vec<u8>, data: Vec<u8>) -> Self {
         Self {
-            r#template,
-            r#data,
-            r#options: None,
-            r#with_regions: None,
-            r#merge_whole_document: None,
-            r#cleanup: None,
-            r#document_file_name: None,
+            template,
+            data,
+            options: None,
+            with_regions: None,
+            merge_whole_document: None,
+            cleanup: None,
+            document_file_name: None,
             send_progress: None,
             receive_progress: None,
         }
     }
 
     pub fn with_options(mut self, value: FieldOptions) -> Self {
-        self.r#options = Some(value);
+        self.options = Some(value);
         self
     }
 
     pub fn with_with_regions(mut self, value: bool) -> Self {
-        self.r#with_regions = Some(value);
+        self.with_regions = Some(value);
         self
     }
 
     pub fn with_merge_whole_document(mut self, value: bool) -> Self {
-        self.r#merge_whole_document = Some(value);
+        self.merge_whole_document = Some(value);
         self
     }
 
     pub fn with_cleanup(mut self, value: String) -> Self {
-        self.r#cleanup = Some(value);
+        self.cleanup = Some(value);
         self
     }
 
     pub fn with_document_file_name(mut self, value: String) -> Self {
-        self.r#document_file_name = Some(value);
+        self.document_file_name = Some(value);
         self
     }
 
@@ -126,21 +126,21 @@ impl Request for ExecuteMailMergeOnlineRequest {
         let mut headers = Vec::new();
         let mut body_parts = Vec::new();
 
-        if let Some(value) = &self.r#with_regions {
+        if let Some(value) = &self.with_regions {
         query.push(("withRegions".to_owned(), client.query_value(value)?));
         }
-        if let Some(value) = &self.r#merge_whole_document {
+        if let Some(value) = &self.merge_whole_document {
         query.push(("mergeWholeDocument".to_owned(), client.query_value(value)?));
         }
-        if let Some(value) = &self.r#cleanup {
+        if let Some(value) = &self.cleanup {
         query.push(("cleanup".to_owned(), client.query_value(value)?));
         }
-        if let Some(value) = &self.r#document_file_name {
+        if let Some(value) = &self.document_file_name {
         query.push(("documentFileName".to_owned(), client.query_value(value)?));
         }
-        client.add_binary_part(&mut body_parts, "Template", &self.r#template);
-        client.add_binary_part(&mut body_parts, "Data", &self.r#data);
-        if let Some(value) = &self.r#options {
+        client.add_binary_part(&mut body_parts, "Template", &self.template);
+        client.add_binary_part(&mut body_parts, "Data", &self.data);
+        if let Some(value) = &self.options {
         client.add_model_part(&mut body_parts, "Options", value).await?;
         }
 

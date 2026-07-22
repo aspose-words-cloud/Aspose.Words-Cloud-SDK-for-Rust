@@ -37,207 +37,207 @@ pub struct Font {
     pub parent: LinkElement,
         /// Gets or sets a value indicating whether the font is formatted as all capital letters.
         #[serde(rename = "AllCaps", skip_serializing_if = "Option::is_none")]
-        pub r#all_caps: Option<bool>,
+        pub all_caps: Option<bool>,
 
 
         /// Gets or sets a value indicating whether the contents of this run shall have right-to-left characteristics.
             /// This property, when on, shall not be used with strongly left-to-right text. Any behavior under that condition is unspecified. This property, when off, shall not be used with strong right-to-left text. Any behavior under that condition is unspecified.When the contents of this run are displayed, all characters shall be treated as complex script characters for formatting purposes. This means that BoldBi, ItalicBi, SizeBi and a corresponding font name will be used when rendering this run.Also, when the contents of this run are displayed, this property acts as a right-to-left override for characters which are classified as "weak types" and "neutral types".
         #[serde(rename = "Bidi", skip_serializing_if = "Option::is_none")]
-        pub r#bidi: Option<bool>,
+        pub bidi: Option<bool>,
 
 
         /// Gets or sets a value indicating whether the font is formatted as bold.
         #[serde(rename = "Bold", skip_serializing_if = "Option::is_none")]
-        pub r#bold: Option<bool>,
+        pub bold: Option<bool>,
 
 
         /// Gets or sets a value indicating whether the right-to-left text is formatted as bold.
         #[serde(rename = "BoldBi", skip_serializing_if = "Option::is_none")]
-        pub r#bold_bi: Option<bool>,
+        pub bold_bi: Option<bool>,
 
 
         /// Gets or sets the border object, that specifies border for the font.
         #[serde(rename = "Border", skip_serializing_if = "Option::is_none")]
-        pub r#border: Option<Border>,
+        pub border: Option<Border>,
 
 
         /// Gets or sets the color of the font.
         #[serde(rename = "Color", skip_serializing_if = "Option::is_none")]
-        pub r#color: Option<XmlColor>,
+        pub color: Option<XmlColor>,
 
 
         /// Gets or sets a value indicating whether the contents of this run shall be treated as complex script text regardless of their Unicode character values when determining the formatting for this run.
         #[serde(rename = "ComplexScript", skip_serializing_if = "Option::is_none")]
-        pub r#complex_script: Option<bool>,
+        pub complex_script: Option<bool>,
 
 
         /// Gets or sets a value indicating whether the font is formatted as double strikethrough text.
         #[serde(rename = "DoubleStrikeThrough", skip_serializing_if = "Option::is_none")]
-        pub r#double_strike_through: Option<bool>,
+        pub double_strike_through: Option<bool>,
 
 
         /// Gets or sets a value indicating whether the font is formatted as embossed.
         #[serde(rename = "Emboss", skip_serializing_if = "Option::is_none")]
-        pub r#emboss: Option<bool>,
+        pub emboss: Option<bool>,
 
 
         /// Gets or sets a value indicating whether the font is formatted as engraved.
         #[serde(rename = "Engrave", skip_serializing_if = "Option::is_none")]
-        pub r#engrave: Option<bool>,
+        pub engrave: Option<bool>,
 
 
         /// Gets or sets a value indicating whether the font is formatted as hidden text.
         #[serde(rename = "Hidden", skip_serializing_if = "Option::is_none")]
-        pub r#hidden: Option<bool>,
+        pub hidden: Option<bool>,
 
 
         /// Gets or sets the highlight (marker) color.
         #[serde(rename = "HighlightColor", skip_serializing_if = "Option::is_none")]
-        pub r#highlight_color: Option<XmlColor>,
+        pub highlight_color: Option<XmlColor>,
 
 
         /// Gets or sets a value indicating whether the font is formatted as italic.
         #[serde(rename = "Italic", skip_serializing_if = "Option::is_none")]
-        pub r#italic: Option<bool>,
+        pub italic: Option<bool>,
 
 
         /// Gets or sets a value indicating whether the right-to-left text is formatted as italic.
         #[serde(rename = "ItalicBi", skip_serializing_if = "Option::is_none")]
-        pub r#italic_bi: Option<bool>,
+        pub italic_bi: Option<bool>,
 
 
         /// Gets or sets the font size at which kerning starts.
         #[serde(rename = "Kerning", skip_serializing_if = "Option::is_none")]
-        pub r#kerning: Option<f64>,
+        pub kerning: Option<f64>,
 
 
         /// Gets or sets the locale identifier (language) of the formatted characters.
             /// For the list of locale identifiers see http://www.microsoft.com/globaldev/reference/lcid-all.mspx.
         #[serde(rename = "LocaleId", skip_serializing_if = "Option::is_none")]
-        pub r#locale_id: Option<i32>,
+        pub locale_id: Option<i32>,
 
 
         /// Gets or sets the locale identifier (language) of the formatted right-to-left characters.
             /// For the list of locale identifiers see http://www.microsoft.com/globaldev/reference/lcid-all.mspx.
         #[serde(rename = "LocaleIdBi", skip_serializing_if = "Option::is_none")]
-        pub r#locale_id_bi: Option<i32>,
+        pub locale_id_bi: Option<i32>,
 
 
         /// Gets or sets the locale identifier (language) of the formatted Asian characters.
             /// For the list of locale identifiers see http://www.microsoft.com/globaldev/reference/lcid-all.mspx.
         #[serde(rename = "LocaleIdFarEast", skip_serializing_if = "Option::is_none")]
-        pub r#locale_id_far_east: Option<i32>,
+        pub locale_id_far_east: Option<i32>,
 
 
         /// Gets or sets the name of the font.
         #[serde(rename = "Name", skip_serializing_if = "Option::is_none")]
-        pub r#name: Option<String>,
+        pub name: Option<String>,
 
 
         /// Gets or sets the font used for Latin text (characters with character codes from 0 (zero) through 127).
         #[serde(rename = "NameAscii", skip_serializing_if = "Option::is_none")]
-        pub r#name_ascii: Option<String>,
+        pub name_ascii: Option<String>,
 
 
         /// Gets or sets the name of the font in a right-to-left language document.
         #[serde(rename = "NameBi", skip_serializing_if = "Option::is_none")]
-        pub r#name_bi: Option<String>,
+        pub name_bi: Option<String>,
 
 
         /// Gets or sets the East Asian font name.
         #[serde(rename = "NameFarEast", skip_serializing_if = "Option::is_none")]
-        pub r#name_far_east: Option<String>,
+        pub name_far_east: Option<String>,
 
 
         /// Gets or sets the font used for characters with character codes from 128 through 255.
         #[serde(rename = "NameOther", skip_serializing_if = "Option::is_none")]
-        pub r#name_other: Option<String>,
+        pub name_other: Option<String>,
 
 
         /// Gets or sets a value indicating whether the formatted characters are not to be spell checked.
         #[serde(rename = "NoProofing", skip_serializing_if = "Option::is_none")]
-        pub r#no_proofing: Option<bool>,
+        pub no_proofing: Option<bool>,
 
 
         /// Gets or sets a value indicating whether the font is formatted as outline.
         #[serde(rename = "Outline", skip_serializing_if = "Option::is_none")]
-        pub r#outline: Option<bool>,
+        pub outline: Option<bool>,
 
 
         /// Gets or sets the position of text (in points) relative to the base line.
             /// A positive number raises the text, and a negative number lowers it.
         #[serde(rename = "Position", skip_serializing_if = "Option::is_none")]
-        pub r#position: Option<f64>,
+        pub position: Option<f64>,
 
 
         /// Gets or sets character width scaling in percent.
         #[serde(rename = "Scaling", skip_serializing_if = "Option::is_none")]
-        pub r#scaling: Option<i32>,
+        pub scaling: Option<i32>,
 
 
         /// Gets or sets a value indicating whether the font is formatted as shadowed.
         #[serde(rename = "Shadow", skip_serializing_if = "Option::is_none")]
-        pub r#shadow: Option<bool>,
+        pub shadow: Option<bool>,
 
 
         /// Gets or sets the font size in points.
         #[serde(rename = "Size", skip_serializing_if = "Option::is_none")]
-        pub r#size: Option<f64>,
+        pub size: Option<f64>,
 
 
         /// Gets or sets the font size in points used in a right-to-left document.
         #[serde(rename = "SizeBi", skip_serializing_if = "Option::is_none")]
-        pub r#size_bi: Option<f64>,
+        pub size_bi: Option<f64>,
 
 
         /// Gets or sets a value indicating whether the font is formatted as small capital letters.
         #[serde(rename = "SmallCaps", skip_serializing_if = "Option::is_none")]
-        pub r#small_caps: Option<bool>,
+        pub small_caps: Option<bool>,
 
 
         /// Gets or sets the spacing (in points) between characters.
         #[serde(rename = "Spacing", skip_serializing_if = "Option::is_none")]
-        pub r#spacing: Option<f64>,
+        pub spacing: Option<f64>,
 
 
         /// Gets or sets a value indicating whether the font is formatted as strikethrough text.
         #[serde(rename = "StrikeThrough", skip_serializing_if = "Option::is_none")]
-        pub r#strike_through: Option<bool>,
+        pub strike_through: Option<bool>,
 
 
         /// Gets or sets the locale independent style identifier of the character style applied to this formatting.
         #[serde(rename = "StyleIdentifier", skip_serializing_if = "Option::is_none")]
-        pub r#style_identifier: Option<Font_StyleIdentifierEnum>,
+        pub style_identifier: Option<FontStyleIdentifierEnum>,
 
 
         /// Gets or sets the name of the character style applied to this formatting.
         #[serde(rename = "StyleName", skip_serializing_if = "Option::is_none")]
-        pub r#style_name: Option<String>,
+        pub style_name: Option<String>,
 
 
         /// Gets or sets a value indicating whether the font is formatted as subscript.
         #[serde(rename = "Subscript", skip_serializing_if = "Option::is_none")]
-        pub r#subscript: Option<bool>,
+        pub subscript: Option<bool>,
 
 
         /// Gets or sets a value indicating whether the font is formatted as superscript.
         #[serde(rename = "Superscript", skip_serializing_if = "Option::is_none")]
-        pub r#superscript: Option<bool>,
+        pub superscript: Option<bool>,
 
 
         /// Gets or sets the font animation effect.
         #[serde(rename = "TextEffect", skip_serializing_if = "Option::is_none")]
-        pub r#text_effect: Option<Font_TextEffectEnum>,
+        pub text_effect: Option<FontTextEffectEnum>,
 
 
         /// Gets or sets the type of underline applied to the font.
         #[serde(rename = "Underline", skip_serializing_if = "Option::is_none")]
-        pub r#underline: Option<Font_UnderlineEnum>,
+        pub underline: Option<FontUnderlineEnum>,
 
 
         /// Gets or sets the color of the underline applied to the font.
         #[serde(rename = "UnderlineColor", skip_serializing_if = "Option::is_none")]
-        pub r#underline_color: Option<XmlColor>,
+        pub underline_color: Option<XmlColor>,
 
 }
 
@@ -246,46 +246,46 @@ impl Default for Font {
         let mut parent = LinkElement::default();
         Self {
             parent,
-            r#all_caps: None,
-            r#bidi: None,
-            r#bold: None,
-            r#bold_bi: None,
-            r#border: None,
-            r#color: None,
-            r#complex_script: None,
-            r#double_strike_through: None,
-            r#emboss: None,
-            r#engrave: None,
-            r#hidden: None,
-            r#highlight_color: None,
-            r#italic: None,
-            r#italic_bi: None,
-            r#kerning: None,
-            r#locale_id: None,
-            r#locale_id_bi: None,
-            r#locale_id_far_east: None,
-            r#name: None,
-            r#name_ascii: None,
-            r#name_bi: None,
-            r#name_far_east: None,
-            r#name_other: None,
-            r#no_proofing: None,
-            r#outline: None,
-            r#position: None,
-            r#scaling: None,
-            r#shadow: None,
-            r#size: None,
-            r#size_bi: None,
-            r#small_caps: None,
-            r#spacing: None,
-            r#strike_through: None,
-            r#style_identifier: None,
-            r#style_name: None,
-            r#subscript: None,
-            r#superscript: None,
-            r#text_effect: None,
-            r#underline: None,
-            r#underline_color: None,
+            all_caps: None,
+            bidi: None,
+            bold: None,
+            bold_bi: None,
+            border: None,
+            color: None,
+            complex_script: None,
+            double_strike_through: None,
+            emboss: None,
+            engrave: None,
+            hidden: None,
+            highlight_color: None,
+            italic: None,
+            italic_bi: None,
+            kerning: None,
+            locale_id: None,
+            locale_id_bi: None,
+            locale_id_far_east: None,
+            name: None,
+            name_ascii: None,
+            name_bi: None,
+            name_far_east: None,
+            name_other: None,
+            no_proofing: None,
+            outline: None,
+            position: None,
+            scaling: None,
+            shadow: None,
+            size: None,
+            size_bi: None,
+            small_caps: None,
+            spacing: None,
+            strike_through: None,
+            style_identifier: None,
+            style_name: None,
+            subscript: None,
+            superscript: None,
+            text_effect: None,
+            underline: None,
+            underline_color: None,
         }
     }
 }
@@ -307,18 +307,10 @@ impl DerefMut for Font {
 impl Model for Font {
     fn validate(&self) -> SdkResult<()> {
         self.parent.validate()?;
-        if let Some(value) = &self.r#border {
+        if let Some(value) = &self.border {
         value.validate()?;
         }
-        if let Some(value) = &self.r#color {
-        value.validate()?;
-        }
-
-
-
-
-
-        if let Some(value) = &self.r#highlight_color {
+        if let Some(value) = &self.color {
         value.validate()?;
         }
 
@@ -326,6 +318,9 @@ impl Model for Font {
 
 
 
+        if let Some(value) = &self.highlight_color {
+        value.validate()?;
+        }
 
 
 
@@ -348,14 +343,19 @@ impl Model for Font {
 
 
 
-        if let Some(value) = &self.r#underline_color {
+
+
+
+
+
+        if let Some(value) = &self.underline_color {
         value.validate()?;
         }
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
-        self.parent.collect_file_references(output);
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+        self.parent.collect_file_references(_output);
     }
 
     fn as_any(&self) -> &dyn Any {
@@ -364,9 +364,8 @@ impl Model for Font {
 }
 
 /// Gets or sets the locale independent style identifier of the character style applied to this formatting.
-#[allow(non_camel_case_types)]
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
-pub enum Font_StyleIdentifierEnum {
+pub enum FontStyleIdentifierEnum {
     #[serde(rename = "Normal")]
         Normal,
     #[serde(rename = "Heading1")]
@@ -1126,9 +1125,8 @@ pub enum Font_StyleIdentifierEnum {
 }
 
 /// Gets or sets the font animation effect.
-#[allow(non_camel_case_types)]
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
-pub enum Font_TextEffectEnum {
+pub enum FontTextEffectEnum {
     #[serde(rename = "None")]
         None,
     #[serde(rename = "LasVegasLights")]
@@ -1146,9 +1144,8 @@ pub enum Font_TextEffectEnum {
 }
 
 /// Gets or sets the type of underline applied to the font.
-#[allow(non_camel_case_types)]
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
-pub enum Font_UnderlineEnum {
+pub enum FontUnderlineEnum {
     #[serde(rename = "None")]
         None,
     #[serde(rename = "Single")]

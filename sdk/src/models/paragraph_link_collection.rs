@@ -37,7 +37,7 @@ pub struct ParagraphLinkCollection {
     pub parent: LinkElement,
         /// Gets or sets the collection of paragraph's links.
         #[serde(rename = "ParagraphLinkList", skip_serializing_if = "Option::is_none")]
-        pub r#paragraph_link_list: Option<Vec<ParagraphLink>>,
+        pub paragraph_link_list: Option<Vec<ParagraphLink>>,
 
 }
 
@@ -46,7 +46,7 @@ impl Default for ParagraphLinkCollection {
         let mut parent = LinkElement::default();
         Self {
             parent,
-            r#paragraph_link_list: None,
+            paragraph_link_list: None,
         }
     }
 }
@@ -68,7 +68,7 @@ impl DerefMut for ParagraphLinkCollection {
 impl Model for ParagraphLinkCollection {
     fn validate(&self) -> SdkResult<()> {
         self.parent.validate()?;
-        if let Some(values) = &self.r#paragraph_link_list {
+        if let Some(values) = &self.paragraph_link_list {
         for value in values {
         value.validate()?;
         }
@@ -76,8 +76,8 @@ impl Model for ParagraphLinkCollection {
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
-        self.parent.collect_file_references(output);
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+        self.parent.collect_file_references(_output);
     }
 
     fn as_any(&self) -> &dyn Any {

@@ -38,7 +38,7 @@ pub struct FormFieldsResponse {
     pub parent: WordsResponse,
         /// Gets or sets the collection of form fields.
         #[serde(rename = "FormFields", skip_serializing_if = "Option::is_none")]
-        pub r#form_fields: Option<FormFieldCollection>,
+        pub form_fields: Option<FormFieldCollection>,
 
 }
 
@@ -47,7 +47,7 @@ impl Default for FormFieldsResponse {
         let mut parent = WordsResponse::default();
         Self {
             parent,
-            r#form_fields: None,
+            form_fields: None,
         }
     }
 }
@@ -69,14 +69,14 @@ impl DerefMut for FormFieldsResponse {
 impl Model for FormFieldsResponse {
     fn validate(&self) -> SdkResult<()> {
         self.parent.validate()?;
-        if let Some(value) = &self.r#form_fields {
+        if let Some(value) = &self.form_fields {
         value.validate()?;
         }
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
-        self.parent.collect_file_references(output);
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+        self.parent.collect_file_references(_output);
     }
 
     fn as_any(&self) -> &dyn Any {

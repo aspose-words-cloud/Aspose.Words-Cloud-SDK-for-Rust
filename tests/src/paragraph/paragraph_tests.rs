@@ -36,26 +36,24 @@ use crate::test_context::*;
 #[tokio::test]
 async fn paragraph_get_document_paragraph_by_index() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/DocumentElements/Paragraphs")?;
-    let localFile = test_string!("Common/test_multi_pages.docx")?;
-    let remoteFileName = test_string!("TestGetDocumentParagraphByIndex.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentElements/Paragraphs";
+    let local_file = "Common/test_multi_pages.docx".to_owned();
+    let remote_file_name = "TestGetDocumentParagraphByIndex.docx".to_owned();
 
-    context.upload_file(test_string!(localFile)?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
     let request = GetParagraphRequest::new(
-        (test_string!(remoteFileName)?).into(),
+        (remote_file_name.clone()).into(),
         (0).into()
-    ).with_node_path((test_string!("sections/0")?).into())
-.with_folder((test_string!(remoteDataFolder)?).into());
+    ).with_node_path(("sections/0".to_owned()).into())
+.with_folder((remote_data_folder.clone()).into());
 
     let result = context.api().get_paragraph(request).await?;
     let result_json = serialize_result(&result)?;
     assert_not_null(&result_json, "Paragraph")?;
-    assert_string(&result_json, "Paragraph.NodeId", test_string!("0.0.0")?)?;
+    assert_string(&result_json, "Paragraph.NodeId", "0.0.0".to_owned())?;
     Ok(())
 }
 
@@ -63,18 +61,16 @@ async fn paragraph_get_document_paragraph_by_index() -> TestResult<()> {
 #[tokio::test]
 async fn paragraph_get_document_paragraph_online() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let localFile = test_string!("Common/test_multi_pages.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let local_file = "Common/test_multi_pages.docx".to_owned();
 
-    let requestDocument = context.load_binary_file(test_string!(localFile)?).await?;
+    let request_document = context.load_binary_file(local_file.clone()).await?;
 
     let request = GetParagraphOnlineRequest::new(
-        (requestDocument).into(),
+        (request_document).into(),
         (0).into()
-    ).with_node_path((test_string!("sections/0")?).into());
+    ).with_node_path(("sections/0".to_owned()).into());
 
     context.api().get_paragraph_online(request).await?;
     Ok(())
@@ -84,25 +80,23 @@ async fn paragraph_get_document_paragraph_online() -> TestResult<()> {
 #[tokio::test]
 async fn paragraph_get_document_paragraph_by_index_without_node_path() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/DocumentElements/Paragraphs")?;
-    let localFile = test_string!("Common/test_multi_pages.docx")?;
-    let remoteFileName = test_string!("TestGetDocumentParagraphByIndexWithoutNodePath.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentElements/Paragraphs";
+    let local_file = "Common/test_multi_pages.docx".to_owned();
+    let remote_file_name = "TestGetDocumentParagraphByIndexWithoutNodePath.docx".to_owned();
 
-    context.upload_file(test_string!(localFile)?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
     let request = GetParagraphRequest::new(
-        (test_string!(remoteFileName)?).into(),
+        (remote_file_name.clone()).into(),
         (0).into()
-    ).with_folder((test_string!(remoteDataFolder)?).into());
+    ).with_folder((remote_data_folder.clone()).into());
 
     let result = context.api().get_paragraph(request).await?;
     let result_json = serialize_result(&result)?;
     assert_not_null(&result_json, "Paragraph")?;
-    assert_string(&result_json, "Paragraph.NodeId", test_string!("0.0.0")?)?;
+    assert_string(&result_json, "Paragraph.NodeId", "0.0.0".to_owned())?;
     Ok(())
 }
 
@@ -110,27 +104,25 @@ async fn paragraph_get_document_paragraph_by_index_without_node_path() -> TestRe
 #[tokio::test]
 async fn paragraph_get_document_paragraphs() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/DocumentElements/Paragraphs")?;
-    let localFile = test_string!("Common/test_multi_pages.docx")?;
-    let remoteFileName = test_string!("TestGetDocumentParagraphs.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentElements/Paragraphs";
+    let local_file = "Common/test_multi_pages.docx".to_owned();
+    let remote_file_name = "TestGetDocumentParagraphs.docx".to_owned();
 
-    context.upload_file(test_string!(localFile)?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
     let request = GetParagraphsRequest::new(
-        (test_string!(remoteFileName)?).into()
-    ).with_node_path((test_string!("sections/0")?).into())
-.with_folder((test_string!(remoteDataFolder)?).into());
+        (remote_file_name.clone()).into()
+    ).with_node_path(("sections/0".to_owned()).into())
+.with_folder((remote_data_folder.clone()).into());
 
     let result = context.api().get_paragraphs(request).await?;
     let result_json = serialize_result(&result)?;
     assert_not_null(&result_json, "Paragraphs")?;
     assert_not_null(&result_json, "Paragraphs.ParagraphLinkList")?;
     assert_length(&result_json, "Paragraphs.ParagraphLinkList", 15)?;
-    assert_string(&result_json, "Paragraphs.ParagraphLinkList[0].Text", test_string!("Page 1 of 3")?)?;
+    assert_string(&result_json, "Paragraphs.ParagraphLinkList[0].Text", "Page 1 of 3".to_owned())?;
     Ok(())
 }
 
@@ -138,17 +130,15 @@ async fn paragraph_get_document_paragraphs() -> TestResult<()> {
 #[tokio::test]
 async fn paragraph_get_document_paragraphs_online() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let localFile = test_string!("Common/test_multi_pages.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let local_file = "Common/test_multi_pages.docx".to_owned();
 
-    let requestDocument = context.load_binary_file(test_string!(localFile)?).await?;
+    let request_document = context.load_binary_file(local_file.clone()).await?;
 
     let request = GetParagraphsOnlineRequest::new(
-        (requestDocument).into()
-    ).with_node_path((test_string!("sections/0")?).into());
+        (request_document).into()
+    ).with_node_path(("sections/0".to_owned()).into());
 
     context.api().get_paragraphs_online(request).await?;
     Ok(())
@@ -158,26 +148,24 @@ async fn paragraph_get_document_paragraphs_online() -> TestResult<()> {
 #[tokio::test]
 async fn paragraph_get_document_paragraphs_without_node_path() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/DocumentElements/Paragraphs")?;
-    let localFile = test_string!("Common/test_multi_pages.docx")?;
-    let remoteFileName = test_string!("TestGetDocumentParagraphsWithoutNodePath.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentElements/Paragraphs";
+    let local_file = "Common/test_multi_pages.docx".to_owned();
+    let remote_file_name = "TestGetDocumentParagraphsWithoutNodePath.docx".to_owned();
 
-    context.upload_file(test_string!(localFile)?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
     let request = GetParagraphsRequest::new(
-        (test_string!(remoteFileName)?).into()
-    ).with_folder((test_string!(remoteDataFolder)?).into());
+        (remote_file_name.clone()).into()
+    ).with_folder((remote_data_folder.clone()).into());
 
     let result = context.api().get_paragraphs(request).await?;
     let result_json = serialize_result(&result)?;
     assert_not_null(&result_json, "Paragraphs")?;
     assert_not_null(&result_json, "Paragraphs.ParagraphLinkList")?;
     assert_length(&result_json, "Paragraphs.ParagraphLinkList", 15)?;
-    assert_string(&result_json, "Paragraphs.ParagraphLinkList[0].Text", test_string!("Page 1 of 3")?)?;
+    assert_string(&result_json, "Paragraphs.ParagraphLinkList[0].Text", "Page 1 of 3".to_owned())?;
     Ok(())
 }
 
@@ -185,26 +173,24 @@ async fn paragraph_get_document_paragraphs_without_node_path() -> TestResult<()>
 #[tokio::test]
 async fn paragraph_get_document_paragraph_run() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/DocumentElements/Paragraphs")?;
-    let localFile = test_string!("Common/test_multi_pages.docx")?;
-    let remoteFileName = test_string!("TestGetDocumentParagraphRun.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentElements/Paragraphs";
+    let local_file = "Common/test_multi_pages.docx".to_owned();
+    let remote_file_name = "TestGetDocumentParagraphRun.docx".to_owned();
 
-    context.upload_file(test_string!(localFile)?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
     let request = GetRunRequest::new(
-        (test_string!(remoteFileName)?).into(),
-        (test_string!("paragraphs/0")?).into(),
+        (remote_file_name.clone()).into(),
+        ("paragraphs/0".to_owned()).into(),
         (0).into()
-    ).with_folder((test_string!(remoteDataFolder)?).into());
+    ).with_folder((remote_data_folder.clone()).into());
 
     let result = context.api().get_run(request).await?;
     let result_json = serialize_result(&result)?;
     assert_not_null(&result_json, "Run")?;
-    assert_string(&result_json, "Run.Text", test_string!("Page ")?)?;
+    assert_string(&result_json, "Run.Text", "Page ".to_owned())?;
     Ok(())
 }
 
@@ -212,17 +198,15 @@ async fn paragraph_get_document_paragraph_run() -> TestResult<()> {
 #[tokio::test]
 async fn paragraph_get_document_paragraph_run_online() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let localFile = test_string!("Common/test_multi_pages.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let local_file = "Common/test_multi_pages.docx".to_owned();
 
-    let requestDocument = context.load_binary_file(test_string!(localFile)?).await?;
+    let request_document = context.load_binary_file(local_file.clone()).await?;
 
     let request = GetRunOnlineRequest::new(
-        (requestDocument).into(),
-        (test_string!("paragraphs/0")?).into(),
+        (request_document).into(),
+        ("paragraphs/0".to_owned()).into(),
         (0).into()
     );
 
@@ -234,26 +218,24 @@ async fn paragraph_get_document_paragraph_run_online() -> TestResult<()> {
 #[tokio::test]
 async fn paragraph_get_document_paragraph_run_font() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/DocumentElements/Paragraphs")?;
-    let localFile = test_string!("Common/test_multi_pages.docx")?;
-    let remoteFileName = test_string!("TestGetDocumentParagraphRunFont.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentElements/Paragraphs";
+    let local_file = "Common/test_multi_pages.docx".to_owned();
+    let remote_file_name = "TestGetDocumentParagraphRunFont.docx".to_owned();
 
-    context.upload_file(test_string!(localFile)?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
     let request = GetRunFontRequest::new(
-        (test_string!(remoteFileName)?).into(),
-        (test_string!("paragraphs/0")?).into(),
+        (remote_file_name.clone()).into(),
+        ("paragraphs/0".to_owned()).into(),
         (0).into()
-    ).with_folder((test_string!(remoteDataFolder)?).into());
+    ).with_folder((remote_data_folder.clone()).into());
 
     let result = context.api().get_run_font(request).await?;
     let result_json = serialize_result(&result)?;
     assert_not_null(&result_json, "Font")?;
-    assert_string(&result_json, "Font.Name", test_string!("Times New Roman")?)?;
+    assert_string(&result_json, "Font.Name", "Times New Roman".to_owned())?;
     Ok(())
 }
 
@@ -261,17 +243,15 @@ async fn paragraph_get_document_paragraph_run_font() -> TestResult<()> {
 #[tokio::test]
 async fn paragraph_get_document_paragraph_run_font_online() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let localFile = test_string!("Common/test_multi_pages.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let local_file = "Common/test_multi_pages.docx".to_owned();
 
-    let requestDocument = context.load_binary_file(test_string!(localFile)?).await?;
+    let request_document = context.load_binary_file(local_file.clone()).await?;
 
     let request = GetRunFontOnlineRequest::new(
-        (requestDocument).into(),
-        (test_string!("paragraphs/0")?).into(),
+        (request_document).into(),
+        ("paragraphs/0".to_owned()).into(),
         (0).into()
     );
 
@@ -283,27 +263,25 @@ async fn paragraph_get_document_paragraph_run_font_online() -> TestResult<()> {
 #[tokio::test]
 async fn paragraph_get_paragraph_runs() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/DocumentElements/Paragraphs")?;
-    let localFile = test_string!("Common/test_multi_pages.docx")?;
-    let remoteFileName = test_string!("TestGetParagraphRuns.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentElements/Paragraphs";
+    let local_file = "Common/test_multi_pages.docx".to_owned();
+    let remote_file_name = "TestGetParagraphRuns.docx".to_owned();
 
-    context.upload_file(test_string!(localFile)?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
     let request = GetRunsRequest::new(
-        (test_string!(remoteFileName)?).into(),
-        (test_string!("sections/0/paragraphs/0")?).into()
-    ).with_folder((test_string!(remoteDataFolder)?).into());
+        (remote_file_name.clone()).into(),
+        ("sections/0/paragraphs/0".to_owned()).into()
+    ).with_folder((remote_data_folder.clone()).into());
 
     let result = context.api().get_runs(request).await?;
     let result_json = serialize_result(&result)?;
     assert_not_null(&result_json, "Runs")?;
     assert_not_null(&result_json, "Runs.List")?;
     assert_length(&result_json, "Runs.List", 6)?;
-    assert_string(&result_json, "Runs.List[0].Text", test_string!("Page ")?)?;
+    assert_string(&result_json, "Runs.List[0].Text", "Page ".to_owned())?;
     Ok(())
 }
 
@@ -311,17 +289,15 @@ async fn paragraph_get_paragraph_runs() -> TestResult<()> {
 #[tokio::test]
 async fn paragraph_get_paragraph_runs_online() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let localFile = test_string!("Common/test_multi_pages.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let local_file = "Common/test_multi_pages.docx".to_owned();
 
-    let requestDocument = context.load_binary_file(test_string!(localFile)?).await?;
+    let request_document = context.load_binary_file(local_file.clone()).await?;
 
     let request = GetRunsOnlineRequest::new(
-        (requestDocument).into(),
-        (test_string!("sections/0/paragraphs/0")?).into()
+        (request_document).into(),
+        ("sections/0/paragraphs/0".to_owned()).into()
     );
 
     context.api().get_runs_online(request).await?;
@@ -332,25 +308,23 @@ async fn paragraph_get_paragraph_runs_online() -> TestResult<()> {
 #[tokio::test]
 async fn paragraph_update_run_font() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/DocumentElements/Paragraphs")?;
-    let localFile = test_string!("Common/test_multi_pages.docx")?;
-    let remoteFileName = test_string!("TestUpdateRunFont.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentElements/Paragraphs";
+    let local_file = "Common/test_multi_pages.docx".to_owned();
+    let remote_file_name = "TestUpdateRunFont.docx".to_owned();
 
-    context.upload_file(test_string!(localFile)?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
-    let mut requestFontDto = Font::default();
-    requestFontDto.r#bold = Some((true).into());
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
+    let mut request_font_dto = Font::default();
+    request_font_dto.bold = Some((true).into());
 
     let request = UpdateRunFontRequest::new(
-        (test_string!(remoteFileName)?).into(),
-        (test_string!("paragraphs/0")?).into(),
+        (remote_file_name.clone()).into(),
+        ("paragraphs/0".to_owned()).into(),
         (0).into(),
-        (requestFontDto).into()
-    ).with_folder((test_string!(remoteDataFolder)?).into())
-.with_dest_file_name((test_string!(baseTestOutPath + "/" + remoteFileName)?).into());
+        (request_font_dto).into()
+    ).with_folder((remote_data_folder.clone()).into())
+.with_dest_file_name((base_test_out_path.clone() + "/" + &remote_file_name).into());
 
     let result = context.api().update_run_font(request).await?;
     let result_json = serialize_result(&result)?;
@@ -363,20 +337,18 @@ async fn paragraph_update_run_font() -> TestResult<()> {
 #[tokio::test]
 async fn paragraph_update_run_font_online() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let localFile = test_string!("Common/test_multi_pages.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let local_file = "Common/test_multi_pages.docx".to_owned();
 
-    let requestDocument = context.load_binary_file(test_string!(localFile)?).await?;
-    let mut requestFontDto = Font::default();
-    requestFontDto.r#bold = Some((true).into());
+    let request_document = context.load_binary_file(local_file.clone()).await?;
+    let mut request_font_dto = Font::default();
+    request_font_dto.bold = Some((true).into());
 
     let request = UpdateRunFontOnlineRequest::new(
-        (requestDocument).into(),
-        (test_string!("paragraphs/0")?).into(),
-        (requestFontDto).into(),
+        (request_document).into(),
+        ("paragraphs/0".to_owned()).into(),
+        (request_font_dto).into(),
         (0).into()
     );
 
@@ -388,28 +360,26 @@ async fn paragraph_update_run_font_online() -> TestResult<()> {
 #[tokio::test]
 async fn paragraph_insert_paragraph() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/DocumentElements/Paragraphs")?;
-    let localFile = test_string!("Common/test_multi_pages.docx")?;
-    let remoteFileName = test_string!("TestInsertParagraph.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentElements/Paragraphs";
+    let local_file = "Common/test_multi_pages.docx".to_owned();
+    let remote_file_name = "TestInsertParagraph.docx".to_owned();
 
-    context.upload_file(test_string!(localFile)?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
-    let mut requestParagraph = ParagraphInsert::default();
-    requestParagraph.r#text = Some((test_string!("This is a new paragraph for your document")?).into());
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
+    let mut request_paragraph = ParagraphInsert::default();
+    request_paragraph.text = Some(("This is a new paragraph for your document".to_owned()).into());
 
     let request = InsertParagraphRequest::new(
-        (test_string!(remoteFileName)?).into(),
-        (requestParagraph).into()
-    ).with_node_path((test_string!("sections/0")?).into())
-.with_folder((test_string!(remoteDataFolder)?).into());
+        (remote_file_name.clone()).into(),
+        (request_paragraph).into()
+    ).with_node_path(("sections/0".to_owned()).into())
+.with_folder((remote_data_folder.clone()).into());
 
     let result = context.api().insert_paragraph(request).await?;
     let result_json = serialize_result(&result)?;
     assert_not_null(&result_json, "Paragraph")?;
-    assert_string(&result_json, "Paragraph.NodeId", test_string!("0.3.8")?)?;
+    assert_string(&result_json, "Paragraph.NodeId", "0.3.8".to_owned())?;
     Ok(())
 }
 
@@ -417,20 +387,18 @@ async fn paragraph_insert_paragraph() -> TestResult<()> {
 #[tokio::test]
 async fn paragraph_insert_paragraph_online() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let localFile = test_string!("Common/test_multi_pages.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let local_file = "Common/test_multi_pages.docx".to_owned();
 
-    let requestDocument = context.load_binary_file(test_string!(localFile)?).await?;
-    let mut requestParagraph = ParagraphInsert::default();
-    requestParagraph.r#text = Some((test_string!("This is a new paragraph for your document")?).into());
+    let request_document = context.load_binary_file(local_file.clone()).await?;
+    let mut request_paragraph = ParagraphInsert::default();
+    request_paragraph.text = Some(("This is a new paragraph for your document".to_owned()).into());
 
     let request = InsertParagraphOnlineRequest::new(
-        (requestDocument).into(),
-        (requestParagraph).into()
-    ).with_node_path((test_string!("sections/0")?).into());
+        (request_document).into(),
+        (request_paragraph).into()
+    ).with_node_path(("sections/0".to_owned()).into());
 
     context.api().insert_paragraph_online(request).await?;
     Ok(())
@@ -440,27 +408,25 @@ async fn paragraph_insert_paragraph_online() -> TestResult<()> {
 #[tokio::test]
 async fn paragraph_insert_paragraph_without_node_path() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/DocumentElements/Paragraphs")?;
-    let localFile = test_string!("Common/test_multi_pages.docx")?;
-    let remoteFileName = test_string!("TestInsertParagraphWithoutNodePath.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentElements/Paragraphs";
+    let local_file = "Common/test_multi_pages.docx".to_owned();
+    let remote_file_name = "TestInsertParagraphWithoutNodePath.docx".to_owned();
 
-    context.upload_file(test_string!(localFile)?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
-    let mut requestParagraph = ParagraphInsert::default();
-    requestParagraph.r#text = Some((test_string!("This is a new paragraph for your document")?).into());
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
+    let mut request_paragraph = ParagraphInsert::default();
+    request_paragraph.text = Some(("This is a new paragraph for your document".to_owned()).into());
 
     let request = InsertParagraphRequest::new(
-        (test_string!(remoteFileName)?).into(),
-        (requestParagraph).into()
-    ).with_folder((test_string!(remoteDataFolder)?).into());
+        (remote_file_name.clone()).into(),
+        (request_paragraph).into()
+    ).with_folder((remote_data_folder.clone()).into());
 
     let result = context.api().insert_paragraph(request).await?;
     let result_json = serialize_result(&result)?;
     assert_not_null(&result_json, "Paragraph")?;
-    assert_string(&result_json, "Paragraph.NodeId", test_string!("0.3.8")?)?;
+    assert_string(&result_json, "Paragraph.NodeId", "0.3.8".to_owned())?;
     Ok(())
 }
 
@@ -468,22 +434,20 @@ async fn paragraph_insert_paragraph_without_node_path() -> TestResult<()> {
 #[tokio::test]
 async fn paragraph_render_paragraph() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/DocumentElements/Paragraphs")?;
-    let localFile = test_string!("Common/test_multi_pages.docx")?;
-    let remoteFileName = test_string!("TestRenderParagraph.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentElements/Paragraphs";
+    let local_file = "Common/test_multi_pages.docx".to_owned();
+    let remote_file_name = "TestRenderParagraph.docx".to_owned();
 
-    context.upload_file(test_string!(localFile)?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
     let request = RenderParagraphRequest::new(
-        (test_string!(remoteFileName)?).into(),
-        (test_string!("png")?).into(),
+        (remote_file_name.clone()).into(),
+        ("png".to_owned()).into(),
         (0).into()
-    ).with_node_path((test_string!("")?).into())
-.with_folder((test_string!(remoteDataFolder)?).into());
+    ).with_node_path(("".to_owned()).into())
+.with_folder((remote_data_folder.clone()).into());
 
     context.api().render_paragraph(request).await?;
     Ok(())
@@ -493,19 +457,17 @@ async fn paragraph_render_paragraph() -> TestResult<()> {
 #[tokio::test]
 async fn paragraph_render_paragraph_online() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let localFile = test_string!("Common/test_multi_pages.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let local_file = "Common/test_multi_pages.docx".to_owned();
 
-    let requestDocument = context.load_binary_file(test_string!(localFile)?).await?;
+    let request_document = context.load_binary_file(local_file.clone()).await?;
 
     let request = RenderParagraphOnlineRequest::new(
-        (requestDocument).into(),
-        (test_string!("png")?).into(),
+        (request_document).into(),
+        ("png".to_owned()).into(),
         (0).into()
-    ).with_node_path((test_string!("")?).into());
+    ).with_node_path(("".to_owned()).into());
 
     context.api().render_paragraph_online(request).await?;
     Ok(())
@@ -515,21 +477,19 @@ async fn paragraph_render_paragraph_online() -> TestResult<()> {
 #[tokio::test]
 async fn paragraph_render_paragraph_without_node_path() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/DocumentElements/Paragraphs")?;
-    let localFile = test_string!("Common/test_multi_pages.docx")?;
-    let remoteFileName = test_string!("TestRenderParagraphWithoutNodePath.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentElements/Paragraphs";
+    let local_file = "Common/test_multi_pages.docx".to_owned();
+    let remote_file_name = "TestRenderParagraphWithoutNodePath.docx".to_owned();
 
-    context.upload_file(test_string!(localFile)?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
     let request = RenderParagraphRequest::new(
-        (test_string!(remoteFileName)?).into(),
-        (test_string!("png")?).into(),
+        (remote_file_name.clone()).into(),
+        ("png".to_owned()).into(),
         (0).into()
-    ).with_folder((test_string!(remoteDataFolder)?).into());
+    ).with_folder((remote_data_folder.clone()).into());
 
     context.api().render_paragraph(request).await?;
     Ok(())
@@ -539,26 +499,24 @@ async fn paragraph_render_paragraph_without_node_path() -> TestResult<()> {
 #[tokio::test]
 async fn paragraph_get_paragraph_format() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/DocumentElements/Paragraphs")?;
-    let localFile = test_string!("Common/test_multi_pages.docx")?;
-    let remoteFileName = test_string!("TestGetDocumentParagraphs.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentElements/Paragraphs";
+    let local_file = "Common/test_multi_pages.docx".to_owned();
+    let remote_file_name = "TestGetDocumentParagraphs.docx".to_owned();
 
-    context.upload_file(test_string!(localFile)?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
     let request = GetParagraphFormatRequest::new(
-        (test_string!(remoteFileName)?).into(),
+        (remote_file_name.clone()).into(),
         (0).into()
-    ).with_node_path((test_string!("")?).into())
-.with_folder((test_string!(remoteDataFolder)?).into());
+    ).with_node_path(("".to_owned()).into())
+.with_folder((remote_data_folder.clone()).into());
 
     let result = context.api().get_paragraph_format(request).await?;
     let result_json = serialize_result(&result)?;
     assert_not_null(&result_json, "ParagraphFormat")?;
-    assert_string(&result_json, "ParagraphFormat.StyleName", test_string!("Normal")?)?;
+    assert_string(&result_json, "ParagraphFormat.StyleName", "Normal".to_owned())?;
     Ok(())
 }
 
@@ -566,18 +524,16 @@ async fn paragraph_get_paragraph_format() -> TestResult<()> {
 #[tokio::test]
 async fn paragraph_get_paragraph_format_online() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let localFile = test_string!("Common/test_multi_pages.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let local_file = "Common/test_multi_pages.docx".to_owned();
 
-    let requestDocument = context.load_binary_file(test_string!(localFile)?).await?;
+    let request_document = context.load_binary_file(local_file.clone()).await?;
 
     let request = GetParagraphFormatOnlineRequest::new(
-        (requestDocument).into(),
+        (request_document).into(),
         (0).into()
-    ).with_node_path((test_string!("")?).into());
+    ).with_node_path(("".to_owned()).into());
 
     context.api().get_paragraph_format_online(request).await?;
     Ok(())
@@ -587,25 +543,23 @@ async fn paragraph_get_paragraph_format_online() -> TestResult<()> {
 #[tokio::test]
 async fn paragraph_get_paragraph_format_without_node_path() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/DocumentElements/Paragraphs")?;
-    let localFile = test_string!("Common/test_multi_pages.docx")?;
-    let remoteFileName = test_string!("TestGetDocumentParagraphsWithoutNodePath.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentElements/Paragraphs";
+    let local_file = "Common/test_multi_pages.docx".to_owned();
+    let remote_file_name = "TestGetDocumentParagraphsWithoutNodePath.docx".to_owned();
 
-    context.upload_file(test_string!(localFile)?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
     let request = GetParagraphFormatRequest::new(
-        (test_string!(remoteFileName)?).into(),
+        (remote_file_name.clone()).into(),
         (0).into()
-    ).with_folder((test_string!(remoteDataFolder)?).into());
+    ).with_folder((remote_data_folder.clone()).into());
 
     let result = context.api().get_paragraph_format(request).await?;
     let result_json = serialize_result(&result)?;
     assert_not_null(&result_json, "ParagraphFormat")?;
-    assert_string(&result_json, "ParagraphFormat.StyleName", test_string!("Normal")?)?;
+    assert_string(&result_json, "ParagraphFormat.StyleName", "Normal".to_owned())?;
     Ok(())
 }
 
@@ -613,24 +567,22 @@ async fn paragraph_get_paragraph_format_without_node_path() -> TestResult<()> {
 #[tokio::test]
 async fn paragraph_update_paragraph_format() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/DocumentElements/Paragraphs")?;
-    let localFile = test_string!("Common/test_multi_pages.docx")?;
-    let remoteFileName = test_string!("TestGetDocumentParagraphs.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentElements/Paragraphs";
+    let local_file = "Common/test_multi_pages.docx".to_owned();
+    let remote_file_name = "TestGetDocumentParagraphs.docx".to_owned();
 
-    context.upload_file(test_string!(localFile)?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
-    let mut requestParagraphFormatDto = ParagraphFormatUpdate::default();
-    requestParagraphFormatDto.r#alignment = Some((ParagraphFormatBase_AlignmentEnum::Right).into());
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
+    let mut request_paragraph_format_dto = ParagraphFormatUpdate::default();
+    request_paragraph_format_dto.alignment = Some((ParagraphFormatBaseAlignmentEnum::Right).into());
 
     let request = UpdateParagraphFormatRequest::new(
-        (test_string!(remoteFileName)?).into(),
+        (remote_file_name.clone()).into(),
         (0).into(),
-        (requestParagraphFormatDto).into()
-    ).with_node_path((test_string!("")?).into())
-.with_folder((test_string!(remoteDataFolder)?).into());
+        (request_paragraph_format_dto).into()
+    ).with_node_path(("".to_owned()).into())
+.with_folder((remote_data_folder.clone()).into());
 
     let result = context.api().update_paragraph_format(request).await?;
     let result_json = serialize_result(&result)?;
@@ -643,21 +595,19 @@ async fn paragraph_update_paragraph_format() -> TestResult<()> {
 #[tokio::test]
 async fn paragraph_update_paragraph_format_online() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let localFile = test_string!("Common/test_multi_pages.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let local_file = "Common/test_multi_pages.docx".to_owned();
 
-    let requestDocument = context.load_binary_file(test_string!(localFile)?).await?;
-    let mut requestParagraphFormatDto = ParagraphFormatUpdate::default();
-    requestParagraphFormatDto.r#alignment = Some((ParagraphFormatBase_AlignmentEnum::Right).into());
+    let request_document = context.load_binary_file(local_file.clone()).await?;
+    let mut request_paragraph_format_dto = ParagraphFormatUpdate::default();
+    request_paragraph_format_dto.alignment = Some((ParagraphFormatBaseAlignmentEnum::Right).into());
 
     let request = UpdateParagraphFormatOnlineRequest::new(
-        (requestDocument).into(),
-        (requestParagraphFormatDto).into(),
+        (request_document).into(),
+        (request_paragraph_format_dto).into(),
         (0).into()
-    ).with_node_path((test_string!("")?).into());
+    ).with_node_path(("".to_owned()).into());
 
     context.api().update_paragraph_format_online(request).await?;
     Ok(())
@@ -667,21 +617,19 @@ async fn paragraph_update_paragraph_format_online() -> TestResult<()> {
 #[tokio::test]
 async fn paragraph_delete_paragraph() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/DocumentElements/Paragraphs")?;
-    let localFile = test_string!("Common/test_multi_pages.docx")?;
-    let remoteFileName = test_string!("TestDeleteParagraph.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentElements/Paragraphs";
+    let local_file = "Common/test_multi_pages.docx".to_owned();
+    let remote_file_name = "TestDeleteParagraph.docx".to_owned();
 
-    context.upload_file(test_string!(localFile)?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
     let request = DeleteParagraphRequest::new(
-        (test_string!(remoteFileName)?).into(),
+        (remote_file_name.clone()).into(),
         (0).into()
-    ).with_node_path((test_string!("")?).into())
-.with_folder((test_string!(remoteDataFolder)?).into());
+    ).with_node_path(("".to_owned()).into())
+.with_folder((remote_data_folder.clone()).into());
 
     context.api().delete_paragraph(request).await?;
     Ok(())
@@ -691,18 +639,16 @@ async fn paragraph_delete_paragraph() -> TestResult<()> {
 #[tokio::test]
 async fn paragraph_delete_paragraph_online() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let localFile = test_string!("Common/test_multi_pages.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let local_file = "Common/test_multi_pages.docx".to_owned();
 
-    let requestDocument = context.load_binary_file(test_string!(localFile)?).await?;
+    let request_document = context.load_binary_file(local_file.clone()).await?;
 
     let request = DeleteParagraphOnlineRequest::new(
-        (requestDocument).into(),
+        (request_document).into(),
         (0).into()
-    ).with_node_path((test_string!("")?).into());
+    ).with_node_path(("".to_owned()).into());
 
     context.api().delete_paragraph_online(request).await?;
     Ok(())
@@ -712,20 +658,18 @@ async fn paragraph_delete_paragraph_online() -> TestResult<()> {
 #[tokio::test]
 async fn paragraph_delete_paragraph_without_node_path() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/DocumentElements/Paragraphs")?;
-    let localFile = test_string!("Common/test_multi_pages.docx")?;
-    let remoteFileName = test_string!("TestDeleteParagraphWithoutNodePath.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentElements/Paragraphs";
+    let local_file = "Common/test_multi_pages.docx".to_owned();
+    let remote_file_name = "TestDeleteParagraphWithoutNodePath.docx".to_owned();
 
-    context.upload_file(test_string!(localFile)?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
     let request = DeleteParagraphRequest::new(
-        (test_string!(remoteFileName)?).into(),
+        (remote_file_name.clone()).into(),
         (0).into()
-    ).with_folder((test_string!(remoteDataFolder)?).into());
+    ).with_folder((remote_data_folder.clone()).into());
 
     context.api().delete_paragraph(request).await?;
     Ok(())
@@ -735,21 +679,19 @@ async fn paragraph_delete_paragraph_without_node_path() -> TestResult<()> {
 #[tokio::test]
 async fn paragraph_get_paragraph_list_format() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/DocumentElements/Paragraphs")?;
-    let listFolder = test_string!("DocumentElements/ParagraphListFormat")?;
-    let remoteFileName = test_string!("TestParagraphGetListFormat.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentElements/Paragraphs";
+    let list_folder = "DocumentElements/ParagraphListFormat".to_owned();
+    let remote_file_name = "TestParagraphGetListFormat.docx".to_owned();
 
-    context.upload_file(test_string!(listFolder + "/ParagraphGetListFormat.doc")?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
+    context.upload_file(list_folder.clone() + "/ParagraphGetListFormat.doc", remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
     let request = GetParagraphListFormatRequest::new(
-        (test_string!(remoteFileName)?).into(),
+        (remote_file_name.clone()).into(),
         (0).into()
-    ).with_node_path((test_string!("")?).into())
-.with_folder((test_string!(remoteDataFolder)?).into());
+    ).with_node_path(("".to_owned()).into())
+.with_folder((remote_data_folder.clone()).into());
 
     let result = context.api().get_paragraph_list_format(request).await?;
     let result_json = serialize_result(&result)?;
@@ -762,18 +704,16 @@ async fn paragraph_get_paragraph_list_format() -> TestResult<()> {
 #[tokio::test]
 async fn paragraph_get_paragraph_list_format_online() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let listFolder = test_string!("DocumentElements/ParagraphListFormat")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let list_folder = "DocumentElements/ParagraphListFormat".to_owned();
 
-    let requestDocument = context.load_binary_file(test_string!(listFolder + "/ParagraphGetListFormat.doc")?).await?;
+    let request_document = context.load_binary_file(list_folder.clone() + "/ParagraphGetListFormat.doc").await?;
 
     let request = GetParagraphListFormatOnlineRequest::new(
-        (requestDocument).into(),
+        (request_document).into(),
         (0).into()
-    ).with_node_path((test_string!("")?).into());
+    ).with_node_path(("".to_owned()).into());
 
     context.api().get_paragraph_list_format_online(request).await?;
     Ok(())
@@ -783,20 +723,18 @@ async fn paragraph_get_paragraph_list_format_online() -> TestResult<()> {
 #[tokio::test]
 async fn paragraph_get_paragraph_list_format_without_node_path() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/DocumentElements/Paragraphs")?;
-    let listFolder = test_string!("DocumentElements/ParagraphListFormat")?;
-    let remoteFileName = test_string!("TestParagraphGetListFormatWithoutNodePath.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentElements/Paragraphs";
+    let list_folder = "DocumentElements/ParagraphListFormat".to_owned();
+    let remote_file_name = "TestParagraphGetListFormatWithoutNodePath.docx".to_owned();
 
-    context.upload_file(test_string!(listFolder + "/ParagraphGetListFormat.doc")?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
+    context.upload_file(list_folder.clone() + "/ParagraphGetListFormat.doc", remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
     let request = GetParagraphListFormatRequest::new(
-        (test_string!(remoteFileName)?).into(),
+        (remote_file_name.clone()).into(),
         (0).into()
-    ).with_folder((test_string!(remoteDataFolder)?).into());
+    ).with_folder((remote_data_folder.clone()).into());
 
     let result = context.api().get_paragraph_list_format(request).await?;
     let result_json = serialize_result(&result)?;
@@ -809,24 +747,22 @@ async fn paragraph_get_paragraph_list_format_without_node_path() -> TestResult<(
 #[tokio::test]
 async fn paragraph_update_paragraph_list_format() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/DocumentElements/Paragraphs")?;
-    let listFolder = test_string!("DocumentElements/ParagraphListFormat")?;
-    let remoteFileName = test_string!("TestUpdateParagraphListFormat.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentElements/Paragraphs";
+    let list_folder = "DocumentElements/ParagraphListFormat".to_owned();
+    let remote_file_name = "TestUpdateParagraphListFormat.docx".to_owned();
 
-    context.upload_file(test_string!(listFolder + "/ParagraphUpdateListFormat.doc")?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
-    let mut requestListFormatDto = ListFormatUpdate::default();
-    requestListFormatDto.r#list_id = Some((2).into());
+    context.upload_file(list_folder.clone() + "/ParagraphUpdateListFormat.doc", remote_data_folder.clone() + "/" + &remote_file_name).await?;
+    let mut request_list_format_dto = ListFormatUpdate::default();
+    request_list_format_dto.list_id = Some((2).into());
 
     let request = UpdateParagraphListFormatRequest::new(
-        (test_string!(remoteFileName)?).into(),
+        (remote_file_name.clone()).into(),
         (0).into(),
-        (requestListFormatDto).into()
-    ).with_node_path((test_string!("")?).into())
-.with_folder((test_string!(remoteDataFolder)?).into());
+        (request_list_format_dto).into()
+    ).with_node_path(("".to_owned()).into())
+.with_folder((remote_data_folder.clone()).into());
 
     let result = context.api().update_paragraph_list_format(request).await?;
     let result_json = serialize_result(&result)?;
@@ -839,21 +775,19 @@ async fn paragraph_update_paragraph_list_format() -> TestResult<()> {
 #[tokio::test]
 async fn paragraph_update_paragraph_list_format_online() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let listFolder = test_string!("DocumentElements/ParagraphListFormat")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let list_folder = "DocumentElements/ParagraphListFormat".to_owned();
 
-    let requestDocument = context.load_binary_file(test_string!(listFolder + "/ParagraphUpdateListFormat.doc")?).await?;
-    let mut requestListFormatDto = ListFormatUpdate::default();
-    requestListFormatDto.r#list_id = Some((2).into());
+    let request_document = context.load_binary_file(list_folder.clone() + "/ParagraphUpdateListFormat.doc").await?;
+    let mut request_list_format_dto = ListFormatUpdate::default();
+    request_list_format_dto.list_id = Some((2).into());
 
     let request = UpdateParagraphListFormatOnlineRequest::new(
-        (requestDocument).into(),
-        (requestListFormatDto).into(),
+        (request_document).into(),
+        (request_list_format_dto).into(),
         (0).into()
-    ).with_node_path((test_string!("")?).into());
+    ).with_node_path(("".to_owned()).into());
 
     context.api().update_paragraph_list_format_online(request).await?;
     Ok(())
@@ -863,23 +797,21 @@ async fn paragraph_update_paragraph_list_format_online() -> TestResult<()> {
 #[tokio::test]
 async fn paragraph_update_paragraph_list_format_without_node_path() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/DocumentElements/Paragraphs")?;
-    let listFolder = test_string!("DocumentElements/ParagraphListFormat")?;
-    let remoteFileName = test_string!("TestUpdateParagraphListFormatWithoutNodePath.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentElements/Paragraphs";
+    let list_folder = "DocumentElements/ParagraphListFormat".to_owned();
+    let remote_file_name = "TestUpdateParagraphListFormatWithoutNodePath.docx".to_owned();
 
-    context.upload_file(test_string!(listFolder + "/ParagraphUpdateListFormat.doc")?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
-    let mut requestListFormatDto = ListFormatUpdate::default();
-    requestListFormatDto.r#list_id = Some((2).into());
+    context.upload_file(list_folder.clone() + "/ParagraphUpdateListFormat.doc", remote_data_folder.clone() + "/" + &remote_file_name).await?;
+    let mut request_list_format_dto = ListFormatUpdate::default();
+    request_list_format_dto.list_id = Some((2).into());
 
     let request = UpdateParagraphListFormatRequest::new(
-        (test_string!(remoteFileName)?).into(),
+        (remote_file_name.clone()).into(),
         (0).into(),
-        (requestListFormatDto).into()
-    ).with_folder((test_string!(remoteDataFolder)?).into());
+        (request_list_format_dto).into()
+    ).with_folder((remote_data_folder.clone()).into());
 
     let result = context.api().update_paragraph_list_format(request).await?;
     let result_json = serialize_result(&result)?;
@@ -892,21 +824,19 @@ async fn paragraph_update_paragraph_list_format_without_node_path() -> TestResul
 #[tokio::test]
 async fn paragraph_delete_paragraph_list_format() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/DocumentElements/Paragraphs")?;
-    let listFolder = test_string!("DocumentElements/ParagraphListFormat")?;
-    let remoteFileName = test_string!("TestDeleteParagraphListFormat.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentElements/Paragraphs";
+    let list_folder = "DocumentElements/ParagraphListFormat".to_owned();
+    let remote_file_name = "TestDeleteParagraphListFormat.docx".to_owned();
 
-    context.upload_file(test_string!(listFolder + "/ParagraphDeleteListFormat.doc")?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
+    context.upload_file(list_folder.clone() + "/ParagraphDeleteListFormat.doc", remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
     let request = DeleteParagraphListFormatRequest::new(
-        (test_string!(remoteFileName)?).into(),
+        (remote_file_name.clone()).into(),
         (0).into()
-    ).with_node_path((test_string!("")?).into())
-.with_folder((test_string!(remoteDataFolder)?).into());
+    ).with_node_path(("".to_owned()).into())
+.with_folder((remote_data_folder.clone()).into());
 
     context.api().delete_paragraph_list_format(request).await?;
     Ok(())
@@ -916,18 +846,16 @@ async fn paragraph_delete_paragraph_list_format() -> TestResult<()> {
 #[tokio::test]
 async fn paragraph_delete_paragraph_list_format_online() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let listFolder = test_string!("DocumentElements/ParagraphListFormat")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let list_folder = "DocumentElements/ParagraphListFormat".to_owned();
 
-    let requestDocument = context.load_binary_file(test_string!(listFolder + "/ParagraphDeleteListFormat.doc")?).await?;
+    let request_document = context.load_binary_file(list_folder.clone() + "/ParagraphDeleteListFormat.doc").await?;
 
     let request = DeleteParagraphListFormatOnlineRequest::new(
-        (requestDocument).into(),
+        (request_document).into(),
         (0).into()
-    ).with_node_path((test_string!("")?).into());
+    ).with_node_path(("".to_owned()).into());
 
     context.api().delete_paragraph_list_format_online(request).await?;
     Ok(())
@@ -937,20 +865,18 @@ async fn paragraph_delete_paragraph_list_format_online() -> TestResult<()> {
 #[tokio::test]
 async fn paragraph_delete_paragraph_list_format_without_node_path() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/DocumentElements/Paragraphs")?;
-    let listFolder = test_string!("DocumentElements/ParagraphListFormat")?;
-    let remoteFileName = test_string!("TestDeleteParagraphListFormatWithoutNodePath.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentElements/Paragraphs";
+    let list_folder = "DocumentElements/ParagraphListFormat".to_owned();
+    let remote_file_name = "TestDeleteParagraphListFormatWithoutNodePath.docx".to_owned();
 
-    context.upload_file(test_string!(listFolder + "/ParagraphDeleteListFormat.doc")?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
+    context.upload_file(list_folder.clone() + "/ParagraphDeleteListFormat.doc", remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
     let request = DeleteParagraphListFormatRequest::new(
-        (test_string!(remoteFileName)?).into(),
+        (remote_file_name.clone()).into(),
         (0).into()
-    ).with_folder((test_string!(remoteDataFolder)?).into());
+    ).with_folder((remote_data_folder.clone()).into());
 
     context.api().delete_paragraph_list_format(request).await?;
     Ok(())
@@ -960,21 +886,19 @@ async fn paragraph_delete_paragraph_list_format_without_node_path() -> TestResul
 #[tokio::test]
 async fn paragraph_get_paragraph_tab_stops() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/DocumentElements/Paragraphs")?;
-    let tabStopFolder = test_string!("DocumentElements/Paragraphs")?;
-    let remoteFileName = test_string!("TestGetParagraphTabStops.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentElements/Paragraphs";
+    let tab_stop_folder = "DocumentElements/Paragraphs".to_owned();
+    let remote_file_name = "TestGetParagraphTabStops.docx".to_owned();
 
-    context.upload_file(test_string!(tabStopFolder + "/ParagraphTabStops.docx")?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
+    context.upload_file(tab_stop_folder.clone() + "/ParagraphTabStops.docx", remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
     let request = GetParagraphTabStopsRequest::new(
-        (test_string!(remoteFileName)?).into(),
+        (remote_file_name.clone()).into(),
         (0).into()
-    ).with_node_path((test_string!("")?).into())
-.with_folder((test_string!(remoteDataFolder)?).into());
+    ).with_node_path(("".to_owned()).into())
+.with_folder((remote_data_folder.clone()).into());
 
     let result = context.api().get_paragraph_tab_stops(request).await?;
     let result_json = serialize_result(&result)?;
@@ -988,18 +912,16 @@ async fn paragraph_get_paragraph_tab_stops() -> TestResult<()> {
 #[tokio::test]
 async fn paragraph_get_paragraph_tab_stops_online() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let tabStopFolder = test_string!("DocumentElements/Paragraphs")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let tab_stop_folder = "DocumentElements/Paragraphs".to_owned();
 
-    let requestDocument = context.load_binary_file(test_string!(tabStopFolder + "/ParagraphTabStops.docx")?).await?;
+    let request_document = context.load_binary_file(tab_stop_folder.clone() + "/ParagraphTabStops.docx").await?;
 
     let request = GetParagraphTabStopsOnlineRequest::new(
-        (requestDocument).into(),
+        (request_document).into(),
         (0).into()
-    ).with_node_path((test_string!("")?).into());
+    ).with_node_path(("".to_owned()).into());
 
     context.api().get_paragraph_tab_stops_online(request).await?;
     Ok(())
@@ -1009,20 +931,18 @@ async fn paragraph_get_paragraph_tab_stops_online() -> TestResult<()> {
 #[tokio::test]
 async fn paragraph_get_paragraph_tab_stops_without_node_path() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/DocumentElements/Paragraphs")?;
-    let tabStopFolder = test_string!("DocumentElements/Paragraphs")?;
-    let remoteFileName = test_string!("TestGetParagraphTabStopsWithoutNodePath.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentElements/Paragraphs";
+    let tab_stop_folder = "DocumentElements/Paragraphs".to_owned();
+    let remote_file_name = "TestGetParagraphTabStopsWithoutNodePath.docx".to_owned();
 
-    context.upload_file(test_string!(tabStopFolder + "/ParagraphTabStops.docx")?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
+    context.upload_file(tab_stop_folder.clone() + "/ParagraphTabStops.docx", remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
     let request = GetParagraphTabStopsRequest::new(
-        (test_string!(remoteFileName)?).into(),
+        (remote_file_name.clone()).into(),
         (0).into()
-    ).with_folder((test_string!(remoteDataFolder)?).into());
+    ).with_folder((remote_data_folder.clone()).into());
 
     let result = context.api().get_paragraph_tab_stops(request).await?;
     let result_json = serialize_result(&result)?;
@@ -1036,26 +956,24 @@ async fn paragraph_get_paragraph_tab_stops_without_node_path() -> TestResult<()>
 #[tokio::test]
 async fn paragraph_insert_paragraph_tab_stops() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/DocumentElements/Paragraphs")?;
-    let tabStopFolder = test_string!("DocumentElements/Paragraphs")?;
-    let remoteFileName = test_string!("TestInsertOrUpdateParagraphTabStop.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentElements/Paragraphs";
+    let tab_stop_folder = "DocumentElements/Paragraphs".to_owned();
+    let remote_file_name = "TestInsertOrUpdateParagraphTabStop.docx".to_owned();
 
-    context.upload_file(test_string!(tabStopFolder + "/ParagraphTabStops.docx")?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
-    let mut requestTabStopInsertDto = TabStopInsert::default();
-    requestTabStopInsertDto.r#alignment = Some((TabStopBase_AlignmentEnum::Left).into());
-    requestTabStopInsertDto.r#leader = Some((TabStopBase_LeaderEnum::None).into());
-    requestTabStopInsertDto.r#position = Some(((100.0) as f64).into());
+    context.upload_file(tab_stop_folder.clone() + "/ParagraphTabStops.docx", remote_data_folder.clone() + "/" + &remote_file_name).await?;
+    let mut request_tab_stop_insert_dto = TabStopInsert::default();
+    request_tab_stop_insert_dto.alignment = Some((TabStopBaseAlignmentEnum::Left).into());
+    request_tab_stop_insert_dto.leader = Some((TabStopBaseLeaderEnum::None).into());
+    request_tab_stop_insert_dto.position = Some(((100.0) as f64).into());
 
     let request = InsertOrUpdateParagraphTabStopRequest::new(
-        (test_string!(remoteFileName)?).into(),
+        (remote_file_name.clone()).into(),
         (0).into(),
-        (requestTabStopInsertDto).into()
-    ).with_node_path((test_string!("")?).into())
-.with_folder((test_string!(remoteDataFolder)?).into());
+        (request_tab_stop_insert_dto).into()
+    ).with_node_path(("".to_owned()).into())
+.with_folder((remote_data_folder.clone()).into());
 
     let result = context.api().insert_or_update_paragraph_tab_stop(request).await?;
     let result_json = serialize_result(&result)?;
@@ -1071,23 +989,21 @@ async fn paragraph_insert_paragraph_tab_stops() -> TestResult<()> {
 #[tokio::test]
 async fn paragraph_insert_paragraph_tab_stops_online() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let tabStopFolder = test_string!("DocumentElements/Paragraphs")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let tab_stop_folder = "DocumentElements/Paragraphs".to_owned();
 
-    let requestDocument = context.load_binary_file(test_string!(tabStopFolder + "/ParagraphTabStops.docx")?).await?;
-    let mut requestTabStopInsertDto = TabStopInsert::default();
-    requestTabStopInsertDto.r#alignment = Some((TabStopBase_AlignmentEnum::Left).into());
-    requestTabStopInsertDto.r#leader = Some((TabStopBase_LeaderEnum::None).into());
-    requestTabStopInsertDto.r#position = Some(((72) as f64).into());
+    let request_document = context.load_binary_file(tab_stop_folder.clone() + "/ParagraphTabStops.docx").await?;
+    let mut request_tab_stop_insert_dto = TabStopInsert::default();
+    request_tab_stop_insert_dto.alignment = Some((TabStopBaseAlignmentEnum::Left).into());
+    request_tab_stop_insert_dto.leader = Some((TabStopBaseLeaderEnum::None).into());
+    request_tab_stop_insert_dto.position = Some(((72) as f64).into());
 
     let request = InsertOrUpdateParagraphTabStopOnlineRequest::new(
-        (requestDocument).into(),
-        (requestTabStopInsertDto).into(),
+        (request_document).into(),
+        (request_tab_stop_insert_dto).into(),
         (0).into()
-    ).with_node_path((test_string!("")?).into());
+    ).with_node_path(("".to_owned()).into());
 
     context.api().insert_or_update_paragraph_tab_stop_online(request).await?;
     Ok(())
@@ -1097,25 +1013,23 @@ async fn paragraph_insert_paragraph_tab_stops_online() -> TestResult<()> {
 #[tokio::test]
 async fn paragraph_insert_paragraph_tab_stops_without_node_path() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/DocumentElements/Paragraphs")?;
-    let tabStopFolder = test_string!("DocumentElements/Paragraphs")?;
-    let remoteFileName = test_string!("TestInsertOrUpdateParagraphTabStopWithoutNodePath.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentElements/Paragraphs";
+    let tab_stop_folder = "DocumentElements/Paragraphs".to_owned();
+    let remote_file_name = "TestInsertOrUpdateParagraphTabStopWithoutNodePath.docx".to_owned();
 
-    context.upload_file(test_string!(tabStopFolder + "/ParagraphTabStops.docx")?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
-    let mut requestTabStopInsertDto = TabStopInsert::default();
-    requestTabStopInsertDto.r#alignment = Some((TabStopBase_AlignmentEnum::Left).into());
-    requestTabStopInsertDto.r#leader = Some((TabStopBase_LeaderEnum::None).into());
-    requestTabStopInsertDto.r#position = Some(((100.0) as f64).into());
+    context.upload_file(tab_stop_folder.clone() + "/ParagraphTabStops.docx", remote_data_folder.clone() + "/" + &remote_file_name).await?;
+    let mut request_tab_stop_insert_dto = TabStopInsert::default();
+    request_tab_stop_insert_dto.alignment = Some((TabStopBaseAlignmentEnum::Left).into());
+    request_tab_stop_insert_dto.leader = Some((TabStopBaseLeaderEnum::None).into());
+    request_tab_stop_insert_dto.position = Some(((100.0) as f64).into());
 
     let request = InsertOrUpdateParagraphTabStopRequest::new(
-        (test_string!(remoteFileName)?).into(),
+        (remote_file_name.clone()).into(),
         (0).into(),
-        (requestTabStopInsertDto).into()
-    ).with_folder((test_string!(remoteDataFolder)?).into());
+        (request_tab_stop_insert_dto).into()
+    ).with_folder((remote_data_folder.clone()).into());
 
     let result = context.api().insert_or_update_paragraph_tab_stop(request).await?;
     let result_json = serialize_result(&result)?;
@@ -1131,21 +1045,19 @@ async fn paragraph_insert_paragraph_tab_stops_without_node_path() -> TestResult<
 #[tokio::test]
 async fn paragraph_delete_all_paragraph_tab_stops() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/DocumentElements/Paragraphs")?;
-    let tabStopFolder = test_string!("DocumentElements/Paragraphs")?;
-    let remoteFileName = test_string!("TestDeleteAllParagraphTabStops.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentElements/Paragraphs";
+    let tab_stop_folder = "DocumentElements/Paragraphs".to_owned();
+    let remote_file_name = "TestDeleteAllParagraphTabStops.docx".to_owned();
 
-    context.upload_file(test_string!(tabStopFolder + "/ParagraphTabStops.docx")?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
+    context.upload_file(tab_stop_folder.clone() + "/ParagraphTabStops.docx", remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
     let request = DeleteAllParagraphTabStopsRequest::new(
-        (test_string!(remoteFileName)?).into(),
+        (remote_file_name.clone()).into(),
         (0).into()
-    ).with_node_path((test_string!("")?).into())
-.with_folder((test_string!(remoteDataFolder)?).into());
+    ).with_node_path(("".to_owned()).into())
+.with_folder((remote_data_folder.clone()).into());
 
     let result = context.api().delete_all_paragraph_tab_stops(request).await?;
     let result_json = serialize_result(&result)?;
@@ -1158,18 +1070,16 @@ async fn paragraph_delete_all_paragraph_tab_stops() -> TestResult<()> {
 #[tokio::test]
 async fn paragraph_delete_all_paragraph_tab_stops_online() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let tabStopFolder = test_string!("DocumentElements/Paragraphs")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let tab_stop_folder = "DocumentElements/Paragraphs".to_owned();
 
-    let requestDocument = context.load_binary_file(test_string!(tabStopFolder + "/ParagraphTabStops.docx")?).await?;
+    let request_document = context.load_binary_file(tab_stop_folder.clone() + "/ParagraphTabStops.docx").await?;
 
     let request = DeleteAllParagraphTabStopsOnlineRequest::new(
-        (requestDocument).into(),
+        (request_document).into(),
         (0).into()
-    ).with_node_path((test_string!("")?).into());
+    ).with_node_path(("".to_owned()).into());
 
     context.api().delete_all_paragraph_tab_stops_online(request).await?;
     Ok(())
@@ -1179,20 +1089,18 @@ async fn paragraph_delete_all_paragraph_tab_stops_online() -> TestResult<()> {
 #[tokio::test]
 async fn paragraph_delete_all_paragraph_tab_stops_without_node_path() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/DocumentElements/Paragraphs")?;
-    let tabStopFolder = test_string!("DocumentElements/Paragraphs")?;
-    let remoteFileName = test_string!("TestDeleteAllParagraphTabStopsWithoutNodePath.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentElements/Paragraphs";
+    let tab_stop_folder = "DocumentElements/Paragraphs".to_owned();
+    let remote_file_name = "TestDeleteAllParagraphTabStopsWithoutNodePath.docx".to_owned();
 
-    context.upload_file(test_string!(tabStopFolder + "/ParagraphTabStops.docx")?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
+    context.upload_file(tab_stop_folder.clone() + "/ParagraphTabStops.docx", remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
     let request = DeleteAllParagraphTabStopsRequest::new(
-        (test_string!(remoteFileName)?).into(),
+        (remote_file_name.clone()).into(),
         (0).into()
-    ).with_folder((test_string!(remoteDataFolder)?).into());
+    ).with_folder((remote_data_folder.clone()).into());
 
     let result = context.api().delete_all_paragraph_tab_stops(request).await?;
     let result_json = serialize_result(&result)?;
@@ -1205,22 +1113,20 @@ async fn paragraph_delete_all_paragraph_tab_stops_without_node_path() -> TestRes
 #[tokio::test]
 async fn paragraph_delete_paragraph_tab_stop() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/DocumentElements/Paragraphs")?;
-    let tabStopFolder = test_string!("DocumentElements/Paragraphs")?;
-    let remoteFileName = test_string!("TestDeleteParagraphTabStop.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentElements/Paragraphs";
+    let tab_stop_folder = "DocumentElements/Paragraphs".to_owned();
+    let remote_file_name = "TestDeleteParagraphTabStop.docx".to_owned();
 
-    context.upload_file(test_string!(tabStopFolder + "/ParagraphTabStops.docx")?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
+    context.upload_file(tab_stop_folder.clone() + "/ParagraphTabStops.docx", remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
     let request = DeleteParagraphTabStopRequest::new(
-        (test_string!(remoteFileName)?).into(),
+        (remote_file_name.clone()).into(),
         ((72.0) as f64).into(),
         (0).into()
-    ).with_node_path((test_string!("")?).into())
-.with_folder((test_string!(remoteDataFolder)?).into());
+    ).with_node_path(("".to_owned()).into())
+.with_folder((remote_data_folder.clone()).into());
 
     let result = context.api().delete_paragraph_tab_stop(request).await?;
     let result_json = serialize_result(&result)?;
@@ -1233,19 +1139,17 @@ async fn paragraph_delete_paragraph_tab_stop() -> TestResult<()> {
 #[tokio::test]
 async fn paragraph_delete_paragraph_tab_stop_online() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let tabStopFolder = test_string!("DocumentElements/Paragraphs")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let tab_stop_folder = "DocumentElements/Paragraphs".to_owned();
 
-    let requestDocument = context.load_binary_file(test_string!(tabStopFolder + "/ParagraphTabStops.docx")?).await?;
+    let request_document = context.load_binary_file(tab_stop_folder.clone() + "/ParagraphTabStops.docx").await?;
 
     let request = DeleteParagraphTabStopOnlineRequest::new(
-        (requestDocument).into(),
+        (request_document).into(),
         ((72.0) as f64).into(),
         (0).into()
-    ).with_node_path((test_string!("")?).into());
+    ).with_node_path(("".to_owned()).into());
 
     context.api().delete_paragraph_tab_stop_online(request).await?;
     Ok(())
@@ -1255,21 +1159,19 @@ async fn paragraph_delete_paragraph_tab_stop_online() -> TestResult<()> {
 #[tokio::test]
 async fn paragraph_delete_paragraph_tab_stop_without_node_path() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/DocumentElements/Paragraphs")?;
-    let tabStopFolder = test_string!("DocumentElements/Paragraphs")?;
-    let remoteFileName = test_string!("TestDeleteParagraphTabStopWithoutNodePath.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentElements/Paragraphs";
+    let tab_stop_folder = "DocumentElements/Paragraphs".to_owned();
+    let remote_file_name = "TestDeleteParagraphTabStopWithoutNodePath.docx".to_owned();
 
-    context.upload_file(test_string!(tabStopFolder + "/ParagraphTabStops.docx")?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
+    context.upload_file(tab_stop_folder.clone() + "/ParagraphTabStops.docx", remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
     let request = DeleteParagraphTabStopRequest::new(
-        (test_string!(remoteFileName)?).into(),
+        (remote_file_name.clone()).into(),
         ((72.0) as f64).into(),
         (0).into()
-    ).with_folder((test_string!(remoteDataFolder)?).into());
+    ).with_folder((remote_data_folder.clone()).into());
 
     let result = context.api().delete_paragraph_tab_stop(request).await?;
     let result_json = serialize_result(&result)?;

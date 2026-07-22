@@ -34,38 +34,38 @@ use super::*;
 pub struct ParagraphInsert {
         /// Gets or sets the paragraph's text.
         #[serde(rename = "Text", skip_serializing_if = "Option::is_none")]
-        pub r#text: Option<String>,
+        pub text: Option<String>,
 
 
         /// Gets or sets the position of the node that will be used to determine the placement of a new paragraph.
         #[serde(rename = "Position", skip_serializing_if = "Option::is_none", default, deserialize_with = "deserialize_optional_model")]
-        pub r#position: Option<ModelBox>,
+        pub position: Option<ModelBox>,
 
 }
 
 impl Default for ParagraphInsert {
     fn default() -> Self {
         Self {
-            r#text: None,
-            r#position: None,
+            text: None,
+            position: None,
         }
     }
 }
 
 impl Model for ParagraphInsert {
     fn validate(&self) -> SdkResult<()> {
-        if self.r#text.is_none() {
+        if self.text.is_none() {
             return Err(SdkError::InvalidRequest(
                 "property Text in ParagraphInsert is required".to_owned(),
             ));
         }
-        if let Some(value) = &self.r#position {
+        if let Some(value) = &self.position {
         value.validate()?;
         }
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
     }
 
     fn as_any(&self) -> &dyn Any {

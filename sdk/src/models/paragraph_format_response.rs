@@ -38,7 +38,7 @@ pub struct ParagraphFormatResponse {
     pub parent: WordsResponse,
         /// Gets or sets the formatting properties of a paragraph.
         #[serde(rename = "ParagraphFormat", skip_serializing_if = "Option::is_none")]
-        pub r#paragraph_format: Option<ParagraphFormat>,
+        pub paragraph_format: Option<ParagraphFormat>,
 
 }
 
@@ -47,7 +47,7 @@ impl Default for ParagraphFormatResponse {
         let mut parent = WordsResponse::default();
         Self {
             parent,
-            r#paragraph_format: None,
+            paragraph_format: None,
         }
     }
 }
@@ -69,14 +69,14 @@ impl DerefMut for ParagraphFormatResponse {
 impl Model for ParagraphFormatResponse {
     fn validate(&self) -> SdkResult<()> {
         self.parent.validate()?;
-        if let Some(value) = &self.r#paragraph_format {
+        if let Some(value) = &self.paragraph_format {
         value.validate()?;
         }
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
-        self.parent.collect_file_references(output);
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+        self.parent.collect_file_references(_output);
     }
 
     fn as_any(&self) -> &dyn Any {

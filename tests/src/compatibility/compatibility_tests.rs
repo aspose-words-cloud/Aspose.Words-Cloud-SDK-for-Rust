@@ -36,22 +36,20 @@ use crate::test_context::*;
 #[tokio::test]
 async fn compatibility_optimize_document() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/Compatibility")?;
-    let localFile = test_string!("Common/test_multi_pages.docx")?;
-    let remoteFileName = test_string!("TestOptimizeDocument.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/Compatibility";
+    let local_file = "Common/test_multi_pages.docx".to_owned();
+    let remote_file_name = "TestOptimizeDocument.docx".to_owned();
 
-    context.upload_file(test_string!(localFile)?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
-    let mut requestOptions = OptimizationOptions::default();
-    requestOptions.r#ms_word_version = Some((OptimizationOptions_MsWordVersionEnum::Word2002).into());
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
+    let mut request_options = OptimizationOptions::default();
+    request_options.ms_word_version = Some((OptimizationOptionsMsWordVersionEnum::Word2002).into());
 
     let request = OptimizeDocumentRequest::new(
-        (test_string!(remoteFileName)?).into(),
-        (requestOptions).into()
-    ).with_folder((test_string!(remoteDataFolder)?).into());
+        (remote_file_name.clone()).into(),
+        (request_options).into()
+    ).with_folder((remote_data_folder.clone()).into());
 
     context.api().optimize_document(request).await?;
     Ok(())
@@ -61,19 +59,17 @@ async fn compatibility_optimize_document() -> TestResult<()> {
 #[tokio::test]
 async fn compatibility_optimize_document_online() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let localFile = test_string!("Common/test_multi_pages.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let local_file = "Common/test_multi_pages.docx".to_owned();
 
-    let requestDocument = context.load_binary_file(test_string!(localFile)?).await?;
-    let mut requestOptions = OptimizationOptions::default();
-    requestOptions.r#ms_word_version = Some((OptimizationOptions_MsWordVersionEnum::Word2002).into());
+    let request_document = context.load_binary_file(local_file.clone()).await?;
+    let mut request_options = OptimizationOptions::default();
+    request_options.ms_word_version = Some((OptimizationOptionsMsWordVersionEnum::Word2002).into());
 
     let request = OptimizeDocumentOnlineRequest::new(
-        (requestDocument).into(),
-        (requestOptions).into()
+        (request_document).into(),
+        (request_options).into()
     );
 
     context.api().optimize_document_online(request).await?;

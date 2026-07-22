@@ -34,21 +34,21 @@ use super::*;
 pub struct FilesList {
         /// Files and folders contained by folder StorageFile.
         #[serde(rename = "Value", skip_serializing_if = "Option::is_none")]
-        pub r#value: Option<Vec<StorageFile>>,
+        pub value: Option<Vec<StorageFile>>,
 
 }
 
 impl Default for FilesList {
     fn default() -> Self {
         Self {
-            r#value: None,
+            value: None,
         }
     }
 }
 
 impl Model for FilesList {
     fn validate(&self) -> SdkResult<()> {
-        if let Some(values) = &self.r#value {
+        if let Some(values) = &self.value {
         for value in values {
         value.validate()?;
         }
@@ -56,7 +56,7 @@ impl Model for FilesList {
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
     }
 
     fn as_any(&self) -> &dyn Any {

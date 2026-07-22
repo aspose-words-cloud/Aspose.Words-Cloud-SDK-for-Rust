@@ -36,25 +36,25 @@ use super::*;
 /// Request parameters for the LoadWebDocument operation.
 pub struct LoadWebDocumentRequest {
     /// The properties of data downloading.
-    pub r#data: LoadWebDocumentData,
+    pub data: LoadWebDocumentData,
     /// Original document storage.
-    pub r#storage: Option<String>,
+    pub storage: Option<String>,
     pub send_progress: Option<ProgressCallback>,
     pub receive_progress: Option<ProgressCallback>,
 }
 
 impl LoadWebDocumentRequest {
-    pub fn new(r#data: LoadWebDocumentData) -> Self {
+    pub fn new(data: LoadWebDocumentData) -> Self {
         Self {
-            r#data,
-            r#storage: None,
+            data,
+            storage: None,
             send_progress: None,
             receive_progress: None,
         }
     }
 
     pub fn with_storage(mut self, value: String) -> Self {
-        self.r#storage = Some(value);
+        self.storage = Some(value);
         self
     }
 
@@ -91,10 +91,10 @@ impl Request for LoadWebDocumentRequest {
         let mut headers = Vec::new();
         let mut body_parts = Vec::new();
 
-        if let Some(value) = &self.r#storage {
+        if let Some(value) = &self.storage {
         query.push(("storage".to_owned(), client.query_value(value)?));
         }
-        client.add_model_part(&mut body_parts, "Body", &self.r#data).await?;
+        client.add_model_part(&mut body_parts, "Body", &self.data).await?;
 
         let url = client.build_url(&path, &query)?;
         let body = client.request_body_from_parts(&mut headers, body_parts);

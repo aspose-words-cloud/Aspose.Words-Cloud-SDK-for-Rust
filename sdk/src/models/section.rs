@@ -37,27 +37,27 @@ pub struct Section {
     pub parent: LinkElement,
         /// Gets or sets the list of child nodes.
         #[serde(rename = "ChildNodes", skip_serializing_if = "Option::is_none")]
-        pub r#child_nodes: Option<Vec<NodeLink>>,
+        pub child_nodes: Option<Vec<NodeLink>>,
 
 
         /// Gets or sets the link to Paragraphs resource.
         #[serde(rename = "Paragraphs", skip_serializing_if = "Option::is_none")]
-        pub r#paragraphs: Option<LinkElement>,
+        pub paragraphs: Option<LinkElement>,
 
 
         /// Gets or sets the link to PageSetup resource.
         #[serde(rename = "PageSetup", skip_serializing_if = "Option::is_none")]
-        pub r#page_setup: Option<LinkElement>,
+        pub page_setup: Option<LinkElement>,
 
 
         /// Gets or sets the link to HeaderFooters resource.
         #[serde(rename = "HeaderFooters", skip_serializing_if = "Option::is_none")]
-        pub r#header_footers: Option<LinkElement>,
+        pub header_footers: Option<LinkElement>,
 
 
         /// Gets or sets the link to Tables resource.
         #[serde(rename = "Tables", skip_serializing_if = "Option::is_none")]
-        pub r#tables: Option<LinkElement>,
+        pub tables: Option<LinkElement>,
 
 }
 
@@ -66,11 +66,11 @@ impl Default for Section {
         let mut parent = LinkElement::default();
         Self {
             parent,
-            r#child_nodes: None,
-            r#paragraphs: None,
-            r#page_setup: None,
-            r#header_footers: None,
-            r#tables: None,
+            child_nodes: None,
+            paragraphs: None,
+            page_setup: None,
+            header_footers: None,
+            tables: None,
         }
     }
 }
@@ -92,28 +92,28 @@ impl DerefMut for Section {
 impl Model for Section {
     fn validate(&self) -> SdkResult<()> {
         self.parent.validate()?;
-        if let Some(values) = &self.r#child_nodes {
+        if let Some(values) = &self.child_nodes {
         for value in values {
         value.validate()?;
         }
         }
-        if let Some(value) = &self.r#paragraphs {
+        if let Some(value) = &self.paragraphs {
         value.validate()?;
         }
-        if let Some(value) = &self.r#page_setup {
+        if let Some(value) = &self.page_setup {
         value.validate()?;
         }
-        if let Some(value) = &self.r#header_footers {
+        if let Some(value) = &self.header_footers {
         value.validate()?;
         }
-        if let Some(value) = &self.r#tables {
+        if let Some(value) = &self.tables {
         value.validate()?;
         }
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
-        self.parent.collect_file_references(output);
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+        self.parent.collect_file_references(_output);
     }
 
     fn as_any(&self) -> &dyn Any {

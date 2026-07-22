@@ -36,20 +36,18 @@ use crate::test_context::*;
 #[tokio::test]
 async fn document_with_format_get_document_with_format() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/DocumentActions/DocumentWithFormat")?;
-    let localFile = test_string!("Common/test_multi_pages.docx")?;
-    let remoteFileName = test_string!("TestGetDocumentWithFormat.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentActions/DocumentWithFormat";
+    let local_file = "Common/test_multi_pages.docx".to_owned();
+    let remote_file_name = "TestGetDocumentWithFormat.docx".to_owned();
 
-    context.upload_file(test_string!(localFile)?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
     let request = GetDocumentWithFormatRequest::new(
-        (test_string!(remoteFileName)?).into(),
-        (test_string!("text")?).into()
-    ).with_folder((test_string!(remoteDataFolder)?).into());
+        (remote_file_name.clone()).into(),
+        ("text".to_owned()).into()
+    ).with_folder((remote_data_folder.clone()).into());
 
     context.api().get_document_with_format(request).await?;
     Ok(())
@@ -59,21 +57,19 @@ async fn document_with_format_get_document_with_format() -> TestResult<()> {
 #[tokio::test]
 async fn document_with_format_get_document_with_format_and_out_path() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/DocumentActions/DocumentWithFormat")?;
-    let localFile = test_string!("Common/test_multi_pages.docx")?;
-    let remoteFileName = test_string!("TestGetDocumentWithFormat.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentActions/DocumentWithFormat";
+    let local_file = "Common/test_multi_pages.docx".to_owned();
+    let remote_file_name = "TestGetDocumentWithFormat.docx".to_owned();
 
-    context.upload_file(test_string!(localFile)?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
     let request = GetDocumentWithFormatRequest::new(
-        (test_string!(remoteFileName)?).into(),
-        (test_string!("text")?).into()
-    ).with_folder((test_string!(remoteDataFolder)?).into())
-.with_out_path((test_string!(baseTestOutPath + "/TestGetDocumentWithFormatAndOutPath.text")?).into());
+        (remote_file_name.clone()).into(),
+        ("text".to_owned()).into()
+    ).with_folder((remote_data_folder.clone()).into())
+.with_out_path((base_test_out_path.clone() + "/TestGetDocumentWithFormatAndOutPath.text").into());
 
     context.api().get_document_with_format(request).await?;
     Ok(())

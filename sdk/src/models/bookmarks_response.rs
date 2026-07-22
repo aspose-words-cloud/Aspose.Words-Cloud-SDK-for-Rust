@@ -38,7 +38,7 @@ pub struct BookmarksResponse {
     pub parent: WordsResponse,
         /// Gets or sets the collection of bookmarks.
         #[serde(rename = "Bookmarks", skip_serializing_if = "Option::is_none")]
-        pub r#bookmarks: Option<Bookmarks>,
+        pub bookmarks: Option<Bookmarks>,
 
 }
 
@@ -47,7 +47,7 @@ impl Default for BookmarksResponse {
         let mut parent = WordsResponse::default();
         Self {
             parent,
-            r#bookmarks: None,
+            bookmarks: None,
         }
     }
 }
@@ -69,14 +69,14 @@ impl DerefMut for BookmarksResponse {
 impl Model for BookmarksResponse {
     fn validate(&self) -> SdkResult<()> {
         self.parent.validate()?;
-        if let Some(value) = &self.r#bookmarks {
+        if let Some(value) = &self.bookmarks {
         value.validate()?;
         }
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
-        self.parent.collect_file_references(output);
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+        self.parent.collect_file_references(_output);
     }
 
     fn as_any(&self) -> &dyn Any {

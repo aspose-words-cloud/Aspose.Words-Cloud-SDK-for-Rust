@@ -34,71 +34,71 @@ use super::*;
 pub struct ReportEngineSettings {
         /// Gets or sets the options for parsing CSV data.
         #[serde(rename = "CsvDataLoadOptions", skip_serializing_if = "Option::is_none")]
-        pub r#csv_data_load_options: Option<CsvDataLoadOptions>,
+        pub csv_data_load_options: Option<CsvDataLoadOptions>,
 
 
         /// Gets or sets the name to reference the data source object in the template.
         #[serde(rename = "DataSourceName", skip_serializing_if = "Option::is_none")]
-        pub r#data_source_name: Option<String>,
+        pub data_source_name: Option<String>,
 
 
         /// Gets or sets type of datasource.
         #[serde(rename = "DataSourceType", skip_serializing_if = "Option::is_none")]
-        pub r#data_source_type: Option<ReportEngineSettings_DataSourceTypeEnum>,
+        pub data_source_type: Option<ReportEngineSettingsDataSourceTypeEnum>,
 
 
         /// Gets or sets the options for parsing JSON data.
         #[serde(rename = "JsonDataLoadOptions", skip_serializing_if = "Option::is_none")]
-        pub r#json_data_load_options: Option<JsonDataLoadOptions>,
+        pub json_data_load_options: Option<JsonDataLoadOptions>,
 
 
         /// Gets or sets type of options to build report.
         #[serde(rename = "ReportBuildOptions", skip_serializing_if = "Option::is_none")]
-        pub r#report_build_options: Option<Vec<ReportBuildOptionsEnum>>,
+        pub report_build_options: Option<Vec<ReportBuildOptionsEnum>>,
 
 
         /// Gets or sets the options for parsing XML data.
         #[serde(rename = "XmlDataLoadOptions", skip_serializing_if = "Option::is_none")]
-        pub r#xml_data_load_options: Option<XmlDataLoadOptions>,
+        pub xml_data_load_options: Option<XmlDataLoadOptions>,
 
 }
 
 impl Default for ReportEngineSettings {
     fn default() -> Self {
         Self {
-            r#csv_data_load_options: None,
-            r#data_source_name: None,
-            r#data_source_type: None,
-            r#json_data_load_options: None,
-            r#report_build_options: None,
-            r#xml_data_load_options: None,
+            csv_data_load_options: None,
+            data_source_name: None,
+            data_source_type: None,
+            json_data_load_options: None,
+            report_build_options: None,
+            xml_data_load_options: None,
         }
     }
 }
 
 impl Model for ReportEngineSettings {
     fn validate(&self) -> SdkResult<()> {
-        if self.r#data_source_type.is_none() {
+        if self.data_source_type.is_none() {
             return Err(SdkError::InvalidRequest(
                 "property DataSourceType in ReportEngineSettings is required".to_owned(),
             ));
         }
-        if let Some(value) = &self.r#csv_data_load_options {
+        if let Some(value) = &self.csv_data_load_options {
         value.validate()?;
         }
 
 
-        if let Some(value) = &self.r#json_data_load_options {
+        if let Some(value) = &self.json_data_load_options {
         value.validate()?;
         }
 
-        if let Some(value) = &self.r#xml_data_load_options {
+        if let Some(value) = &self.xml_data_load_options {
         value.validate()?;
         }
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
     }
 
     fn as_any(&self) -> &dyn Any {
@@ -107,9 +107,8 @@ impl Model for ReportEngineSettings {
 }
 
 /// Gets or sets type of datasource.
-#[allow(non_camel_case_types)]
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
-pub enum ReportEngineSettings_DataSourceTypeEnum {
+pub enum ReportEngineSettingsDataSourceTypeEnum {
     #[serde(rename = "Xml")]
         Xml,
     #[serde(rename = "Json")]

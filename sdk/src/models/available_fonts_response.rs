@@ -37,17 +37,17 @@ pub struct AvailableFontsResponse {
     pub parent: WordsResponse,
         /// Gets or sets the list of additional fonts, provided by Aspose team.
         #[serde(rename = "AdditionalFonts", skip_serializing_if = "Option::is_none")]
-        pub r#additional_fonts: Option<Vec<FontInfo>>,
+        pub additional_fonts: Option<Vec<FontInfo>>,
 
 
         /// Gets or sets the list of custom user fonts from user cloud storage. To use them, you should specify "fontsLocation" parameter in any request.
         #[serde(rename = "CustomFonts", skip_serializing_if = "Option::is_none")]
-        pub r#custom_fonts: Option<Vec<FontInfo>>,
+        pub custom_fonts: Option<Vec<FontInfo>>,
 
 
         /// Gets or sets the list of system fonts, available on the server.
         #[serde(rename = "SystemFonts", skip_serializing_if = "Option::is_none")]
-        pub r#system_fonts: Option<Vec<FontInfo>>,
+        pub system_fonts: Option<Vec<FontInfo>>,
 
 }
 
@@ -56,9 +56,9 @@ impl Default for AvailableFontsResponse {
         let mut parent = WordsResponse::default();
         Self {
             parent,
-            r#additional_fonts: None,
-            r#custom_fonts: None,
-            r#system_fonts: None,
+            additional_fonts: None,
+            custom_fonts: None,
+            system_fonts: None,
         }
     }
 }
@@ -80,17 +80,17 @@ impl DerefMut for AvailableFontsResponse {
 impl Model for AvailableFontsResponse {
     fn validate(&self) -> SdkResult<()> {
         self.parent.validate()?;
-        if let Some(values) = &self.r#additional_fonts {
+        if let Some(values) = &self.additional_fonts {
         for value in values {
         value.validate()?;
         }
         }
-        if let Some(values) = &self.r#custom_fonts {
+        if let Some(values) = &self.custom_fonts {
         for value in values {
         value.validate()?;
         }
         }
-        if let Some(values) = &self.r#system_fonts {
+        if let Some(values) = &self.system_fonts {
         for value in values {
         value.validate()?;
         }
@@ -98,8 +98,8 @@ impl Model for AvailableFontsResponse {
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
-        self.parent.collect_file_references(output);
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+        self.parent.collect_file_references(_output);
     }
 
     fn as_any(&self) -> &dyn Any {

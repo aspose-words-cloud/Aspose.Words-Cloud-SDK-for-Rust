@@ -34,20 +34,20 @@ use super::*;
 pub struct InfoAdditionalItem {
         /// Gets or sets Key.
         #[serde(rename = "Key", skip_serializing_if = "Option::is_none")]
-        pub r#key: Option<String>,
+        pub key: Option<String>,
 
 
         /// Gets or sets Value.
         #[serde(rename = "Value", skip_serializing_if = "Option::is_none")]
-        pub r#value: Option<String>,
+        pub value: Option<String>,
 
 }
 
 impl Default for InfoAdditionalItem {
     fn default() -> Self {
         Self {
-            r#key: None,
-            r#value: None,
+            key: None,
+            value: None,
         }
     }
 }
@@ -57,7 +57,7 @@ impl Model for InfoAdditionalItem {
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
     }
 
     fn as_any(&self) -> &dyn Any {

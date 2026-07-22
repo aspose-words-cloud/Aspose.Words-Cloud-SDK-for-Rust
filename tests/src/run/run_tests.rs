@@ -36,29 +36,27 @@ use crate::test_context::*;
 #[tokio::test]
 async fn run_update_run() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/DocumentElements/Runs")?;
-    let localFile = test_string!("DocumentElements/Runs/Run.doc")?;
-    let remoteFileName = test_string!("TestUpdateRun.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentElements/Runs";
+    let local_file = "DocumentElements/Runs/Run.doc".to_owned();
+    let remote_file_name = "TestUpdateRun.docx".to_owned();
 
-    context.upload_file(test_string!(localFile)?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
-    let mut requestRun = RunUpdate::default();
-    requestRun.r#text = Some((test_string!("run with text")?).into());
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
+    let mut request_run = RunUpdate::default();
+    request_run.text = Some(("run with text".to_owned()).into());
 
     let request = UpdateRunRequest::new(
-        (test_string!(remoteFileName)?).into(),
-        (test_string!("paragraphs/1")?).into(),
+        (remote_file_name.clone()).into(),
+        ("paragraphs/1".to_owned()).into(),
         (0).into(),
-        (requestRun).into()
-    ).with_folder((test_string!(remoteDataFolder)?).into());
+        (request_run).into()
+    ).with_folder((remote_data_folder.clone()).into());
 
     let result = context.api().update_run(request).await?;
     let result_json = serialize_result(&result)?;
     assert_not_null(&result_json, "Run")?;
-    assert_string(&result_json, "Run.Text", test_string!("run with text")?)?;
+    assert_string(&result_json, "Run.Text", "run with text".to_owned())?;
     Ok(())
 }
 
@@ -66,20 +64,18 @@ async fn run_update_run() -> TestResult<()> {
 #[tokio::test]
 async fn run_update_run_online() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let localFile = test_string!("DocumentElements/Runs/Run.doc")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let local_file = "DocumentElements/Runs/Run.doc".to_owned();
 
-    let requestDocument = context.load_binary_file(test_string!(localFile)?).await?;
-    let mut requestRun = RunUpdate::default();
-    requestRun.r#text = Some((test_string!("run with text")?).into());
+    let request_document = context.load_binary_file(local_file.clone()).await?;
+    let mut request_run = RunUpdate::default();
+    request_run.text = Some(("run with text".to_owned()).into());
 
     let request = UpdateRunOnlineRequest::new(
-        (requestDocument).into(),
-        (test_string!("paragraphs/1")?).into(),
-        (requestRun).into(),
+        (request_document).into(),
+        ("paragraphs/1".to_owned()).into(),
+        (request_run).into(),
         (0).into()
     );
 
@@ -91,29 +87,27 @@ async fn run_update_run_online() -> TestResult<()> {
 #[tokio::test]
 async fn run_insert_run() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/DocumentElements/Runs")?;
-    let localFile = test_string!("DocumentElements/Runs/Run.doc")?;
-    let remoteFileName = test_string!("TestInsertRun.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentElements/Runs";
+    let local_file = "DocumentElements/Runs/Run.doc".to_owned();
+    let remote_file_name = "TestInsertRun.docx".to_owned();
 
-    context.upload_file(test_string!(localFile)?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
-    let mut requestRun = RunInsert::default();
-    requestRun.r#text = Some((test_string!("run with text")?).into());
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
+    let mut request_run = RunInsert::default();
+    request_run.text = Some(("run with text".to_owned()).into());
 
     let request = InsertRunRequest::new(
-        (test_string!(remoteFileName)?).into(),
-        (requestRun).into()
-    ).with_paragraph_path((test_string!("paragraphs/1")?).into())
-.with_folder((test_string!(remoteDataFolder)?).into());
+        (remote_file_name.clone()).into(),
+        (request_run).into()
+    ).with_paragraph_path(("paragraphs/1".to_owned()).into())
+.with_folder((remote_data_folder.clone()).into());
 
     let result = context.api().insert_run(request).await?;
     let result_json = serialize_result(&result)?;
     assert_not_null(&result_json, "Run")?;
-    assert_string(&result_json, "Run.Text", test_string!("run with text")?)?;
-    assert_string(&result_json, "Run.NodeId", test_string!("0.0.1.3")?)?;
+    assert_string(&result_json, "Run.Text", "run with text".to_owned())?;
+    assert_string(&result_json, "Run.NodeId", "0.0.1.3".to_owned())?;
     Ok(())
 }
 
@@ -121,20 +115,18 @@ async fn run_insert_run() -> TestResult<()> {
 #[tokio::test]
 async fn run_insert_run_online() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let localFile = test_string!("DocumentElements/Runs/Run.doc")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let local_file = "DocumentElements/Runs/Run.doc".to_owned();
 
-    let requestDocument = context.load_binary_file(test_string!(localFile)?).await?;
-    let mut requestRun = RunInsert::default();
-    requestRun.r#text = Some((test_string!("run with text")?).into());
+    let request_document = context.load_binary_file(local_file.clone()).await?;
+    let mut request_run = RunInsert::default();
+    request_run.text = Some(("run with text".to_owned()).into());
 
     let request = InsertRunOnlineRequest::new(
-        (requestDocument).into(),
-        (requestRun).into()
-    ).with_paragraph_path((test_string!("paragraphs/1")?).into());
+        (request_document).into(),
+        (request_run).into()
+    ).with_paragraph_path(("paragraphs/1".to_owned()).into());
 
     context.api().insert_run_online(request).await?;
     Ok(())
@@ -144,21 +136,19 @@ async fn run_insert_run_online() -> TestResult<()> {
 #[tokio::test]
 async fn run_delete_run() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/DocumentElements/Runs")?;
-    let localFile = test_string!("DocumentElements/Runs/Run.doc")?;
-    let remoteFileName = test_string!("TestDeleteRun.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentElements/Runs";
+    let local_file = "DocumentElements/Runs/Run.doc".to_owned();
+    let remote_file_name = "TestDeleteRun.docx".to_owned();
 
-    context.upload_file(test_string!(localFile)?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
     let request = DeleteRunRequest::new(
-        (test_string!(remoteFileName)?).into(),
-        (test_string!("paragraphs/1")?).into(),
+        (remote_file_name.clone()).into(),
+        ("paragraphs/1".to_owned()).into(),
         (0).into()
-    ).with_folder((test_string!(remoteDataFolder)?).into());
+    ).with_folder((remote_data_folder.clone()).into());
 
     context.api().delete_run(request).await?;
     Ok(())
@@ -168,17 +158,15 @@ async fn run_delete_run() -> TestResult<()> {
 #[tokio::test]
 async fn run_delete_run_online() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let localFile = test_string!("DocumentElements/Runs/Run.doc")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let local_file = "DocumentElements/Runs/Run.doc".to_owned();
 
-    let requestDocument = context.load_binary_file(test_string!(localFile)?).await?;
+    let request_document = context.load_binary_file(local_file.clone()).await?;
 
     let request = DeleteRunOnlineRequest::new(
-        (requestDocument).into(),
-        (test_string!("paragraphs/1")?).into(),
+        (request_document).into(),
+        ("paragraphs/1".to_owned()).into(),
         (0).into()
     );
 

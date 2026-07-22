@@ -38,7 +38,7 @@ pub struct RangeTextResponse {
     pub parent: WordsResponse,
         /// Gets or sets the range's text.
         #[serde(rename = "Text", skip_serializing_if = "Option::is_none")]
-        pub r#text: Option<String>,
+        pub text: Option<String>,
 
 }
 
@@ -47,7 +47,7 @@ impl Default for RangeTextResponse {
         let mut parent = WordsResponse::default();
         Self {
             parent,
-            r#text: None,
+            text: None,
         }
     }
 }
@@ -72,8 +72,8 @@ impl Model for RangeTextResponse {
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
-        self.parent.collect_file_references(output);
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+        self.parent.collect_file_references(_output);
     }
 
     fn as_any(&self) -> &dyn Any {

@@ -38,17 +38,17 @@ pub struct TiffSaveOptionsData {
         /// Gets or sets the threshold that determines the value of the binarization error in the Floyd-Steinberg method. when ImageBinarizationMethod is ImageBinarizationMethod.FloydSteinbergDithering.
             /// The default value is 128.
         #[serde(rename = "ThresholdForFloydSteinbergDithering", skip_serializing_if = "Option::is_none")]
-        pub r#threshold_for_floyd_steinberg_dithering: Option<i32>,
+        pub threshold_for_floyd_steinberg_dithering: Option<i32>,
 
 
         /// Gets or sets the method used while converting images to 1 bpp format.
         #[serde(rename = "TiffBinarizationMethod", skip_serializing_if = "Option::is_none")]
-        pub r#tiff_binarization_method: Option<TiffSaveOptionsData_TiffBinarizationMethodEnum>,
+        pub tiff_binarization_method: Option<TiffSaveOptionsDataTiffBinarizationMethodEnum>,
 
 
         /// Gets or sets the type of compression.
         #[serde(rename = "TiffCompression", skip_serializing_if = "Option::is_none")]
-        pub r#tiff_compression: Option<TiffSaveOptionsData_TiffCompressionEnum>,
+        pub tiff_compression: Option<TiffSaveOptionsDataTiffCompressionEnum>,
 
 
 }
@@ -56,12 +56,12 @@ pub struct TiffSaveOptionsData {
 impl Default for TiffSaveOptionsData {
     fn default() -> Self {
         let mut parent = ImageSaveOptionsData::default();
-        parent.r#save_format = Some("tiff".to_owned());
+        parent.save_format = Some("tiff".to_owned());
         Self {
             parent,
-            r#threshold_for_floyd_steinberg_dithering: None,
-            r#tiff_binarization_method: None,
-            r#tiff_compression: None,
+            threshold_for_floyd_steinberg_dithering: None,
+            tiff_binarization_method: None,
+            tiff_compression: None,
 
         }
     }
@@ -87,8 +87,8 @@ impl Model for TiffSaveOptionsData {
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
-        self.parent.collect_file_references(output);
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+        self.parent.collect_file_references(_output);
     }
 
     fn as_any(&self) -> &dyn Any {
@@ -97,9 +97,8 @@ impl Model for TiffSaveOptionsData {
 }
 
 /// Gets or sets the method used while converting images to 1 bpp format.
-#[allow(non_camel_case_types)]
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
-pub enum TiffSaveOptionsData_TiffBinarizationMethodEnum {
+pub enum TiffSaveOptionsDataTiffBinarizationMethodEnum {
     #[serde(rename = "Threshold")]
         Threshold,
     #[serde(rename = "FloydSteinbergDithering")]
@@ -107,9 +106,8 @@ pub enum TiffSaveOptionsData_TiffBinarizationMethodEnum {
 }
 
 /// Gets or sets the type of compression.
-#[allow(non_camel_case_types)]
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
-pub enum TiffSaveOptionsData_TiffCompressionEnum {
+pub enum TiffSaveOptionsDataTiffCompressionEnum {
     #[serde(rename = "None")]
         None,
     #[serde(rename = "Rle")]

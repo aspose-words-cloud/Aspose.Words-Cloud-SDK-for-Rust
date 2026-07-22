@@ -34,21 +34,21 @@ use super::*;
 pub struct StoryChildNodes {
         /// Gets or sets the list of child nodes.
         #[serde(rename = "ChildNodes", skip_serializing_if = "Option::is_none")]
-        pub r#child_nodes: Option<Vec<NodeLink>>,
+        pub child_nodes: Option<Vec<NodeLink>>,
 
 }
 
 impl Default for StoryChildNodes {
     fn default() -> Self {
         Self {
-            r#child_nodes: None,
+            child_nodes: None,
         }
     }
 }
 
 impl Model for StoryChildNodes {
     fn validate(&self) -> SdkResult<()> {
-        if let Some(values) = &self.r#child_nodes {
+        if let Some(values) = &self.child_nodes {
         for value in values {
         value.validate()?;
         }
@@ -56,7 +56,7 @@ impl Model for StoryChildNodes {
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
     }
 
     fn as_any(&self) -> &dyn Any {

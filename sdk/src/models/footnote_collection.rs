@@ -37,7 +37,7 @@ pub struct FootnoteCollection {
     pub parent: LinkElement,
         /// Gets or sets the collection of footnotes.
         #[serde(rename = "List", skip_serializing_if = "Option::is_none")]
-        pub r#list: Option<Vec<Footnote>>,
+        pub list: Option<Vec<Footnote>>,
 
 }
 
@@ -46,7 +46,7 @@ impl Default for FootnoteCollection {
         let mut parent = LinkElement::default();
         Self {
             parent,
-            r#list: None,
+            list: None,
         }
     }
 }
@@ -68,7 +68,7 @@ impl DerefMut for FootnoteCollection {
 impl Model for FootnoteCollection {
     fn validate(&self) -> SdkResult<()> {
         self.parent.validate()?;
-        if let Some(values) = &self.r#list {
+        if let Some(values) = &self.list {
         for value in values {
         value.validate()?;
         }
@@ -76,8 +76,8 @@ impl Model for FootnoteCollection {
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
-        self.parent.collect_file_references(output);
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+        self.parent.collect_file_references(_output);
     }
 
     fn as_any(&self) -> &dyn Any {

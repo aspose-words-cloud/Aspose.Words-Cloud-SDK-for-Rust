@@ -40,7 +40,7 @@ pub struct DotxSaveOptionsData {
 impl Default for DotxSaveOptionsData {
     fn default() -> Self {
         let mut parent = OoxmlSaveOptionsData::default();
-        parent.r#save_format = Some("dotx".to_owned());
+        parent.save_format = Some("dotx".to_owned());
         Self {
             parent,
         }
@@ -67,8 +67,8 @@ impl Model for DotxSaveOptionsData {
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
-        self.parent.collect_file_references(output);
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+        self.parent.collect_file_references(_output);
     }
 
     fn as_any(&self) -> &dyn Any {

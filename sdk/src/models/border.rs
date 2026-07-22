@@ -38,36 +38,36 @@ pub struct Border {
     pub parent: LinkElement,
         /// Gets or sets the border type.
         #[serde(rename = "BorderType", skip_serializing_if = "Option::is_none")]
-        pub r#border_type: Option<Border_BorderTypeEnum>,
+        pub border_type: Option<BorderBorderTypeEnum>,
 
 
         /// Gets or sets the border color.
         #[serde(rename = "Color", skip_serializing_if = "Option::is_none")]
-        pub r#color: Option<XmlColor>,
+        pub color: Option<XmlColor>,
 
 
         /// Gets or sets the distance of the border from text or from the page edge in points.
             /// Has no effect and will be automatically reset to zero for borders of table cells.
         #[serde(rename = "DistanceFromText", skip_serializing_if = "Option::is_none")]
-        pub r#distance_from_text: Option<f64>,
+        pub distance_from_text: Option<f64>,
 
 
         /// Gets or sets the border style.
             /// If you set line style to none, then line width is automatically changed to zero.
         #[serde(rename = "LineStyle", skip_serializing_if = "Option::is_none")]
-        pub r#line_style: Option<Border_LineStyleEnum>,
+        pub line_style: Option<BorderLineStyleEnum>,
 
 
         /// Gets or sets the border width in points.
             /// If you set line width greater than zero when line style is none, the line style is automatically changed to single line.
         #[serde(rename = "LineWidth", skip_serializing_if = "Option::is_none")]
-        pub r#line_width: Option<f64>,
+        pub line_width: Option<f64>,
 
 
         /// Gets or sets a value indicating whether the border has a shadow.
             /// In Microsoft Word, for a border to have a shadow, the borders on all four sides (left, top, right and bottom) should be of the same type, width, color and all should have the Shadow property set to true.
         #[serde(rename = "Shadow", skip_serializing_if = "Option::is_none")]
-        pub r#shadow: Option<bool>,
+        pub shadow: Option<bool>,
 
 }
 
@@ -76,12 +76,12 @@ impl Default for Border {
         let mut parent = LinkElement::default();
         Self {
             parent,
-            r#border_type: None,
-            r#color: None,
-            r#distance_from_text: None,
-            r#line_style: None,
-            r#line_width: None,
-            r#shadow: None,
+            border_type: None,
+            color: None,
+            distance_from_text: None,
+            line_style: None,
+            line_width: None,
+            shadow: None,
         }
     }
 }
@@ -103,7 +103,7 @@ impl DerefMut for Border {
 impl Model for Border {
     fn validate(&self) -> SdkResult<()> {
         self.parent.validate()?;
-        if let Some(value) = &self.r#color {
+        if let Some(value) = &self.color {
         value.validate()?;
         }
 
@@ -113,8 +113,8 @@ impl Model for Border {
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
-        self.parent.collect_file_references(output);
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+        self.parent.collect_file_references(_output);
     }
 
     fn as_any(&self) -> &dyn Any {
@@ -123,9 +123,8 @@ impl Model for Border {
 }
 
 /// Gets or sets the border type.
-#[allow(non_camel_case_types)]
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
-pub enum Border_BorderTypeEnum {
+pub enum BorderBorderTypeEnum {
     #[serde(rename = "Bottom")]
         Bottom,
     #[serde(rename = "Left")]
@@ -148,9 +147,8 @@ pub enum Border_BorderTypeEnum {
 
 /// Gets or sets the border style.
 /// If you set line style to none, then line width is automatically changed to zero.
-#[allow(non_camel_case_types)]
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
-pub enum Border_LineStyleEnum {
+pub enum BorderLineStyleEnum {
     #[serde(rename = "None")]
         None,
     #[serde(rename = "Single")]

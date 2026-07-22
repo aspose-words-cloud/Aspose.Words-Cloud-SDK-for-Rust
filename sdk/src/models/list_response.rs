@@ -38,7 +38,7 @@ pub struct ListResponse {
     pub parent: WordsResponse,
         /// Gets or sets the list information.
         #[serde(rename = "List", skip_serializing_if = "Option::is_none")]
-        pub r#list: Option<ListInfo>,
+        pub list: Option<ListInfo>,
 
 }
 
@@ -47,7 +47,7 @@ impl Default for ListResponse {
         let mut parent = WordsResponse::default();
         Self {
             parent,
-            r#list: None,
+            list: None,
         }
     }
 }
@@ -69,14 +69,14 @@ impl DerefMut for ListResponse {
 impl Model for ListResponse {
     fn validate(&self) -> SdkResult<()> {
         self.parent.validate()?;
-        if let Some(value) = &self.r#list {
+        if let Some(value) = &self.list {
         value.validate()?;
         }
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
-        self.parent.collect_file_references(output);
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+        self.parent.collect_file_references(_output);
     }
 
     fn as_any(&self) -> &dyn Any {

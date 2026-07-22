@@ -38,7 +38,7 @@ pub struct MhtmlSaveOptionsData {
         /// Gets or sets a value indicating whether to use CID (Content-ID) URLs to reference resources (images, fonts, CSS) included in MHTML documents. The default value is false.
             /// By default, resources in MHTML documents are referenced by file name (for example, "image.png"), which are matched against "Content-Location" headers of MIME parts. This option enables an alternative method, where references to resource files are written as CID (Content-ID) URLs (for example, "cid:image.png") and are matched against "Content-ID" headers. In theory, there should be no difference between the two referencing methods and either of them should work fine in any browser or mail agent. In practice, however, some agents fail to fetch resources by file name. If your browser or mail agent refuses to load resources included in an MTHML document (doesn't show images or doesn't load CSS styles), try exporting the document with CID URLs.
         #[serde(rename = "ExportCidUrlsForMhtmlResources", skip_serializing_if = "Option::is_none")]
-        pub r#export_cid_urls_for_mhtml_resources: Option<bool>,
+        pub export_cid_urls_for_mhtml_resources: Option<bool>,
 
 
 }
@@ -46,10 +46,10 @@ pub struct MhtmlSaveOptionsData {
 impl Default for MhtmlSaveOptionsData {
     fn default() -> Self {
         let mut parent = HtmlSaveOptionsData::default();
-        parent.r#save_format = Some("mht".to_owned());
+        parent.save_format = Some("mht".to_owned());
         Self {
             parent,
-            r#export_cid_urls_for_mhtml_resources: None,
+            export_cid_urls_for_mhtml_resources: None,
 
         }
     }
@@ -75,8 +75,8 @@ impl Model for MhtmlSaveOptionsData {
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
-        self.parent.collect_file_references(output);
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+        self.parent.collect_file_references(_output);
     }
 
     fn as_any(&self) -> &dyn Any {

@@ -37,12 +37,12 @@ pub struct StructuredDocumentTag {
     pub parent: StructuredDocumentTagBase,
         /// Gets or sets the level at which this SDT occurs in the document tree.
         #[serde(rename = "Level", skip_serializing_if = "Option::is_none")]
-        pub r#level: Option<StructuredDocumentTag_LevelEnum>,
+        pub level: Option<StructuredDocumentTagLevelEnum>,
 
 
         /// Gets or sets type of this Structured document tag.
         #[serde(rename = "SdtType", skip_serializing_if = "Option::is_none")]
-        pub r#sdt_type: Option<StructuredDocumentTag_SdtTypeEnum>,
+        pub sdt_type: Option<StructuredDocumentTagSdtTypeEnum>,
 
 }
 
@@ -51,8 +51,8 @@ impl Default for StructuredDocumentTag {
         let mut parent = StructuredDocumentTagBase::default();
         Self {
             parent,
-            r#level: None,
-            r#sdt_type: None,
+            level: None,
+            sdt_type: None,
         }
     }
 }
@@ -77,8 +77,8 @@ impl Model for StructuredDocumentTag {
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
-        self.parent.collect_file_references(output);
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+        self.parent.collect_file_references(_output);
     }
 
     fn as_any(&self) -> &dyn Any {
@@ -87,9 +87,8 @@ impl Model for StructuredDocumentTag {
 }
 
 /// Gets or sets the level at which this SDT occurs in the document tree.
-#[allow(non_camel_case_types)]
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
-pub enum StructuredDocumentTag_LevelEnum {
+pub enum StructuredDocumentTagLevelEnum {
     #[serde(rename = "Unknown")]
         Unknown,
     #[serde(rename = "Inline")]
@@ -103,9 +102,8 @@ pub enum StructuredDocumentTag_LevelEnum {
 }
 
 /// Gets or sets type of this Structured document tag.
-#[allow(non_camel_case_types)]
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
-pub enum StructuredDocumentTag_SdtTypeEnum {
+pub enum StructuredDocumentTagSdtTypeEnum {
     #[serde(rename = "None")]
         None,
     #[serde(rename = "Bibliography")]

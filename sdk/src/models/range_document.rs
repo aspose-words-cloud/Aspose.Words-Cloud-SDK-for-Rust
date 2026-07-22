@@ -34,21 +34,21 @@ use super::*;
 pub struct RangeDocument {
         /// Gets or sets the name for a new document.
         #[serde(rename = "DocumentName", skip_serializing_if = "Option::is_none")]
-        pub r#document_name: Option<String>,
+        pub document_name: Option<String>,
 
 }
 
 impl Default for RangeDocument {
     fn default() -> Self {
         Self {
-            r#document_name: None,
+            document_name: None,
         }
     }
 }
 
 impl Model for RangeDocument {
     fn validate(&self) -> SdkResult<()> {
-        if self.r#document_name.is_none() {
+        if self.document_name.is_none() {
             return Err(SdkError::InvalidRequest(
                 "property DocumentName in RangeDocument is required".to_owned(),
             ));
@@ -56,7 +56,7 @@ impl Model for RangeDocument {
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
     }
 
     fn as_any(&self) -> &dyn Any {

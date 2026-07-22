@@ -34,21 +34,21 @@ use super::*;
 pub struct RevisionCollection {
         /// Gets or sets the revisions.
         #[serde(rename = "Revisions", skip_serializing_if = "Option::is_none")]
-        pub r#revisions: Option<Vec<Revision>>,
+        pub revisions: Option<Vec<Revision>>,
 
 }
 
 impl Default for RevisionCollection {
     fn default() -> Self {
         Self {
-            r#revisions: None,
+            revisions: None,
         }
     }
 }
 
 impl Model for RevisionCollection {
     fn validate(&self) -> SdkResult<()> {
-        if let Some(values) = &self.r#revisions {
+        if let Some(values) = &self.revisions {
         for value in values {
         value.validate()?;
         }
@@ -56,7 +56,7 @@ impl Model for RevisionCollection {
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
     }
 
     fn as_any(&self) -> &dyn Any {

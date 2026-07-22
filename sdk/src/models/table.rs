@@ -37,12 +37,12 @@ pub struct Table {
     pub parent: NodeLink,
         /// Gets or sets the collection of table's rows.
         #[serde(rename = "TableRowList", skip_serializing_if = "Option::is_none")]
-        pub r#table_row_list: Option<Vec<TableRow>>,
+        pub table_row_list: Option<Vec<TableRow>>,
 
 
         /// Gets or sets table properties.
         #[serde(rename = "TableProperties", skip_serializing_if = "Option::is_none")]
-        pub r#table_properties: Option<TableProperties>,
+        pub table_properties: Option<TableProperties>,
 
 }
 
@@ -51,8 +51,8 @@ impl Default for Table {
         let mut parent = NodeLink::default();
         Self {
             parent,
-            r#table_row_list: None,
-            r#table_properties: None,
+            table_row_list: None,
+            table_properties: None,
         }
     }
 }
@@ -74,19 +74,19 @@ impl DerefMut for Table {
 impl Model for Table {
     fn validate(&self) -> SdkResult<()> {
         self.parent.validate()?;
-        if let Some(values) = &self.r#table_row_list {
+        if let Some(values) = &self.table_row_list {
         for value in values {
         value.validate()?;
         }
         }
-        if let Some(value) = &self.r#table_properties {
+        if let Some(value) = &self.table_properties {
         value.validate()?;
         }
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
-        self.parent.collect_file_references(output);
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+        self.parent.collect_file_references(_output);
     }
 
     fn as_any(&self) -> &dyn Any {

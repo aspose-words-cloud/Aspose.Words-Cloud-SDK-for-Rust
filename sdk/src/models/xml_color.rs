@@ -34,20 +34,20 @@ use super::*;
 pub struct XmlColor {
         /// Gets or sets the Alpha component of color structure.
         #[serde(rename = "Alpha", skip_serializing_if = "Option::is_none")]
-        pub r#alpha: Option<i32>,
+        pub alpha: Option<i32>,
 
 
         /// Gets or sets the HTML string color representation.
         #[serde(rename = "Web", skip_serializing_if = "Option::is_none")]
-        pub r#web: Option<String>,
+        pub web: Option<String>,
 
 }
 
 impl Default for XmlColor {
     fn default() -> Self {
         Self {
-            r#alpha: None,
-            r#web: None,
+            alpha: None,
+            web: None,
         }
     }
 }
@@ -57,7 +57,7 @@ impl Model for XmlColor {
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
     }
 
     fn as_any(&self) -> &dyn Any {

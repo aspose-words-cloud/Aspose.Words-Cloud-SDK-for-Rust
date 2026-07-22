@@ -37,7 +37,7 @@ pub struct WordsApiErrorResponse {
     pub parent: WordsResponse,
         /// Gets or sets the API error.
         #[serde(rename = "Error", skip_serializing_if = "Option::is_none")]
-        pub r#error: Option<Box<ApiError>>,
+        pub error: Option<Box<ApiError>>,
 
 }
 
@@ -46,7 +46,7 @@ impl Default for WordsApiErrorResponse {
         let mut parent = WordsResponse::default();
         Self {
             parent,
-            r#error: None,
+            error: None,
         }
     }
 }
@@ -68,14 +68,14 @@ impl DerefMut for WordsApiErrorResponse {
 impl Model for WordsApiErrorResponse {
     fn validate(&self) -> SdkResult<()> {
         self.parent.validate()?;
-        if let Some(value) = &self.r#error {
+        if let Some(value) = &self.error {
         value.validate()?;
         }
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
-        self.parent.collect_file_references(output);
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+        self.parent.collect_file_references(_output);
     }
 
     fn as_any(&self) -> &dyn Any {

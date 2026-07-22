@@ -37,12 +37,12 @@ pub struct DocumentEntry {
     pub parent: BaseEntry,
         /// Gets or sets document password encrypted on API public key. The default value is null (the document has no password).
         #[serde(rename = "EncryptedPassword", skip_serializing_if = "Option::is_none")]
-        pub r#encrypted_password: Option<String>,
+        pub encrypted_password: Option<String>,
 
 
         /// Gets or sets the option that controls formatting will be used: appended or destination document. Can be KeepSourceFormatting or UseDestinationStyles.
         #[serde(rename = "ImportFormatMode", skip_serializing_if = "Option::is_none")]
-        pub r#import_format_mode: Option<DocumentEntry_ImportFormatModeEnum>,
+        pub import_format_mode: Option<DocumentEntryImportFormatModeEnum>,
 
 }
 
@@ -51,8 +51,8 @@ impl Default for DocumentEntry {
         let mut parent = BaseEntry::default();
         Self {
             parent,
-            r#encrypted_password: None,
-            r#import_format_mode: None,
+            encrypted_password: None,
+            import_format_mode: None,
         }
     }
 }
@@ -74,7 +74,7 @@ impl DerefMut for DocumentEntry {
 impl Model for DocumentEntry {
     fn validate(&self) -> SdkResult<()> {
         self.parent.validate()?;
-        if self.r#import_format_mode.is_none() {
+        if self.import_format_mode.is_none() {
             return Err(SdkError::InvalidRequest(
                 "property ImportFormatMode in DocumentEntry is required".to_owned(),
             ));
@@ -82,8 +82,8 @@ impl Model for DocumentEntry {
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
-        self.parent.collect_file_references(output);
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+        self.parent.collect_file_references(_output);
     }
 
     fn as_any(&self) -> &dyn Any {
@@ -92,9 +92,8 @@ impl Model for DocumentEntry {
 }
 
 /// Gets or sets the option that controls formatting will be used: appended or destination document. Can be KeepSourceFormatting or UseDestinationStyles.
-#[allow(non_camel_case_types)]
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
-pub enum DocumentEntry_ImportFormatModeEnum {
+pub enum DocumentEntryImportFormatModeEnum {
     #[serde(rename = "UseDestinationStyles")]
         UseDestinationStyles,
     #[serde(rename = "KeepSourceFormatting")]

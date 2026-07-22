@@ -34,26 +34,26 @@ use super::*;
 pub struct UserInformation {
         /// Gets or sets user address.
         #[serde(rename = "Address", skip_serializing_if = "Option::is_none")]
-        pub r#address: Option<String>,
+        pub address: Option<String>,
 
 
         /// Gets or sets user initials.
         #[serde(rename = "Initials", skip_serializing_if = "Option::is_none")]
-        pub r#initials: Option<String>,
+        pub initials: Option<String>,
 
 
         /// Gets or sets user name.
         #[serde(rename = "Name", skip_serializing_if = "Option::is_none")]
-        pub r#name: Option<String>,
+        pub name: Option<String>,
 
 }
 
 impl Default for UserInformation {
     fn default() -> Self {
         Self {
-            r#address: None,
-            r#initials: None,
-            r#name: None,
+            address: None,
+            initials: None,
+            name: None,
         }
     }
 }
@@ -63,7 +63,7 @@ impl Model for UserInformation {
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
     }
 
     fn as_any(&self) -> &dyn Any {

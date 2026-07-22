@@ -37,18 +37,18 @@ pub struct DocumentProperty {
     pub parent: LinkElement,
         /// Gets or sets the name of the document property.
         #[serde(rename = "Name", skip_serializing_if = "Option::is_none")]
-        pub r#name: Option<String>,
+        pub name: Option<String>,
 
 
         /// Gets or sets the value of the document property.
         #[serde(rename = "Value", skip_serializing_if = "Option::is_none")]
-        pub r#value: Option<String>,
+        pub value: Option<String>,
 
 
         /// Gets or sets a value indicating whether the property is built-in or not.
             /// If true the property is built-in, if false the property is custom.
         #[serde(rename = "BuiltIn", skip_serializing_if = "Option::is_none")]
-        pub r#built_in: Option<bool>,
+        pub built_in: Option<bool>,
 
 }
 
@@ -57,9 +57,9 @@ impl Default for DocumentProperty {
         let mut parent = LinkElement::default();
         Self {
             parent,
-            r#name: None,
-            r#value: None,
-            r#built_in: None,
+            name: None,
+            value: None,
+            built_in: None,
         }
     }
 }
@@ -81,7 +81,7 @@ impl DerefMut for DocumentProperty {
 impl Model for DocumentProperty {
     fn validate(&self) -> SdkResult<()> {
         self.parent.validate()?;
-        if self.r#built_in.is_none() {
+        if self.built_in.is_none() {
             return Err(SdkError::InvalidRequest(
                 "property BuiltIn in DocumentProperty is required".to_owned(),
             ));
@@ -89,8 +89,8 @@ impl Model for DocumentProperty {
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
-        self.parent.collect_file_references(output);
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+        self.parent.collect_file_references(_output);
     }
 
     fn as_any(&self) -> &dyn Any {

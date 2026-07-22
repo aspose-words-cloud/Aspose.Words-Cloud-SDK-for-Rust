@@ -34,52 +34,52 @@ use super::*;
 pub struct OutlineOptionsData {
         /// Gets or sets a value indicating whether to create missing outline levels when the document is exported. The default value is false.
         #[serde(rename = "CreateMissingOutlineLevels", skip_serializing_if = "Option::is_none")]
-        pub r#create_missing_outline_levels: Option<bool>,
+        pub create_missing_outline_levels: Option<bool>,
 
 
         /// Gets or sets a value indicating whether to create outlines for headings (paragraphs formatted with the Heading styles) inside tables.
             /// The default value is false.
         #[serde(rename = "CreateOutlinesForHeadingsInTables", skip_serializing_if = "Option::is_none")]
-        pub r#create_outlines_for_headings_in_tables: Option<bool>,
+        pub create_outlines_for_headings_in_tables: Option<bool>,
 
 
         /// Gets or sets the default level in the document outline at which to display Word bookmarks.
         #[serde(rename = "DefaultBookmarksOutlineLevel", skip_serializing_if = "Option::is_none")]
-        pub r#default_bookmarks_outline_level: Option<i32>,
+        pub default_bookmarks_outline_level: Option<i32>,
 
 
         /// Gets or sets the number of levels in the document outline to show expanded when the file is viewed.
         #[serde(rename = "ExpandedOutlineLevels", skip_serializing_if = "Option::is_none")]
-        pub r#expanded_outline_levels: Option<i32>,
+        pub expanded_outline_levels: Option<i32>,
 
 
         /// Gets or sets the number of levels of headings (paragraphs formatted with the Heading styles) to include in the document outline.
         #[serde(rename = "HeadingsOutlineLevels", skip_serializing_if = "Option::is_none")]
-        pub r#headings_outline_levels: Option<i32>,
+        pub headings_outline_levels: Option<i32>,
 
 
         /// Gets or sets the individual bookmarks outline level.
         #[serde(rename = "BookmarksOutlineLevels", skip_serializing_if = "Option::is_none")]
-        pub r#bookmarks_outline_levels: Option<Vec<BookmarksOutlineLevelData>>,
+        pub bookmarks_outline_levels: Option<Vec<BookmarksOutlineLevelData>>,
 
 }
 
 impl Default for OutlineOptionsData {
     fn default() -> Self {
         Self {
-            r#create_missing_outline_levels: None,
-            r#create_outlines_for_headings_in_tables: None,
-            r#default_bookmarks_outline_level: None,
-            r#expanded_outline_levels: None,
-            r#headings_outline_levels: None,
-            r#bookmarks_outline_levels: None,
+            create_missing_outline_levels: None,
+            create_outlines_for_headings_in_tables: None,
+            default_bookmarks_outline_level: None,
+            expanded_outline_levels: None,
+            headings_outline_levels: None,
+            bookmarks_outline_levels: None,
         }
     }
 }
 
 impl Model for OutlineOptionsData {
     fn validate(&self) -> SdkResult<()> {
-        if let Some(values) = &self.r#bookmarks_outline_levels {
+        if let Some(values) = &self.bookmarks_outline_levels {
         for value in values {
         value.validate()?;
         }
@@ -87,7 +87,7 @@ impl Model for OutlineOptionsData {
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
     }
 
     fn as_any(&self) -> &dyn Any {

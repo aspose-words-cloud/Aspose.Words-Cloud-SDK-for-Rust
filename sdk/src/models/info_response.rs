@@ -37,17 +37,17 @@ pub struct InfoResponse {
     pub parent: WordsResponse,
         /// Gets or sets AdditionalInfo.
         #[serde(rename = "AdditionalInfo", skip_serializing_if = "Option::is_none")]
-        pub r#additional_info: Option<Vec<InfoAdditionalItem>>,
+        pub additional_info: Option<Vec<InfoAdditionalItem>>,
 
 
         /// Gets or sets Name.
         #[serde(rename = "Name", skip_serializing_if = "Option::is_none")]
-        pub r#name: Option<String>,
+        pub name: Option<String>,
 
 
         /// Gets or sets Version.
         #[serde(rename = "Version", skip_serializing_if = "Option::is_none")]
-        pub r#version: Option<String>,
+        pub version: Option<String>,
 
 }
 
@@ -56,9 +56,9 @@ impl Default for InfoResponse {
         let mut parent = WordsResponse::default();
         Self {
             parent,
-            r#additional_info: None,
-            r#name: None,
-            r#version: None,
+            additional_info: None,
+            name: None,
+            version: None,
         }
     }
 }
@@ -80,7 +80,7 @@ impl DerefMut for InfoResponse {
 impl Model for InfoResponse {
     fn validate(&self) -> SdkResult<()> {
         self.parent.validate()?;
-        if let Some(values) = &self.r#additional_info {
+        if let Some(values) = &self.additional_info {
         for value in values {
         value.validate()?;
         }
@@ -90,8 +90,8 @@ impl Model for InfoResponse {
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
-        self.parent.collect_file_references(output);
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+        self.parent.collect_file_references(_output);
     }
 
     fn as_any(&self) -> &dyn Any {

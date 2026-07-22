@@ -38,62 +38,62 @@ pub struct Style {
         /// Gets or sets the character formatting of the style.
             /// For list styles this property returns null.
         #[serde(rename = "Font", skip_serializing_if = "Option::is_none")]
-        pub r#font: Option<Font>,
+        pub font: Option<Font>,
 
 
         /// Gets or sets a value indicating whether this style is one of the built-in styles in MS Word.
         #[serde(rename = "BuiltIn", skip_serializing_if = "Option::is_none")]
-        pub r#built_in: Option<bool>,
+        pub built_in: Option<bool>,
 
 
         /// Gets or sets the name of the style to be applied automatically to a new paragraph inserted after a paragraph formatted with the specified style.
             /// This property is not used by Aspose.Words. The next paragraph style will only be applied automatically when you edit the document in MS Word.
         #[serde(rename = "NextParagraphStyleName", skip_serializing_if = "Option::is_none")]
-        pub r#next_paragraph_style_name: Option<String>,
+        pub next_paragraph_style_name: Option<String>,
 
 
         /// Gets or sets the name of the style this style is based on.
             /// This will be an empty string if the style is not based on any other style and it can be set to an empty string.
         #[serde(rename = "BaseStyleName", skip_serializing_if = "Option::is_none")]
-        pub r#base_style_name: Option<String>,
+        pub base_style_name: Option<String>,
 
 
         /// Gets or sets a value indicating whether this style is shown in the Quick Style gallery inside MS Word UI.
         #[serde(rename = "IsQuickStyle", skip_serializing_if = "Option::is_none")]
-        pub r#is_quick_style: Option<bool>,
+        pub is_quick_style: Option<bool>,
 
 
         /// Gets or sets the name of the Style linked to this one. Returns Empty string if no styles are linked.
         #[serde(rename = "LinkedStyleName", skip_serializing_if = "Option::is_none")]
-        pub r#linked_style_name: Option<String>,
+        pub linked_style_name: Option<String>,
 
 
         /// Gets or sets the style type (paragraph or character).
         #[serde(rename = "Type", skip_serializing_if = "Option::is_none")]
-        pub r#type: Option<Style_TypeEnum>,
+        pub r#type: Option<StyleTypeEnum>,
 
 
         /// Gets or sets a value indicating whether the style is one of the built-in Heading styles.
         #[serde(rename = "IsHeading", skip_serializing_if = "Option::is_none")]
-        pub r#is_heading: Option<bool>,
+        pub is_heading: Option<bool>,
 
 
         /// Gets or sets all aliases of this style. If style has no aliases then empty array of string is returned.
         #[serde(rename = "Aliases", skip_serializing_if = "Option::is_none")]
-        pub r#aliases: Option<Vec<String>>,
+        pub aliases: Option<Vec<String>>,
 
 
         /// Gets or sets the locale independent style identifier for a built-in style.
             /// For user defined (custom) styles, this property returns Aspose.Words.StyleIdentifier.User.
             /// Aspose.Words.Style.Name.
         #[serde(rename = "StyleIdentifier", skip_serializing_if = "Option::is_none")]
-        pub r#style_identifier: Option<Style_StyleIdentifierEnum>,
+        pub style_identifier: Option<StyleStyleIdentifierEnum>,
 
 
         /// Gets or sets the name of the style.
             /// Cannot be an empty string. If there already is a style with such name in the collection, then this style will override it. All affected nodes will reference new style.
         #[serde(rename = "Name", skip_serializing_if = "Option::is_none")]
-        pub r#name: Option<String>,
+        pub name: Option<String>,
 
 }
 
@@ -102,17 +102,17 @@ impl Default for Style {
         let mut parent = LinkElement::default();
         Self {
             parent,
-            r#font: None,
-            r#built_in: None,
-            r#next_paragraph_style_name: None,
-            r#base_style_name: None,
-            r#is_quick_style: None,
-            r#linked_style_name: None,
+            font: None,
+            built_in: None,
+            next_paragraph_style_name: None,
+            base_style_name: None,
+            is_quick_style: None,
+            linked_style_name: None,
             r#type: None,
-            r#is_heading: None,
-            r#aliases: None,
-            r#style_identifier: None,
-            r#name: None,
+            is_heading: None,
+            aliases: None,
+            style_identifier: None,
+            name: None,
         }
     }
 }
@@ -134,12 +134,12 @@ impl DerefMut for Style {
 impl Model for Style {
     fn validate(&self) -> SdkResult<()> {
         self.parent.validate()?;
-        if self.r#built_in.is_none() {
+        if self.built_in.is_none() {
             return Err(SdkError::InvalidRequest(
                 "property BuiltIn in Style is required".to_owned(),
             ));
         }
-        if self.r#is_quick_style.is_none() {
+        if self.is_quick_style.is_none() {
             return Err(SdkError::InvalidRequest(
                 "property IsQuickStyle in Style is required".to_owned(),
             ));
@@ -149,17 +149,17 @@ impl Model for Style {
                 "property Type in Style is required".to_owned(),
             ));
         }
-        if self.r#is_heading.is_none() {
+        if self.is_heading.is_none() {
             return Err(SdkError::InvalidRequest(
                 "property IsHeading in Style is required".to_owned(),
             ));
         }
-        if self.r#style_identifier.is_none() {
+        if self.style_identifier.is_none() {
             return Err(SdkError::InvalidRequest(
                 "property StyleIdentifier in Style is required".to_owned(),
             ));
         }
-        if let Some(value) = &self.r#font {
+        if let Some(value) = &self.font {
         value.validate()?;
         }
 
@@ -175,8 +175,8 @@ impl Model for Style {
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
-        self.parent.collect_file_references(output);
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+        self.parent.collect_file_references(_output);
     }
 
     fn as_any(&self) -> &dyn Any {
@@ -185,9 +185,8 @@ impl Model for Style {
 }
 
 /// Gets or sets the style type (paragraph or character).
-#[allow(non_camel_case_types)]
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
-pub enum Style_TypeEnum {
+pub enum StyleTypeEnum {
     #[serde(rename = "Paragraph")]
         Paragraph,
     #[serde(rename = "Character")]
@@ -201,9 +200,8 @@ pub enum Style_TypeEnum {
 /// Gets or sets the locale independent style identifier for a built-in style.
 /// For user defined (custom) styles, this property returns Aspose.Words.StyleIdentifier.User.
 /// Aspose.Words.Style.Name.
-#[allow(non_camel_case_types)]
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
-pub enum Style_StyleIdentifierEnum {
+pub enum StyleStyleIdentifierEnum {
     #[serde(rename = "Normal")]
         Normal,
     #[serde(rename = "Heading1")]

@@ -36,20 +36,18 @@ use crate::test_context::*;
 #[tokio::test]
 async fn header_footer_get_header_footers() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/DocumentElements/HeaderFooters")?;
-    let localFile = test_string!("DocumentElements/HeaderFooters/HeadersFooters.doc")?;
-    let remoteFileName = test_string!("TestGetHeadersFooters.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentElements/HeaderFooters";
+    let local_file = "DocumentElements/HeaderFooters/HeadersFooters.doc".to_owned();
+    let remote_file_name = "TestGetHeadersFooters.docx".to_owned();
 
-    context.upload_file(test_string!(localFile)?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
     let request = GetHeaderFootersRequest::new(
-        (test_string!(remoteFileName)?).into(),
-        (test_string!("")?).into()
-    ).with_folder((test_string!(remoteDataFolder)?).into());
+        (remote_file_name.clone()).into(),
+        ("".to_owned()).into()
+    ).with_folder((remote_data_folder.clone()).into());
 
     let result = context.api().get_header_footers(request).await?;
     let result_json = serialize_result(&result)?;
@@ -63,17 +61,15 @@ async fn header_footer_get_header_footers() -> TestResult<()> {
 #[tokio::test]
 async fn header_footer_get_header_footers_online() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let localFile = test_string!("DocumentElements/HeaderFooters/HeadersFooters.doc")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let local_file = "DocumentElements/HeaderFooters/HeadersFooters.doc".to_owned();
 
-    let requestDocument = context.load_binary_file(test_string!(localFile)?).await?;
+    let request_document = context.load_binary_file(local_file.clone()).await?;
 
     let request = GetHeaderFootersOnlineRequest::new(
-        (requestDocument).into(),
-        (test_string!("")?).into()
+        (request_document).into(),
+        ("".to_owned()).into()
     );
 
     context.api().get_header_footers_online(request).await?;
@@ -84,27 +80,25 @@ async fn header_footer_get_header_footers_online() -> TestResult<()> {
 #[tokio::test]
 async fn header_footer_get_header_footer() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/DocumentElements/HeaderFooters")?;
-    let localFile = test_string!("DocumentElements/HeaderFooters/HeadersFooters.doc")?;
-    let remoteFileName = test_string!("TestGetHeaderFooter.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentElements/HeaderFooters";
+    let local_file = "DocumentElements/HeaderFooters/HeadersFooters.doc".to_owned();
+    let remote_file_name = "TestGetHeaderFooter.docx".to_owned();
 
-    context.upload_file(test_string!(localFile)?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
     let request = GetHeaderFooterRequest::new(
-        (test_string!(remoteFileName)?).into(),
+        (remote_file_name.clone()).into(),
         (0).into()
-    ).with_folder((test_string!(remoteDataFolder)?).into());
+    ).with_folder((remote_data_folder.clone()).into());
 
     let result = context.api().get_header_footer(request).await?;
     let result_json = serialize_result(&result)?;
     assert_not_null(&result_json, "HeaderFooter")?;
     assert_not_null(&result_json, "HeaderFooter.ChildNodes")?;
     assert_length(&result_json, "HeaderFooter.ChildNodes", 1)?;
-    assert_string(&result_json, "HeaderFooter.ChildNodes[0].NodeId", test_string!("0.0.0")?)?;
+    assert_string(&result_json, "HeaderFooter.ChildNodes[0].NodeId", "0.0.0".to_owned())?;
     Ok(())
 }
 
@@ -112,16 +106,14 @@ async fn header_footer_get_header_footer() -> TestResult<()> {
 #[tokio::test]
 async fn header_footer_get_header_footer_online() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let localFile = test_string!("DocumentElements/HeaderFooters/HeadersFooters.doc")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let local_file = "DocumentElements/HeaderFooters/HeadersFooters.doc".to_owned();
 
-    let requestDocument = context.load_binary_file(test_string!(localFile)?).await?;
+    let request_document = context.load_binary_file(local_file.clone()).await?;
 
     let request = GetHeaderFooterOnlineRequest::new(
-        (requestDocument).into(),
+        (request_document).into(),
         (0).into()
     );
 
@@ -133,28 +125,26 @@ async fn header_footer_get_header_footer_online() -> TestResult<()> {
 #[tokio::test]
 async fn header_footer_get_header_footer_of_section() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/DocumentElements/HeaderFooters")?;
-    let localFile = test_string!("DocumentElements/HeaderFooters/HeadersFooters.doc")?;
-    let remoteFileName = test_string!("TestGetHeaderFooterOfSection.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentElements/HeaderFooters";
+    let local_file = "DocumentElements/HeaderFooters/HeadersFooters.doc".to_owned();
+    let remote_file_name = "TestGetHeaderFooterOfSection.docx".to_owned();
 
-    context.upload_file(test_string!(localFile)?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
     let request = GetHeaderFooterOfSectionRequest::new(
-        (test_string!(remoteFileName)?).into(),
+        (remote_file_name.clone()).into(),
         (0).into(),
         (0).into()
-    ).with_folder((test_string!(remoteDataFolder)?).into());
+    ).with_folder((remote_data_folder.clone()).into());
 
     let result = context.api().get_header_footer_of_section(request).await?;
     let result_json = serialize_result(&result)?;
     assert_not_null(&result_json, "HeaderFooter")?;
     assert_not_null(&result_json, "HeaderFooter.ChildNodes")?;
     assert_length(&result_json, "HeaderFooter.ChildNodes", 1)?;
-    assert_string(&result_json, "HeaderFooter.ChildNodes[0].NodeId", test_string!("0.0.0")?)?;
+    assert_string(&result_json, "HeaderFooter.ChildNodes[0].NodeId", "0.0.0".to_owned())?;
     Ok(())
 }
 
@@ -162,16 +152,14 @@ async fn header_footer_get_header_footer_of_section() -> TestResult<()> {
 #[tokio::test]
 async fn header_footer_get_header_footer_of_section_online() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let localFile = test_string!("DocumentElements/HeaderFooters/HeadersFooters.doc")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let local_file = "DocumentElements/HeaderFooters/HeadersFooters.doc".to_owned();
 
-    let requestDocument = context.load_binary_file(test_string!(localFile)?).await?;
+    let request_document = context.load_binary_file(local_file.clone()).await?;
 
     let request = GetHeaderFooterOfSectionOnlineRequest::new(
-        (requestDocument).into(),
+        (request_document).into(),
         (0).into(),
         (0).into()
     );
@@ -184,21 +172,19 @@ async fn header_footer_get_header_footer_of_section_online() -> TestResult<()> {
 #[tokio::test]
 async fn header_footer_delete_header_footer() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/DocumentElements/HeaderFooters")?;
-    let localFile = test_string!("DocumentElements/HeaderFooters/HeadersFooters.doc")?;
-    let remoteFileName = test_string!("TestDeleteHeaderFooter.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentElements/HeaderFooters";
+    let local_file = "DocumentElements/HeaderFooters/HeadersFooters.doc".to_owned();
+    let remote_file_name = "TestDeleteHeaderFooter.docx".to_owned();
 
-    context.upload_file(test_string!(localFile)?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
     let request = DeleteHeaderFooterRequest::new(
-        (test_string!(remoteFileName)?).into(),
-        (test_string!("")?).into(),
+        (remote_file_name.clone()).into(),
+        ("".to_owned()).into(),
         (0).into()
-    ).with_folder((test_string!(remoteDataFolder)?).into());
+    ).with_folder((remote_data_folder.clone()).into());
 
     context.api().delete_header_footer(request).await?;
     Ok(())
@@ -208,17 +194,15 @@ async fn header_footer_delete_header_footer() -> TestResult<()> {
 #[tokio::test]
 async fn header_footer_delete_header_footer_online() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let localFile = test_string!("DocumentElements/HeaderFooters/HeadersFooters.doc")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let local_file = "DocumentElements/HeaderFooters/HeadersFooters.doc".to_owned();
 
-    let requestDocument = context.load_binary_file(test_string!(localFile)?).await?;
+    let request_document = context.load_binary_file(local_file.clone()).await?;
 
     let request = DeleteHeaderFooterOnlineRequest::new(
-        (requestDocument).into(),
-        (test_string!("")?).into(),
+        (request_document).into(),
+        ("".to_owned()).into(),
         (0).into()
     );
 
@@ -230,20 +214,18 @@ async fn header_footer_delete_header_footer_online() -> TestResult<()> {
 #[tokio::test]
 async fn header_footer_delete_headers_footers() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/DocumentElements/HeaderFooters")?;
-    let localFile = test_string!("DocumentElements/HeaderFooters/HeadersFooters.doc")?;
-    let remoteFileName = test_string!("TestDeleteHeadersFooters.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentElements/HeaderFooters";
+    let local_file = "DocumentElements/HeaderFooters/HeadersFooters.doc".to_owned();
+    let remote_file_name = "TestDeleteHeadersFooters.docx".to_owned();
 
-    context.upload_file(test_string!(localFile)?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
     let request = DeleteHeadersFootersRequest::new(
-        (test_string!(remoteFileName)?).into(),
-        (test_string!("")?).into()
-    ).with_folder((test_string!(remoteDataFolder)?).into());
+        (remote_file_name.clone()).into(),
+        ("".to_owned()).into()
+    ).with_folder((remote_data_folder.clone()).into());
 
     context.api().delete_headers_footers(request).await?;
     Ok(())
@@ -253,17 +235,15 @@ async fn header_footer_delete_headers_footers() -> TestResult<()> {
 #[tokio::test]
 async fn header_footer_delete_headers_footers_online() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let localFile = test_string!("DocumentElements/HeaderFooters/HeadersFooters.doc")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let local_file = "DocumentElements/HeaderFooters/HeadersFooters.doc".to_owned();
 
-    let requestDocument = context.load_binary_file(test_string!(localFile)?).await?;
+    let request_document = context.load_binary_file(local_file.clone()).await?;
 
     let request = DeleteHeadersFootersOnlineRequest::new(
-        (requestDocument).into(),
-        (test_string!("")?).into()
+        (request_document).into(),
+        ("".to_owned()).into()
     );
 
     context.api().delete_headers_footers_online(request).await?;
@@ -274,21 +254,19 @@ async fn header_footer_delete_headers_footers_online() -> TestResult<()> {
 #[tokio::test]
 async fn header_footer_insert_header_footer() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/DocumentElements/HeaderFooters")?;
-    let localFile = test_string!("DocumentElements/HeaderFooters/HeadersFooters.doc")?;
-    let remoteFileName = test_string!("TestInsertHeaderFooter.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentElements/HeaderFooters";
+    let local_file = "DocumentElements/HeaderFooters/HeadersFooters.doc".to_owned();
+    let remote_file_name = "TestInsertHeaderFooter.docx".to_owned();
 
-    context.upload_file(test_string!(localFile)?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
     let request = InsertHeaderFooterRequest::new(
-        (test_string!(remoteFileName)?).into(),
-        (test_string!("")?).into(),
-        (test_string!("FooterEven")?).into()
-    ).with_folder((test_string!(remoteDataFolder)?).into());
+        (remote_file_name.clone()).into(),
+        ("".to_owned()).into(),
+        ("FooterEven".to_owned()).into()
+    ).with_folder((remote_data_folder.clone()).into());
 
     context.api().insert_header_footer(request).await?;
     Ok(())
@@ -298,18 +276,16 @@ async fn header_footer_insert_header_footer() -> TestResult<()> {
 #[tokio::test]
 async fn header_footer_insert_header_footer_online() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let localFile = test_string!("DocumentElements/HeaderFooters/HeadersFooters.doc")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let local_file = "DocumentElements/HeaderFooters/HeadersFooters.doc".to_owned();
 
-    let requestDocument = context.load_binary_file(test_string!(localFile)?).await?;
+    let request_document = context.load_binary_file(local_file.clone()).await?;
 
     let request = InsertHeaderFooterOnlineRequest::new(
-        (requestDocument).into(),
-        (test_string!("")?).into(),
-        (test_string!("FooterEven")?).into()
+        (request_document).into(),
+        ("".to_owned()).into(),
+        ("FooterEven".to_owned()).into()
     );
 
     let result = context.api().insert_header_footer_online(request).await?;
@@ -317,6 +293,6 @@ async fn header_footer_insert_header_footer_online() -> TestResult<()> {
     assert_not_null(&result_json, "Model.HeaderFooter")?;
     assert_not_null(&result_json, "Model.HeaderFooter.ChildNodes")?;
     assert_length(&result_json, "Model.HeaderFooter.ChildNodes", 1)?;
-    assert_string(&result_json, "Model.HeaderFooter.ChildNodes[0].NodeId", test_string!("0.2.0")?)?;
+    assert_string(&result_json, "Model.HeaderFooter.ChildNodes[0].NodeId", "0.2.0".to_owned())?;
     Ok(())
 }

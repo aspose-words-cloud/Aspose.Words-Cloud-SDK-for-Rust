@@ -36,21 +36,19 @@ use crate::test_context::*;
 #[tokio::test]
 async fn split_document_to_format_split_document() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/DocumentActions/SplitDocument")?;
-    let localFile = test_string!("Common/test_multi_pages.docx")?;
-    let remoteFileName = test_string!("TestSplitDocument.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentActions/SplitDocument";
+    let local_file = "Common/test_multi_pages.docx".to_owned();
+    let remote_file_name = "TestSplitDocument.docx".to_owned();
 
-    context.upload_file(test_string!(localFile)?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
     let request = SplitDocumentRequest::new(
-        (test_string!(remoteFileName)?).into(),
-        (test_string!("text")?).into()
-    ).with_folder((test_string!(remoteDataFolder)?).into())
-.with_dest_file_name((test_string!(baseTestOutPath + "/TestSplitDocument.text")?).into())
+        (remote_file_name.clone()).into(),
+        ("text".to_owned()).into()
+    ).with_folder((remote_data_folder.clone()).into())
+.with_dest_file_name((base_test_out_path.clone() + "/TestSplitDocument.text").into())
 .with_from((1).into())
 .with_to((2).into());
 
@@ -66,21 +64,19 @@ async fn split_document_to_format_split_document() -> TestResult<()> {
 #[tokio::test]
 async fn split_document_to_format_split_document_job() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/DocumentActions/SplitDocument")?;
-    let localFile = test_string!("Common/test_multi_pages.docx")?;
-    let remoteFileName = test_string!("TestSplitDocument.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentActions/SplitDocument";
+    let local_file = "Common/test_multi_pages.docx".to_owned();
+    let remote_file_name = "TestSplitDocument.docx".to_owned();
 
-    context.upload_file(test_string!(localFile)?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
     let request = SplitDocumentJobRequest::new(
-        (test_string!(remoteFileName)?).into(),
-        (test_string!("text")?).into()
-    ).with_folder((test_string!(remoteDataFolder)?).into())
-.with_dest_file_name((test_string!(baseTestOutPath + "/TestSplitDocument.text")?).into())
+        (remote_file_name.clone()).into(),
+        ("text".to_owned()).into()
+    ).with_folder((remote_data_folder.clone()).into())
+.with_dest_file_name((base_test_out_path.clone() + "/TestSplitDocument.text").into())
 .with_from((1).into())
 .with_to((2).into());
 
@@ -97,18 +93,16 @@ async fn split_document_to_format_split_document_job() -> TestResult<()> {
 #[tokio::test]
 async fn split_document_to_format_split_document_online() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let localFile = test_string!("Common/test_multi_pages.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let local_file = "Common/test_multi_pages.docx".to_owned();
 
-    let requestDocument = context.load_binary_file(test_string!(localFile)?).await?;
+    let request_document = context.load_binary_file(local_file.clone()).await?;
 
     let request = SplitDocumentOnlineRequest::new(
-        (requestDocument).into(),
-        (test_string!("text")?).into()
-    ).with_dest_file_name((test_string!(baseTestOutPath + "/TestSplitDocument.text")?).into())
+        (request_document).into(),
+        ("text".to_owned()).into()
+    ).with_dest_file_name((base_test_out_path.clone() + "/TestSplitDocument.text").into())
 .with_from((1).into())
 .with_to((2).into());
 
@@ -120,18 +114,16 @@ async fn split_document_to_format_split_document_online() -> TestResult<()> {
 #[tokio::test]
 async fn split_document_to_format_split_document_online_job() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let localFile = test_string!("Common/test_multi_pages.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let local_file = "Common/test_multi_pages.docx".to_owned();
 
-    let requestDocument = context.load_binary_file(test_string!(localFile)?).await?;
+    let request_document = context.load_binary_file(local_file.clone()).await?;
 
     let request = SplitDocumentOnlineJobRequest::new(
-        (requestDocument).into(),
-        (test_string!("text")?).into()
-    ).with_dest_file_name((test_string!(baseTestOutPath + "/TestSplitDocument.text")?).into())
+        (request_document).into(),
+        ("text".to_owned()).into()
+    ).with_dest_file_name((base_test_out_path.clone() + "/TestSplitDocument.text").into())
 .with_from((1).into())
 .with_to((2).into());
 

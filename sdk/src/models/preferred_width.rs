@@ -34,12 +34,12 @@ use super::*;
 pub struct PreferredWidth {
         /// Gets or sets the unit of measure used for this preferred width value.
         #[serde(rename = "Type", skip_serializing_if = "Option::is_none")]
-        pub r#type: Option<PreferredWidth_TypeEnum>,
+        pub r#type: Option<PreferredWidthTypeEnum>,
 
 
         /// Gets or sets the preferred width value. The unit of measure is specified in the Type property.
         #[serde(rename = "Value", skip_serializing_if = "Option::is_none")]
-        pub r#value: Option<f64>,
+        pub value: Option<f64>,
 
 }
 
@@ -47,7 +47,7 @@ impl Default for PreferredWidth {
     fn default() -> Self {
         Self {
             r#type: None,
-            r#value: None,
+            value: None,
         }
     }
 }
@@ -62,7 +62,7 @@ impl Model for PreferredWidth {
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
     }
 
     fn as_any(&self) -> &dyn Any {
@@ -71,9 +71,8 @@ impl Model for PreferredWidth {
 }
 
 /// Gets or sets the unit of measure used for this preferred width value.
-#[allow(non_camel_case_types)]
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
-pub enum PreferredWidth_TypeEnum {
+pub enum PreferredWidthTypeEnum {
     #[serde(rename = "Auto")]
         Auto,
     #[serde(rename = "Percent")]

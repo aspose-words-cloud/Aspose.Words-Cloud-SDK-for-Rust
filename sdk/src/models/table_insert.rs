@@ -34,50 +34,50 @@ use super::*;
 pub struct TableInsert {
         /// Gets or sets the number of columns. The default value is 2.
         #[serde(rename = "ColumnsCount", skip_serializing_if = "Option::is_none")]
-        pub r#columns_count: Option<i32>,
+        pub columns_count: Option<i32>,
 
 
         /// Gets or sets the position to insert the table. The table will be inserted using the specified position.
         #[serde(rename = "Position", skip_serializing_if = "Option::is_none", default, deserialize_with = "deserialize_optional_model")]
-        pub r#position: Option<ModelBox>,
+        pub position: Option<ModelBox>,
 
 
         /// Gets or sets the number of rows. The default value is 2.
         #[serde(rename = "RowsCount", skip_serializing_if = "Option::is_none")]
-        pub r#rows_count: Option<i32>,
+        pub rows_count: Option<i32>,
 
 }
 
 impl Default for TableInsert {
     fn default() -> Self {
         Self {
-            r#columns_count: None,
-            r#position: None,
-            r#rows_count: None,
+            columns_count: None,
+            position: None,
+            rows_count: None,
         }
     }
 }
 
 impl Model for TableInsert {
     fn validate(&self) -> SdkResult<()> {
-        if self.r#columns_count.is_none() {
+        if self.columns_count.is_none() {
             return Err(SdkError::InvalidRequest(
                 "property ColumnsCount in TableInsert is required".to_owned(),
             ));
         }
-        if self.r#rows_count.is_none() {
+        if self.rows_count.is_none() {
             return Err(SdkError::InvalidRequest(
                 "property RowsCount in TableInsert is required".to_owned(),
             ));
         }
-        if let Some(value) = &self.r#position {
+        if let Some(value) = &self.position {
         value.validate()?;
         }
 
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
     }
 
     fn as_any(&self) -> &dyn Any {

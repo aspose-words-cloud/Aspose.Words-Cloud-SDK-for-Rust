@@ -36,23 +36,21 @@ use crate::test_context::*;
 #[tokio::test]
 async fn compress_document_compress_document() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteFolder = test_string!(remoteBaseTestDataFolder + "/DocumentActions/CompressDocument")?;
-    let localFolder = test_string!("DocumentActions/CompressDocument")?;
-    let localName = test_string!("TestCompress.docx")?;
-    let remoteName = test_string!("TestCompress.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_folder = remote_base_test_data_folder.clone() + "/DocumentActions/CompressDocument";
+    let local_folder = "DocumentActions/CompressDocument".to_owned();
+    let local_name = "TestCompress.docx".to_owned();
+    let remote_name = "TestCompress.docx".to_owned();
 
-    context.upload_file(test_string!(localFolder + "/" + localName)?, test_string!(remoteFolder + "/" + remoteName)?).await?;
-    let mut requestCompressOptions = CompressOptions::default();
+    context.upload_file(local_folder.clone() + "/" + &local_name, remote_folder.clone() + "/" + &remote_name).await?;
+    let mut request_compress_options = CompressOptions::default();
 
 
     let request = CompressDocumentRequest::new(
-        (test_string!(remoteName)?).into(),
-        (requestCompressOptions).into()
-    ).with_folder((test_string!(remoteFolder)?).into());
+        (remote_name.clone()).into(),
+        (request_compress_options).into()
+    ).with_folder((remote_folder.clone()).into());
 
     let result = context.api().compress_document(request).await?;
     let result_json = serialize_result(&result)?;
@@ -64,20 +62,18 @@ async fn compress_document_compress_document() -> TestResult<()> {
 #[tokio::test]
 async fn compress_document_compress_document_online() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let localFolder = test_string!("DocumentActions/CompressDocument")?;
-    let localName = test_string!("TestCompress.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let local_folder = "DocumentActions/CompressDocument".to_owned();
+    let local_name = "TestCompress.docx".to_owned();
 
-    let requestDocument = context.load_binary_file(test_string!(localFolder + "/" + localName)?).await?;
-    let mut requestCompressOptions = CompressOptions::default();
+    let request_document = context.load_binary_file(local_folder.clone() + "/" + &local_name).await?;
+    let mut request_compress_options = CompressOptions::default();
 
 
     let request = CompressDocumentOnlineRequest::new(
-        (requestDocument).into(),
-        (requestCompressOptions).into()
+        (request_document).into(),
+        (request_compress_options).into()
     );
 
     context.api().compress_document_online(request).await?;

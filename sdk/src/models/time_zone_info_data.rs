@@ -34,32 +34,32 @@ use super::*;
 pub struct TimeZoneInfoData {
         /// Gets or sets base utc offset in hh:mm:ss format.
         #[serde(rename = "BaseUtcOffset", skip_serializing_if = "Option::is_none")]
-        pub r#base_utc_offset: Option<String>,
+        pub base_utc_offset: Option<String>,
 
 
         /// Gets or sets display name.
         #[serde(rename = "DisplayName", skip_serializing_if = "Option::is_none")]
-        pub r#display_name: Option<String>,
+        pub display_name: Option<String>,
 
 
         /// Gets or sets an Id string for CustomTimeZoneInfo.
         #[serde(rename = "Id", skip_serializing_if = "Option::is_none")]
-        pub r#id: Option<String>,
+        pub id: Option<String>,
 
 
         /// Gets or sets standard display name.
         #[serde(rename = "StandardDisplayName", skip_serializing_if = "Option::is_none")]
-        pub r#standard_display_name: Option<String>,
+        pub standard_display_name: Option<String>,
 
 }
 
 impl Default for TimeZoneInfoData {
     fn default() -> Self {
         Self {
-            r#base_utc_offset: None,
-            r#display_name: None,
-            r#id: None,
-            r#standard_display_name: None,
+            base_utc_offset: None,
+            display_name: None,
+            id: None,
+            standard_display_name: None,
         }
     }
 }
@@ -69,7 +69,7 @@ impl Model for TimeZoneInfoData {
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
     }
 
     fn as_any(&self) -> &dyn Any {

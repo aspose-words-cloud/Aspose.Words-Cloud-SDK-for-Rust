@@ -37,7 +37,7 @@ pub struct Hyperlinks {
     pub parent: LinkElement,
         /// Gets or sets the array of Hyperlink.
         #[serde(rename = "HyperlinkList", skip_serializing_if = "Option::is_none")]
-        pub r#hyperlink_list: Option<Vec<Hyperlink>>,
+        pub hyperlink_list: Option<Vec<Hyperlink>>,
 
 }
 
@@ -46,7 +46,7 @@ impl Default for Hyperlinks {
         let mut parent = LinkElement::default();
         Self {
             parent,
-            r#hyperlink_list: None,
+            hyperlink_list: None,
         }
     }
 }
@@ -68,7 +68,7 @@ impl DerefMut for Hyperlinks {
 impl Model for Hyperlinks {
     fn validate(&self) -> SdkResult<()> {
         self.parent.validate()?;
-        if let Some(values) = &self.r#hyperlink_list {
+        if let Some(values) = &self.hyperlink_list {
         for value in values {
         value.validate()?;
         }
@@ -76,8 +76,8 @@ impl Model for Hyperlinks {
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
-        self.parent.collect_file_references(output);
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+        self.parent.collect_file_references(_output);
     }
 
     fn as_any(&self) -> &dyn Any {

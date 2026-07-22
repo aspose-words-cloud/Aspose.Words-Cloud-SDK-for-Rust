@@ -38,7 +38,7 @@ pub struct BorderResponse {
     pub parent: WordsResponse,
         /// Gets or sets the border.
         #[serde(rename = "Border", skip_serializing_if = "Option::is_none")]
-        pub r#border: Option<Border>,
+        pub border: Option<Border>,
 
 }
 
@@ -47,7 +47,7 @@ impl Default for BorderResponse {
         let mut parent = WordsResponse::default();
         Self {
             parent,
-            r#border: None,
+            border: None,
         }
     }
 }
@@ -69,14 +69,14 @@ impl DerefMut for BorderResponse {
 impl Model for BorderResponse {
     fn validate(&self) -> SdkResult<()> {
         self.parent.validate()?;
-        if let Some(value) = &self.r#border {
+        if let Some(value) = &self.border {
         value.validate()?;
         }
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
-        self.parent.collect_file_references(output);
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+        self.parent.collect_file_references(_output);
     }
 
     fn as_any(&self) -> &dyn Any {

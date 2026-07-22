@@ -38,12 +38,12 @@ pub struct ImageEntryList {
         /// Gets or sets a value indicating whether each image should be added to a new page in the document.
             /// This value only has an effect when adding images to a document that supports pagination.
         #[serde(rename = "AppendEachImageOnNewPage", skip_serializing_if = "Option::is_none")]
-        pub r#append_each_image_on_new_page: Option<bool>,
+        pub append_each_image_on_new_page: Option<bool>,
 
 
         /// Gets or sets the list of images.
         #[serde(rename = "ImageEntries", skip_serializing_if = "Option::is_none")]
-        pub r#image_entries: Option<Vec<ImageEntry>>,
+        pub image_entries: Option<Vec<ImageEntry>>,
 
 }
 
@@ -52,8 +52,8 @@ impl Default for ImageEntryList {
         let mut parent = BaseEntryList::default();
         Self {
             parent,
-            r#append_each_image_on_new_page: None,
-            r#image_entries: None,
+            append_each_image_on_new_page: None,
+            image_entries: None,
         }
     }
 }
@@ -75,12 +75,12 @@ impl DerefMut for ImageEntryList {
 impl Model for ImageEntryList {
     fn validate(&self) -> SdkResult<()> {
         self.parent.validate()?;
-        if self.r#image_entries.is_none() {
+        if self.image_entries.is_none() {
             return Err(SdkError::InvalidRequest(
                 "property ImageEntries in ImageEntryList is required".to_owned(),
             ));
         }
-        if let Some(values) = &self.r#image_entries {
+        if let Some(values) = &self.image_entries {
         for value in values {
         value.validate()?;
         }
@@ -88,11 +88,11 @@ impl Model for ImageEntryList {
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
-        self.parent.collect_file_references(output);
-        if let Some(values) = &self.r#image_entries {
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+        self.parent.collect_file_references(_output);
+        if let Some(values) = &self.image_entries {
         for value in values {
-        value.collect_file_references(output);
+        value.collect_file_references(_output);
         }
         }
     }

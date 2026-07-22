@@ -34,32 +34,32 @@ use super::*;
 pub struct WatermarkText {
         /// Gets or sets the watermark rotation angle.
         #[serde(rename = "RotationAngle", skip_serializing_if = "Option::is_none")]
-        pub r#rotation_angle: Option<f64>,
+        pub rotation_angle: Option<f64>,
 
 
         /// Gets or sets the watermark text.
         #[serde(rename = "Text", skip_serializing_if = "Option::is_none")]
-        pub r#text: Option<String>,
+        pub text: Option<String>,
 
 }
 
 impl Default for WatermarkText {
     fn default() -> Self {
         Self {
-            r#rotation_angle: None,
-            r#text: None,
+            rotation_angle: None,
+            text: None,
         }
     }
 }
 
 impl Model for WatermarkText {
     fn validate(&self) -> SdkResult<()> {
-        if self.r#rotation_angle.is_none() {
+        if self.rotation_angle.is_none() {
             return Err(SdkError::InvalidRequest(
                 "property RotationAngle in WatermarkText is required".to_owned(),
             ));
         }
-        if self.r#text.is_none() {
+        if self.text.is_none() {
             return Err(SdkError::InvalidRequest(
                 "property Text in WatermarkText is required".to_owned(),
             ));
@@ -67,7 +67,7 @@ impl Model for WatermarkText {
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
     }
 
     fn as_any(&self) -> &dyn Any {

@@ -38,12 +38,12 @@ pub struct ProtectionRequestV2 {
         /// Gets or sets the new password for the document protection.
             /// This property is required, but empty value is allowed.
         #[serde(rename = "ProtectionPassword", skip_serializing_if = "Option::is_none")]
-        pub r#protection_password: Option<String>,
+        pub protection_password: Option<String>,
 
 
         /// Gets or sets the new type of the document protection.
         #[serde(rename = "ProtectionType", skip_serializing_if = "Option::is_none")]
-        pub r#protection_type: Option<ProtectionRequestV2_ProtectionTypeEnum>,
+        pub protection_type: Option<ProtectionRequestV2ProtectionTypeEnum>,
 
 }
 
@@ -52,8 +52,8 @@ impl Default for ProtectionRequestV2 {
         let mut parent = ProtectionRequestBase::default();
         Self {
             parent,
-            r#protection_password: None,
-            r#protection_type: None,
+            protection_password: None,
+            protection_type: None,
         }
     }
 }
@@ -75,12 +75,12 @@ impl DerefMut for ProtectionRequestV2 {
 impl Model for ProtectionRequestV2 {
     fn validate(&self) -> SdkResult<()> {
         self.parent.validate()?;
-        if self.r#protection_password.is_none() {
+        if self.protection_password.is_none() {
             return Err(SdkError::InvalidRequest(
                 "property ProtectionPassword in ProtectionRequestV2 is required".to_owned(),
             ));
         }
-        if self.r#protection_type.is_none() {
+        if self.protection_type.is_none() {
             return Err(SdkError::InvalidRequest(
                 "property ProtectionType in ProtectionRequestV2 is required".to_owned(),
             ));
@@ -88,8 +88,8 @@ impl Model for ProtectionRequestV2 {
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
-        self.parent.collect_file_references(output);
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+        self.parent.collect_file_references(_output);
     }
 
     fn as_any(&self) -> &dyn Any {
@@ -98,9 +98,8 @@ impl Model for ProtectionRequestV2 {
 }
 
 /// Gets or sets the new type of the document protection.
-#[allow(non_camel_case_types)]
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
-pub enum ProtectionRequestV2_ProtectionTypeEnum {
+pub enum ProtectionRequestV2ProtectionTypeEnum {
     #[serde(rename = "AllowOnlyRevisions")]
         AllowOnlyRevisions,
     #[serde(rename = "AllowOnlyComments")]

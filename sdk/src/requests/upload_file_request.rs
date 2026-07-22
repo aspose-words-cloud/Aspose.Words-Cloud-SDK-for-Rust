@@ -36,30 +36,30 @@ use super::*;
 /// Request parameters for the UploadFile operation.
 pub struct UploadFileRequest {
     /// File to upload.
-    pub r#file_content: Vec<u8>,
+    pub file_content: Vec<u8>,
     /// Path where to upload including filename and extension e.g. /file.ext or /Folder 1/file.ext
         /// If the content is multipart and path does not contains the file name it tries to get them from filename parameter
         /// from Content-Disposition header.
-    pub r#path: String,
+    pub path: String,
     /// Storage name.
-    pub r#storage_name: Option<String>,
+    pub storage_name: Option<String>,
     pub send_progress: Option<ProgressCallback>,
     pub receive_progress: Option<ProgressCallback>,
 }
 
 impl UploadFileRequest {
-    pub fn new(r#file_content: Vec<u8>, r#path: String) -> Self {
+    pub fn new(file_content: Vec<u8>, path: String) -> Self {
         Self {
-            r#file_content,
-            r#path,
-            r#storage_name: None,
+            file_content,
+            path,
+            storage_name: None,
             send_progress: None,
             receive_progress: None,
         }
     }
 
     pub fn with_storage_name(mut self, value: String) -> Self {
-        self.r#storage_name = Some(value);
+        self.storage_name = Some(value);
         self
     }
 
@@ -96,12 +96,12 @@ impl Request for UploadFileRequest {
         let mut headers = Vec::new();
         let mut body_parts = Vec::new();
 
-        let value = client.query_value(&self.r#path)?;
+        let value = client.query_value(&self.path)?;
         path = path.replace("{path}", &value);
-        if let Some(value) = &self.r#storage_name {
+        if let Some(value) = &self.storage_name {
         query.push(("storageName".to_owned(), client.query_value(value)?));
         }
-        client.add_binary_part(&mut body_parts, "FileContent", &self.r#file_content);
+        client.add_binary_part(&mut body_parts, "FileContent", &self.file_content);
 
         let url = client.build_url(&path, &query)?;
         let body = client.request_body_from_parts(&mut headers, body_parts);

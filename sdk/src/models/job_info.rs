@@ -34,33 +34,33 @@ use super::*;
 pub struct JobInfo {
         /// Gets or sets the job id.
         #[serde(rename = "JobId", skip_serializing_if = "Option::is_none")]
-        pub r#job_id: Option<String>,
+        pub job_id: Option<String>,
 
 
         /// Gets or sets the job message.
         #[serde(rename = "Message", skip_serializing_if = "Option::is_none")]
-        pub r#message: Option<String>,
+        pub message: Option<String>,
 
 
         /// Gets or sets the job status.
         #[serde(rename = "Status", skip_serializing_if = "Option::is_none")]
-        pub r#status: Option<JobInfo_StatusEnum>,
+        pub status: Option<JobInfoStatusEnum>,
 
 }
 
 impl Default for JobInfo {
     fn default() -> Self {
         Self {
-            r#job_id: None,
-            r#message: None,
-            r#status: None,
+            job_id: None,
+            message: None,
+            status: None,
         }
     }
 }
 
 impl Model for JobInfo {
     fn validate(&self) -> SdkResult<()> {
-        if self.r#status.is_none() {
+        if self.status.is_none() {
             return Err(SdkError::InvalidRequest(
                 "property Status in JobInfo is required".to_owned(),
             ));
@@ -68,7 +68,7 @@ impl Model for JobInfo {
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
     }
 
     fn as_any(&self) -> &dyn Any {
@@ -77,9 +77,8 @@ impl Model for JobInfo {
 }
 
 /// Gets or sets the job status.
-#[allow(non_camel_case_types)]
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
-pub enum JobInfo_StatusEnum {
+pub enum JobInfoStatusEnum {
     #[serde(rename = "Unknown")]
         Unknown,
     #[serde(rename = "Queued")]

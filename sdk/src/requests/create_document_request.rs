@@ -36,33 +36,33 @@ use super::*;
 /// Request parameters for the CreateDocument operation.
 pub struct CreateDocumentRequest {
     /// The filename of the document.
-    pub r#file_name: String,
+    pub file_name: String,
     /// The path to the document folder.
-    pub r#folder: Option<String>,
+    pub folder: Option<String>,
     /// Original document storage.
-    pub r#storage: Option<String>,
+    pub storage: Option<String>,
     pub send_progress: Option<ProgressCallback>,
     pub receive_progress: Option<ProgressCallback>,
 }
 
 impl CreateDocumentRequest {
-    pub fn new(r#file_name: String) -> Self {
+    pub fn new(file_name: String) -> Self {
         Self {
-            r#file_name,
-            r#folder: None,
-            r#storage: None,
+            file_name,
+            folder: None,
+            storage: None,
             send_progress: None,
             receive_progress: None,
         }
     }
 
     pub fn with_folder(mut self, value: String) -> Self {
-        self.r#folder = Some(value);
+        self.folder = Some(value);
         self
     }
 
     pub fn with_storage(mut self, value: String) -> Self {
-        self.r#storage = Some(value);
+        self.storage = Some(value);
         self
     }
 
@@ -99,11 +99,11 @@ impl Request for CreateDocumentRequest {
         let mut headers = Vec::new();
         let mut body_parts = Vec::new();
 
-        query.push(("fileName".to_owned(), client.query_value(&self.r#file_name)?));
-        if let Some(value) = &self.r#folder {
+        query.push(("fileName".to_owned(), client.query_value(&self.file_name)?));
+        if let Some(value) = &self.folder {
         query.push(("folder".to_owned(), client.query_value(value)?));
         }
-        if let Some(value) = &self.r#storage {
+        if let Some(value) = &self.storage {
         query.push(("storage".to_owned(), client.query_value(value)?));
         }
 

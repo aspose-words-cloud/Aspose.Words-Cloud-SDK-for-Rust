@@ -32,29 +32,29 @@ use super::*;
 
 /// Container class for wml save options.
 #[derive(Debug, Deserialize, Serialize)]
-pub struct WordMLSaveOptionsData {
+pub struct WordMlSaveOptionsData {
     #[serde(flatten)]
     pub parent: SaveOptionsData,
         /// Gets or sets a value indicating whether to use pretty formats output.
         #[serde(rename = "PrettyFormat", skip_serializing_if = "Option::is_none")]
-        pub r#pretty_format: Option<bool>,
+        pub pretty_format: Option<bool>,
 
 
 }
 
-impl Default for WordMLSaveOptionsData {
+impl Default for WordMlSaveOptionsData {
     fn default() -> Self {
         let mut parent = SaveOptionsData::default();
-        parent.r#save_format = Some("wml".to_owned());
+        parent.save_format = Some("wml".to_owned());
         Self {
             parent,
-            r#pretty_format: None,
+            pretty_format: None,
 
         }
     }
 }
 
-impl Deref for WordMLSaveOptionsData {
+impl Deref for WordMlSaveOptionsData {
     type Target = SaveOptionsData;
 
     fn deref(&self) -> &Self::Target {
@@ -62,20 +62,20 @@ impl Deref for WordMLSaveOptionsData {
     }
 }
 
-impl DerefMut for WordMLSaveOptionsData {
+impl DerefMut for WordMlSaveOptionsData {
     fn deref_mut(&mut self) -> &mut Self::Target {
         &mut self.parent
     }
 }
 
-impl Model for WordMLSaveOptionsData {
+impl Model for WordMlSaveOptionsData {
     fn validate(&self) -> SdkResult<()> {
         self.parent.validate()?;
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
-        self.parent.collect_file_references(output);
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+        self.parent.collect_file_references(_output);
     }
 
     fn as_any(&self) -> &dyn Any {

@@ -36,97 +36,97 @@ use super::*;
 /// Request parameters for the InsertWatermarkImageOnline operation.
 pub struct InsertWatermarkImageOnlineRequest {
     /// The document.
-    pub r#document: Vec<u8>,
+    pub document: Vec<u8>,
     /// File with image.
-    pub r#image_file: Option<Vec<u8>>,
+    pub image_file: Option<Vec<u8>>,
     /// Encoding that will be used to load an HTML (or TXT) document if the encoding is not specified in HTML.
-    pub r#load_encoding: Option<String>,
+    pub load_encoding: Option<String>,
     /// Password of protected Word document. Use the parameter to pass a password via SDK. SDK encrypts it automatically. We don't recommend to use the parameter to pass a plain password for direct call of API.
-    pub r#password: Option<String>,
+    pub password: Option<String>,
     /// Password of protected Word document. Use the parameter to pass an encrypted password for direct calls of API. See SDK code for encyption details.
-    pub r#encrypted_password: Option<String>,
+    pub encrypted_password: Option<String>,
     /// The value indicates whether OpenType support is on.
-    pub r#open_type_support: Option<bool>,
+    pub open_type_support: Option<bool>,
     /// Result path of the document after the operation. If this parameter is omitted then result of the operation will be saved as the source document.
-    pub r#dest_file_name: Option<String>,
+    pub dest_file_name: Option<String>,
     /// Initials of the author to use for revisions.If you set this parameter and then make some changes to the document programmatically, save the document and later open the document in MS Word you will see these changes as revisions.
-    pub r#revision_author: Option<String>,
+    pub revision_author: Option<String>,
     /// The date and time to use for revisions.
-    pub r#revision_date_time: Option<String>,
+    pub revision_date_time: Option<String>,
     /// The rotation angle of the watermark.
-    pub r#rotation_angle: Option<f64>,
+    pub rotation_angle: Option<f64>,
     /// The filename of the image. If the parameter value is missing — the image data is expected in the request content.
-    pub r#image: Option<String>,
+    pub image: Option<String>,
     pub send_progress: Option<ProgressCallback>,
     pub receive_progress: Option<ProgressCallback>,
 }
 
 impl InsertWatermarkImageOnlineRequest {
-    pub fn new(r#document: Vec<u8>) -> Self {
+    pub fn new(document: Vec<u8>) -> Self {
         Self {
-            r#document,
-            r#image_file: None,
-            r#load_encoding: None,
-            r#password: None,
-            r#encrypted_password: None,
-            r#open_type_support: None,
-            r#dest_file_name: None,
-            r#revision_author: None,
-            r#revision_date_time: None,
-            r#rotation_angle: None,
-            r#image: None,
+            document,
+            image_file: None,
+            load_encoding: None,
+            password: None,
+            encrypted_password: None,
+            open_type_support: None,
+            dest_file_name: None,
+            revision_author: None,
+            revision_date_time: None,
+            rotation_angle: None,
+            image: None,
             send_progress: None,
             receive_progress: None,
         }
     }
 
     pub fn with_image_file(mut self, value: Vec<u8>) -> Self {
-        self.r#image_file = Some(value);
+        self.image_file = Some(value);
         self
     }
 
     pub fn with_load_encoding(mut self, value: String) -> Self {
-        self.r#load_encoding = Some(value);
+        self.load_encoding = Some(value);
         self
     }
 
     pub fn with_password(mut self, value: String) -> Self {
-        self.r#password = Some(value);
+        self.password = Some(value);
         self
     }
 
     pub fn with_encrypted_password(mut self, value: String) -> Self {
-        self.r#encrypted_password = Some(value);
+        self.encrypted_password = Some(value);
         self
     }
 
     pub fn with_open_type_support(mut self, value: bool) -> Self {
-        self.r#open_type_support = Some(value);
+        self.open_type_support = Some(value);
         self
     }
 
     pub fn with_dest_file_name(mut self, value: String) -> Self {
-        self.r#dest_file_name = Some(value);
+        self.dest_file_name = Some(value);
         self
     }
 
     pub fn with_revision_author(mut self, value: String) -> Self {
-        self.r#revision_author = Some(value);
+        self.revision_author = Some(value);
         self
     }
 
     pub fn with_revision_date_time(mut self, value: String) -> Self {
-        self.r#revision_date_time = Some(value);
+        self.revision_date_time = Some(value);
         self
     }
 
     pub fn with_rotation_angle(mut self, value: f64) -> Self {
-        self.r#rotation_angle = Some(value);
+        self.rotation_angle = Some(value);
         self
     }
 
     pub fn with_image(mut self, value: String) -> Self {
-        self.r#image = Some(value);
+        self.image = Some(value);
         self
     }
 
@@ -163,35 +163,35 @@ impl Request for InsertWatermarkImageOnlineRequest {
         let mut headers = Vec::new();
         let mut body_parts = Vec::new();
 
-        if let Some(value) = &self.r#load_encoding {
+        if let Some(value) = &self.load_encoding {
         query.push(("loadEncoding".to_owned(), client.query_value(value)?));
         }
-        if let Some(value) = &self.r#password {
+        if let Some(value) = &self.password {
         query.push(("encryptedPassword".to_owned(), client.encrypt_password(value).await?));
         }
-        if let Some(value) = &self.r#encrypted_password {
+        if let Some(value) = &self.encrypted_password {
         query.push(("encryptedPassword".to_owned(), client.query_value(value)?));
         }
-        if let Some(value) = &self.r#open_type_support {
+        if let Some(value) = &self.open_type_support {
         query.push(("openTypeSupport".to_owned(), client.query_value(value)?));
         }
-        if let Some(value) = &self.r#dest_file_name {
+        if let Some(value) = &self.dest_file_name {
         query.push(("destFileName".to_owned(), client.query_value(value)?));
         }
-        if let Some(value) = &self.r#revision_author {
+        if let Some(value) = &self.revision_author {
         query.push(("revisionAuthor".to_owned(), client.query_value(value)?));
         }
-        if let Some(value) = &self.r#revision_date_time {
+        if let Some(value) = &self.revision_date_time {
         query.push(("revisionDateTime".to_owned(), client.query_value(value)?));
         }
-        if let Some(value) = &self.r#rotation_angle {
+        if let Some(value) = &self.rotation_angle {
         query.push(("rotationAngle".to_owned(), client.query_value(value)?));
         }
-        if let Some(value) = &self.r#image {
+        if let Some(value) = &self.image {
         query.push(("image".to_owned(), client.query_value(value)?));
         }
-        client.add_binary_part(&mut body_parts, "Document", &self.r#document);
-        if let Some(value) = &self.r#image_file {
+        client.add_binary_part(&mut body_parts, "Document", &self.document);
+        if let Some(value) = &self.image_file {
         client.add_binary_part(&mut body_parts, "ImageFile", value);
         }
 

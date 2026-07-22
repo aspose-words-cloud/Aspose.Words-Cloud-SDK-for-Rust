@@ -34,27 +34,27 @@ use super::*;
 pub struct ErrorDetails {
         /// Gets or sets ErrorDateTime.
         #[serde(rename = "ErrorDateTime", skip_serializing_if = "Option::is_none")]
-        pub r#error_date_time: Option<DateTime<Utc>>,
+        pub error_date_time: Option<chrono::DateTime<chrono::Utc>>,
 
 
         /// Gets or sets RequestId.
         #[serde(rename = "RequestId", skip_serializing_if = "Option::is_none")]
-        pub r#request_id: Option<String>,
+        pub request_id: Option<String>,
 
 }
 
 impl Default for ErrorDetails {
     fn default() -> Self {
         Self {
-            r#error_date_time: None,
-            r#request_id: None,
+            error_date_time: None,
+            request_id: None,
         }
     }
 }
 
 impl Model for ErrorDetails {
     fn validate(&self) -> SdkResult<()> {
-        if self.r#error_date_time.is_none() {
+        if self.error_date_time.is_none() {
             return Err(SdkError::InvalidRequest(
                 "property ErrorDateTime in ErrorDetails is required".to_owned(),
             ));
@@ -62,7 +62,7 @@ impl Model for ErrorDetails {
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
     }
 
     fn as_any(&self) -> &dyn Any {

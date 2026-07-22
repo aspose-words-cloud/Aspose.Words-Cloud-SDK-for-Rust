@@ -25,7 +25,12 @@
 use aspose_words_cloud::*;
 use chrono::{TimeZone, Utc};
 
-use crate::test_context::*;
+use crate::test_context::{create_random_guid, TestContext, TestResult};
+
+async fn read_text_file(path: String) -> TestResult<String> {
+    let sdk_root = std::path::PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("..");
+    Ok(tokio::fs::read_to_string(sdk_root.join("examples_data").join(path)).await?)
+}
 
 #[tokio::test]
 async fn accept_all_revisions() -> TestResult<()> {
@@ -33,24 +38,24 @@ async fn accept_all_revisions() -> TestResult<()> {
     let words_api = context.api();
     let examples_data = context.examples_data_dir();
 
-    let fileName = ("test_doc.docx").to_string();
+    let file_name = "test_doc.docx".to_owned();
 
     // Upload original document to cloud storage.
-    let myVar1 = tokio::fs::read(
-    examples_data.join((fileName).to_string()),
+    let my_var1 = tokio::fs::read(
+    examples_data.join(file_name.clone()),
     ).await?;
-    let myVar2 = (fileName).to_string();
-    let uploadFileRequest = UploadFileRequest::new(
-        (myVar1).into(),
-        (myVar2).into()
+    let my_var2 = file_name.clone();
+    let upload_file_request = UploadFileRequest::new(
+        (my_var1).into(),
+        (my_var2).into()
     );
-    let _result = words_api.upload_file(uploadFileRequest).await?;
+    let _result = words_api.upload_file(upload_file_request).await?;
 
 
     // Calls AcceptAllRevisions method for document in cloud.
-    let myVar3 = (fileName).to_string();
+    let my_var3 = file_name.clone();
     let request = AcceptAllRevisionsRequest::new(
-        (myVar3).into()
+        (my_var3).into()
     );
     let _result = words_api.accept_all_revisions(request).await?;
 
@@ -63,14 +68,14 @@ async fn accept_all_revisions_online() -> TestResult<()> {
     let words_api = context.api();
     let examples_data = context.examples_data_dir();
 
-    let fileName = ("test_doc.docx").to_string();
+    let file_name = "test_doc.docx".to_owned();
 
     // Calls AcceptAllRevisionsOnline method for document in cloud.
-    let requestDocument = tokio::fs::read(
-    examples_data.join((fileName).to_string()),
+    let request_document = tokio::fs::read(
+    examples_data.join(file_name.clone()),
     ).await?;
     let request = AcceptAllRevisionsOnlineRequest::new(
-        (requestDocument).into()
+        (request_document).into()
     );
     let result = words_api.accept_all_revisions_online(request).await?;
     let files = result.r#document.ok_or_else(|| {

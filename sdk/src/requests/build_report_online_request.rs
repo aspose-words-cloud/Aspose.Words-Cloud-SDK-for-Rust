@@ -36,31 +36,31 @@ use super::*;
 /// Request parameters for the BuildReportOnline operation.
 pub struct BuildReportOnlineRequest {
     /// File with template.
-    pub r#template: Vec<u8>,
+    pub template: Vec<u8>,
     /// A string providing data to populate the specified template. The string must be of one of the following types: xml, json, csv.
-    pub r#data: String,
+    pub data: String,
     /// An object providing settings of a report engine.
-    pub r#report_engine_settings: ReportEngineSettings,
+    pub report_engine_settings: ReportEngineSettings,
     /// The filename of the output document, that will be used when the resulting document has a dynamic field {filename}. If it is not set, the "template" will be used instead.
-    pub r#document_file_name: Option<String>,
+    pub document_file_name: Option<String>,
     pub send_progress: Option<ProgressCallback>,
     pub receive_progress: Option<ProgressCallback>,
 }
 
 impl BuildReportOnlineRequest {
-    pub fn new(r#template: Vec<u8>, r#data: String, r#report_engine_settings: ReportEngineSettings) -> Self {
+    pub fn new(template: Vec<u8>, data: String, report_engine_settings: ReportEngineSettings) -> Self {
         Self {
-            r#template,
-            r#data,
-            r#report_engine_settings,
-            r#document_file_name: None,
+            template,
+            data,
+            report_engine_settings,
+            document_file_name: None,
             send_progress: None,
             receive_progress: None,
         }
     }
 
     pub fn with_document_file_name(mut self, value: String) -> Self {
-        self.r#document_file_name = Some(value);
+        self.document_file_name = Some(value);
         self
     }
 
@@ -97,12 +97,12 @@ impl Request for BuildReportOnlineRequest {
         let mut headers = Vec::new();
         let mut body_parts = Vec::new();
 
-        if let Some(value) = &self.r#document_file_name {
+        if let Some(value) = &self.document_file_name {
         query.push(("documentFileName".to_owned(), client.query_value(value)?));
         }
-        client.add_binary_part(&mut body_parts, "Template", &self.r#template);
-        client.add_text_part(&mut body_parts, "Data", &self.r#data);
-        client.add_model_part(&mut body_parts, "ReportEngineSettings", &self.r#report_engine_settings).await?;
+        client.add_binary_part(&mut body_parts, "Template", &self.template);
+        client.add_text_part(&mut body_parts, "Data", &self.data);
+        client.add_model_part(&mut body_parts, "ReportEngineSettings", &self.report_engine_settings).await?;
 
         let url = client.build_url(&path, &query)?;
         let body = client.request_body_from_parts(&mut headers, body_parts);

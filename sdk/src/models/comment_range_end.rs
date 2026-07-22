@@ -37,7 +37,7 @@ pub struct CommentRangeEnd {
     pub parent: NodeLink,
         /// Gets or sets the link to comment.
         #[serde(rename = "CommentLink", skip_serializing_if = "Option::is_none")]
-        pub r#comment_link: Option<CommentLink>,
+        pub comment_link: Option<CommentLink>,
 
 }
 
@@ -46,7 +46,7 @@ impl Default for CommentRangeEnd {
         let mut parent = NodeLink::default();
         Self {
             parent,
-            r#comment_link: None,
+            comment_link: None,
         }
     }
 }
@@ -68,14 +68,14 @@ impl DerefMut for CommentRangeEnd {
 impl Model for CommentRangeEnd {
     fn validate(&self) -> SdkResult<()> {
         self.parent.validate()?;
-        if let Some(value) = &self.r#comment_link {
+        if let Some(value) = &self.comment_link {
         value.validate()?;
         }
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
-        self.parent.collect_file_references(output);
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+        self.parent.collect_file_references(_output);
     }
 
     fn as_any(&self) -> &dyn Any {

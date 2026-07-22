@@ -35,21 +35,21 @@ pub struct ListInsert {
         /// Gets or sets the option that controls how list should be restarted at each section.
             /// This option is supported only in RTF, DOC and DOCX document formats. This option will be written to DOCX only if Aspose.Words.Saving.OoxmlCompliance is higher then Aspose.Words.Saving.OoxmlCompliance.Ecma376_2006.
         #[serde(rename = "Template", skip_serializing_if = "Option::is_none")]
-        pub r#template: Option<ListInsert_TemplateEnum>,
+        pub template: Option<ListInsertTemplateEnum>,
 
 }
 
 impl Default for ListInsert {
     fn default() -> Self {
         Self {
-            r#template: None,
+            template: None,
         }
     }
 }
 
 impl Model for ListInsert {
     fn validate(&self) -> SdkResult<()> {
-        if self.r#template.is_none() {
+        if self.template.is_none() {
             return Err(SdkError::InvalidRequest(
                 "property Template in ListInsert is required".to_owned(),
             ));
@@ -57,7 +57,7 @@ impl Model for ListInsert {
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
     }
 
     fn as_any(&self) -> &dyn Any {
@@ -67,9 +67,8 @@ impl Model for ListInsert {
 
 /// Gets or sets the option that controls how list should be restarted at each section.
 /// This option is supported only in RTF, DOC and DOCX document formats. This option will be written to DOCX only if Aspose.Words.Saving.OoxmlCompliance is higher then Aspose.Words.Saving.OoxmlCompliance.Ecma376_2006.
-#[allow(non_camel_case_types)]
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
-pub enum ListInsert_TemplateEnum {
+pub enum ListInsertTemplateEnum {
     #[serde(rename = "BulletDefault")]
         BulletDefault,
     #[serde(rename = "BulletDisk")]

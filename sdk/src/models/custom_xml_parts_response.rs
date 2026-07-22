@@ -38,7 +38,7 @@ pub struct CustomXmlPartsResponse {
     pub parent: WordsResponse,
         /// Gets or sets the collection of comments.
         #[serde(rename = "CustomXmlParts", skip_serializing_if = "Option::is_none")]
-        pub r#custom_xml_parts: Option<CustomXmlPartsCollection>,
+        pub custom_xml_parts: Option<CustomXmlPartsCollection>,
 
 }
 
@@ -47,7 +47,7 @@ impl Default for CustomXmlPartsResponse {
         let mut parent = WordsResponse::default();
         Self {
             parent,
-            r#custom_xml_parts: None,
+            custom_xml_parts: None,
         }
     }
 }
@@ -69,14 +69,14 @@ impl DerefMut for CustomXmlPartsResponse {
 impl Model for CustomXmlPartsResponse {
     fn validate(&self) -> SdkResult<()> {
         self.parent.validate()?;
-        if let Some(value) = &self.r#custom_xml_parts {
+        if let Some(value) = &self.custom_xml_parts {
         value.validate()?;
         }
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
-        self.parent.collect_file_references(output);
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+        self.parent.collect_file_references(_output);
     }
 
     fn as_any(&self) -> &dyn Any {

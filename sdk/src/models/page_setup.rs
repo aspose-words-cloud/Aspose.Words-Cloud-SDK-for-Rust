@@ -39,154 +39,154 @@ pub struct PageSetup {
         /// Gets or sets a value indicating whether this section contains bidirectional (complex scripts) text.
             /// When true, the columns in this section are laid out from right to left.
         #[serde(rename = "Bidi", skip_serializing_if = "Option::is_none")]
-        pub r#bidi: Option<bool>,
+        pub bidi: Option<bool>,
 
 
         /// Gets or sets a value indicating whether the page border is positioned relative to intersecting texts and objects.
         #[serde(rename = "BorderAlwaysInFront", skip_serializing_if = "Option::is_none")]
-        pub r#border_always_in_front: Option<bool>,
+        pub border_always_in_front: Option<bool>,
 
 
         /// Gets or sets the option that controls which pages the page border is printed on.
         #[serde(rename = "BorderAppliesTo", skip_serializing_if = "Option::is_none")]
-        pub r#border_applies_to: Option<PageSetup_BorderAppliesToEnum>,
+        pub border_applies_to: Option<PageSetupBorderAppliesToEnum>,
 
 
         /// Gets or sets the value, that indicates whether the specified page border is measured from the edge of the page or from the text it surrounds.
         #[serde(rename = "BorderDistanceFrom", skip_serializing_if = "Option::is_none")]
-        pub r#border_distance_from: Option<PageSetup_BorderDistanceFromEnum>,
+        pub border_distance_from: Option<PageSetupBorderDistanceFromEnum>,
 
 
         /// Gets or sets the distance (in points) between the bottom edge of the page and the bottom boundary of the body text.
         #[serde(rename = "BottomMargin", skip_serializing_if = "Option::is_none")]
-        pub r#bottom_margin: Option<f64>,
+        pub bottom_margin: Option<f64>,
 
 
         /// Gets or sets a value indicating whether a different header or footer is used on the first page.
         #[serde(rename = "DifferentFirstPageHeaderFooter", skip_serializing_if = "Option::is_none")]
-        pub r#different_first_page_header_footer: Option<bool>,
+        pub different_first_page_header_footer: Option<bool>,
 
 
         /// Gets or sets the paper tray (bin) to use for the first page of a section.
             /// The value is implementation (printer) specific.
         #[serde(rename = "FirstPageTray", skip_serializing_if = "Option::is_none")]
-        pub r#first_page_tray: Option<i32>,
+        pub first_page_tray: Option<i32>,
 
 
         /// Gets or sets the distance (in points) between the footer and the bottom of the page.
         #[serde(rename = "FooterDistance", skip_serializing_if = "Option::is_none")]
-        pub r#footer_distance: Option<f64>,
+        pub footer_distance: Option<f64>,
 
 
         /// Gets or sets the amount of extra space added to the margin for document binding.
         #[serde(rename = "Gutter", skip_serializing_if = "Option::is_none")]
-        pub r#gutter: Option<f64>,
+        pub gutter: Option<f64>,
 
 
         /// Gets or sets the distance (in points) between the header and the top of the page.
         #[serde(rename = "HeaderDistance", skip_serializing_if = "Option::is_none")]
-        pub r#header_distance: Option<f64>,
+        pub header_distance: Option<f64>,
 
 
         /// Gets or sets the distance (in points) between the left edge of the page and the left boundary of the body text.
         #[serde(rename = "LeftMargin", skip_serializing_if = "Option::is_none")]
-        pub r#left_margin: Option<f64>,
+        pub left_margin: Option<f64>,
 
 
         /// Gets or sets the numeric increment for line numbers.
         #[serde(rename = "LineNumberCountBy", skip_serializing_if = "Option::is_none")]
-        pub r#line_number_count_by: Option<i32>,
+        pub line_number_count_by: Option<i32>,
 
 
         /// Gets or sets the distance between the right edge of line numbers and the left edge of the document.
             /// Set this property to zero for automatic distance between the line numbers and text of the document.
         #[serde(rename = "LineNumberDistanceFromText", skip_serializing_if = "Option::is_none")]
-        pub r#line_number_distance_from_text: Option<f64>,
+        pub line_number_distance_from_text: Option<f64>,
 
 
         /// Gets or sets the way line numbering runs  that is, whether it starts over at the beginning of a new page or section or runs continuously.
         #[serde(rename = "LineNumberRestartMode", skip_serializing_if = "Option::is_none")]
-        pub r#line_number_restart_mode: Option<PageSetup_LineNumberRestartModeEnum>,
+        pub line_number_restart_mode: Option<PageSetupLineNumberRestartModeEnum>,
 
 
         /// Gets or sets the starting line number.
         #[serde(rename = "LineStartingNumber", skip_serializing_if = "Option::is_none")]
-        pub r#line_starting_number: Option<i32>,
+        pub line_starting_number: Option<i32>,
 
 
         /// Gets or sets the orientation of the page.
             /// Changing Orientation swaps PageWidth and PageHeight.
         #[serde(rename = "Orientation", skip_serializing_if = "Option::is_none")]
-        pub r#orientation: Option<PageSetup_OrientationEnum>,
+        pub orientation: Option<PageSetupOrientationEnum>,
 
 
         /// Gets or sets the paper tray (bin) to be used for all but the first page of a section.
             /// The value is implementation (printer) specific.
         #[serde(rename = "OtherPagesTray", skip_serializing_if = "Option::is_none")]
-        pub r#other_pages_tray: Option<i32>,
+        pub other_pages_tray: Option<i32>,
 
 
         /// Gets or sets the height of the page in points.
         #[serde(rename = "PageHeight", skip_serializing_if = "Option::is_none")]
-        pub r#page_height: Option<f64>,
+        pub page_height: Option<f64>,
 
 
         /// Gets or sets the page number format.
         #[serde(rename = "PageNumberStyle", skip_serializing_if = "Option::is_none")]
-        pub r#page_number_style: Option<PageSetup_PageNumberStyleEnum>,
+        pub page_number_style: Option<PageSetupPageNumberStyleEnum>,
 
 
         /// Gets or sets the starting page number of the section.
             /// The RestartPageNumbering property, if set to false, will override the PageStartingNumber property so that page numbering can continue from the previous section.
         #[serde(rename = "PageStartingNumber", skip_serializing_if = "Option::is_none")]
-        pub r#page_starting_number: Option<i32>,
+        pub page_starting_number: Option<i32>,
 
 
         /// Gets or sets the width of the page in points.
         #[serde(rename = "PageWidth", skip_serializing_if = "Option::is_none")]
-        pub r#page_width: Option<f64>,
+        pub page_width: Option<f64>,
 
 
         /// Gets or sets the paper size.
             /// Setting this property updates PageWidth and PageHeight values. Setting this value to Custom does not change existing values.
         #[serde(rename = "PaperSize", skip_serializing_if = "Option::is_none")]
-        pub r#paper_size: Option<PageSetup_PaperSizeEnum>,
+        pub paper_size: Option<PageSetupPaperSizeEnum>,
 
 
         /// Gets or sets a value indicating whether page numbering restarts at the beginning of the section.
             /// If set to false, the RestartPageNumbering property will override the PageStartingNumber property so that page numbering can continue from the previous section.
         #[serde(rename = "RestartPageNumbering", skip_serializing_if = "Option::is_none")]
-        pub r#restart_page_numbering: Option<bool>,
+        pub restart_page_numbering: Option<bool>,
 
 
         /// Gets or sets the distance (in points) between the right edge of the page and the right boundary of the body text.
         #[serde(rename = "RightMargin", skip_serializing_if = "Option::is_none")]
-        pub r#right_margin: Option<f64>,
+        pub right_margin: Option<f64>,
 
 
         /// Gets or sets a value indicating whether Microsoft Word uses gutters for the section based on a right-to-left language or a left-to-right language.
         #[serde(rename = "RtlGutter", skip_serializing_if = "Option::is_none")]
-        pub r#rtl_gutter: Option<bool>,
+        pub rtl_gutter: Option<bool>,
 
 
         /// Gets or sets the type of section break for the specified object.
         #[serde(rename = "SectionStart", skip_serializing_if = "Option::is_none")]
-        pub r#section_start: Option<PageSetup_SectionStartEnum>,
+        pub section_start: Option<PageSetupSectionStartEnum>,
 
 
         /// Gets or sets a value indicating whether endnotes are printed at the end of the next section that doesn't suppress endnotes. Suppressed endnotes are printed before the endnotes in that section.
         #[serde(rename = "SuppressEndnotes", skip_serializing_if = "Option::is_none")]
-        pub r#suppress_endnotes: Option<bool>,
+        pub suppress_endnotes: Option<bool>,
 
 
         /// Gets or sets the distance (in points) between the top edge of the page and the top boundary of the body text.
         #[serde(rename = "TopMargin", skip_serializing_if = "Option::is_none")]
-        pub r#top_margin: Option<f64>,
+        pub top_margin: Option<f64>,
 
 
         /// Gets or sets the vertical alignment of text on each page in the document.or section.
         #[serde(rename = "VerticalAlignment", skip_serializing_if = "Option::is_none")]
-        pub r#vertical_alignment: Option<PageSetup_VerticalAlignmentEnum>,
+        pub vertical_alignment: Option<PageSetupVerticalAlignmentEnum>,
 
 }
 
@@ -195,35 +195,35 @@ impl Default for PageSetup {
         let mut parent = LinkElement::default();
         Self {
             parent,
-            r#bidi: None,
-            r#border_always_in_front: None,
-            r#border_applies_to: None,
-            r#border_distance_from: None,
-            r#bottom_margin: None,
-            r#different_first_page_header_footer: None,
-            r#first_page_tray: None,
-            r#footer_distance: None,
-            r#gutter: None,
-            r#header_distance: None,
-            r#left_margin: None,
-            r#line_number_count_by: None,
-            r#line_number_distance_from_text: None,
-            r#line_number_restart_mode: None,
-            r#line_starting_number: None,
-            r#orientation: None,
-            r#other_pages_tray: None,
-            r#page_height: None,
-            r#page_number_style: None,
-            r#page_starting_number: None,
-            r#page_width: None,
-            r#paper_size: None,
-            r#restart_page_numbering: None,
-            r#right_margin: None,
-            r#rtl_gutter: None,
-            r#section_start: None,
-            r#suppress_endnotes: None,
-            r#top_margin: None,
-            r#vertical_alignment: None,
+            bidi: None,
+            border_always_in_front: None,
+            border_applies_to: None,
+            border_distance_from: None,
+            bottom_margin: None,
+            different_first_page_header_footer: None,
+            first_page_tray: None,
+            footer_distance: None,
+            gutter: None,
+            header_distance: None,
+            left_margin: None,
+            line_number_count_by: None,
+            line_number_distance_from_text: None,
+            line_number_restart_mode: None,
+            line_starting_number: None,
+            orientation: None,
+            other_pages_tray: None,
+            page_height: None,
+            page_number_style: None,
+            page_starting_number: None,
+            page_width: None,
+            paper_size: None,
+            restart_page_numbering: None,
+            right_margin: None,
+            rtl_gutter: None,
+            section_start: None,
+            suppress_endnotes: None,
+            top_margin: None,
+            vertical_alignment: None,
         }
     }
 }
@@ -248,8 +248,8 @@ impl Model for PageSetup {
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
-        self.parent.collect_file_references(output);
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+        self.parent.collect_file_references(_output);
     }
 
     fn as_any(&self) -> &dyn Any {
@@ -258,9 +258,8 @@ impl Model for PageSetup {
 }
 
 /// Gets or sets the option that controls which pages the page border is printed on.
-#[allow(non_camel_case_types)]
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
-pub enum PageSetup_BorderAppliesToEnum {
+pub enum PageSetupBorderAppliesToEnum {
     #[serde(rename = "AllPages")]
         AllPages,
     #[serde(rename = "FirstPage")]
@@ -270,9 +269,8 @@ pub enum PageSetup_BorderAppliesToEnum {
 }
 
 /// Gets or sets the value, that indicates whether the specified page border is measured from the edge of the page or from the text it surrounds.
-#[allow(non_camel_case_types)]
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
-pub enum PageSetup_BorderDistanceFromEnum {
+pub enum PageSetupBorderDistanceFromEnum {
     #[serde(rename = "Text")]
         Text,
     #[serde(rename = "PageEdge")]
@@ -280,9 +278,8 @@ pub enum PageSetup_BorderDistanceFromEnum {
 }
 
 /// Gets or sets the way line numbering runs  that is, whether it starts over at the beginning of a new page or section or runs continuously.
-#[allow(non_camel_case_types)]
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
-pub enum PageSetup_LineNumberRestartModeEnum {
+pub enum PageSetupLineNumberRestartModeEnum {
     #[serde(rename = "RestartPage")]
         RestartPage,
     #[serde(rename = "RestartSection")]
@@ -293,9 +290,8 @@ pub enum PageSetup_LineNumberRestartModeEnum {
 
 /// Gets or sets the orientation of the page.
 /// Changing Orientation swaps PageWidth and PageHeight.
-#[allow(non_camel_case_types)]
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
-pub enum PageSetup_OrientationEnum {
+pub enum PageSetupOrientationEnum {
     #[serde(rename = "Portrait")]
         Portrait,
     #[serde(rename = "Landscape")]
@@ -303,9 +299,8 @@ pub enum PageSetup_OrientationEnum {
 }
 
 /// Gets or sets the page number format.
-#[allow(non_camel_case_types)]
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
-pub enum PageSetup_PageNumberStyleEnum {
+pub enum PageSetupPageNumberStyleEnum {
     #[serde(rename = "Arabic")]
         Arabic,
     #[serde(rename = "UppercaseRoman")]
@@ -359,13 +354,13 @@ pub enum PageSetup_PageNumberStyleEnum {
     #[serde(rename = "Chosung")]
         Chosung,
     #[serde(rename = "GB1")]
-        GB1,
+        Gb1,
     #[serde(rename = "GB2")]
-        GB2,
+        Gb2,
     #[serde(rename = "GB3")]
-        GB3,
+        Gb3,
     #[serde(rename = "GB4")]
-        GB4,
+        Gb4,
     #[serde(rename = "Zodiac1")]
         Zodiac1,
     #[serde(rename = "Zodiac2")]
@@ -434,9 +429,8 @@ pub enum PageSetup_PageNumberStyleEnum {
 
 /// Gets or sets the paper size.
 /// Setting this property updates PageWidth and PageHeight values. Setting this value to Custom does not change existing values.
-#[allow(non_camel_case_types)]
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
-pub enum PageSetup_PaperSizeEnum {
+pub enum PageSetupPaperSizeEnum {
     #[serde(rename = "A3")]
         A3,
     #[serde(rename = "A4")]
@@ -458,7 +452,7 @@ pub enum PageSetup_PaperSizeEnum {
     #[serde(rename = "Letter")]
         Letter,
     #[serde(rename = "EnvelopeDL")]
-        EnvelopeDL,
+        EnvelopeDl,
     #[serde(rename = "Quarto")]
         Quarto,
     #[serde(rename = "Statement")]
@@ -480,9 +474,8 @@ pub enum PageSetup_PaperSizeEnum {
 }
 
 /// Gets or sets the type of section break for the specified object.
-#[allow(non_camel_case_types)]
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
-pub enum PageSetup_SectionStartEnum {
+pub enum PageSetupSectionStartEnum {
     #[serde(rename = "Continuous")]
         Continuous,
     #[serde(rename = "NewColumn")]
@@ -496,9 +489,8 @@ pub enum PageSetup_SectionStartEnum {
 }
 
 /// Gets or sets the vertical alignment of text on each page in the document.or section.
-#[allow(non_camel_case_types)]
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
-pub enum PageSetup_VerticalAlignmentEnum {
+pub enum PageSetupVerticalAlignmentEnum {
     #[serde(rename = "Top")]
         Top,
     #[serde(rename = "Center")]

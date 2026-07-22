@@ -40,7 +40,7 @@ pub struct OttSaveOptionsData {
 impl Default for OttSaveOptionsData {
     fn default() -> Self {
         let mut parent = OdtSaveOptionsData::default();
-        parent.r#save_format = Some("ott".to_owned());
+        parent.save_format = Some("ott".to_owned());
         Self {
             parent,
         }
@@ -67,8 +67,8 @@ impl Model for OttSaveOptionsData {
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
-        self.parent.collect_file_references(output);
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+        self.parent.collect_file_references(_output);
     }
 
     fn as_any(&self) -> &dyn Any {

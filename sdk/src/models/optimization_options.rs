@@ -34,21 +34,21 @@ use super::*;
 pub struct OptimizationOptions {
         /// Gets or sets the specific MSWord version.
         #[serde(rename = "MsWordVersion", skip_serializing_if = "Option::is_none")]
-        pub r#ms_word_version: Option<OptimizationOptions_MsWordVersionEnum>,
+        pub ms_word_version: Option<OptimizationOptionsMsWordVersionEnum>,
 
 }
 
 impl Default for OptimizationOptions {
     fn default() -> Self {
         Self {
-            r#ms_word_version: None,
+            ms_word_version: None,
         }
     }
 }
 
 impl Model for OptimizationOptions {
     fn validate(&self) -> SdkResult<()> {
-        if self.r#ms_word_version.is_none() {
+        if self.ms_word_version.is_none() {
             return Err(SdkError::InvalidRequest(
                 "property MsWordVersion in OptimizationOptions is required".to_owned(),
             ));
@@ -56,7 +56,7 @@ impl Model for OptimizationOptions {
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
     }
 
     fn as_any(&self) -> &dyn Any {
@@ -65,9 +65,8 @@ impl Model for OptimizationOptions {
 }
 
 /// Gets or sets the specific MSWord version.
-#[allow(non_camel_case_types)]
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
-pub enum OptimizationOptions_MsWordVersionEnum {
+pub enum OptimizationOptionsMsWordVersionEnum {
     #[serde(rename = "Word2000")]
         Word2000,
     #[serde(rename = "Word2002")]

@@ -34,34 +34,34 @@ use super::*;
 pub struct DocumentPosition {
         /// Gets or sets the link to a node.
         #[serde(rename = "Node", skip_serializing_if = "Option::is_none")]
-        pub r#node: Option<NodeLink>,
+        pub node: Option<NodeLink>,
 
 
         /// Gets or sets the offset in the node.
         #[serde(rename = "Offset", skip_serializing_if = "Option::is_none")]
-        pub r#offset: Option<i32>,
+        pub offset: Option<i32>,
 
 }
 
 impl Default for DocumentPosition {
     fn default() -> Self {
         Self {
-            r#node: None,
-            r#offset: None,
+            node: None,
+            offset: None,
         }
     }
 }
 
 impl Model for DocumentPosition {
     fn validate(&self) -> SdkResult<()> {
-        if let Some(value) = &self.r#node {
+        if let Some(value) = &self.node {
         value.validate()?;
         }
 
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
     }
 
     fn as_any(&self) -> &dyn Any {

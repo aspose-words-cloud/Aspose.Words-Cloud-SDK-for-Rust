@@ -36,26 +36,24 @@ use crate::test_context::*;
 #[tokio::test]
 async fn custom_xml_parts_get_custom_xml_part() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/CustomXmlParts")?;
-    let localFile = test_string!("DocumentElements/CustomXmlParts/MultipleCustomXmlParts.docx")?;
-    let remoteFileName = test_string!("TestGetCustomXmlPart.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/CustomXmlParts";
+    let local_file = "DocumentElements/CustomXmlParts/MultipleCustomXmlParts.docx".to_owned();
+    let remote_file_name = "TestGetCustomXmlPart.docx".to_owned();
 
-    context.upload_file(test_string!(localFile)?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
     let request = GetCustomXmlPartRequest::new(
-        (test_string!(remoteFileName)?).into(),
+        (remote_file_name.clone()).into(),
         (0).into()
-    ).with_folder((test_string!(remoteDataFolder)?).into());
+    ).with_folder((remote_data_folder.clone()).into());
 
     let result = context.api().get_custom_xml_part(request).await?;
     let result_json = serialize_result(&result)?;
     assert_not_null(&result_json, "CustomXmlPart")?;
-    assert_string(&result_json, "CustomXmlPart.Id", test_string!("aspose")?)?;
-    assert_string(&result_json, "CustomXmlPart.Data", test_string!("<Metadata><Author>author1</Author><Initial>initial</Initial><DateTime>2015-01-22T00:00:00</DateTime><Text>text</Text></Metadata>")?)?;
+    assert_string(&result_json, "CustomXmlPart.Id", "aspose".to_owned())?;
+    assert_string(&result_json, "CustomXmlPart.Data", "<Metadata><Author>author1</Author><Initial>initial</Initial><DateTime>2015-01-22T00:00:00</DateTime><Text>text</Text></Metadata>".to_owned())?;
     Ok(())
 }
 
@@ -63,24 +61,22 @@ async fn custom_xml_parts_get_custom_xml_part() -> TestResult<()> {
 #[tokio::test]
 async fn custom_xml_parts_get_custom_xml_part_online() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let localFile = test_string!("DocumentElements/CustomXmlParts/MultipleCustomXmlParts.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let local_file = "DocumentElements/CustomXmlParts/MultipleCustomXmlParts.docx".to_owned();
 
-    let requestDocument = context.load_binary_file(test_string!(localFile)?).await?;
+    let request_document = context.load_binary_file(local_file.clone()).await?;
 
     let request = GetCustomXmlPartOnlineRequest::new(
-        (requestDocument).into(),
+        (request_document).into(),
         (0).into()
     );
 
     let result = context.api().get_custom_xml_part_online(request).await?;
     let result_json = serialize_result(&result)?;
     assert_not_null(&result_json, "CustomXmlPart")?;
-    assert_string(&result_json, "CustomXmlPart.Id", test_string!("aspose")?)?;
-    assert_string(&result_json, "CustomXmlPart.Data", test_string!("<Metadata><Author>author1</Author><Initial>initial</Initial><DateTime>2015-01-22T00:00:00</DateTime><Text>text</Text></Metadata>")?)?;
+    assert_string(&result_json, "CustomXmlPart.Id", "aspose".to_owned())?;
+    assert_string(&result_json, "CustomXmlPart.Data", "<Metadata><Author>author1</Author><Initial>initial</Initial><DateTime>2015-01-22T00:00:00</DateTime><Text>text</Text></Metadata>".to_owned())?;
     Ok(())
 }
 
@@ -88,27 +84,25 @@ async fn custom_xml_parts_get_custom_xml_part_online() -> TestResult<()> {
 #[tokio::test]
 async fn custom_xml_parts_get_custom_xml_parts() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/CustomXmlParts")?;
-    let localFile = test_string!("DocumentElements/CustomXmlParts/MultipleCustomXmlParts.docx")?;
-    let remoteFileName = test_string!("TestGetCustomXmlParts.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/CustomXmlParts";
+    let local_file = "DocumentElements/CustomXmlParts/MultipleCustomXmlParts.docx".to_owned();
+    let remote_file_name = "TestGetCustomXmlParts.docx".to_owned();
 
-    context.upload_file(test_string!(localFile)?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
     let request = GetCustomXmlPartsRequest::new(
-        (test_string!(remoteFileName)?).into()
-    ).with_folder((test_string!(remoteDataFolder)?).into());
+        (remote_file_name.clone()).into()
+    ).with_folder((remote_data_folder.clone()).into());
 
     let result = context.api().get_custom_xml_parts(request).await?;
     let result_json = serialize_result(&result)?;
     assert_not_null(&result_json, "CustomXmlParts")?;
     assert_not_null(&result_json, "CustomXmlParts.CustomXmlPartsList")?;
     assert_length(&result_json, "CustomXmlParts.CustomXmlPartsList", 2)?;
-    assert_string(&result_json, "CustomXmlParts.CustomXmlPartsList[0].Id", test_string!("aspose")?)?;
-    assert_string(&result_json, "CustomXmlParts.CustomXmlPartsList[0].Data", test_string!("<Metadata><Author>author1</Author><Initial>initial</Initial><DateTime>2015-01-22T00:00:00</DateTime><Text>text</Text></Metadata>")?)?;
+    assert_string(&result_json, "CustomXmlParts.CustomXmlPartsList[0].Id", "aspose".to_owned())?;
+    assert_string(&result_json, "CustomXmlParts.CustomXmlPartsList[0].Data", "<Metadata><Author>author1</Author><Initial>initial</Initial><DateTime>2015-01-22T00:00:00</DateTime><Text>text</Text></Metadata>".to_owned())?;
     Ok(())
 }
 
@@ -116,16 +110,14 @@ async fn custom_xml_parts_get_custom_xml_parts() -> TestResult<()> {
 #[tokio::test]
 async fn custom_xml_parts_get_custom_xml_parts_online() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let localFile = test_string!("DocumentElements/CustomXmlParts/MultipleCustomXmlParts.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let local_file = "DocumentElements/CustomXmlParts/MultipleCustomXmlParts.docx".to_owned();
 
-    let requestDocument = context.load_binary_file(test_string!(localFile)?).await?;
+    let request_document = context.load_binary_file(local_file.clone()).await?;
 
     let request = GetCustomXmlPartsOnlineRequest::new(
-        (requestDocument).into()
+        (request_document).into()
     );
 
     let result = context.api().get_custom_xml_parts_online(request).await?;
@@ -133,8 +125,8 @@ async fn custom_xml_parts_get_custom_xml_parts_online() -> TestResult<()> {
     assert_not_null(&result_json, "CustomXmlParts")?;
     assert_not_null(&result_json, "CustomXmlParts.CustomXmlPartsList")?;
     assert_length(&result_json, "CustomXmlParts.CustomXmlPartsList", 2)?;
-    assert_string(&result_json, "CustomXmlParts.CustomXmlPartsList[0].Id", test_string!("aspose")?)?;
-    assert_string(&result_json, "CustomXmlParts.CustomXmlPartsList[0].Data", test_string!("<Metadata><Author>author1</Author><Initial>initial</Initial><DateTime>2015-01-22T00:00:00</DateTime><Text>text</Text></Metadata>")?)?;
+    assert_string(&result_json, "CustomXmlParts.CustomXmlPartsList[0].Id", "aspose".to_owned())?;
+    assert_string(&result_json, "CustomXmlParts.CustomXmlPartsList[0].Data", "<Metadata><Author>author1</Author><Initial>initial</Initial><DateTime>2015-01-22T00:00:00</DateTime><Text>text</Text></Metadata>".to_owned())?;
     Ok(())
 }
 
@@ -142,29 +134,27 @@ async fn custom_xml_parts_get_custom_xml_parts_online() -> TestResult<()> {
 #[tokio::test]
 async fn custom_xml_parts_insert_custom_xml_part() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/CustomXmlParts")?;
-    let localFile = test_string!("DocumentElements/CustomXmlParts/MultipleCustomXmlParts.docx")?;
-    let remoteFileName = test_string!("TestInsertCustomXmlPart.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/CustomXmlParts";
+    let local_file = "DocumentElements/CustomXmlParts/MultipleCustomXmlParts.docx".to_owned();
+    let remote_file_name = "TestInsertCustomXmlPart.docx".to_owned();
 
-    context.upload_file(test_string!(localFile)?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
-    let mut requestCustomXmlPart = CustomXmlPartInsert::default();
-    requestCustomXmlPart.r#id = Some((test_string!("hello")?).into());
-    requestCustomXmlPart.r#data = Some((test_string!("<data>Hello world</data>")?).into());
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
+    let mut request_custom_xml_part = CustomXmlPartInsert::default();
+    request_custom_xml_part.id = Some(("hello".to_owned()).into());
+    request_custom_xml_part.data = Some(("<data>Hello world</data>".to_owned()).into());
 
     let request = InsertCustomXmlPartRequest::new(
-        (test_string!(remoteFileName)?).into(),
-        (requestCustomXmlPart).into()
-    ).with_folder((test_string!(remoteDataFolder)?).into());
+        (remote_file_name.clone()).into(),
+        (request_custom_xml_part).into()
+    ).with_folder((remote_data_folder.clone()).into());
 
     let result = context.api().insert_custom_xml_part(request).await?;
     let result_json = serialize_result(&result)?;
     assert_not_null(&result_json, "CustomXmlPart")?;
-    assert_string(&result_json, "CustomXmlPart.Id", test_string!("hello")?)?;
-    assert_string(&result_json, "CustomXmlPart.Data", test_string!("<data>Hello world</data>")?)?;
+    assert_string(&result_json, "CustomXmlPart.Id", "hello".to_owned())?;
+    assert_string(&result_json, "CustomXmlPart.Data", "<data>Hello world</data>".to_owned())?;
     Ok(())
 }
 
@@ -172,27 +162,25 @@ async fn custom_xml_parts_insert_custom_xml_part() -> TestResult<()> {
 #[tokio::test]
 async fn custom_xml_parts_insert_custom_xml_part_online() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let localFile = test_string!("DocumentElements/CustomXmlParts/MultipleCustomXmlParts.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let local_file = "DocumentElements/CustomXmlParts/MultipleCustomXmlParts.docx".to_owned();
 
-    let requestDocument = context.load_binary_file(test_string!(localFile)?).await?;
-    let mut requestCustomXmlPart = CustomXmlPartInsert::default();
-    requestCustomXmlPart.r#id = Some((test_string!("hello")?).into());
-    requestCustomXmlPart.r#data = Some((test_string!("<data>Hello world</data>")?).into());
+    let request_document = context.load_binary_file(local_file.clone()).await?;
+    let mut request_custom_xml_part = CustomXmlPartInsert::default();
+    request_custom_xml_part.id = Some(("hello".to_owned()).into());
+    request_custom_xml_part.data = Some(("<data>Hello world</data>".to_owned()).into());
 
     let request = InsertCustomXmlPartOnlineRequest::new(
-        (requestDocument).into(),
-        (requestCustomXmlPart).into()
+        (request_document).into(),
+        (request_custom_xml_part).into()
     );
 
     let result = context.api().insert_custom_xml_part_online(request).await?;
     let result_json = serialize_result(&result)?;
     assert_not_null(&result_json, "Model.CustomXmlPart")?;
-    assert_string(&result_json, "Model.CustomXmlPart.Id", test_string!("hello")?)?;
-    assert_string(&result_json, "Model.CustomXmlPart.Data", test_string!("<data>Hello world</data>")?)?;
+    assert_string(&result_json, "Model.CustomXmlPart.Id", "hello".to_owned())?;
+    assert_string(&result_json, "Model.CustomXmlPart.Data", "<data>Hello world</data>".to_owned())?;
     Ok(())
 }
 
@@ -200,29 +188,27 @@ async fn custom_xml_parts_insert_custom_xml_part_online() -> TestResult<()> {
 #[tokio::test]
 async fn custom_xml_parts_update_custom_xml_part() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/CustomXmlParts")?;
-    let localFile = test_string!("DocumentElements/CustomXmlParts/MultipleCustomXmlParts.docx")?;
-    let remoteFileName = test_string!("TestUpdateCustomXmlPart.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/CustomXmlParts";
+    let local_file = "DocumentElements/CustomXmlParts/MultipleCustomXmlParts.docx".to_owned();
+    let remote_file_name = "TestUpdateCustomXmlPart.docx".to_owned();
 
-    context.upload_file(test_string!(localFile)?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
-    let mut requestCustomXmlPart = CustomXmlPartUpdate::default();
-    requestCustomXmlPart.r#data = Some((test_string!("<data>Hello world</data>")?).into());
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
+    let mut request_custom_xml_part = CustomXmlPartUpdate::default();
+    request_custom_xml_part.data = Some(("<data>Hello world</data>".to_owned()).into());
 
     let request = UpdateCustomXmlPartRequest::new(
-        (test_string!(remoteFileName)?).into(),
+        (remote_file_name.clone()).into(),
         (0).into(),
-        (requestCustomXmlPart).into()
-    ).with_folder((test_string!(remoteDataFolder)?).into());
+        (request_custom_xml_part).into()
+    ).with_folder((remote_data_folder.clone()).into());
 
     let result = context.api().update_custom_xml_part(request).await?;
     let result_json = serialize_result(&result)?;
     assert_not_null(&result_json, "CustomXmlPart")?;
-    assert_string(&result_json, "CustomXmlPart.Id", test_string!("aspose")?)?;
-    assert_string(&result_json, "CustomXmlPart.Data", test_string!("<data>Hello world</data>")?)?;
+    assert_string(&result_json, "CustomXmlPart.Id", "aspose".to_owned())?;
+    assert_string(&result_json, "CustomXmlPart.Data", "<data>Hello world</data>".to_owned())?;
     Ok(())
 }
 
@@ -230,27 +216,25 @@ async fn custom_xml_parts_update_custom_xml_part() -> TestResult<()> {
 #[tokio::test]
 async fn custom_xml_parts_update_custom_xml_part_online() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let localFile = test_string!("DocumentElements/CustomXmlParts/MultipleCustomXmlParts.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let local_file = "DocumentElements/CustomXmlParts/MultipleCustomXmlParts.docx".to_owned();
 
-    let requestDocument = context.load_binary_file(test_string!(localFile)?).await?;
-    let mut requestCustomXmlPart = CustomXmlPartUpdate::default();
-    requestCustomXmlPart.r#data = Some((test_string!("<data>Hello world</data>")?).into());
+    let request_document = context.load_binary_file(local_file.clone()).await?;
+    let mut request_custom_xml_part = CustomXmlPartUpdate::default();
+    request_custom_xml_part.data = Some(("<data>Hello world</data>".to_owned()).into());
 
     let request = UpdateCustomXmlPartOnlineRequest::new(
-        (requestDocument).into(),
+        (request_document).into(),
         (0).into(),
-        (requestCustomXmlPart).into()
+        (request_custom_xml_part).into()
     );
 
     let result = context.api().update_custom_xml_part_online(request).await?;
     let result_json = serialize_result(&result)?;
     assert_not_null(&result_json, "Model.CustomXmlPart")?;
-    assert_string(&result_json, "Model.CustomXmlPart.Id", test_string!("aspose")?)?;
-    assert_string(&result_json, "Model.CustomXmlPart.Data", test_string!("<data>Hello world</data>")?)?;
+    assert_string(&result_json, "Model.CustomXmlPart.Id", "aspose".to_owned())?;
+    assert_string(&result_json, "Model.CustomXmlPart.Data", "<data>Hello world</data>".to_owned())?;
     Ok(())
 }
 
@@ -258,21 +242,19 @@ async fn custom_xml_parts_update_custom_xml_part_online() -> TestResult<()> {
 #[tokio::test]
 async fn custom_xml_parts_delete_custom_xml_part() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/CustomXmlParts")?;
-    let localFile = test_string!("DocumentElements/CustomXmlParts/MultipleCustomXmlParts.docx")?;
-    let remoteFileName = test_string!("TestDeleteCustomXmlPart.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/CustomXmlParts";
+    let local_file = "DocumentElements/CustomXmlParts/MultipleCustomXmlParts.docx".to_owned();
+    let remote_file_name = "TestDeleteCustomXmlPart.docx".to_owned();
 
-    context.upload_file(test_string!(localFile)?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
     let request = DeleteCustomXmlPartRequest::new(
-        (test_string!(remoteFileName)?).into(),
+        (remote_file_name.clone()).into(),
         (0).into()
-    ).with_folder((test_string!(remoteDataFolder)?).into())
-.with_dest_file_name((test_string!(baseTestOutPath + "/" + remoteFileName)?).into());
+    ).with_folder((remote_data_folder.clone()).into())
+.with_dest_file_name((base_test_out_path.clone() + "/" + &remote_file_name).into());
 
     context.api().delete_custom_xml_part(request).await?;
     Ok(())
@@ -282,16 +264,14 @@ async fn custom_xml_parts_delete_custom_xml_part() -> TestResult<()> {
 #[tokio::test]
 async fn custom_xml_parts_delete_custom_xml_part_online() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let localFile = test_string!("DocumentElements/CustomXmlParts/MultipleCustomXmlParts.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let local_file = "DocumentElements/CustomXmlParts/MultipleCustomXmlParts.docx".to_owned();
 
-    let requestDocument = context.load_binary_file(test_string!(localFile)?).await?;
+    let request_document = context.load_binary_file(local_file.clone()).await?;
 
     let request = DeleteCustomXmlPartOnlineRequest::new(
-        (requestDocument).into(),
+        (request_document).into(),
         (0).into()
     );
 
@@ -303,20 +283,18 @@ async fn custom_xml_parts_delete_custom_xml_part_online() -> TestResult<()> {
 #[tokio::test]
 async fn custom_xml_parts_delete_custom_xml_parts() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/CustomXmlParts")?;
-    let localFile = test_string!("DocumentElements/CustomXmlParts/MultipleCustomXmlParts.docx")?;
-    let remoteFileName = test_string!("TestDeleteCustomXmlPart.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/CustomXmlParts";
+    let local_file = "DocumentElements/CustomXmlParts/MultipleCustomXmlParts.docx".to_owned();
+    let remote_file_name = "TestDeleteCustomXmlPart.docx".to_owned();
 
-    context.upload_file(test_string!(localFile)?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
     let request = DeleteCustomXmlPartsRequest::new(
-        (test_string!(remoteFileName)?).into()
-    ).with_folder((test_string!(remoteDataFolder)?).into())
-.with_dest_file_name((test_string!(baseTestOutPath + "/" + remoteFileName)?).into());
+        (remote_file_name.clone()).into()
+    ).with_folder((remote_data_folder.clone()).into())
+.with_dest_file_name((base_test_out_path.clone() + "/" + &remote_file_name).into());
 
     context.api().delete_custom_xml_parts(request).await?;
     Ok(())
@@ -326,16 +304,14 @@ async fn custom_xml_parts_delete_custom_xml_parts() -> TestResult<()> {
 #[tokio::test]
 async fn custom_xml_parts_delete_custom_xml_parts_online() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let localFile = test_string!("DocumentElements/CustomXmlParts/MultipleCustomXmlParts.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let local_file = "DocumentElements/CustomXmlParts/MultipleCustomXmlParts.docx".to_owned();
 
-    let requestDocument = context.load_binary_file(test_string!(localFile)?).await?;
+    let request_document = context.load_binary_file(local_file.clone()).await?;
 
     let request = DeleteCustomXmlPartsOnlineRequest::new(
-        (requestDocument).into()
+        (request_document).into()
     );
 
     context.api().delete_custom_xml_parts_online(request).await?;

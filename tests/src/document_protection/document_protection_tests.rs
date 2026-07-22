@@ -36,24 +36,22 @@ use crate::test_context::*;
 #[tokio::test]
 async fn document_protection_protect_document() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/DocumentElements/DocumentProtection")?;
-    let localFile = test_string!("Common/test_multi_pages.docx")?;
-    let remoteFileName = test_string!("TestProtectDocument.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentElements/DocumentProtection";
+    let local_file = "Common/test_multi_pages.docx".to_owned();
+    let remote_file_name = "TestProtectDocument.docx".to_owned();
 
-    context.upload_file(test_string!(localFile)?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
-    let mut requestProtectionRequest = ProtectionRequestV2::default();
-    requestProtectionRequest.r#protection_password = Some((test_string!("123")?).into());
-    requestProtectionRequest.r#protection_type = Some((ProtectionRequestV2_ProtectionTypeEnum::ReadOnly).into());
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
+    let mut request_protection_request = ProtectionRequestV2::default();
+    request_protection_request.protection_password = Some(("123".to_owned()).into());
+    request_protection_request.protection_type = Some((ProtectionRequestV2ProtectionTypeEnum::ReadOnly).into());
 
     let request = ProtectDocumentRequest::new(
-        (test_string!(remoteFileName)?).into(),
-        (requestProtectionRequest).into()
-    ).with_folder((test_string!(remoteDataFolder)?).into())
-.with_dest_file_name((test_string!(baseTestOutPath + "/" + remoteFileName)?).into());
+        (remote_file_name.clone()).into(),
+        (request_protection_request).into()
+    ).with_folder((remote_data_folder.clone()).into())
+.with_dest_file_name((base_test_out_path.clone() + "/" + &remote_file_name).into());
 
     let result = context.api().protect_document(request).await?;
     let result_json = serialize_result(&result)?;
@@ -66,20 +64,18 @@ async fn document_protection_protect_document() -> TestResult<()> {
 #[tokio::test]
 async fn document_protection_protect_document_online() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let localFile = test_string!("Common/test_multi_pages.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let local_file = "Common/test_multi_pages.docx".to_owned();
 
-    let requestDocument = context.load_binary_file(test_string!(localFile)?).await?;
-    let mut requestProtectionRequest = ProtectionRequestV2::default();
-    requestProtectionRequest.r#protection_password = Some((test_string!("123")?).into());
-    requestProtectionRequest.r#protection_type = Some((ProtectionRequestV2_ProtectionTypeEnum::ReadOnly).into());
+    let request_document = context.load_binary_file(local_file.clone()).await?;
+    let mut request_protection_request = ProtectionRequestV2::default();
+    request_protection_request.protection_password = Some(("123".to_owned()).into());
+    request_protection_request.protection_type = Some((ProtectionRequestV2ProtectionTypeEnum::ReadOnly).into());
 
     let request = ProtectDocumentOnlineRequest::new(
-        (requestDocument).into(),
-        (requestProtectionRequest).into()
+        (request_document).into(),
+        (request_protection_request).into()
     );
 
     context.api().protect_document_online(request).await?;
@@ -90,19 +86,17 @@ async fn document_protection_protect_document_online() -> TestResult<()> {
 #[tokio::test]
 async fn document_protection_get_document_protection() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/DocumentElements/DocumentProtection")?;
-    let localFilePath = test_string!("DocumentActions/DocumentProtection/SampleProtectedBlankWordDocument.docx")?;
-    let remoteFileName = test_string!("TestGetDocumentProtection.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentElements/DocumentProtection";
+    let local_file_path = "DocumentActions/DocumentProtection/SampleProtectedBlankWordDocument.docx".to_owned();
+    let remote_file_name = "TestGetDocumentProtection.docx".to_owned();
 
-    context.upload_file(test_string!(localFilePath)?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
+    context.upload_file(local_file_path.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
     let request = GetDocumentProtectionRequest::new(
-        (test_string!(remoteFileName)?).into()
-    ).with_folder((test_string!(remoteDataFolder)?).into());
+        (remote_file_name.clone()).into()
+    ).with_folder((remote_data_folder.clone()).into());
 
     context.api().get_document_protection(request).await?;
     Ok(())
@@ -112,16 +106,14 @@ async fn document_protection_get_document_protection() -> TestResult<()> {
 #[tokio::test]
 async fn document_protection_get_document_protection_online() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let localFile = test_string!("Common/test_multi_pages.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let local_file = "Common/test_multi_pages.docx".to_owned();
 
-    let requestDocument = context.load_binary_file(test_string!(localFile)?).await?;
+    let request_document = context.load_binary_file(local_file.clone()).await?;
 
     let request = GetDocumentProtectionOnlineRequest::new(
-        (requestDocument).into()
+        (request_document).into()
     );
 
     context.api().get_document_protection_online(request).await?;
@@ -132,19 +124,17 @@ async fn document_protection_get_document_protection_online() -> TestResult<()> 
 #[tokio::test]
 async fn document_protection_delete_unprotect_document() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/DocumentElements/DocumentProtection")?;
-    let localFilePath = test_string!("DocumentActions/DocumentProtection/SampleProtectedBlankWordDocument.docx")?;
-    let remoteFileName = test_string!("TestDeleteUnprotectDocument.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentElements/DocumentProtection";
+    let local_file_path = "DocumentActions/DocumentProtection/SampleProtectedBlankWordDocument.docx".to_owned();
+    let remote_file_name = "TestDeleteUnprotectDocument.docx".to_owned();
 
-    context.upload_file(test_string!(localFilePath)?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
+    context.upload_file(local_file_path.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
     let request = UnprotectDocumentRequest::new(
-        (test_string!(remoteFileName)?).into()
-    ).with_folder((test_string!(remoteDataFolder)?).into());
+        (remote_file_name.clone()).into()
+    ).with_folder((remote_data_folder.clone()).into());
 
     let result = context.api().unprotect_document(request).await?;
     let result_json = serialize_result(&result)?;
@@ -157,16 +147,14 @@ async fn document_protection_delete_unprotect_document() -> TestResult<()> {
 #[tokio::test]
 async fn document_protection_delete_unprotect_document_online() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let localFilePath = test_string!("DocumentActions/DocumentProtection/SampleProtectedBlankWordDocument.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let local_file_path = "DocumentActions/DocumentProtection/SampleProtectedBlankWordDocument.docx".to_owned();
 
-    let requestDocument = context.load_binary_file(test_string!(localFilePath)?).await?;
+    let request_document = context.load_binary_file(local_file_path.clone()).await?;
 
     let request = UnprotectDocumentOnlineRequest::new(
-        (requestDocument).into()
+        (request_document).into()
     );
 
     context.api().unprotect_document_online(request).await?;

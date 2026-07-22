@@ -38,7 +38,7 @@ pub struct TableCellResponse {
     pub parent: WordsResponse,
         /// Gets or sets the table cell.
         #[serde(rename = "Cell", skip_serializing_if = "Option::is_none")]
-        pub r#cell: Option<TableCell>,
+        pub cell: Option<TableCell>,
 
 }
 
@@ -47,7 +47,7 @@ impl Default for TableCellResponse {
         let mut parent = WordsResponse::default();
         Self {
             parent,
-            r#cell: None,
+            cell: None,
         }
     }
 }
@@ -69,14 +69,14 @@ impl DerefMut for TableCellResponse {
 impl Model for TableCellResponse {
     fn validate(&self) -> SdkResult<()> {
         self.parent.validate()?;
-        if let Some(value) = &self.r#cell {
+        if let Some(value) = &self.cell {
         value.validate()?;
         }
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
-        self.parent.collect_file_references(output);
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+        self.parent.collect_file_references(_output);
     }
 
     fn as_any(&self) -> &dyn Any {

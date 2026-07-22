@@ -36,20 +36,18 @@ use crate::test_context::*;
 #[tokio::test]
 async fn structured_document_tag_get_structured_document_tags() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/DocumentElements/StructuredDocumentTag")?;
-    let localFile = test_string!("DocumentElements/StructuredDocumentTag/StructuredDocumentTag.docx")?;
-    let remoteFileName = test_string!("TestGetStructuredDocumentTags.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentElements/StructuredDocumentTag";
+    let local_file = "DocumentElements/StructuredDocumentTag/StructuredDocumentTag.docx".to_owned();
+    let remote_file_name = "TestGetStructuredDocumentTags.docx".to_owned();
 
-    context.upload_file(test_string!(localFile)?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
     let request = GetStructuredDocumentTagsRequest::new(
-        (test_string!(remoteFileName)?).into()
-    ).with_node_path((test_string!("sections/0/body/paragraphs/0")?).into())
-.with_folder((test_string!(remoteDataFolder)?).into());
+        (remote_file_name.clone()).into()
+    ).with_node_path(("sections/0/body/paragraphs/0".to_owned()).into())
+.with_folder((remote_data_folder.clone()).into());
 
     context.api().get_structured_document_tags(request).await?;
     Ok(())
@@ -59,17 +57,15 @@ async fn structured_document_tag_get_structured_document_tags() -> TestResult<()
 #[tokio::test]
 async fn structured_document_tag_get_structured_document_tags_online() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let localFile = test_string!("DocumentElements/StructuredDocumentTag/StructuredDocumentTag.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let local_file = "DocumentElements/StructuredDocumentTag/StructuredDocumentTag.docx".to_owned();
 
-    let requestDocument = context.load_binary_file(test_string!(localFile)?).await?;
+    let request_document = context.load_binary_file(local_file.clone()).await?;
 
     let request = GetStructuredDocumentTagsOnlineRequest::new(
-        (requestDocument).into()
-    ).with_node_path((test_string!("sections/0/body/paragraphs/0")?).into());
+        (request_document).into()
+    ).with_node_path(("sections/0/body/paragraphs/0".to_owned()).into());
 
     context.api().get_structured_document_tags_online(request).await?;
     Ok(())
@@ -79,21 +75,19 @@ async fn structured_document_tag_get_structured_document_tags_online() -> TestRe
 #[tokio::test]
 async fn structured_document_tag_get_structured_document_tag() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/DocumentElements/StructuredDocumentTag")?;
-    let localFile = test_string!("DocumentElements/StructuredDocumentTag/StructuredDocumentTag.docx")?;
-    let remoteFileName = test_string!("TestGetStructuredDocumentTag.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentElements/StructuredDocumentTag";
+    let local_file = "DocumentElements/StructuredDocumentTag/StructuredDocumentTag.docx".to_owned();
+    let remote_file_name = "TestGetStructuredDocumentTag.docx".to_owned();
 
-    context.upload_file(test_string!(localFile)?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
     let request = GetStructuredDocumentTagRequest::new(
-        (test_string!(remoteFileName)?).into(),
+        (remote_file_name.clone()).into(),
         (0).into()
-    ).with_node_path((test_string!("sections/0/body/paragraphs/0")?).into())
-.with_folder((test_string!(remoteDataFolder)?).into());
+    ).with_node_path(("sections/0/body/paragraphs/0".to_owned()).into())
+.with_folder((remote_data_folder.clone()).into());
 
     context.api().get_structured_document_tag(request).await?;
     Ok(())
@@ -103,18 +97,16 @@ async fn structured_document_tag_get_structured_document_tag() -> TestResult<()>
 #[tokio::test]
 async fn structured_document_tag_get_structured_document_tag_online() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let localFile = test_string!("DocumentElements/StructuredDocumentTag/StructuredDocumentTag.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let local_file = "DocumentElements/StructuredDocumentTag/StructuredDocumentTag.docx".to_owned();
 
-    let requestDocument = context.load_binary_file(test_string!(localFile)?).await?;
+    let request_document = context.load_binary_file(local_file.clone()).await?;
 
     let request = GetStructuredDocumentTagOnlineRequest::new(
-        (requestDocument).into(),
+        (request_document).into(),
         (0).into()
-    ).with_node_path((test_string!("sections/0/body/paragraphs/0")?).into());
+    ).with_node_path(("sections/0/body/paragraphs/0".to_owned()).into());
 
     context.api().get_structured_document_tag_online(request).await?;
     Ok(())
@@ -124,24 +116,22 @@ async fn structured_document_tag_get_structured_document_tag_online() -> TestRes
 #[tokio::test]
 async fn structured_document_tag_insert_structured_document_tag() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/DocumentElements/StructuredDocumentTag")?;
-    let localFile = test_string!("DocumentElements/StructuredDocumentTag/StructuredDocumentTag.docx")?;
-    let remoteFileName = test_string!("TestInsetStructuredDocumentTag.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentElements/StructuredDocumentTag";
+    let local_file = "DocumentElements/StructuredDocumentTag/StructuredDocumentTag.docx".to_owned();
+    let remote_file_name = "TestInsetStructuredDocumentTag.docx".to_owned();
 
-    context.upload_file(test_string!(localFile)?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
-    let mut requestStructuredDocumentTag = StructuredDocumentTagInsert::default();
-    requestStructuredDocumentTag.r#sdt_type = Some((StructuredDocumentTagInsert_SdtTypeEnum::ComboBox).into());
-    requestStructuredDocumentTag.r#level = Some((StructuredDocumentTagInsert_LevelEnum::Inline).into());
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
+    let mut request_structured_document_tag = StructuredDocumentTagInsert::default();
+    request_structured_document_tag.sdt_type = Some((StructuredDocumentTagInsertSdtTypeEnum::ComboBox).into());
+    request_structured_document_tag.level = Some((StructuredDocumentTagInsertLevelEnum::Inline).into());
 
     let request = InsertStructuredDocumentTagRequest::new(
-        (test_string!(remoteFileName)?).into(),
-        (requestStructuredDocumentTag).into()
-    ).with_node_path((test_string!("sections/0/body/paragraphs/0")?).into())
-.with_folder((test_string!(remoteDataFolder)?).into());
+        (remote_file_name.clone()).into(),
+        (request_structured_document_tag).into()
+    ).with_node_path(("sections/0/body/paragraphs/0".to_owned()).into())
+.with_folder((remote_data_folder.clone()).into());
 
     context.api().insert_structured_document_tag(request).await?;
     Ok(())
@@ -151,21 +141,19 @@ async fn structured_document_tag_insert_structured_document_tag() -> TestResult<
 #[tokio::test]
 async fn structured_document_tag_insert_structured_document_tag_online() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let localFile = test_string!("DocumentElements/StructuredDocumentTag/StructuredDocumentTag.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let local_file = "DocumentElements/StructuredDocumentTag/StructuredDocumentTag.docx".to_owned();
 
-    let requestDocument = context.load_binary_file(test_string!(localFile)?).await?;
-    let mut requestStructuredDocumentTag = StructuredDocumentTagInsert::default();
-    requestStructuredDocumentTag.r#sdt_type = Some((StructuredDocumentTagInsert_SdtTypeEnum::ComboBox).into());
-    requestStructuredDocumentTag.r#level = Some((StructuredDocumentTagInsert_LevelEnum::Inline).into());
+    let request_document = context.load_binary_file(local_file.clone()).await?;
+    let mut request_structured_document_tag = StructuredDocumentTagInsert::default();
+    request_structured_document_tag.sdt_type = Some((StructuredDocumentTagInsertSdtTypeEnum::ComboBox).into());
+    request_structured_document_tag.level = Some((StructuredDocumentTagInsertLevelEnum::Inline).into());
 
     let request = InsertStructuredDocumentTagOnlineRequest::new(
-        (requestDocument).into(),
-        (requestStructuredDocumentTag).into()
-    ).with_node_path((test_string!("sections/0/body/paragraphs/0")?).into());
+        (request_document).into(),
+        (request_structured_document_tag).into()
+    ).with_node_path(("sections/0/body/paragraphs/0".to_owned()).into());
 
     context.api().insert_structured_document_tag_online(request).await?;
     Ok(())
@@ -175,21 +163,19 @@ async fn structured_document_tag_insert_structured_document_tag_online() -> Test
 #[tokio::test]
 async fn structured_document_tag_delete_structured_document_tag() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/DocumentElements/StructuredDocumentTag")?;
-    let localFile = test_string!("DocumentElements/StructuredDocumentTag/StructuredDocumentTag.docx")?;
-    let remoteFileName = test_string!("TestDeleteStructuredDocumentTag.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentElements/StructuredDocumentTag";
+    let local_file = "DocumentElements/StructuredDocumentTag/StructuredDocumentTag.docx".to_owned();
+    let remote_file_name = "TestDeleteStructuredDocumentTag.docx".to_owned();
 
-    context.upload_file(test_string!(localFile)?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
     let request = DeleteStructuredDocumentTagRequest::new(
-        (test_string!(remoteFileName)?).into(),
+        (remote_file_name.clone()).into(),
         (0).into()
-    ).with_node_path((test_string!("sections/0/body/paragraphs/0")?).into())
-.with_folder((test_string!(remoteDataFolder)?).into());
+    ).with_node_path(("sections/0/body/paragraphs/0".to_owned()).into())
+.with_folder((remote_data_folder.clone()).into());
 
     context.api().delete_structured_document_tag(request).await?;
     Ok(())
@@ -199,18 +185,16 @@ async fn structured_document_tag_delete_structured_document_tag() -> TestResult<
 #[tokio::test]
 async fn structured_document_tag_delete_structured_document_tag_online() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let localFile = test_string!("DocumentElements/StructuredDocumentTag/StructuredDocumentTag.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let local_file = "DocumentElements/StructuredDocumentTag/StructuredDocumentTag.docx".to_owned();
 
-    let requestDocument = context.load_binary_file(test_string!(localFile)?).await?;
+    let request_document = context.load_binary_file(local_file.clone()).await?;
 
     let request = DeleteStructuredDocumentTagOnlineRequest::new(
-        (requestDocument).into(),
+        (request_document).into(),
         (0).into()
-    ).with_node_path((test_string!("sections/0/body/paragraphs/0")?).into());
+    ).with_node_path(("sections/0/body/paragraphs/0".to_owned()).into());
 
     context.api().delete_structured_document_tag_online(request).await?;
     Ok(())
@@ -220,34 +204,32 @@ async fn structured_document_tag_delete_structured_document_tag_online() -> Test
 #[tokio::test]
 async fn structured_document_tag_update_structured_document_tag() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/DocumentElements/StructuredDocumentTag")?;
-    let localFile = test_string!("DocumentElements/StructuredDocumentTag/StructuredDocumentTag.docx")?;
-    let remoteFileName = test_string!("TestUpdateStructuredDocumentTag.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentElements/StructuredDocumentTag";
+    let local_file = "DocumentElements/StructuredDocumentTag/StructuredDocumentTag.docx".to_owned();
+    let remote_file_name = "TestUpdateStructuredDocumentTag.docx".to_owned();
 
-    context.upload_file(test_string!(localFile)?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
-    let mut requestStructuredDocumentTagListItems0 = StructuredDocumentTagListItem::default();
-    requestStructuredDocumentTagListItems0.r#display_text = Some((test_string!("Aspose Words")?).into());
-    requestStructuredDocumentTagListItems0.r#value = Some((test_string!("1")?).into());
-    let mut requestStructuredDocumentTagListItems1 = StructuredDocumentTagListItem::default();
-    requestStructuredDocumentTagListItems1.r#display_text = Some((test_string!("Hello world")?).into());
-    requestStructuredDocumentTagListItems1.r#value = Some((test_string!("2")?).into());
-    let requestStructuredDocumentTagListItems = vec![
-    requestStructuredDocumentTagListItems0,
-    requestStructuredDocumentTagListItems1
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
+    let mut request_structured_document_tag_list_items0 = StructuredDocumentTagListItem::default();
+    request_structured_document_tag_list_items0.display_text = Some(("Aspose Words".to_owned()).into());
+    request_structured_document_tag_list_items0.value = Some(("1".to_owned()).into());
+    let mut request_structured_document_tag_list_items1 = StructuredDocumentTagListItem::default();
+    request_structured_document_tag_list_items1.display_text = Some(("Hello world".to_owned()).into());
+    request_structured_document_tag_list_items1.value = Some(("2".to_owned()).into());
+    let request_structured_document_tag_list_items = vec![
+    request_structured_document_tag_list_items0,
+    request_structured_document_tag_list_items1
     ];
-    let mut requestStructuredDocumentTag = StructuredDocumentTagUpdate::default();
-    requestStructuredDocumentTag.r#list_items = Some((requestStructuredDocumentTagListItems).into());
+    let mut request_structured_document_tag = StructuredDocumentTagUpdate::default();
+    request_structured_document_tag.list_items = Some((request_structured_document_tag_list_items).into());
 
     let request = UpdateStructuredDocumentTagRequest::new(
-        (test_string!(remoteFileName)?).into(),
+        (remote_file_name.clone()).into(),
         (0).into(),
-        (requestStructuredDocumentTag).into()
-    ).with_node_path((test_string!("sections/0/body/paragraphs/0")?).into())
-.with_folder((test_string!(remoteDataFolder)?).into());
+        (request_structured_document_tag).into()
+    ).with_node_path(("sections/0/body/paragraphs/0".to_owned()).into())
+.with_folder((remote_data_folder.clone()).into());
 
     context.api().update_structured_document_tag(request).await?;
     Ok(())
@@ -257,31 +239,29 @@ async fn structured_document_tag_update_structured_document_tag() -> TestResult<
 #[tokio::test]
 async fn structured_document_tag_update_structured_document_tag_online() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let localFile = test_string!("DocumentElements/StructuredDocumentTag/StructuredDocumentTag.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let local_file = "DocumentElements/StructuredDocumentTag/StructuredDocumentTag.docx".to_owned();
 
-    let requestDocument = context.load_binary_file(test_string!(localFile)?).await?;
-    let mut requestStructuredDocumentTagListItems0 = StructuredDocumentTagListItem::default();
-    requestStructuredDocumentTagListItems0.r#display_text = Some((test_string!("Aspose Words")?).into());
-    requestStructuredDocumentTagListItems0.r#value = Some((test_string!("1")?).into());
-    let mut requestStructuredDocumentTagListItems1 = StructuredDocumentTagListItem::default();
-    requestStructuredDocumentTagListItems1.r#display_text = Some((test_string!("Hello world")?).into());
-    requestStructuredDocumentTagListItems1.r#value = Some((test_string!("2")?).into());
-    let requestStructuredDocumentTagListItems = vec![
-    requestStructuredDocumentTagListItems0,
-    requestStructuredDocumentTagListItems1
+    let request_document = context.load_binary_file(local_file.clone()).await?;
+    let mut request_structured_document_tag_list_items0 = StructuredDocumentTagListItem::default();
+    request_structured_document_tag_list_items0.display_text = Some(("Aspose Words".to_owned()).into());
+    request_structured_document_tag_list_items0.value = Some(("1".to_owned()).into());
+    let mut request_structured_document_tag_list_items1 = StructuredDocumentTagListItem::default();
+    request_structured_document_tag_list_items1.display_text = Some(("Hello world".to_owned()).into());
+    request_structured_document_tag_list_items1.value = Some(("2".to_owned()).into());
+    let request_structured_document_tag_list_items = vec![
+    request_structured_document_tag_list_items0,
+    request_structured_document_tag_list_items1
     ];
-    let mut requestStructuredDocumentTag = StructuredDocumentTagUpdate::default();
-    requestStructuredDocumentTag.r#list_items = Some((requestStructuredDocumentTagListItems).into());
+    let mut request_structured_document_tag = StructuredDocumentTagUpdate::default();
+    request_structured_document_tag.list_items = Some((request_structured_document_tag_list_items).into());
 
     let request = UpdateStructuredDocumentTagOnlineRequest::new(
-        (requestDocument).into(),
-        (requestStructuredDocumentTag).into(),
+        (request_document).into(),
+        (request_structured_document_tag).into(),
         (0).into()
-    ).with_node_path((test_string!("sections/0/body/paragraphs/0")?).into());
+    ).with_node_path(("sections/0/body/paragraphs/0".to_owned()).into());
 
     context.api().update_structured_document_tag_online(request).await?;
     Ok(())

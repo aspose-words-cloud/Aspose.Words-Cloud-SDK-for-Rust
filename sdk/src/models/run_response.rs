@@ -38,7 +38,7 @@ pub struct RunResponse {
     pub parent: WordsResponse,
         /// Gets or sets the Run element.
         #[serde(rename = "Run", skip_serializing_if = "Option::is_none")]
-        pub r#run: Option<Run>,
+        pub run: Option<Run>,
 
 }
 
@@ -47,7 +47,7 @@ impl Default for RunResponse {
         let mut parent = WordsResponse::default();
         Self {
             parent,
-            r#run: None,
+            run: None,
         }
     }
 }
@@ -69,14 +69,14 @@ impl DerefMut for RunResponse {
 impl Model for RunResponse {
     fn validate(&self) -> SdkResult<()> {
         self.parent.validate()?;
-        if let Some(value) = &self.r#run {
+        if let Some(value) = &self.run {
         value.validate()?;
         }
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
-        self.parent.collect_file_references(output);
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+        self.parent.collect_file_references(_output);
     }
 
     fn as_any(&self) -> &dyn Any {

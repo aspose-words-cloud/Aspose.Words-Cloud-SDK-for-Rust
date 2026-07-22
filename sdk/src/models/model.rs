@@ -364,7 +364,7 @@ fn deserialize_model_value(value: Value) -> SdkResult<ModelBox> {
         "WatermarkDataImage" => Ok(serde_json::from_value::<WatermarkDataImage>(value)?.into()),
         "WatermarkDataText" => Ok(serde_json::from_value::<WatermarkDataText>(value)?.into()),
         "WatermarkText" => Ok(serde_json::from_value::<WatermarkText>(value)?.into()),
-        "WordMLSaveOptionsData" => Ok(serde_json::from_value::<WordMLSaveOptionsData>(value)?.into()),
+        "WordMLSaveOptionsData" => Ok(serde_json::from_value::<WordMlSaveOptionsData>(value)?.into()),
         "WordsApiErrorResponse" => Ok(serde_json::from_value::<WordsApiErrorResponse>(value)?.into()),
         "WordsApiLink" => Ok(serde_json::from_value::<WordsApiLink>(value)?.into()),
         "WordsResponse" => Ok(serde_json::from_value::<WordsResponse>(value)?.into()),

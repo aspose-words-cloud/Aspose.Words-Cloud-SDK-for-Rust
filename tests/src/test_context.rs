@@ -27,38 +27,6 @@ use serde::{Deserialize, Serialize};
 use serde_json::Value;
 use uuid::Uuid;
 
-macro_rules! test_string {
-    (ReadFile($context:expr, $($path:tt)+)) => {{
-        $context.load_text_file(test_string!($($path)+)?).await
-    }};
-    (CreateRandomGuid()) => {{
-        Ok::<String, TestError>($crate::test_context::generated_random_guid())
-    }};
-    ($first:ident + $middle:literal + CreateRandomGuid() + $last:literal) => {{
-        let mut value = ($first).to_string();
-        value.push_str($middle);
-        value.push_str(&$crate::test_context::generated_random_guid());
-        value.push_str($last);
-        Ok::<String, TestError>(value)
-    }};
-    ($first:ident + $middle:literal + CreateRandomGuid()) => {{
-        let mut value = ($first).to_string();
-        value.push_str($middle);
-        value.push_str(&$crate::test_context::generated_random_guid());
-        Ok::<String, TestError>(value)
-    }};
-    ($first:tt $(+ $rest:tt)+) => {{
-        let mut value = ($first).to_string();
-        $(value.push_str(&($rest).to_string());)+
-        Ok::<String, TestError>(value)
-    }};
-    ($value:expr) => {{
-        Ok::<String, TestError>(($value).to_string())
-    }};
-}
-
-pub(crate) use test_string;
-
 pub type TestResult<T> = Result<T, TestError>;
 
 #[derive(Debug, thiserror::Error)]
@@ -90,8 +58,13 @@ struct ServerCredentials {
     base_url: String,
 }
 
-pub fn generated_random_guid() -> String {
+pub fn create_random_guid() -> String {
     Uuid::new_v4().to_string()
+}
+
+pub async fn read_text_file(path: String) -> TestResult<String> {
+    let sdk_root = PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("..");
+    Ok(tokio::fs::read_to_string(sdk_root.join("test_data").join(path)).await?)
 }
 
 impl TestContext {
@@ -126,7 +99,7 @@ impl TestContext {
     }
 
     pub fn create_random_guid(&self) -> String {
-        Uuid::new_v4().to_string()
+        create_random_guid()
     }
 
     pub async fn load_binary_file(&self, path: impl AsRef<Path>) -> TestResult<Vec<u8>> {

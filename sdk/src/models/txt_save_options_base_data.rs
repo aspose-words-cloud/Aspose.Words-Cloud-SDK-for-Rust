@@ -37,24 +37,24 @@ pub struct TxtSaveOptionsBaseData {
     pub parent: SaveOptionsData,
         /// Gets or sets the character encoding to use when exporting in plain text format.
         #[serde(rename = "Encoding", skip_serializing_if = "Option::is_none")]
-        pub r#encoding: Option<String>,
+        pub encoding: Option<String>,
 
 
         /// Gets or sets the option that controls whether to output headers and footers when exporting in plain text format.
             /// The default value is TxtExportHeadersFootersMode.PrimaryOnly.
         #[serde(rename = "ExportHeadersFootersMode", skip_serializing_if = "Option::is_none")]
-        pub r#export_headers_footers_mode: Option<TxtSaveOptionsBaseData_ExportHeadersFootersModeEnum>,
+        pub export_headers_footers_mode: Option<TxtSaveOptionsBaseDataExportHeadersFootersModeEnum>,
 
 
         /// Gets or sets a value indicating whether the page breaks should be preserved during export.
             /// The default value is false.
         #[serde(rename = "ForcePageBreaks", skip_serializing_if = "Option::is_none")]
-        pub r#force_page_breaks: Option<bool>,
+        pub force_page_breaks: Option<bool>,
 
 
         /// Gets or sets the string to use as a paragraph break when exporting in plain text format.
         #[serde(rename = "ParagraphBreak", skip_serializing_if = "Option::is_none")]
-        pub r#paragraph_break: Option<String>,
+        pub paragraph_break: Option<String>,
 
 }
 
@@ -63,10 +63,10 @@ impl Default for TxtSaveOptionsBaseData {
         let mut parent = SaveOptionsData::default();
         Self {
             parent,
-            r#encoding: None,
-            r#export_headers_footers_mode: None,
-            r#force_page_breaks: None,
-            r#paragraph_break: None,
+            encoding: None,
+            export_headers_footers_mode: None,
+            force_page_breaks: None,
+            paragraph_break: None,
         }
     }
 }
@@ -91,8 +91,8 @@ impl Model for TxtSaveOptionsBaseData {
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
-        self.parent.collect_file_references(output);
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+        self.parent.collect_file_references(_output);
     }
 
     fn as_any(&self) -> &dyn Any {
@@ -102,9 +102,8 @@ impl Model for TxtSaveOptionsBaseData {
 
 /// Gets or sets the option that controls whether to output headers and footers when exporting in plain text format.
 /// The default value is TxtExportHeadersFootersMode.PrimaryOnly.
-#[allow(non_camel_case_types)]
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
-pub enum TxtSaveOptionsBaseData_ExportHeadersFootersModeEnum {
+pub enum TxtSaveOptionsBaseDataExportHeadersFootersModeEnum {
     #[serde(rename = "None")]
         None,
     #[serde(rename = "PrimaryOnly")]

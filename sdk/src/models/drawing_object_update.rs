@@ -34,56 +34,56 @@ use super::*;
 pub struct DrawingObjectUpdate {
         /// Gets or sets the relative horizontal position, from which the distance to the image is measured.
         #[serde(rename = "RelativeHorizontalPosition", skip_serializing_if = "Option::is_none")]
-        pub r#relative_horizontal_position: Option<DrawingObjectUpdate_RelativeHorizontalPositionEnum>,
+        pub relative_horizontal_position: Option<DrawingObjectUpdateRelativeHorizontalPositionEnum>,
 
 
         /// Gets or sets the distance in points from the origin to the left side of the image.
         #[serde(rename = "Left", skip_serializing_if = "Option::is_none")]
-        pub r#left: Option<f64>,
+        pub left: Option<f64>,
 
 
         /// Gets or sets the relative vertical position, from which the distance to the image measured.
         #[serde(rename = "RelativeVerticalPosition", skip_serializing_if = "Option::is_none")]
-        pub r#relative_vertical_position: Option<DrawingObjectUpdate_RelativeVerticalPositionEnum>,
+        pub relative_vertical_position: Option<DrawingObjectUpdateRelativeVerticalPositionEnum>,
 
 
         /// Gets or sets the distance in points from the origin to the top side of the image.
         #[serde(rename = "Top", skip_serializing_if = "Option::is_none")]
-        pub r#top: Option<f64>,
+        pub top: Option<f64>,
 
 
         /// Gets or sets the width of the DrawingObjects in points.
         #[serde(rename = "Width", skip_serializing_if = "Option::is_none")]
-        pub r#width: Option<f64>,
+        pub width: Option<f64>,
 
 
         /// Gets or sets the height of the DrawingObject in points.
         #[serde(rename = "Height", skip_serializing_if = "Option::is_none")]
-        pub r#height: Option<f64>,
+        pub height: Option<f64>,
 
 
         /// Gets or sets the option that controls how to wrap text around the image.
         #[serde(rename = "WrapType", skip_serializing_if = "Option::is_none")]
-        pub r#wrap_type: Option<DrawingObjectUpdate_WrapTypeEnum>,
+        pub wrap_type: Option<DrawingObjectUpdateWrapTypeEnum>,
 
 
         /// Gets or sets a value indicating whether AspectRatioLocked option on or off.
         #[serde(rename = "AspectRatioLocked", skip_serializing_if = "Option::is_none")]
-        pub r#aspect_ratio_locked: Option<bool>,
+        pub aspect_ratio_locked: Option<bool>,
 
 }
 
 impl Default for DrawingObjectUpdate {
     fn default() -> Self {
         Self {
-            r#relative_horizontal_position: None,
-            r#left: None,
-            r#relative_vertical_position: None,
-            r#top: None,
-            r#width: None,
-            r#height: None,
-            r#wrap_type: None,
-            r#aspect_ratio_locked: None,
+            relative_horizontal_position: None,
+            left: None,
+            relative_vertical_position: None,
+            top: None,
+            width: None,
+            height: None,
+            wrap_type: None,
+            aspect_ratio_locked: None,
         }
     }
 }
@@ -93,7 +93,7 @@ impl Model for DrawingObjectUpdate {
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
     }
 
     fn as_any(&self) -> &dyn Any {
@@ -102,9 +102,8 @@ impl Model for DrawingObjectUpdate {
 }
 
 /// Gets or sets the relative horizontal position, from which the distance to the image is measured.
-#[allow(non_camel_case_types)]
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
-pub enum DrawingObjectUpdate_RelativeHorizontalPositionEnum {
+pub enum DrawingObjectUpdateRelativeHorizontalPositionEnum {
     #[serde(rename = "Margin")]
         Margin,
     #[serde(rename = "Page")]
@@ -126,9 +125,8 @@ pub enum DrawingObjectUpdate_RelativeHorizontalPositionEnum {
 }
 
 /// Gets or sets the relative vertical position, from which the distance to the image measured.
-#[allow(non_camel_case_types)]
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
-pub enum DrawingObjectUpdate_RelativeVerticalPositionEnum {
+pub enum DrawingObjectUpdateRelativeVerticalPositionEnum {
     #[serde(rename = "Margin")]
         Margin,
     #[serde(rename = "TableDefault")]
@@ -152,9 +150,8 @@ pub enum DrawingObjectUpdate_RelativeVerticalPositionEnum {
 }
 
 /// Gets or sets the option that controls how to wrap text around the image.
-#[allow(non_camel_case_types)]
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
-pub enum DrawingObjectUpdate_WrapTypeEnum {
+pub enum DrawingObjectUpdateWrapTypeEnum {
     #[serde(rename = "Inline")]
         Inline,
     #[serde(rename = "TopBottom")]

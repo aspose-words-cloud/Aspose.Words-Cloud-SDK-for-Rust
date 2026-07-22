@@ -38,7 +38,7 @@ pub struct JsonDataLoadOptions {
             /// property, such an object is not created by default.
             /// The default value is false.
         #[serde(rename = "AlwaysGenerateRootObject", skip_serializing_if = "Option::is_none")]
-        pub r#always_generate_root_object: Option<bool>,
+        pub always_generate_root_object: Option<bool>,
 
 
         /// Gets or sets exact formats for parsing JSON date-time values while loading JSON.
@@ -57,35 +57,35 @@ pub struct JsonDataLoadOptions {
             /// • When Aspose.Words.Reporting.JsonDataLoadOptions.ExactDateTimeParseFormats is
             /// empty, no additional date-time formats are used.
         #[serde(rename = "ExactDateTimeParseFormats", skip_serializing_if = "Option::is_none")]
-        pub r#exact_date_time_parse_formats: Option<Vec<String>>,
+        pub exact_date_time_parse_formats: Option<Vec<String>>,
 
 
         /// Gets or sets a mode for parsing JSON simple values (null, boolean, number, integer,
             /// and string) while loading JSON. Such a mode does not affect parsing of date-time
             /// values. The default is Aspose.Words.Reporting.JsonSimpleValueParseMode.Loose.
         #[serde(rename = "SimpleValueParseMode", skip_serializing_if = "Option::is_none")]
-        pub r#simple_value_parse_mode: Option<JsonDataLoadOptions_SimpleValueParseModeEnum>,
+        pub simple_value_parse_mode: Option<JsonDataLoadOptionsSimpleValueParseModeEnum>,
 
 }
 
 impl Default for JsonDataLoadOptions {
     fn default() -> Self {
         Self {
-            r#always_generate_root_object: None,
-            r#exact_date_time_parse_formats: None,
-            r#simple_value_parse_mode: None,
+            always_generate_root_object: None,
+            exact_date_time_parse_formats: None,
+            simple_value_parse_mode: None,
         }
     }
 }
 
 impl Model for JsonDataLoadOptions {
     fn validate(&self) -> SdkResult<()> {
-        if self.r#always_generate_root_object.is_none() {
+        if self.always_generate_root_object.is_none() {
             return Err(SdkError::InvalidRequest(
                 "property AlwaysGenerateRootObject in JsonDataLoadOptions is required".to_owned(),
             ));
         }
-        if self.r#simple_value_parse_mode.is_none() {
+        if self.simple_value_parse_mode.is_none() {
             return Err(SdkError::InvalidRequest(
                 "property SimpleValueParseMode in JsonDataLoadOptions is required".to_owned(),
             ));
@@ -93,7 +93,7 @@ impl Model for JsonDataLoadOptions {
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
     }
 
     fn as_any(&self) -> &dyn Any {
@@ -104,9 +104,8 @@ impl Model for JsonDataLoadOptions {
 /// Gets or sets a mode for parsing JSON simple values (null, boolean, number, integer,
 /// and string) while loading JSON. Such a mode does not affect parsing of date-time
 /// values. The default is Aspose.Words.Reporting.JsonSimpleValueParseMode.Loose.
-#[allow(non_camel_case_types)]
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
-pub enum JsonDataLoadOptions_SimpleValueParseModeEnum {
+pub enum JsonDataLoadOptionsSimpleValueParseModeEnum {
     #[serde(rename = "Loose")]
         Loose,
     #[serde(rename = "Strict")]

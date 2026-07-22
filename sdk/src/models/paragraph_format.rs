@@ -37,12 +37,12 @@ pub struct ParagraphFormat {
     pub parent: ParagraphFormatBase,
         /// Gets or sets a value indicating whether the paragraph is an item in a bulleted or numbered list.
         #[serde(rename = "IsListItem", skip_serializing_if = "Option::is_none")]
-        pub r#is_list_item: Option<bool>,
+        pub is_list_item: Option<bool>,
 
 
         /// Gets or sets a value indicating whether the paragraph style is one of the built-in Heading styles.
         #[serde(rename = "IsHeading", skip_serializing_if = "Option::is_none")]
-        pub r#is_heading: Option<bool>,
+        pub is_heading: Option<bool>,
 
 }
 
@@ -51,8 +51,8 @@ impl Default for ParagraphFormat {
         let mut parent = ParagraphFormatBase::default();
         Self {
             parent,
-            r#is_list_item: None,
-            r#is_heading: None,
+            is_list_item: None,
+            is_heading: None,
         }
     }
 }
@@ -77,8 +77,8 @@ impl Model for ParagraphFormat {
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
-        self.parent.collect_file_references(output);
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+        self.parent.collect_file_references(_output);
     }
 
     fn as_any(&self) -> &dyn Any {

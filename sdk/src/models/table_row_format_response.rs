@@ -38,7 +38,7 @@ pub struct TableRowFormatResponse {
     pub parent: WordsResponse,
         /// Gets or sets the formatting properties of a table row.
         #[serde(rename = "RowFormat", skip_serializing_if = "Option::is_none")]
-        pub r#row_format: Option<TableRowFormat>,
+        pub row_format: Option<TableRowFormat>,
 
 }
 
@@ -47,7 +47,7 @@ impl Default for TableRowFormatResponse {
         let mut parent = WordsResponse::default();
         Self {
             parent,
-            r#row_format: None,
+            row_format: None,
         }
     }
 }
@@ -69,14 +69,14 @@ impl DerefMut for TableRowFormatResponse {
 impl Model for TableRowFormatResponse {
     fn validate(&self) -> SdkResult<()> {
         self.parent.validate()?;
-        if let Some(value) = &self.r#row_format {
+        if let Some(value) = &self.row_format {
         value.validate()?;
         }
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
-        self.parent.collect_file_references(output);
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+        self.parent.collect_file_references(_output);
     }
 
     fn as_any(&self) -> &dyn Any {

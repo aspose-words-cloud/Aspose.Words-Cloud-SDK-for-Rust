@@ -36,33 +36,31 @@ use crate::test_context::*;
 #[tokio::test]
 async fn execute_template_with_field_options_execute_template_with_field_options() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/DocumentActions/MailMerge")?;
-    let mailMergeFolder = test_string!("DocumentActions/MailMerge")?;
-    let localDocumentFile = test_string!("TestMailMergeWithOptions.docx")?;
-    let remoteFileName = test_string!("TestMailMergeWithOptions.docx")?;
-    let localDataFile = test_string!(ReadFile(t, mailMergeFolder + "/TestMailMergeData.xml"))?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentActions/MailMerge";
+    let mail_merge_folder = "DocumentActions/MailMerge".to_owned();
+    let local_document_file = "TestMailMergeWithOptions.docx".to_owned();
+    let remote_file_name = "TestMailMergeWithOptions.docx".to_owned();
+    let local_data_file = read_text_file(mail_merge_folder.clone() + "/TestMailMergeData.xml").await?;
 
-    context.upload_file(test_string!(mailMergeFolder + "/" + localDocumentFile)?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
-    let mut requestOptionsCurrentUser = UserInformation::default();
-    requestOptionsCurrentUser.r#name = Some((test_string!("SdkTestUser")?).into());
-    let mut requestOptions = FieldOptions::default();
-    requestOptions.r#current_user = Some((requestOptionsCurrentUser).into());
+    context.upload_file(mail_merge_folder.clone() + "/" + &local_document_file, remote_data_folder.clone() + "/" + &remote_file_name).await?;
+    let mut request_options_current_user = UserInformation::default();
+    request_options_current_user.name = Some(("SdkTestUser".to_owned()).into());
+    let mut request_options = FieldOptions::default();
+    request_options.current_user = Some((request_options_current_user).into());
 
     let request = ExecuteMailMergeRequest::new(
-        (test_string!(remoteFileName)?).into()
-    ).with_data((test_string!(localDataFile)?).into())
-.with_options((requestOptions).into())
-.with_folder((test_string!(remoteDataFolder)?).into())
-.with_dest_file_name((test_string!(baseTestOutPath + "/" + remoteFileName)?).into());
+        (remote_file_name.clone()).into()
+    ).with_data((local_data_file.clone()).into())
+.with_options((request_options).into())
+.with_folder((remote_data_folder.clone()).into())
+.with_dest_file_name((base_test_out_path.clone() + "/" + &remote_file_name).into());
 
     let result = context.api().execute_mail_merge(request).await?;
     let result_json = serialize_result(&result)?;
     assert_not_null(&result_json, "Document")?;
-    assert_string(&result_json, "Document.FileName", test_string!("TestMailMergeWithOptions.docx")?)?;
+    assert_string(&result_json, "Document.FileName", "TestMailMergeWithOptions.docx".to_owned())?;
     Ok(())
 }
 
@@ -70,25 +68,23 @@ async fn execute_template_with_field_options_execute_template_with_field_options
 #[tokio::test]
 async fn execute_template_with_field_options_execute_template_online_with_field_options() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let mailMergeFolder = test_string!("DocumentActions/MailMerge")?;
-    let localDocumentFile = test_string!("TestMailMergeWithOptions.docx")?;
-    let localDataFile = test_string!("TestMailMergeData.xml")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let mail_merge_folder = "DocumentActions/MailMerge".to_owned();
+    let local_document_file = "TestMailMergeWithOptions.docx".to_owned();
+    let local_data_file = "TestMailMergeData.xml".to_owned();
 
-    let requestTemplate = context.load_binary_file(test_string!(mailMergeFolder + "/" + localDocumentFile)?).await?;
-    let requestData = context.load_binary_file(test_string!(mailMergeFolder + "/" + localDataFile)?).await?;
-    let mut requestOptionsCurrentUser = UserInformation::default();
-    requestOptionsCurrentUser.r#name = Some((test_string!("SdkTestUser")?).into());
-    let mut requestOptions = FieldOptions::default();
-    requestOptions.r#current_user = Some((requestOptionsCurrentUser).into());
+    let request_template = context.load_binary_file(mail_merge_folder.clone() + "/" + &local_document_file).await?;
+    let request_data = context.load_binary_file(mail_merge_folder.clone() + "/" + &local_data_file).await?;
+    let mut request_options_current_user = UserInformation::default();
+    request_options_current_user.name = Some(("SdkTestUser".to_owned()).into());
+    let mut request_options = FieldOptions::default();
+    request_options.current_user = Some((request_options_current_user).into());
 
     let request = ExecuteMailMergeOnlineRequest::new(
-        (requestTemplate).into(),
-        (requestData).into()
-    ).with_options((requestOptions).into());
+        (request_template).into(),
+        (request_data).into()
+    ).with_options((request_options).into());
 
     context.api().execute_mail_merge_online(request).await?;
     Ok(())

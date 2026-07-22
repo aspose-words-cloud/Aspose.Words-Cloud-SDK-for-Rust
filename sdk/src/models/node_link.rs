@@ -37,7 +37,7 @@ pub struct NodeLink {
     pub parent: LinkElement,
         /// Gets or sets the node id.
         #[serde(rename = "NodeId", skip_serializing_if = "Option::is_none")]
-        pub r#node_id: Option<String>,
+        pub node_id: Option<String>,
 
 }
 
@@ -46,7 +46,7 @@ impl Default for NodeLink {
         let mut parent = LinkElement::default();
         Self {
             parent,
-            r#node_id: None,
+            node_id: None,
         }
     }
 }
@@ -71,8 +71,8 @@ impl Model for NodeLink {
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
-        self.parent.collect_file_references(output);
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+        self.parent.collect_file_references(_output);
     }
 
     fn as_any(&self) -> &dyn Any {

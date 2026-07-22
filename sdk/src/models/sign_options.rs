@@ -34,44 +34,44 @@ use super::*;
 pub struct SignOptions {
         /// Gets or sets comments on the digital signature. The default value is an empty string.
         #[serde(rename = "Comments", skip_serializing_if = "Option::is_none")]
-        pub r#comments: Option<String>,
+        pub comments: Option<String>,
 
 
         /// Gets or sets the password to decrypt source document. The default value is an empty string.
         #[serde(rename = "DecryptionPassword", skip_serializing_if = "Option::is_none")]
-        pub r#decryption_password: Option<String>,
+        pub decryption_password: Option<String>,
 
 
         /// Gets or sets the class Guid of the signature cryptography provider. The default value is Empty (all zeroes) Guid.
         #[serde(rename = "ProviderId", skip_serializing_if = "Option::is_none")]
-        pub r#provider_id: Option<String>,
+        pub provider_id: Option<String>,
 
 
         /// Gets or sets user defined signature line Guid. The default value is Empty (all zeroes) Guid.
         #[serde(rename = "SignatureLineId", skip_serializing_if = "Option::is_none")]
-        pub r#signature_line_id: Option<String>,
+        pub signature_line_id: Option<String>,
 
 
         /// Gets or sets the image that will be shown in associated SignatureLine. The default value is an empty string.
         #[serde(rename = "SignatureLineImageFilename", skip_serializing_if = "Option::is_none")]
-        pub r#signature_line_image_filename: Option<String>,
+        pub signature_line_image_filename: Option<String>,
 
 
         /// Gets or sets the date of signing. The default value is current time (Now).
         #[serde(rename = "SignTime", skip_serializing_if = "Option::is_none")]
-        pub r#sign_time: Option<DateTime<Utc>>,
+        pub sign_time: Option<chrono::DateTime<chrono::Utc>>,
 
 }
 
 impl Default for SignOptions {
     fn default() -> Self {
         Self {
-            r#comments: None,
-            r#decryption_password: None,
-            r#provider_id: None,
-            r#signature_line_id: None,
-            r#signature_line_image_filename: None,
-            r#sign_time: None,
+            comments: None,
+            decryption_password: None,
+            provider_id: None,
+            signature_line_id: None,
+            signature_line_image_filename: None,
+            sign_time: None,
         }
     }
 }
@@ -81,7 +81,7 @@ impl Model for SignOptions {
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
     }
 
     fn as_any(&self) -> &dyn Any {

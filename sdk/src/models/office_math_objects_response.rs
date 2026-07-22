@@ -38,7 +38,7 @@ pub struct OfficeMathObjectsResponse {
     pub parent: WordsResponse,
         /// Gets or sets the collection of OfficeMath objects.
         #[serde(rename = "OfficeMathObjects", skip_serializing_if = "Option::is_none")]
-        pub r#office_math_objects: Option<OfficeMathObjectsCollection>,
+        pub office_math_objects: Option<OfficeMathObjectsCollection>,
 
 }
 
@@ -47,7 +47,7 @@ impl Default for OfficeMathObjectsResponse {
         let mut parent = WordsResponse::default();
         Self {
             parent,
-            r#office_math_objects: None,
+            office_math_objects: None,
         }
     }
 }
@@ -69,14 +69,14 @@ impl DerefMut for OfficeMathObjectsResponse {
 impl Model for OfficeMathObjectsResponse {
     fn validate(&self) -> SdkResult<()> {
         self.parent.validate()?;
-        if let Some(value) = &self.r#office_math_objects {
+        if let Some(value) = &self.office_math_objects {
         value.validate()?;
         }
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
-        self.parent.collect_file_references(output);
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+        self.parent.collect_file_references(_output);
     }
 
     fn as_any(&self) -> &dyn Any {

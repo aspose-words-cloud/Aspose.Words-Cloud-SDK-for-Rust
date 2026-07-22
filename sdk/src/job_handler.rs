@@ -25,7 +25,7 @@ use std::time::Duration;
 use async_trait::async_trait;
 
 use crate::api_client::{parse_http_part, parse_multipart};
-use crate::models::{JobInfo, JobInfo_StatusEnum, Model};
+use crate::models::{JobInfo, JobInfoStatusEnum, Model};
 use crate::request::{
     ApiRequestData, DynamicResponse, Request, RequestBody, ResponseData, TypedRequest,
 };
@@ -59,8 +59,8 @@ where
         self.info.r#message.as_deref().unwrap_or_default()
     }
 
-    pub fn status(&self) -> JobInfo_StatusEnum {
-        self.info.r#status.unwrap_or(JobInfo_StatusEnum::Unknown)
+    pub fn status(&self) -> JobInfoStatusEnum {
+        self.info.r#status.unwrap_or(JobInfoStatusEnum::Unknown)
     }
 
     pub fn result(&self) -> Option<&R::Response> {
@@ -86,7 +86,7 @@ where
         })?;
         let info: JobInfo = serde_json::from_slice(&info_part.data)?;
         info.validate()?;
-        let succeeded = info.r#status == Some(JobInfo_StatusEnum::Succeded);
+        let succeeded = info.r#status == Some(JobInfoStatusEnum::Succeded);
         self.info = info;
         if succeeded {
             if let Some(result_part) = parts.get(1) {
@@ -106,12 +106,12 @@ where
     pub async fn wait_result(mut self, update_interval: Duration) -> SdkResult<R::Response> {
         while matches!(
             self.status(),
-            JobInfo_StatusEnum::Queued | JobInfo_StatusEnum::Processing
+            JobInfoStatusEnum::Queued | JobInfoStatusEnum::Processing
         ) {
             tokio::time::sleep(update_interval).await;
             self.update().await?;
         }
-        if self.status() != JobInfo_StatusEnum::Succeded {
+        if self.status() != JobInfoStatusEnum::Succeded {
             return Err(SdkError::InvalidResponse(format!(
                 "job failed with status {:?}: {}",
                 self.status(),

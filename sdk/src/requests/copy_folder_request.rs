@@ -36,36 +36,36 @@ use super::*;
 /// Request parameters for the CopyFolder operation.
 pub struct CopyFolderRequest {
     /// Destination folder path e.g. '/dst'.
-    pub r#dest_path: String,
+    pub dest_path: String,
     /// Source folder path e.g. /Folder1.
-    pub r#src_path: String,
+    pub src_path: String,
     /// Source storage name.
-    pub r#src_storage_name: Option<String>,
+    pub src_storage_name: Option<String>,
     /// Destination storage name.
-    pub r#dest_storage_name: Option<String>,
+    pub dest_storage_name: Option<String>,
     pub send_progress: Option<ProgressCallback>,
     pub receive_progress: Option<ProgressCallback>,
 }
 
 impl CopyFolderRequest {
-    pub fn new(r#dest_path: String, r#src_path: String) -> Self {
+    pub fn new(dest_path: String, src_path: String) -> Self {
         Self {
-            r#dest_path,
-            r#src_path,
-            r#src_storage_name: None,
-            r#dest_storage_name: None,
+            dest_path,
+            src_path,
+            src_storage_name: None,
+            dest_storage_name: None,
             send_progress: None,
             receive_progress: None,
         }
     }
 
     pub fn with_src_storage_name(mut self, value: String) -> Self {
-        self.r#src_storage_name = Some(value);
+        self.src_storage_name = Some(value);
         self
     }
 
     pub fn with_dest_storage_name(mut self, value: String) -> Self {
-        self.r#dest_storage_name = Some(value);
+        self.dest_storage_name = Some(value);
         self
     }
 
@@ -103,13 +103,13 @@ impl Request for CopyFolderRequest {
         let mut headers = Vec::new();
         let mut body_parts = Vec::new();
 
-        let value = client.query_value(&self.r#src_path)?;
+        let value = client.query_value(&self.src_path)?;
         path = path.replace("{srcPath}", &value);
-        query.push(("destPath".to_owned(), client.query_value(&self.r#dest_path)?));
-        if let Some(value) = &self.r#src_storage_name {
+        query.push(("destPath".to_owned(), client.query_value(&self.dest_path)?));
+        if let Some(value) = &self.src_storage_name {
         query.push(("srcStorageName".to_owned(), client.query_value(value)?));
         }
-        if let Some(value) = &self.r#dest_storage_name {
+        if let Some(value) = &self.dest_storage_name {
         query.push(("destStorageName".to_owned(), client.query_value(value)?));
         }
 

@@ -38,7 +38,7 @@ pub struct TabStopsResponse {
     pub parent: WordsResponse,
         /// Gets or sets the array of tab stops.
         #[serde(rename = "TabStops", skip_serializing_if = "Option::is_none")]
-        pub r#tab_stops: Option<Vec<TabStop>>,
+        pub tab_stops: Option<Vec<TabStop>>,
 
 }
 
@@ -47,7 +47,7 @@ impl Default for TabStopsResponse {
         let mut parent = WordsResponse::default();
         Self {
             parent,
-            r#tab_stops: None,
+            tab_stops: None,
         }
     }
 }
@@ -69,7 +69,7 @@ impl DerefMut for TabStopsResponse {
 impl Model for TabStopsResponse {
     fn validate(&self) -> SdkResult<()> {
         self.parent.validate()?;
-        if let Some(values) = &self.r#tab_stops {
+        if let Some(values) = &self.tab_stops {
         for value in values {
         value.validate()?;
         }
@@ -77,8 +77,8 @@ impl Model for TabStopsResponse {
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
-        self.parent.collect_file_references(output);
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+        self.parent.collect_file_references(_output);
     }
 
     fn as_any(&self) -> &dyn Any {

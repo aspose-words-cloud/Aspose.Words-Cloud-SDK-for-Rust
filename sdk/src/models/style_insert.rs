@@ -34,32 +34,32 @@ use super::*;
 pub struct StyleInsert {
         /// Gets or sets the case sensitive name of the style to create.
         #[serde(rename = "StyleName", skip_serializing_if = "Option::is_none")]
-        pub r#style_name: Option<String>,
+        pub style_name: Option<String>,
 
 
         /// Gets or sets the StyleType value that specifies the type of the style to create.
         #[serde(rename = "StyleType", skip_serializing_if = "Option::is_none")]
-        pub r#style_type: Option<StyleInsert_StyleTypeEnum>,
+        pub style_type: Option<StyleInsertStyleTypeEnum>,
 
 }
 
 impl Default for StyleInsert {
     fn default() -> Self {
         Self {
-            r#style_name: None,
-            r#style_type: None,
+            style_name: None,
+            style_type: None,
         }
     }
 }
 
 impl Model for StyleInsert {
     fn validate(&self) -> SdkResult<()> {
-        if self.r#style_name.is_none() {
+        if self.style_name.is_none() {
             return Err(SdkError::InvalidRequest(
                 "property StyleName in StyleInsert is required".to_owned(),
             ));
         }
-        if self.r#style_type.is_none() {
+        if self.style_type.is_none() {
             return Err(SdkError::InvalidRequest(
                 "property StyleType in StyleInsert is required".to_owned(),
             ));
@@ -67,7 +67,7 @@ impl Model for StyleInsert {
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
     }
 
     fn as_any(&self) -> &dyn Any {
@@ -76,9 +76,8 @@ impl Model for StyleInsert {
 }
 
 /// Gets or sets the StyleType value that specifies the type of the style to create.
-#[allow(non_camel_case_types)]
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
-pub enum StyleInsert_StyleTypeEnum {
+pub enum StyleInsertStyleTypeEnum {
     #[serde(rename = "Paragraph")]
         Paragraph,
     #[serde(rename = "Character")]

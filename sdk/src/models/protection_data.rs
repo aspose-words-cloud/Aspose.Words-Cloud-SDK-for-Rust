@@ -34,21 +34,21 @@ use super::*;
 pub struct ProtectionData {
         /// Gets or sets type of the protection.
         #[serde(rename = "ProtectionType", skip_serializing_if = "Option::is_none")]
-        pub r#protection_type: Option<ProtectionData_ProtectionTypeEnum>,
+        pub protection_type: Option<ProtectionDataProtectionTypeEnum>,
 
 }
 
 impl Default for ProtectionData {
     fn default() -> Self {
         Self {
-            r#protection_type: None,
+            protection_type: None,
         }
     }
 }
 
 impl Model for ProtectionData {
     fn validate(&self) -> SdkResult<()> {
-        if self.r#protection_type.is_none() {
+        if self.protection_type.is_none() {
             return Err(SdkError::InvalidRequest(
                 "property ProtectionType in ProtectionData is required".to_owned(),
             ));
@@ -56,7 +56,7 @@ impl Model for ProtectionData {
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
     }
 
     fn as_any(&self) -> &dyn Any {
@@ -65,9 +65,8 @@ impl Model for ProtectionData {
 }
 
 /// Gets or sets type of the protection.
-#[allow(non_camel_case_types)]
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
-pub enum ProtectionData_ProtectionTypeEnum {
+pub enum ProtectionDataProtectionTypeEnum {
     #[serde(rename = "AllowOnlyRevisions")]
         AllowOnlyRevisions,
     #[serde(rename = "AllowOnlyComments")]

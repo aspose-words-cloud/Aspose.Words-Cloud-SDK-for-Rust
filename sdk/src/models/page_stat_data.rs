@@ -34,54 +34,54 @@ use super::*;
 pub struct PageStatData {
         /// Gets or sets the detailed statistics on the footnotes.
         #[serde(rename = "FootnotesStatData", skip_serializing_if = "Option::is_none")]
-        pub r#footnotes_stat_data: Option<FootnotesStatData>,
+        pub footnotes_stat_data: Option<FootnotesStatData>,
 
 
         /// Gets or sets the total count of paragraphs in the page.
         #[serde(rename = "ParagraphCount", skip_serializing_if = "Option::is_none")]
-        pub r#paragraph_count: Option<i32>,
+        pub paragraph_count: Option<i32>,
 
 
         /// Gets or sets the total count of words in the page.
         #[serde(rename = "WordCount", skip_serializing_if = "Option::is_none")]
-        pub r#word_count: Option<i32>,
+        pub word_count: Option<i32>,
 
 
         /// Gets or sets the page number.
         #[serde(rename = "PageNumber", skip_serializing_if = "Option::is_none")]
-        pub r#page_number: Option<i32>,
+        pub page_number: Option<i32>,
 
 }
 
 impl Default for PageStatData {
     fn default() -> Self {
         Self {
-            r#footnotes_stat_data: None,
-            r#paragraph_count: None,
-            r#word_count: None,
-            r#page_number: None,
+            footnotes_stat_data: None,
+            paragraph_count: None,
+            word_count: None,
+            page_number: None,
         }
     }
 }
 
 impl Model for PageStatData {
     fn validate(&self) -> SdkResult<()> {
-        if self.r#paragraph_count.is_none() {
+        if self.paragraph_count.is_none() {
             return Err(SdkError::InvalidRequest(
                 "property ParagraphCount in PageStatData is required".to_owned(),
             ));
         }
-        if self.r#word_count.is_none() {
+        if self.word_count.is_none() {
             return Err(SdkError::InvalidRequest(
                 "property WordCount in PageStatData is required".to_owned(),
             ));
         }
-        if self.r#page_number.is_none() {
+        if self.page_number.is_none() {
             return Err(SdkError::InvalidRequest(
                 "property PageNumber in PageStatData is required".to_owned(),
             ));
         }
-        if let Some(value) = &self.r#footnotes_stat_data {
+        if let Some(value) = &self.footnotes_stat_data {
         value.validate()?;
         }
 
@@ -90,7 +90,7 @@ impl Model for PageStatData {
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
     }
 
     fn as_any(&self) -> &dyn Any {

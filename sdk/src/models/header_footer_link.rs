@@ -37,7 +37,7 @@ pub struct HeaderFooterLink {
     pub parent: LinkElement,
         /// Gets or sets the paragraph's text.
         #[serde(rename = "Type", skip_serializing_if = "Option::is_none")]
-        pub r#type: Option<HeaderFooterLink_TypeEnum>,
+        pub r#type: Option<HeaderFooterLinkTypeEnum>,
 
 }
 
@@ -76,8 +76,8 @@ impl Model for HeaderFooterLink {
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
-        self.parent.collect_file_references(output);
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+        self.parent.collect_file_references(_output);
     }
 
     fn as_any(&self) -> &dyn Any {
@@ -86,9 +86,8 @@ impl Model for HeaderFooterLink {
 }
 
 /// Gets or sets the paragraph's text.
-#[allow(non_camel_case_types)]
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
-pub enum HeaderFooterLink_TypeEnum {
+pub enum HeaderFooterLinkTypeEnum {
     #[serde(rename = "HeaderEven")]
         HeaderEven,
     #[serde(rename = "HeaderPrimary")]

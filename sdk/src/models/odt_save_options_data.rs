@@ -37,24 +37,24 @@ pub struct OdtSaveOptionsData {
     pub parent: SaveOptionsData,
         /// Gets or sets a value indicating whether export should correspond to ODT specification 1.1 strictly.
         #[serde(rename = "IsStrictSchema11", skip_serializing_if = "Option::is_none")]
-        pub r#is_strict_schema11: Option<bool>,
+        pub is_strict_schema11: Option<bool>,
 
 
         /// Gets or sets the units of measure to apply to document content. The default value is Aspose.Words.Saving.OdtSaveMeasureUnit.Centimeters.
             /// Open Office uses centimeters when specifying lengths, widths and other measurable formatting and content properties in documents whereas MS Office uses inches.
         #[serde(rename = "MeasureUnit", skip_serializing_if = "Option::is_none")]
-        pub r#measure_unit: Option<OdtSaveOptionsData_MeasureUnitEnum>,
+        pub measure_unit: Option<OdtSaveOptionsDataMeasureUnitEnum>,
 
 
         /// Gets or sets the password to encrypt document.
             /// In order to save document without encryption this property should be null or empty string.
         #[serde(rename = "Password", skip_serializing_if = "Option::is_none")]
-        pub r#password: Option<String>,
+        pub password: Option<String>,
 
 
         /// Gets or sets a value indicating whether to use pretty formats output.
         #[serde(rename = "PrettyFormat", skip_serializing_if = "Option::is_none")]
-        pub r#pretty_format: Option<bool>,
+        pub pretty_format: Option<bool>,
 
 
 }
@@ -62,13 +62,13 @@ pub struct OdtSaveOptionsData {
 impl Default for OdtSaveOptionsData {
     fn default() -> Self {
         let mut parent = SaveOptionsData::default();
-        parent.r#save_format = Some("odt".to_owned());
+        parent.save_format = Some("odt".to_owned());
         Self {
             parent,
-            r#is_strict_schema11: None,
-            r#measure_unit: None,
-            r#password: None,
-            r#pretty_format: None,
+            is_strict_schema11: None,
+            measure_unit: None,
+            password: None,
+            pretty_format: None,
 
         }
     }
@@ -94,8 +94,8 @@ impl Model for OdtSaveOptionsData {
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
-        self.parent.collect_file_references(output);
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+        self.parent.collect_file_references(_output);
     }
 
     fn as_any(&self) -> &dyn Any {
@@ -105,9 +105,8 @@ impl Model for OdtSaveOptionsData {
 
 /// Gets or sets the units of measure to apply to document content. The default value is Aspose.Words.Saving.OdtSaveMeasureUnit.Centimeters.
 /// Open Office uses centimeters when specifying lengths, widths and other measurable formatting and content properties in documents whereas MS Office uses inches.
-#[allow(non_camel_case_types)]
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
-pub enum OdtSaveOptionsData_MeasureUnitEnum {
+pub enum OdtSaveOptionsDataMeasureUnitEnum {
     #[serde(rename = "Centimeters")]
         Centimeters,
     #[serde(rename = "Inches")]

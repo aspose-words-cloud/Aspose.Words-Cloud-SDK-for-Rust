@@ -74,7 +74,7 @@ async fn batch_with_intermediate_results() -> TestResult<()> {
         .load_text_file("DocumentActions/Reporting/ReportData.json")
         .await?;
     let mut settings = ReportEngineSettings::default();
-    settings.r#data_source_type = Some(ReportEngineSettings_DataSourceTypeEnum::Json);
+    settings.r#data_source_type = Some(ReportEngineSettingsDataSourceTypeEnum::Json);
     settings.r#data_source_name = Some("persons".to_owned());
     let mut request5 = BatchRequest::new(BuildReportOnlineRequest::new(
         request4.result_of(),
@@ -142,7 +142,7 @@ async fn batch_without_intermediate_results() -> TestResult<()> {
         .load_text_file("DocumentActions/Reporting/ReportData.json")
         .await?;
     let mut settings = ReportEngineSettings::default();
-    settings.r#data_source_type = Some(ReportEngineSettings_DataSourceTypeEnum::Json);
+    settings.r#data_source_type = Some(ReportEngineSettingsDataSourceTypeEnum::Json);
     settings.r#data_source_name = Some("persons".to_owned());
     let mut request3 = BatchRequest::new(BuildReportOnlineRequest::new(
         request2.result_of(),

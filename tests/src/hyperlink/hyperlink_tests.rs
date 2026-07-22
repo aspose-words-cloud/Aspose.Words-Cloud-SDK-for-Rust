@@ -36,25 +36,23 @@ use crate::test_context::*;
 #[tokio::test]
 async fn hyperlink_get_document_hyperlink_by_index() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/DocumentElements/Hyperlink")?;
-    let localFile = test_string!("Common/test_doc.docx")?;
-    let remoteFileName = test_string!("TestGetDocumentHyperlinkByIndex.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentElements/Hyperlink";
+    let local_file = "Common/test_doc.docx".to_owned();
+    let remote_file_name = "TestGetDocumentHyperlinkByIndex.docx".to_owned();
 
-    context.upload_file(test_string!(localFile)?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
     let request = GetDocumentHyperlinkByIndexRequest::new(
-        (test_string!(remoteFileName)?).into(),
+        (remote_file_name.clone()).into(),
         (0).into()
-    ).with_folder((test_string!(remoteDataFolder)?).into());
+    ).with_folder((remote_data_folder.clone()).into());
 
     let result = context.api().get_document_hyperlink_by_index(request).await?;
     let result_json = serialize_result(&result)?;
     assert_not_null(&result_json, "Hyperlink")?;
-    assert_string(&result_json, "Hyperlink.DisplayText", test_string!("Aspose")?)?;
+    assert_string(&result_json, "Hyperlink.DisplayText", "Aspose".to_owned())?;
     Ok(())
 }
 
@@ -62,16 +60,14 @@ async fn hyperlink_get_document_hyperlink_by_index() -> TestResult<()> {
 #[tokio::test]
 async fn hyperlink_get_document_hyperlink_by_index_online() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let localFile = test_string!("Common/test_doc.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let local_file = "Common/test_doc.docx".to_owned();
 
-    let requestDocument = context.load_binary_file(test_string!(localFile)?).await?;
+    let request_document = context.load_binary_file(local_file.clone()).await?;
 
     let request = GetDocumentHyperlinkByIndexOnlineRequest::new(
-        (requestDocument).into(),
+        (request_document).into(),
         (0).into()
     );
 
@@ -83,26 +79,24 @@ async fn hyperlink_get_document_hyperlink_by_index_online() -> TestResult<()> {
 #[tokio::test]
 async fn hyperlink_get_document_hyperlinks() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let remoteDataFolder = test_string!(remoteBaseTestDataFolder + "/DocumentElements/Hyperlink")?;
-    let localFile = test_string!("Common/test_doc.docx")?;
-    let remoteFileName = test_string!("TestGetDocumentHyperlinks.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentElements/Hyperlink";
+    let local_file = "Common/test_doc.docx".to_owned();
+    let remote_file_name = "TestGetDocumentHyperlinks.docx".to_owned();
 
-    context.upload_file(test_string!(localFile)?, test_string!(remoteDataFolder + "/" + remoteFileName)?).await?;
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
     let request = GetDocumentHyperlinksRequest::new(
-        (test_string!(remoteFileName)?).into()
-    ).with_folder((test_string!(remoteDataFolder)?).into());
+        (remote_file_name.clone()).into()
+    ).with_folder((remote_data_folder.clone()).into());
 
     let result = context.api().get_document_hyperlinks(request).await?;
     let result_json = serialize_result(&result)?;
     assert_not_null(&result_json, "Hyperlinks")?;
     assert_not_null(&result_json, "Hyperlinks.HyperlinkList")?;
     assert_length(&result_json, "Hyperlinks.HyperlinkList", 2)?;
-    assert_string(&result_json, "Hyperlinks.HyperlinkList[0].DisplayText", test_string!("Aspose")?)?;
+    assert_string(&result_json, "Hyperlinks.HyperlinkList[0].DisplayText", "Aspose".to_owned())?;
     Ok(())
 }
 
@@ -110,16 +104,14 @@ async fn hyperlink_get_document_hyperlinks() -> TestResult<()> {
 #[tokio::test]
 async fn hyperlink_get_document_hyperlinks_online() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
-    let t = &context;
-    let remoteBaseTestDataFolder = context.remote_base_test_data_folder().to_owned();
-    let baseTestOutPath = context.base_test_out_path().to_owned();
-    let randomGuid = context.create_random_guid();
-    let localFile = test_string!("Common/test_doc.docx")?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let local_file = "Common/test_doc.docx".to_owned();
 
-    let requestDocument = context.load_binary_file(test_string!(localFile)?).await?;
+    let request_document = context.load_binary_file(local_file.clone()).await?;
 
     let request = GetDocumentHyperlinksOnlineRequest::new(
-        (requestDocument).into()
+        (request_document).into()
     );
 
     context.api().get_document_hyperlinks_online(request).await?;

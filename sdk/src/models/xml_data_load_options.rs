@@ -39,21 +39,21 @@ pub struct XmlDataLoadOptions {
             /// is not created by default.
             /// The default value is false.
         #[serde(rename = "AlwaysGenerateRootObject", skip_serializing_if = "Option::is_none")]
-        pub r#always_generate_root_object: Option<bool>,
+        pub always_generate_root_object: Option<bool>,
 
 }
 
 impl Default for XmlDataLoadOptions {
     fn default() -> Self {
         Self {
-            r#always_generate_root_object: None,
+            always_generate_root_object: None,
         }
     }
 }
 
 impl Model for XmlDataLoadOptions {
     fn validate(&self) -> SdkResult<()> {
-        if self.r#always_generate_root_object.is_none() {
+        if self.always_generate_root_object.is_none() {
             return Err(SdkError::InvalidRequest(
                 "property AlwaysGenerateRootObject in XmlDataLoadOptions is required".to_owned(),
             ));
@@ -61,7 +61,7 @@ impl Model for XmlDataLoadOptions {
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
     }
 
     fn as_any(&self) -> &dyn Any {

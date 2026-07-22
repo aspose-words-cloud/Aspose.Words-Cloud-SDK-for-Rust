@@ -34,43 +34,43 @@ use super::*;
 pub struct TabStopBase {
         /// Gets or sets the alignment of text at this tab stop.
         #[serde(rename = "Alignment", skip_serializing_if = "Option::is_none")]
-        pub r#alignment: Option<TabStopBase_AlignmentEnum>,
+        pub alignment: Option<TabStopBaseAlignmentEnum>,
 
 
         /// Gets or sets the type of the leader line displayed under the tab character.
         #[serde(rename = "Leader", skip_serializing_if = "Option::is_none")]
-        pub r#leader: Option<TabStopBase_LeaderEnum>,
+        pub leader: Option<TabStopBaseLeaderEnum>,
 
 
         /// Gets or sets the position of the tab stop in points.
         #[serde(rename = "Position", skip_serializing_if = "Option::is_none")]
-        pub r#position: Option<f64>,
+        pub position: Option<f64>,
 
 }
 
 impl Default for TabStopBase {
     fn default() -> Self {
         Self {
-            r#alignment: None,
-            r#leader: None,
-            r#position: None,
+            alignment: None,
+            leader: None,
+            position: None,
         }
     }
 }
 
 impl Model for TabStopBase {
     fn validate(&self) -> SdkResult<()> {
-        if self.r#alignment.is_none() {
+        if self.alignment.is_none() {
             return Err(SdkError::InvalidRequest(
                 "property Alignment in TabStopBase is required".to_owned(),
             ));
         }
-        if self.r#leader.is_none() {
+        if self.leader.is_none() {
             return Err(SdkError::InvalidRequest(
                 "property Leader in TabStopBase is required".to_owned(),
             ));
         }
-        if self.r#position.is_none() {
+        if self.position.is_none() {
             return Err(SdkError::InvalidRequest(
                 "property Position in TabStopBase is required".to_owned(),
             ));
@@ -78,7 +78,7 @@ impl Model for TabStopBase {
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
     }
 
     fn as_any(&self) -> &dyn Any {
@@ -87,9 +87,8 @@ impl Model for TabStopBase {
 }
 
 /// Gets or sets the alignment of text at this tab stop.
-#[allow(non_camel_case_types)]
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
-pub enum TabStopBase_AlignmentEnum {
+pub enum TabStopBaseAlignmentEnum {
     #[serde(rename = "Left")]
         Left,
     #[serde(rename = "Center")]
@@ -107,9 +106,8 @@ pub enum TabStopBase_AlignmentEnum {
 }
 
 /// Gets or sets the type of the leader line displayed under the tab character.
-#[allow(non_camel_case_types)]
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
-pub enum TabStopBase_LeaderEnum {
+pub enum TabStopBaseLeaderEnum {
     #[serde(rename = "None")]
         None,
     #[serde(rename = "Dots")]
