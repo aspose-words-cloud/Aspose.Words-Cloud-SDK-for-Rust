@@ -58,7 +58,6 @@ node('words-linux') {
             if (packageTesting) {
                 docker.image('rust:1.88').inside {
                     stage('prepare package testing') {
-                        sh 'rm -rf src'
                         sh 'cp tests/Cargo.package-testing.toml tests/Cargo.toml'
                         installCiTools()
                     }
@@ -94,8 +93,8 @@ node('words-linux') {
                             sh 'cargo clippy --manifest-path tests/Cargo.toml --all-targets -- -D warnings'
                         }
 
-                        stage('package') {
-                            sh 'cargo package'
+                        stage('build') {
+                            sh 'cargo build'
                         }
 
                         stage('tests') {
