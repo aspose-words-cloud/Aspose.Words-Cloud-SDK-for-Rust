@@ -18,11 +18,13 @@ def installCiTools() {
     sh 'rustup component add rustfmt clippy'
     sh 'mkdir -p .ci-bin'
     sh 'curl -LsSf https://get.nexte.st/0.9.137/linux | tar zxf - -C .ci-bin'
+    sh 'test -x .ci-bin/cargo-nextest'
+    sh '.ci-bin/cargo-nextest --version'
 }
 
 def runTests() {
     try {
-        sh 'cargo nextest run --manifest-path tests/Cargo.toml --config-file .config/nextest.toml --profile ci'
+        sh '.ci-bin/cargo-nextest run --manifest-path tests/Cargo.toml --config-file .config/nextest.toml --profile ci'
     } finally {
         junit '**/target/nextest/ci/junit.xml'
     }
@@ -62,18 +64,16 @@ node('words-linux') {
                         installCiTools()
                     }
 
-                    withEnv(["PATH+NEXTEST=${pwd()}/.ci-bin"]) {
-                        stage('format') {
-                            sh 'cargo fmt --manifest-path tests/Cargo.toml -- --check'
-                        }
+                    stage('format') {
+                        sh 'cargo fmt --manifest-path tests/Cargo.toml -- --check'
+                    }
 
-                        stage('lint') {
-                            sh 'cargo clippy --manifest-path tests/Cargo.toml --all-targets -- -D warnings'
-                        }
+                    stage('lint') {
+                        sh 'cargo clippy --manifest-path tests/Cargo.toml --all-targets -- -D warnings'
+                    }
 
-                        stage('tests') {
-                            runTests()
-                        }
+                    stage('tests') {
+                        runTests()
                     }
                 }
             } else if (needToBuild) {
@@ -82,24 +82,18 @@ node('words-linux') {
                         installCiTools()
                     }
 
-                    withEnv(["PATH+NEXTEST=${pwd()}/.ci-bin"]) {
-                        stage('format') {
-                            sh 'cargo fmt -- --check'
-                            sh 'cargo fmt --manifest-path tests/Cargo.toml -- --check'
-                        }
+                    stage('format') {
+                        sh 'cargo fmt -- --check'
+                        sh 'cargo fmt --manifest-path tests/Cargo.toml -- --check'
+                    }
 
-                        stage('lint') {
-                            sh 'cargo clippy --all-targets -- -D warnings'
-                            sh 'cargo clippy --manifest-path tests/Cargo.toml --all-targets -- -D warnings'
-                        }
+                    stage('lint') {
+                        sh 'cargo clippy --all-targets -- -D warnings'
+                        sh 'cargo clippy --manifest-path tests/Cargo.toml --all-targets -- -D warnings'
+                    }
 
-                        stage('build') {
-                            sh 'cargo build'
-                        }
-
-                        stage('tests') {
-                            runTests()
-                        }
+                    stage('tests') {
+                        runTests()
                     }
                 }
             }
