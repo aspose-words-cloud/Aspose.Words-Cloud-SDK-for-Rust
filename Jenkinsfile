@@ -24,7 +24,7 @@ def installCiTools() {
 
 def runTests() {
     try {
-        sh '.ci-bin/cargo-nextest run --manifest-path tests/Cargo.toml --config-file .config/nextest.toml --profile ci'
+        sh '.ci-bin/cargo-nextest nextest run --manifest-path tests/Cargo.toml --config-file .config/nextest.toml --profile ci'
     } finally {
         junit '**/target/nextest/ci/junit.xml'
     }
