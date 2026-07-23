@@ -54,7 +54,12 @@ pub struct Comment {
     pub initial: Option<String>,
 
     /// Gets or sets the date and time that the comment was made.
-    #[serde(rename = "DateTime", skip_serializing_if = "Option::is_none")]
+    #[serde(
+        rename = "DateTime",
+        skip_serializing_if = "Option::is_none",
+        default,
+        deserialize_with = "deserialize_optional_date_time"
+    )]
     pub date_time: Option<chrono::DateTime<chrono::Utc>>,
 
     /// Gets or sets text of the comment.

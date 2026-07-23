@@ -20,54 +20,29 @@
 // SOFTWARE.
 // --------------------------------------------------------------------------------
 
-use std::any::Any;
+use chrono::{DateTime, NaiveDateTime, Utc};
+use serde::{Deserialize, Deserializer};
 
-use chrono::{DateTime, Utc};
-use serde::{Deserialize, Serialize};
-
-use crate::{SdkError, SdkResult};
-
-use super::*;
-
-/// The error details.
-#[derive(Debug, Deserialize, Serialize)]
-pub struct ErrorDetails {
-    /// Gets or sets ErrorDateTime.
-    #[serde(
-        rename = "ErrorDateTime",
-        skip_serializing_if = "Option::is_none",
-        default,
-        deserialize_with = "deserialize_optional_date_time"
-    )]
-    pub error_date_time: Option<chrono::DateTime<chrono::Utc>>,
-
-    /// Gets or sets RequestId.
-    #[serde(rename = "RequestId", skip_serializing_if = "Option::is_none")]
-    pub request_id: Option<String>,
+pub(crate) fn deserialize_optional_date_time<'de, D>(
+    deserializer: D,
+) -> Result<Option<DateTime<Utc>>, D::Error>
+where
+    D: Deserializer<'de>,
+{
+    Option::<String>::deserialize(deserializer)?
+        .map(|value| parse_date_time(&value))
+        .transpose()
+        .map_err(serde::de::Error::custom)
 }
 
-impl Default for ErrorDetails {
-    fn default() -> Self {
-        Self {
-            error_date_time: None,
-            request_id: None,
-        }
-    }
-}
-
-impl Model for ErrorDetails {
-    fn validate(&self) -> SdkResult<()> {
-        if self.error_date_time.is_none() {
-            return Err(SdkError::InvalidRequest(
-                "property ErrorDateTime in ErrorDetails is required".to_owned(),
-            ));
-        }
-        Ok(())
+fn parse_date_time(value: &str) -> Result<DateTime<Utc>, chrono::ParseError> {
+    if let Ok(value) = DateTime::parse_from_rfc3339(value) {
+        return Ok(value.with_timezone(&Utc));
     }
 
-    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {}
-
-    fn as_any(&self) -> &dyn Any {
-        self
+    if let Ok(value) = NaiveDateTime::parse_from_str(value, "%Y-%m-%dT%H:%M:%S") {
+        return Ok(value.and_utc());
     }
+
+    NaiveDateTime::parse_from_str(value, "%Y-%m-%dT%H:%M:%S%.f").map(|value| value.and_utc())
 }

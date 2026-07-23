@@ -149,9 +149,11 @@ impl Request for InsertRunOnlineRequest {
         let mut headers = Vec::new();
         let mut body_parts = Vec::new();
 
-        if let Some(value) = &self.paragraph_path {
-            path = path.replace("{paragraphPath}", &client.query_value(value)?);
-        }
+        let value = match &self.paragraph_path {
+            Some(value) => client.query_value(value)?,
+            None => String::new(),
+        };
+        path = path.replace("{paragraphPath}", &value);
         if let Some(value) = &self.load_encoding {
             query.push(("loadEncoding".to_owned(), client.query_value(value)?));
         }

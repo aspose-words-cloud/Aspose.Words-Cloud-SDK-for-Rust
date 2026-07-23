@@ -48,7 +48,12 @@ pub struct CompareData {
     pub comparing_with_document: Option<String>,
 
     /// Gets or sets the date and time to use for revisions.
-    #[serde(rename = "DateTime", skip_serializing_if = "Option::is_none")]
+    #[serde(
+        rename = "DateTime",
+        skip_serializing_if = "Option::is_none",
+        default,
+        deserialize_with = "deserialize_optional_date_time"
+    )]
     pub date_time: Option<chrono::DateTime<chrono::Utc>>,
 
     /// Gets or sets the file reference.

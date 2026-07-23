@@ -37,7 +37,12 @@ pub struct Revision {
     pub revision_author: Option<String>,
 
     /// Gets or sets the revision date time.
-    #[serde(rename = "RevisionDateTime", skip_serializing_if = "Option::is_none")]
+    #[serde(
+        rename = "RevisionDateTime",
+        skip_serializing_if = "Option::is_none",
+        default,
+        deserialize_with = "deserialize_optional_date_time"
+    )]
     pub revision_date_time: Option<chrono::DateTime<chrono::Utc>>,
 
     /// Gets or sets the revision text.

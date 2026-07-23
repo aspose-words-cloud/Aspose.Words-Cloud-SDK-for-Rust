@@ -56,7 +56,12 @@ pub struct SignOptions {
     pub signature_line_image_filename: Option<String>,
 
     /// Gets or sets the date of signing. The default value is current time (Now).
-    #[serde(rename = "SignTime", skip_serializing_if = "Option::is_none")]
+    #[serde(
+        rename = "SignTime",
+        skip_serializing_if = "Option::is_none",
+        default,
+        deserialize_with = "deserialize_optional_date_time"
+    )]
     pub sign_time: Option<chrono::DateTime<chrono::Utc>>,
 }
 

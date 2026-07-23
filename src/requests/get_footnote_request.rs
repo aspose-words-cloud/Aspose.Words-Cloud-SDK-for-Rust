@@ -145,9 +145,11 @@ impl Request for GetFootnoteRequest {
         path = path.replace("{name}", &value);
         let value = client.query_value(&self.index)?;
         path = path.replace("{index}", &value);
-        if let Some(value) = &self.node_path {
-            path = path.replace("{nodePath}", &client.query_value(value)?);
-        }
+        let value = match &self.node_path {
+            Some(value) => client.query_value(value)?,
+            None => String::new(),
+        };
+        path = path.replace("{nodePath}", &value);
         if let Some(value) = &self.folder {
             query.push(("folder".to_owned(), client.query_value(value)?));
         }

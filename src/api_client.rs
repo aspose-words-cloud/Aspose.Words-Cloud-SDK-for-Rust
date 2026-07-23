@@ -73,6 +73,10 @@ impl ApiClient {
 
     pub(crate) fn build_url(&self, path: &str, query: &[(String, String)]) -> SdkResult<String> {
         let root = self.configuration.api_root();
+        let mut path = path.to_owned();
+        while path.contains("//") {
+            path = path.replace("//", "/");
+        }
         let mut url = reqwest::Url::parse(&format!("{root}{path}")).map_err(|error| {
             SdkError::InvalidRequest(format!("failed to construct request URL: {error}"))
         })?;

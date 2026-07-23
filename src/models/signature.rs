@@ -54,7 +54,12 @@ pub struct Signature {
     pub signature_value: Option<String>,
 
     /// Gets or sets the time the document was signed.
-    #[serde(rename = "SignTime", skip_serializing_if = "Option::is_none")]
+    #[serde(
+        rename = "SignTime",
+        skip_serializing_if = "Option::is_none",
+        default,
+        deserialize_with = "deserialize_optional_date_time"
+    )]
     pub sign_time: Option<chrono::DateTime<chrono::Utc>>,
 
     /// Gets or sets the subject distinguished name of the certificate that was used to sign the document.

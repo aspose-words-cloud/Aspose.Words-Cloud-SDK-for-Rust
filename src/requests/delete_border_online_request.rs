@@ -151,9 +151,11 @@ impl Request for DeleteBorderOnlineRequest {
 
         let value = client.query_value(&self.border_type)?;
         path = path.replace("{borderType}", &value);
-        if let Some(value) = &self.node_path {
-            path = path.replace("{nodePath}", &client.query_value(value)?);
-        }
+        let value = match &self.node_path {
+            Some(value) => client.query_value(value)?,
+            None => String::new(),
+        };
+        path = path.replace("{nodePath}", &value);
         if let Some(value) = &self.load_encoding {
             query.push(("loadEncoding".to_owned(), client.query_value(value)?));
         }

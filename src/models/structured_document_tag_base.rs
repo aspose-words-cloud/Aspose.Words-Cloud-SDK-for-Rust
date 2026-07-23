@@ -66,7 +66,12 @@ pub struct StructuredDocumentTagBase {
     /// Gets or sets the full date and time last entered into this SDT.
     /// Accessing this property will work only for Aspose.Words.Markup.SdtType.Date SDT type.
     /// For all other SDT types, an exception will occur.
-    #[serde(rename = "FullDate", skip_serializing_if = "Option::is_none")]
+    #[serde(
+        rename = "FullDate",
+        skip_serializing_if = "Option::is_none",
+        default,
+        deserialize_with = "deserialize_optional_date_time"
+    )]
     pub full_date: Option<chrono::DateTime<chrono::Utc>>,
 
     /// Gets or sets the friendly name associated with this SDT. Can not be null.

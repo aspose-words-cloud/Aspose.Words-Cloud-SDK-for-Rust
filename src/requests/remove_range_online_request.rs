@@ -136,9 +136,11 @@ impl Request for RemoveRangeOnlineRequest {
 
         let value = client.query_value(&self.range_start_identifier)?;
         path = path.replace("{rangeStartIdentifier}", &value);
-        if let Some(value) = &self.range_end_identifier {
-            path = path.replace("{rangeEndIdentifier}", &client.query_value(value)?);
-        }
+        let value = match &self.range_end_identifier {
+            Some(value) => client.query_value(value)?,
+            None => String::new(),
+        };
+        path = path.replace("{rangeEndIdentifier}", &value);
         if let Some(value) = &self.load_encoding {
             query.push(("loadEncoding".to_owned(), client.query_value(value)?));
         }

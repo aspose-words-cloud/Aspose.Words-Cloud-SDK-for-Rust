@@ -167,9 +167,11 @@ impl Request for InsertTableCellRequest {
 
         let value = client.query_value(&self.name)?;
         path = path.replace("{name}", &value);
-        if let Some(value) = &self.table_row_path {
-            path = path.replace("{tableRowPath}", &client.query_value(value)?);
-        }
+        let value = match &self.table_row_path {
+            Some(value) => client.query_value(value)?,
+            None => String::new(),
+        };
+        path = path.replace("{tableRowPath}", &value);
         if let Some(value) = &self.folder {
             query.push(("folder".to_owned(), client.query_value(value)?));
         }

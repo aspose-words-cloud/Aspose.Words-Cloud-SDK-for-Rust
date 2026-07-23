@@ -52,7 +52,12 @@ pub struct PdfDigitalSignatureDetailsData {
     pub reason: Option<String>,
 
     /// Gets or sets the date of the signing.
-    #[serde(rename = "SignatureDate", skip_serializing_if = "Option::is_none")]
+    #[serde(
+        rename = "SignatureDate",
+        skip_serializing_if = "Option::is_none",
+        default,
+        deserialize_with = "deserialize_optional_date_time"
+    )]
     pub signature_date: Option<chrono::DateTime<chrono::Utc>>,
 }
 

@@ -167,9 +167,11 @@ impl Request for InsertFootnoteRequest {
 
         let value = client.query_value(&self.name)?;
         path = path.replace("{name}", &value);
-        if let Some(value) = &self.node_path {
-            path = path.replace("{nodePath}", &client.query_value(value)?);
-        }
+        let value = match &self.node_path {
+            Some(value) => client.query_value(value)?,
+            None => String::new(),
+        };
+        path = path.replace("{nodePath}", &value);
         if let Some(value) = &self.folder {
             query.push(("folder".to_owned(), client.query_value(value)?));
         }

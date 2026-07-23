@@ -37,7 +37,12 @@ pub struct StorageFile {
     pub is_folder: Option<bool>,
 
     /// File or folder last modified DateTime.
-    #[serde(rename = "ModifiedDate", skip_serializing_if = "Option::is_none")]
+    #[serde(
+        rename = "ModifiedDate",
+        skip_serializing_if = "Option::is_none",
+        default,
+        deserialize_with = "deserialize_optional_date_time"
+    )]
     pub modified_date: Option<chrono::DateTime<chrono::Utc>>,
 
     /// File or folder name.
