@@ -41,22 +41,26 @@ async fn load_web_document_load_web_document() -> TestResult<()> {
 
     let mut request_data_save_options = DocSaveOptionsData::default();
     request_data_save_options.file_name = Some(("google.doc".to_owned()).into());
-    request_data_save_options.dml_effects_rendering_mode = Some((SaveOptionsDataDmlEffectsRenderingModeEnum::None).into());
-    request_data_save_options.dml_rendering_mode = Some((SaveOptionsDataDmlRenderingModeEnum::DrawingMl).into());
+    request_data_save_options.dml_effects_rendering_mode =
+        Some((SaveOptionsDataDmlEffectsRenderingModeEnum::None).into());
+    request_data_save_options.dml_rendering_mode =
+        Some((SaveOptionsDataDmlRenderingModeEnum::DrawingMl).into());
     request_data_save_options.zip_output = Some((false).into());
     let mut request_data = LoadWebDocumentData::default();
     request_data.loading_document_url = Some(("http://google.com".to_owned()).into());
     request_data.save_options = Some((request_data_save_options).into());
 
-    let request = LoadWebDocumentRequest::new(
-        (request_data).into()
-    );
+    let request = LoadWebDocumentRequest::new((request_data).into());
 
     let result = context.api().load_web_document(request).await?;
     let result_json = serialize_result(&result)?;
     assert_not_null(&result_json, "SaveResult")?;
     assert_not_null(&result_json, "SaveResult.DestDocument")?;
-    assert_string(&result_json, "SaveResult.DestDocument.Href", "google.doc".to_owned())?;
+    assert_string(
+        &result_json,
+        "SaveResult.DestDocument.Href",
+        "google.doc".to_owned(),
+    )?;
     Ok(())
 }
 
@@ -69,16 +73,16 @@ async fn load_web_document_load_web_document_online() -> TestResult<()> {
 
     let mut request_data_save_options = DocSaveOptionsData::default();
     request_data_save_options.file_name = Some(("google.doc".to_owned()).into());
-    request_data_save_options.dml_effects_rendering_mode = Some((SaveOptionsDataDmlEffectsRenderingModeEnum::None).into());
-    request_data_save_options.dml_rendering_mode = Some((SaveOptionsDataDmlRenderingModeEnum::DrawingMl).into());
+    request_data_save_options.dml_effects_rendering_mode =
+        Some((SaveOptionsDataDmlEffectsRenderingModeEnum::None).into());
+    request_data_save_options.dml_rendering_mode =
+        Some((SaveOptionsDataDmlRenderingModeEnum::DrawingMl).into());
     request_data_save_options.zip_output = Some((false).into());
     let mut request_data = LoadWebDocumentData::default();
     request_data.loading_document_url = Some(("http://google.com".to_owned()).into());
     request_data.save_options = Some((request_data_save_options).into());
 
-    let request = LoadWebDocumentOnlineRequest::new(
-        (request_data).into()
-    );
+    let request = LoadWebDocumentOnlineRequest::new((request_data).into());
 
     context.api().load_web_document_online(request).await?;
     Ok(())

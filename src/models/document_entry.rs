@@ -1,0 +1,101 @@
+// --------------------------------------------------------------------------------
+// Copyright (c) 2026 Aspose.Words for Cloud
+//
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in all
+// copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+// SOFTWARE.
+// --------------------------------------------------------------------------------
+
+use std::any::Any;
+use std::ops::{Deref, DerefMut};
+
+use chrono::{DateTime, Utc};
+use serde::{Deserialize, Serialize};
+
+use crate::{SdkError, SdkResult};
+
+use super::*;
+
+/// Represents a document which will be appended to the original resource document.
+#[derive(Debug, Deserialize, Serialize)]
+pub struct DocumentEntry {
+    #[serde(flatten)]
+    pub parent: BaseEntry,
+    /// Gets or sets document password encrypted on API public key. The default value is null (the document has no password).
+    #[serde(rename = "EncryptedPassword", skip_serializing_if = "Option::is_none")]
+    pub encrypted_password: Option<String>,
+
+    /// Gets or sets the option that controls formatting will be used: appended or destination document. Can be KeepSourceFormatting or UseDestinationStyles.
+    #[serde(rename = "ImportFormatMode", skip_serializing_if = "Option::is_none")]
+    pub import_format_mode: Option<DocumentEntryImportFormatModeEnum>,
+}
+
+impl Default for DocumentEntry {
+    fn default() -> Self {
+        let mut parent = BaseEntry::default();
+        Self {
+            parent,
+            encrypted_password: None,
+            import_format_mode: None,
+        }
+    }
+}
+
+impl Deref for DocumentEntry {
+    type Target = BaseEntry;
+
+    fn deref(&self) -> &Self::Target {
+        &self.parent
+    }
+}
+
+impl DerefMut for DocumentEntry {
+    fn deref_mut(&mut self) -> &mut Self::Target {
+        &mut self.parent
+    }
+}
+
+impl Model for DocumentEntry {
+    fn validate(&self) -> SdkResult<()> {
+        self.parent.validate()?;
+        if self.import_format_mode.is_none() {
+            return Err(SdkError::InvalidRequest(
+                "property ImportFormatMode in DocumentEntry is required".to_owned(),
+            ));
+        }
+        Ok(())
+    }
+
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+        self.parent.collect_file_references(_output);
+    }
+
+    fn as_any(&self) -> &dyn Any {
+        self
+    }
+}
+
+/// Gets or sets the option that controls formatting will be used: appended or destination document. Can be KeepSourceFormatting or UseDestinationStyles.
+#[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
+pub enum DocumentEntryImportFormatModeEnum {
+    #[serde(rename = "UseDestinationStyles")]
+    UseDestinationStyles,
+    #[serde(rename = "KeepSourceFormatting")]
+    KeepSourceFormatting,
+    #[serde(rename = "KeepDifferentStyles")]
+    KeepDifferentStyles,
+}

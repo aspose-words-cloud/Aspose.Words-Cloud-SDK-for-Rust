@@ -42,14 +42,21 @@ async fn hyperlink_get_document_hyperlink_by_index() -> TestResult<()> {
     let local_file = "Common/test_doc.docx".to_owned();
     let remote_file_name = "TestGetDocumentHyperlinkByIndex.docx".to_owned();
 
-    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
+    context
+        .upload_file(
+            local_file.clone(),
+            remote_data_folder.clone() + "/" + &remote_file_name,
+        )
+        .await?;
 
-    let request = GetDocumentHyperlinkByIndexRequest::new(
-        (remote_file_name.clone()).into(),
-        (0).into()
-    ).with_folder((remote_data_folder.clone()).into());
+    let request =
+        GetDocumentHyperlinkByIndexRequest::new((remote_file_name.clone()).into(), (0).into())
+            .with_folder((remote_data_folder.clone()).into());
 
-    let result = context.api().get_document_hyperlink_by_index(request).await?;
+    let result = context
+        .api()
+        .get_document_hyperlink_by_index(request)
+        .await?;
     let result_json = serialize_result(&result)?;
     assert_not_null(&result_json, "Hyperlink")?;
     assert_string(&result_json, "Hyperlink.DisplayText", "Aspose".to_owned())?;
@@ -66,12 +73,13 @@ async fn hyperlink_get_document_hyperlink_by_index_online() -> TestResult<()> {
 
     let request_document = context.load_binary_file(local_file.clone()).await?;
 
-    let request = GetDocumentHyperlinkByIndexOnlineRequest::new(
-        (request_document).into(),
-        (0).into()
-    );
+    let request =
+        GetDocumentHyperlinkByIndexOnlineRequest::new((request_document).into(), (0).into());
 
-    context.api().get_document_hyperlink_by_index_online(request).await?;
+    context
+        .api()
+        .get_document_hyperlink_by_index_online(request)
+        .await?;
     Ok(())
 }
 
@@ -85,18 +93,26 @@ async fn hyperlink_get_document_hyperlinks() -> TestResult<()> {
     let local_file = "Common/test_doc.docx".to_owned();
     let remote_file_name = "TestGetDocumentHyperlinks.docx".to_owned();
 
-    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
+    context
+        .upload_file(
+            local_file.clone(),
+            remote_data_folder.clone() + "/" + &remote_file_name,
+        )
+        .await?;
 
-    let request = GetDocumentHyperlinksRequest::new(
-        (remote_file_name.clone()).into()
-    ).with_folder((remote_data_folder.clone()).into());
+    let request = GetDocumentHyperlinksRequest::new((remote_file_name.clone()).into())
+        .with_folder((remote_data_folder.clone()).into());
 
     let result = context.api().get_document_hyperlinks(request).await?;
     let result_json = serialize_result(&result)?;
     assert_not_null(&result_json, "Hyperlinks")?;
     assert_not_null(&result_json, "Hyperlinks.HyperlinkList")?;
     assert_length(&result_json, "Hyperlinks.HyperlinkList", 2)?;
-    assert_string(&result_json, "Hyperlinks.HyperlinkList[0].DisplayText", "Aspose".to_owned())?;
+    assert_string(
+        &result_json,
+        "Hyperlinks.HyperlinkList[0].DisplayText",
+        "Aspose".to_owned(),
+    )?;
     Ok(())
 }
 
@@ -110,10 +126,11 @@ async fn hyperlink_get_document_hyperlinks_online() -> TestResult<()> {
 
     let request_document = context.load_binary_file(local_file.clone()).await?;
 
-    let request = GetDocumentHyperlinksOnlineRequest::new(
-        (request_document).into()
-    );
+    let request = GetDocumentHyperlinksOnlineRequest::new((request_document).into());
 
-    context.api().get_document_hyperlinks_online(request).await?;
+    context
+        .api()
+        .get_document_hyperlinks_online(request)
+        .await?;
     Ok(())
 }

@@ -42,12 +42,15 @@ async fn custom_xml_parts_get_custom_xml_part() -> TestResult<()> {
     let local_file = "DocumentElements/CustomXmlParts/MultipleCustomXmlParts.docx".to_owned();
     let remote_file_name = "TestGetCustomXmlPart.docx".to_owned();
 
-    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
+    context
+        .upload_file(
+            local_file.clone(),
+            remote_data_folder.clone() + "/" + &remote_file_name,
+        )
+        .await?;
 
-    let request = GetCustomXmlPartRequest::new(
-        (remote_file_name.clone()).into(),
-        (0).into()
-    ).with_folder((remote_data_folder.clone()).into());
+    let request = GetCustomXmlPartRequest::new((remote_file_name.clone()).into(), (0).into())
+        .with_folder((remote_data_folder.clone()).into());
 
     let result = context.api().get_custom_xml_part(request).await?;
     let result_json = serialize_result(&result)?;
@@ -67,10 +70,7 @@ async fn custom_xml_parts_get_custom_xml_part_online() -> TestResult<()> {
 
     let request_document = context.load_binary_file(local_file.clone()).await?;
 
-    let request = GetCustomXmlPartOnlineRequest::new(
-        (request_document).into(),
-        (0).into()
-    );
+    let request = GetCustomXmlPartOnlineRequest::new((request_document).into(), (0).into());
 
     let result = context.api().get_custom_xml_part_online(request).await?;
     let result_json = serialize_result(&result)?;
@@ -90,18 +90,26 @@ async fn custom_xml_parts_get_custom_xml_parts() -> TestResult<()> {
     let local_file = "DocumentElements/CustomXmlParts/MultipleCustomXmlParts.docx".to_owned();
     let remote_file_name = "TestGetCustomXmlParts.docx".to_owned();
 
-    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
+    context
+        .upload_file(
+            local_file.clone(),
+            remote_data_folder.clone() + "/" + &remote_file_name,
+        )
+        .await?;
 
-    let request = GetCustomXmlPartsRequest::new(
-        (remote_file_name.clone()).into()
-    ).with_folder((remote_data_folder.clone()).into());
+    let request = GetCustomXmlPartsRequest::new((remote_file_name.clone()).into())
+        .with_folder((remote_data_folder.clone()).into());
 
     let result = context.api().get_custom_xml_parts(request).await?;
     let result_json = serialize_result(&result)?;
     assert_not_null(&result_json, "CustomXmlParts")?;
     assert_not_null(&result_json, "CustomXmlParts.CustomXmlPartsList")?;
     assert_length(&result_json, "CustomXmlParts.CustomXmlPartsList", 2)?;
-    assert_string(&result_json, "CustomXmlParts.CustomXmlPartsList[0].Id", "aspose".to_owned())?;
+    assert_string(
+        &result_json,
+        "CustomXmlParts.CustomXmlPartsList[0].Id",
+        "aspose".to_owned(),
+    )?;
     assert_string(&result_json, "CustomXmlParts.CustomXmlPartsList[0].Data", "<Metadata><Author>author1</Author><Initial>initial</Initial><DateTime>2015-01-22T00:00:00</DateTime><Text>text</Text></Metadata>".to_owned())?;
     Ok(())
 }
@@ -116,16 +124,18 @@ async fn custom_xml_parts_get_custom_xml_parts_online() -> TestResult<()> {
 
     let request_document = context.load_binary_file(local_file.clone()).await?;
 
-    let request = GetCustomXmlPartsOnlineRequest::new(
-        (request_document).into()
-    );
+    let request = GetCustomXmlPartsOnlineRequest::new((request_document).into());
 
     let result = context.api().get_custom_xml_parts_online(request).await?;
     let result_json = serialize_result(&result)?;
     assert_not_null(&result_json, "CustomXmlParts")?;
     assert_not_null(&result_json, "CustomXmlParts.CustomXmlPartsList")?;
     assert_length(&result_json, "CustomXmlParts.CustomXmlPartsList", 2)?;
-    assert_string(&result_json, "CustomXmlParts.CustomXmlPartsList[0].Id", "aspose".to_owned())?;
+    assert_string(
+        &result_json,
+        "CustomXmlParts.CustomXmlPartsList[0].Id",
+        "aspose".to_owned(),
+    )?;
     assert_string(&result_json, "CustomXmlParts.CustomXmlPartsList[0].Data", "<Metadata><Author>author1</Author><Initial>initial</Initial><DateTime>2015-01-22T00:00:00</DateTime><Text>text</Text></Metadata>".to_owned())?;
     Ok(())
 }
@@ -140,21 +150,31 @@ async fn custom_xml_parts_insert_custom_xml_part() -> TestResult<()> {
     let local_file = "DocumentElements/CustomXmlParts/MultipleCustomXmlParts.docx".to_owned();
     let remote_file_name = "TestInsertCustomXmlPart.docx".to_owned();
 
-    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
+    context
+        .upload_file(
+            local_file.clone(),
+            remote_data_folder.clone() + "/" + &remote_file_name,
+        )
+        .await?;
     let mut request_custom_xml_part = CustomXmlPartInsert::default();
     request_custom_xml_part.id = Some(("hello".to_owned()).into());
     request_custom_xml_part.data = Some(("<data>Hello world</data>".to_owned()).into());
 
     let request = InsertCustomXmlPartRequest::new(
         (remote_file_name.clone()).into(),
-        (request_custom_xml_part).into()
-    ).with_folder((remote_data_folder.clone()).into());
+        (request_custom_xml_part).into(),
+    )
+    .with_folder((remote_data_folder.clone()).into());
 
     let result = context.api().insert_custom_xml_part(request).await?;
     let result_json = serialize_result(&result)?;
     assert_not_null(&result_json, "CustomXmlPart")?;
     assert_string(&result_json, "CustomXmlPart.Id", "hello".to_owned())?;
-    assert_string(&result_json, "CustomXmlPart.Data", "<data>Hello world</data>".to_owned())?;
+    assert_string(
+        &result_json,
+        "CustomXmlPart.Data",
+        "<data>Hello world</data>".to_owned(),
+    )?;
     Ok(())
 }
 
@@ -173,14 +193,18 @@ async fn custom_xml_parts_insert_custom_xml_part_online() -> TestResult<()> {
 
     let request = InsertCustomXmlPartOnlineRequest::new(
         (request_document).into(),
-        (request_custom_xml_part).into()
+        (request_custom_xml_part).into(),
     );
 
     let result = context.api().insert_custom_xml_part_online(request).await?;
     let result_json = serialize_result(&result)?;
     assert_not_null(&result_json, "Model.CustomXmlPart")?;
     assert_string(&result_json, "Model.CustomXmlPart.Id", "hello".to_owned())?;
-    assert_string(&result_json, "Model.CustomXmlPart.Data", "<data>Hello world</data>".to_owned())?;
+    assert_string(
+        &result_json,
+        "Model.CustomXmlPart.Data",
+        "<data>Hello world</data>".to_owned(),
+    )?;
     Ok(())
 }
 
@@ -194,21 +218,31 @@ async fn custom_xml_parts_update_custom_xml_part() -> TestResult<()> {
     let local_file = "DocumentElements/CustomXmlParts/MultipleCustomXmlParts.docx".to_owned();
     let remote_file_name = "TestUpdateCustomXmlPart.docx".to_owned();
 
-    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
+    context
+        .upload_file(
+            local_file.clone(),
+            remote_data_folder.clone() + "/" + &remote_file_name,
+        )
+        .await?;
     let mut request_custom_xml_part = CustomXmlPartUpdate::default();
     request_custom_xml_part.data = Some(("<data>Hello world</data>".to_owned()).into());
 
     let request = UpdateCustomXmlPartRequest::new(
         (remote_file_name.clone()).into(),
         (0).into(),
-        (request_custom_xml_part).into()
-    ).with_folder((remote_data_folder.clone()).into());
+        (request_custom_xml_part).into(),
+    )
+    .with_folder((remote_data_folder.clone()).into());
 
     let result = context.api().update_custom_xml_part(request).await?;
     let result_json = serialize_result(&result)?;
     assert_not_null(&result_json, "CustomXmlPart")?;
     assert_string(&result_json, "CustomXmlPart.Id", "aspose".to_owned())?;
-    assert_string(&result_json, "CustomXmlPart.Data", "<data>Hello world</data>".to_owned())?;
+    assert_string(
+        &result_json,
+        "CustomXmlPart.Data",
+        "<data>Hello world</data>".to_owned(),
+    )?;
     Ok(())
 }
 
@@ -227,14 +261,18 @@ async fn custom_xml_parts_update_custom_xml_part_online() -> TestResult<()> {
     let request = UpdateCustomXmlPartOnlineRequest::new(
         (request_document).into(),
         (0).into(),
-        (request_custom_xml_part).into()
+        (request_custom_xml_part).into(),
     );
 
     let result = context.api().update_custom_xml_part_online(request).await?;
     let result_json = serialize_result(&result)?;
     assert_not_null(&result_json, "Model.CustomXmlPart")?;
     assert_string(&result_json, "Model.CustomXmlPart.Id", "aspose".to_owned())?;
-    assert_string(&result_json, "Model.CustomXmlPart.Data", "<data>Hello world</data>".to_owned())?;
+    assert_string(
+        &result_json,
+        "Model.CustomXmlPart.Data",
+        "<data>Hello world</data>".to_owned(),
+    )?;
     Ok(())
 }
 
@@ -248,13 +286,16 @@ async fn custom_xml_parts_delete_custom_xml_part() -> TestResult<()> {
     let local_file = "DocumentElements/CustomXmlParts/MultipleCustomXmlParts.docx".to_owned();
     let remote_file_name = "TestDeleteCustomXmlPart.docx".to_owned();
 
-    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
+    context
+        .upload_file(
+            local_file.clone(),
+            remote_data_folder.clone() + "/" + &remote_file_name,
+        )
+        .await?;
 
-    let request = DeleteCustomXmlPartRequest::new(
-        (remote_file_name.clone()).into(),
-        (0).into()
-    ).with_folder((remote_data_folder.clone()).into())
-.with_dest_file_name((base_test_out_path.clone() + "/" + &remote_file_name).into());
+    let request = DeleteCustomXmlPartRequest::new((remote_file_name.clone()).into(), (0).into())
+        .with_folder((remote_data_folder.clone()).into())
+        .with_dest_file_name((base_test_out_path.clone() + "/" + &remote_file_name).into());
 
     context.api().delete_custom_xml_part(request).await?;
     Ok(())
@@ -270,10 +311,7 @@ async fn custom_xml_parts_delete_custom_xml_part_online() -> TestResult<()> {
 
     let request_document = context.load_binary_file(local_file.clone()).await?;
 
-    let request = DeleteCustomXmlPartOnlineRequest::new(
-        (request_document).into(),
-        (0).into()
-    );
+    let request = DeleteCustomXmlPartOnlineRequest::new((request_document).into(), (0).into());
 
     context.api().delete_custom_xml_part_online(request).await?;
     Ok(())
@@ -289,12 +327,16 @@ async fn custom_xml_parts_delete_custom_xml_parts() -> TestResult<()> {
     let local_file = "DocumentElements/CustomXmlParts/MultipleCustomXmlParts.docx".to_owned();
     let remote_file_name = "TestDeleteCustomXmlPart.docx".to_owned();
 
-    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
+    context
+        .upload_file(
+            local_file.clone(),
+            remote_data_folder.clone() + "/" + &remote_file_name,
+        )
+        .await?;
 
-    let request = DeleteCustomXmlPartsRequest::new(
-        (remote_file_name.clone()).into()
-    ).with_folder((remote_data_folder.clone()).into())
-.with_dest_file_name((base_test_out_path.clone() + "/" + &remote_file_name).into());
+    let request = DeleteCustomXmlPartsRequest::new((remote_file_name.clone()).into())
+        .with_folder((remote_data_folder.clone()).into())
+        .with_dest_file_name((base_test_out_path.clone() + "/" + &remote_file_name).into());
 
     context.api().delete_custom_xml_parts(request).await?;
     Ok(())
@@ -310,10 +352,11 @@ async fn custom_xml_parts_delete_custom_xml_parts_online() -> TestResult<()> {
 
     let request_document = context.load_binary_file(local_file.clone()).await?;
 
-    let request = DeleteCustomXmlPartsOnlineRequest::new(
-        (request_document).into()
-    );
+    let request = DeleteCustomXmlPartsOnlineRequest::new((request_document).into());
 
-    context.api().delete_custom_xml_parts_online(request).await?;
+    context
+        .api()
+        .delete_custom_xml_parts_online(request)
+        .await?;
     Ok(())
 }

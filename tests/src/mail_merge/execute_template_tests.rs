@@ -42,20 +42,29 @@ async fn execute_template_execute_template() -> TestResult<()> {
     let mail_merge_folder = "DocumentActions/MailMerge".to_owned();
     let local_document_file = "TestExecuteTemplate.doc".to_owned();
     let remote_file_name = "TestExecuteTemplate.docx".to_owned();
-    let local_data_file = read_text_file(mail_merge_folder.clone() + "/TestExecuteTemplateData.txt").await?;
+    let local_data_file =
+        read_text_file(mail_merge_folder.clone() + "/TestExecuteTemplateData.txt").await?;
 
-    context.upload_file(mail_merge_folder.clone() + "/" + &local_document_file, remote_data_folder.clone() + "/" + &remote_file_name).await?;
+    context
+        .upload_file(
+            mail_merge_folder.clone() + "/" + &local_document_file,
+            remote_data_folder.clone() + "/" + &remote_file_name,
+        )
+        .await?;
 
-    let request = ExecuteMailMergeRequest::new(
-        (remote_file_name.clone()).into()
-    ).with_data((local_data_file.clone()).into())
-.with_folder((remote_data_folder.clone()).into())
-.with_dest_file_name((base_test_out_path.clone() + "/" + &remote_file_name).into());
+    let request = ExecuteMailMergeRequest::new((remote_file_name.clone()).into())
+        .with_data((local_data_file.clone()).into())
+        .with_folder((remote_data_folder.clone()).into())
+        .with_dest_file_name((base_test_out_path.clone() + "/" + &remote_file_name).into());
 
     let result = context.api().execute_mail_merge(request).await?;
     let result_json = serialize_result(&result)?;
     assert_not_null(&result_json, "Document")?;
-    assert_string(&result_json, "Document.FileName", "TestExecuteTemplate.docx".to_owned())?;
+    assert_string(
+        &result_json,
+        "Document.FileName",
+        "TestExecuteTemplate.docx".to_owned(),
+    )?;
     Ok(())
 }
 
@@ -69,13 +78,15 @@ async fn execute_template_execute_template_online() -> TestResult<()> {
     let local_document_file = "SampleMailMergeTemplate.docx".to_owned();
     let local_data_file = "SampleExecuteTemplateData.txt".to_owned();
 
-    let request_template = context.load_binary_file(mail_merge_folder.clone() + "/" + &local_document_file).await?;
-    let request_data = context.load_binary_file(mail_merge_folder.clone() + "/" + &local_data_file).await?;
+    let request_template = context
+        .load_binary_file(mail_merge_folder.clone() + "/" + &local_document_file)
+        .await?;
+    let request_data = context
+        .load_binary_file(mail_merge_folder.clone() + "/" + &local_data_file)
+        .await?;
 
-    let request = ExecuteMailMergeOnlineRequest::new(
-        (request_template).into(),
-        (request_data).into()
-    );
+    let request =
+        ExecuteMailMergeOnlineRequest::new((request_template).into(), (request_data).into());
 
     context.api().execute_mail_merge_online(request).await?;
     Ok(())

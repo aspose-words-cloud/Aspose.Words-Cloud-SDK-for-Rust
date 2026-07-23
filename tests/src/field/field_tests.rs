@@ -43,12 +43,16 @@ async fn field_get_fields() -> TestResult<()> {
     let local_file_name = "GetField.docx".to_owned();
     let remote_file_name = "TestGetFields.docx".to_owned();
 
-    context.upload_file(field_folder.clone() + "/" + &local_file_name, remote_data_folder.clone() + "/" + &remote_file_name).await?;
+    context
+        .upload_file(
+            field_folder.clone() + "/" + &local_file_name,
+            remote_data_folder.clone() + "/" + &remote_file_name,
+        )
+        .await?;
 
-    let request = GetFieldsRequest::new(
-        (remote_file_name.clone()).into()
-    ).with_node_path(("sections/0".to_owned()).into())
-.with_folder((remote_data_folder.clone()).into());
+    let request = GetFieldsRequest::new((remote_file_name.clone()).into())
+        .with_node_path(("sections/0".to_owned()).into())
+        .with_folder((remote_data_folder.clone()).into());
 
     let result = context.api().get_fields(request).await?;
     let result_json = serialize_result(&result)?;
@@ -67,11 +71,12 @@ async fn field_get_fields_online() -> TestResult<()> {
     let base_test_out_path = context.base_test_out_path().to_owned();
     let field_folder = "DocumentElements/Fields".to_owned();
 
-    let request_document = context.load_binary_file(field_folder.clone() + "/GetField.docx").await?;
+    let request_document = context
+        .load_binary_file(field_folder.clone() + "/GetField.docx")
+        .await?;
 
-    let request = GetFieldsOnlineRequest::new(
-        (request_document).into()
-    ).with_node_path(("sections/0".to_owned()).into());
+    let request = GetFieldsOnlineRequest::new((request_document).into())
+        .with_node_path(("sections/0".to_owned()).into());
 
     context.api().get_fields_online(request).await?;
     Ok(())
@@ -88,11 +93,15 @@ async fn field_get_fields_without_node_path() -> TestResult<()> {
     let local_file_name = "GetField.docx".to_owned();
     let remote_file_name = "TestGetFieldsWithoutNodePath.docx".to_owned();
 
-    context.upload_file(field_folder.clone() + "/" + &local_file_name, remote_data_folder.clone() + "/" + &remote_file_name).await?;
+    context
+        .upload_file(
+            field_folder.clone() + "/" + &local_file_name,
+            remote_data_folder.clone() + "/" + &remote_file_name,
+        )
+        .await?;
 
-    let request = GetFieldsRequest::new(
-        (remote_file_name.clone()).into()
-    ).with_folder((remote_data_folder.clone()).into());
+    let request = GetFieldsRequest::new((remote_file_name.clone()).into())
+        .with_folder((remote_data_folder.clone()).into());
 
     let result = context.api().get_fields(request).await?;
     let result_json = serialize_result(&result)?;
@@ -114,13 +123,16 @@ async fn field_get_field() -> TestResult<()> {
     let local_file_name = "GetField.docx".to_owned();
     let remote_file_name = "TestGetField.docx".to_owned();
 
-    context.upload_file(field_folder.clone() + "/" + &local_file_name, remote_data_folder.clone() + "/" + &remote_file_name).await?;
+    context
+        .upload_file(
+            field_folder.clone() + "/" + &local_file_name,
+            remote_data_folder.clone() + "/" + &remote_file_name,
+        )
+        .await?;
 
-    let request = GetFieldRequest::new(
-        (remote_file_name.clone()).into(),
-        (0).into()
-    ).with_node_path(("sections/0/paragraphs/0".to_owned()).into())
-.with_folder((remote_data_folder.clone()).into());
+    let request = GetFieldRequest::new((remote_file_name.clone()).into(), (0).into())
+        .with_node_path(("sections/0/paragraphs/0".to_owned()).into())
+        .with_folder((remote_data_folder.clone()).into());
 
     let result = context.api().get_field(request).await?;
     let result_json = serialize_result(&result)?;
@@ -137,12 +149,12 @@ async fn field_get_field_online() -> TestResult<()> {
     let base_test_out_path = context.base_test_out_path().to_owned();
     let field_folder = "DocumentElements/Fields".to_owned();
 
-    let request_document = context.load_binary_file(field_folder.clone() + "/GetField.docx").await?;
+    let request_document = context
+        .load_binary_file(field_folder.clone() + "/GetField.docx")
+        .await?;
 
-    let request = GetFieldOnlineRequest::new(
-        (request_document).into(),
-        (0).into()
-    ).with_node_path(("sections/0/paragraphs/0".to_owned()).into());
+    let request = GetFieldOnlineRequest::new((request_document).into(), (0).into())
+        .with_node_path(("sections/0/paragraphs/0".to_owned()).into());
 
     context.api().get_field_online(request).await?;
     Ok(())
@@ -159,12 +171,15 @@ async fn field_get_field_without_node_path() -> TestResult<()> {
     let local_file_name = "GetField.docx".to_owned();
     let remote_file_name = "TestGetFieldWithoutNodePath.docx".to_owned();
 
-    context.upload_file(field_folder.clone() + "/" + &local_file_name, remote_data_folder.clone() + "/" + &remote_file_name).await?;
+    context
+        .upload_file(
+            field_folder.clone() + "/" + &local_file_name,
+            remote_data_folder.clone() + "/" + &remote_file_name,
+        )
+        .await?;
 
-    let request = GetFieldRequest::new(
-        (remote_file_name.clone()).into(),
-        (0).into()
-    ).with_folder((remote_data_folder.clone()).into());
+    let request = GetFieldRequest::new((remote_file_name.clone()).into(), (0).into())
+        .with_folder((remote_data_folder.clone()).into());
 
     let result = context.api().get_field(request).await?;
     let result_json = serialize_result(&result)?;
@@ -184,15 +199,19 @@ async fn field_insert_field() -> TestResult<()> {
     let local_file_name = "SampleWordDocument.docx".to_owned();
     let remote_file_name = "TestInsertField.docx".to_owned();
 
-    context.upload_file(text_folder.clone() + "/" + &local_file_name, remote_data_folder.clone() + "/" + &remote_file_name).await?;
+    context
+        .upload_file(
+            text_folder.clone() + "/" + &local_file_name,
+            remote_data_folder.clone() + "/" + &remote_file_name,
+        )
+        .await?;
     let mut request_field = FieldInsert::default();
     request_field.field_code = Some(("{ NUMPAGES }".to_owned()).into());
 
-    let request = InsertFieldRequest::new(
-        (remote_file_name.clone()).into(),
-        (request_field).into()
-    ).with_node_path(("sections/0/paragraphs/0".to_owned()).into())
-.with_folder((remote_data_folder.clone()).into());
+    let request =
+        InsertFieldRequest::new((remote_file_name.clone()).into(), (request_field).into())
+            .with_node_path(("sections/0/paragraphs/0".to_owned()).into())
+            .with_folder((remote_data_folder.clone()).into());
 
     let result = context.api().insert_field(request).await?;
     let result_json = serialize_result(&result)?;
@@ -210,14 +229,14 @@ async fn field_insert_field_online() -> TestResult<()> {
     let base_test_out_path = context.base_test_out_path().to_owned();
     let field_folder = "DocumentElements/Fields".to_owned();
 
-    let request_document = context.load_binary_file(field_folder.clone() + "/GetField.docx").await?;
+    let request_document = context
+        .load_binary_file(field_folder.clone() + "/GetField.docx")
+        .await?;
     let mut request_field = FieldInsert::default();
     request_field.field_code = Some(("{ NUMPAGES }".to_owned()).into());
 
-    let request = InsertFieldOnlineRequest::new(
-        (request_document).into(),
-        (request_field).into()
-    ).with_node_path(("sections/0/paragraphs/0".to_owned()).into());
+    let request = InsertFieldOnlineRequest::new((request_document).into(), (request_field).into())
+        .with_node_path(("sections/0/paragraphs/0".to_owned()).into());
 
     context.api().insert_field_online(request).await?;
     Ok(())
@@ -234,14 +253,18 @@ async fn field_insert_field_without_node_path() -> TestResult<()> {
     let local_file_name = "SampleWordDocument.docx".to_owned();
     let remote_file_name = "TestInsertFieldWithoutNodePath.docx".to_owned();
 
-    context.upload_file(text_folder.clone() + "/" + &local_file_name, remote_data_folder.clone() + "/" + &remote_file_name).await?;
+    context
+        .upload_file(
+            text_folder.clone() + "/" + &local_file_name,
+            remote_data_folder.clone() + "/" + &remote_file_name,
+        )
+        .await?;
     let mut request_field = FieldInsert::default();
     request_field.field_code = Some(("{ NUMPAGES }".to_owned()).into());
 
-    let request = InsertFieldRequest::new(
-        (remote_file_name.clone()).into(),
-        (request_field).into()
-    ).with_folder((remote_data_folder.clone()).into());
+    let request =
+        InsertFieldRequest::new((remote_file_name.clone()).into(), (request_field).into())
+            .with_folder((remote_data_folder.clone()).into());
 
     let result = context.api().insert_field(request).await?;
     let result_json = serialize_result(&result)?;
@@ -262,16 +285,22 @@ async fn field_update_field() -> TestResult<()> {
     let local_file_name = "GetField.docx".to_owned();
     let remote_file_name = "TestUpdateField.docx".to_owned();
 
-    context.upload_file(field_folder.clone() + "/" + &local_file_name, remote_data_folder.clone() + "/" + &remote_file_name).await?;
+    context
+        .upload_file(
+            field_folder.clone() + "/" + &local_file_name,
+            remote_data_folder.clone() + "/" + &remote_file_name,
+        )
+        .await?;
     let mut request_field = FieldUpdate::default();
     request_field.field_code = Some(("{ NUMPAGES }".to_owned()).into());
 
     let request = UpdateFieldRequest::new(
         (remote_file_name.clone()).into(),
         (0).into(),
-        (request_field).into()
-    ).with_node_path(("sections/0/paragraphs/0".to_owned()).into())
-.with_folder((remote_data_folder.clone()).into());
+        (request_field).into(),
+    )
+    .with_node_path(("sections/0/paragraphs/0".to_owned()).into())
+    .with_folder((remote_data_folder.clone()).into());
 
     let result = context.api().update_field(request).await?;
     let result_json = serialize_result(&result)?;
@@ -289,15 +318,18 @@ async fn field_update_field_online() -> TestResult<()> {
     let base_test_out_path = context.base_test_out_path().to_owned();
     let field_folder = "DocumentElements/Fields".to_owned();
 
-    let request_document = context.load_binary_file(field_folder.clone() + "/GetField.docx").await?;
+    let request_document = context
+        .load_binary_file(field_folder.clone() + "/GetField.docx")
+        .await?;
     let mut request_field = FieldUpdate::default();
     request_field.field_code = Some(("{ NUMPAGES }".to_owned()).into());
 
     let request = UpdateFieldOnlineRequest::new(
         (request_document).into(),
         (request_field).into(),
-        (0).into()
-    ).with_node_path(("sections/0/paragraphs/0".to_owned()).into());
+        (0).into(),
+    )
+    .with_node_path(("sections/0/paragraphs/0".to_owned()).into());
 
     context.api().update_field_online(request).await?;
     Ok(())
@@ -313,7 +345,12 @@ async fn field_insert_page_numbers() -> TestResult<()> {
     let local_file_name = "test_multi_pages.docx".to_owned();
     let remote_file_name = "TestInsertPageNumbers.docx".to_owned();
 
-    context.upload_file("Common/".to_owned() + &local_file_name, remote_data_folder.clone() + "/" + &remote_file_name).await?;
+    context
+        .upload_file(
+            "Common/".to_owned() + &local_file_name,
+            remote_data_folder.clone() + "/" + &remote_file_name,
+        )
+        .await?;
     let mut request_page_number = PageNumber::default();
     request_page_number.alignment = Some(("center".to_owned()).into());
     request_page_number.format = Some(("{PAGE} of {NUMPAGES}".to_owned()).into());
@@ -322,14 +359,19 @@ async fn field_insert_page_numbers() -> TestResult<()> {
 
     let request = InsertPageNumbersRequest::new(
         (remote_file_name.clone()).into(),
-        (request_page_number).into()
-    ).with_folder((remote_data_folder.clone()).into())
-.with_dest_file_name((base_test_out_path.clone() + "/" + &remote_file_name).into());
+        (request_page_number).into(),
+    )
+    .with_folder((remote_data_folder.clone()).into())
+    .with_dest_file_name((base_test_out_path.clone() + "/" + &remote_file_name).into());
 
     let result = context.api().insert_page_numbers(request).await?;
     let result_json = serialize_result(&result)?;
     assert_not_null(&result_json, "Document")?;
-    assert_string(&result_json, "Document.FileName", "TestInsertPageNumbers.docx".to_owned())?;
+    assert_string(
+        &result_json,
+        "Document.FileName",
+        "TestInsertPageNumbers.docx".to_owned(),
+    )?;
     Ok(())
 }
 
@@ -341,7 +383,9 @@ async fn field_insert_page_numbers_online() -> TestResult<()> {
     let base_test_out_path = context.base_test_out_path().to_owned();
     let local_file_name = "test_multi_pages.docx".to_owned();
 
-    let request_document = context.load_binary_file("Common/".to_owned() + &local_file_name).await?;
+    let request_document = context
+        .load_binary_file("Common/".to_owned() + &local_file_name)
+        .await?;
     let mut request_page_number = PageNumber::default();
     request_page_number.alignment = Some(("center".to_owned()).into());
     request_page_number.format = Some(("{PAGE} of {NUMPAGES}".to_owned()).into());
@@ -350,7 +394,7 @@ async fn field_insert_page_numbers_online() -> TestResult<()> {
 
     let request = InsertPageNumbersOnlineRequest::new(
         (request_document).into(),
-        (request_page_number).into()
+        (request_page_number).into(),
     );
 
     context.api().insert_page_numbers_online(request).await?;
@@ -368,13 +412,16 @@ async fn field_delete_field() -> TestResult<()> {
     let local_file_name = "GetField.docx".to_owned();
     let remote_file_name = "TestDeleteField.docx".to_owned();
 
-    context.upload_file(field_folder.clone() + "/" + &local_file_name, remote_data_folder.clone() + "/" + &remote_file_name).await?;
+    context
+        .upload_file(
+            field_folder.clone() + "/" + &local_file_name,
+            remote_data_folder.clone() + "/" + &remote_file_name,
+        )
+        .await?;
 
-    let request = DeleteFieldRequest::new(
-        (remote_file_name.clone()).into(),
-        (0).into()
-    ).with_node_path(("sections/0/paragraphs/0".to_owned()).into())
-.with_folder((remote_data_folder.clone()).into());
+    let request = DeleteFieldRequest::new((remote_file_name.clone()).into(), (0).into())
+        .with_node_path(("sections/0/paragraphs/0".to_owned()).into())
+        .with_folder((remote_data_folder.clone()).into());
 
     context.api().delete_field(request).await?;
     Ok(())
@@ -388,12 +435,12 @@ async fn field_delete_field_online() -> TestResult<()> {
     let base_test_out_path = context.base_test_out_path().to_owned();
     let field_folder = "DocumentElements/Fields".to_owned();
 
-    let request_document = context.load_binary_file(field_folder.clone() + "/GetField.docx").await?;
+    let request_document = context
+        .load_binary_file(field_folder.clone() + "/GetField.docx")
+        .await?;
 
-    let request = DeleteFieldOnlineRequest::new(
-        (request_document).into(),
-        (0).into()
-    ).with_node_path(("sections/0/paragraphs/0".to_owned()).into());
+    let request = DeleteFieldOnlineRequest::new((request_document).into(), (0).into())
+        .with_node_path(("sections/0/paragraphs/0".to_owned()).into());
 
     context.api().delete_field_online(request).await?;
     Ok(())
@@ -410,12 +457,15 @@ async fn field_delete_field_without_node_path() -> TestResult<()> {
     let local_file_name = "GetField.docx".to_owned();
     let remote_file_name = "TestDeleteFieldWithoutNodePath.docx".to_owned();
 
-    context.upload_file(field_folder.clone() + "/" + &local_file_name, remote_data_folder.clone() + "/" + &remote_file_name).await?;
+    context
+        .upload_file(
+            field_folder.clone() + "/" + &local_file_name,
+            remote_data_folder.clone() + "/" + &remote_file_name,
+        )
+        .await?;
 
-    let request = DeleteFieldRequest::new(
-        (remote_file_name.clone()).into(),
-        (0).into()
-    ).with_folder((remote_data_folder.clone()).into());
+    let request = DeleteFieldRequest::new((remote_file_name.clone()).into(), (0).into())
+        .with_folder((remote_data_folder.clone()).into());
 
     context.api().delete_field(request).await?;
     Ok(())
@@ -431,12 +481,16 @@ async fn field_delete_paragraph_fields() -> TestResult<()> {
     let local_file_name = "test_multi_pages.docx".to_owned();
     let remote_file_name = "TestDeleteParagraphFields.docx".to_owned();
 
-    context.upload_file("Common/".to_owned() + &local_file_name, remote_data_folder.clone() + "/" + &remote_file_name).await?;
+    context
+        .upload_file(
+            "Common/".to_owned() + &local_file_name,
+            remote_data_folder.clone() + "/" + &remote_file_name,
+        )
+        .await?;
 
-    let request = DeleteFieldsRequest::new(
-        (remote_file_name.clone()).into()
-    ).with_node_path(("paragraphs/0".to_owned()).into())
-.with_folder((remote_data_folder.clone()).into());
+    let request = DeleteFieldsRequest::new((remote_file_name.clone()).into())
+        .with_node_path(("paragraphs/0".to_owned()).into())
+        .with_folder((remote_data_folder.clone()).into());
 
     context.api().delete_fields(request).await?;
     Ok(())
@@ -452,11 +506,15 @@ async fn field_delete_paragraph_fields_without_node_path() -> TestResult<()> {
     let local_file_name = "test_multi_pages.docx".to_owned();
     let remote_file_name = "TestDeleteParagraphFieldsWithoutNodePath.docx".to_owned();
 
-    context.upload_file("Common/".to_owned() + &local_file_name, remote_data_folder.clone() + "/" + &remote_file_name).await?;
+    context
+        .upload_file(
+            "Common/".to_owned() + &local_file_name,
+            remote_data_folder.clone() + "/" + &remote_file_name,
+        )
+        .await?;
 
-    let request = DeleteFieldsRequest::new(
-        (remote_file_name.clone()).into()
-    ).with_folder((remote_data_folder.clone()).into());
+    let request = DeleteFieldsRequest::new((remote_file_name.clone()).into())
+        .with_folder((remote_data_folder.clone()).into());
 
     context.api().delete_fields(request).await?;
     Ok(())
@@ -472,12 +530,16 @@ async fn field_delete_section_fields() -> TestResult<()> {
     let local_file_name = "test_multi_pages.docx".to_owned();
     let remote_file_name = "TestDeleteSectionFields.docx".to_owned();
 
-    context.upload_file("Common/".to_owned() + &local_file_name, remote_data_folder.clone() + "/" + &remote_file_name).await?;
+    context
+        .upload_file(
+            "Common/".to_owned() + &local_file_name,
+            remote_data_folder.clone() + "/" + &remote_file_name,
+        )
+        .await?;
 
-    let request = DeleteFieldsRequest::new(
-        (remote_file_name.clone()).into()
-    ).with_node_path(("sections/0".to_owned()).into())
-.with_folder((remote_data_folder.clone()).into());
+    let request = DeleteFieldsRequest::new((remote_file_name.clone()).into())
+        .with_node_path(("sections/0".to_owned()).into())
+        .with_folder((remote_data_folder.clone()).into());
 
     context.api().delete_fields(request).await?;
     Ok(())
@@ -493,11 +555,15 @@ async fn field_delete_section_fields_without_node_path() -> TestResult<()> {
     let local_file_name = "test_multi_pages.docx".to_owned();
     let remote_file_name = "TestDeleteSectionFieldsWithoutNodePath.docx".to_owned();
 
-    context.upload_file("Common/".to_owned() + &local_file_name, remote_data_folder.clone() + "/" + &remote_file_name).await?;
+    context
+        .upload_file(
+            "Common/".to_owned() + &local_file_name,
+            remote_data_folder.clone() + "/" + &remote_file_name,
+        )
+        .await?;
 
-    let request = DeleteFieldsRequest::new(
-        (remote_file_name.clone()).into()
-    ).with_folder((remote_data_folder.clone()).into());
+    let request = DeleteFieldsRequest::new((remote_file_name.clone()).into())
+        .with_folder((remote_data_folder.clone()).into());
 
     context.api().delete_fields(request).await?;
     Ok(())
@@ -513,12 +579,16 @@ async fn field_delete_section_paragraph_fields() -> TestResult<()> {
     let local_file_name = "test_multi_pages.docx".to_owned();
     let remote_file_name = "TestDeleteSectionParagraphFields.docx".to_owned();
 
-    context.upload_file("Common/".to_owned() + &local_file_name, remote_data_folder.clone() + "/" + &remote_file_name).await?;
+    context
+        .upload_file(
+            "Common/".to_owned() + &local_file_name,
+            remote_data_folder.clone() + "/" + &remote_file_name,
+        )
+        .await?;
 
-    let request = DeleteFieldsRequest::new(
-        (remote_file_name.clone()).into()
-    ).with_node_path(("sections/0/paragraphs/0".to_owned()).into())
-.with_folder((remote_data_folder.clone()).into());
+    let request = DeleteFieldsRequest::new((remote_file_name.clone()).into())
+        .with_node_path(("sections/0/paragraphs/0".to_owned()).into())
+        .with_folder((remote_data_folder.clone()).into());
 
     context.api().delete_fields(request).await?;
     Ok(())
@@ -534,12 +604,16 @@ async fn field_delete_document_fields() -> TestResult<()> {
     let local_file_name = "test_multi_pages.docx".to_owned();
     let remote_file_name = "TestDeleteSectionParagraphFields.docx".to_owned();
 
-    context.upload_file("Common/".to_owned() + &local_file_name, remote_data_folder.clone() + "/" + &remote_file_name).await?;
+    context
+        .upload_file(
+            "Common/".to_owned() + &local_file_name,
+            remote_data_folder.clone() + "/" + &remote_file_name,
+        )
+        .await?;
 
-    let request = DeleteFieldsRequest::new(
-        (remote_file_name.clone()).into()
-    ).with_node_path(("".to_owned()).into())
-.with_folder((remote_data_folder.clone()).into());
+    let request = DeleteFieldsRequest::new((remote_file_name.clone()).into())
+        .with_node_path(("".to_owned()).into())
+        .with_folder((remote_data_folder.clone()).into());
 
     context.api().delete_fields(request).await?;
     Ok(())
@@ -555,9 +629,8 @@ async fn field_delete_document_fields_online() -> TestResult<()> {
 
     let request_document = context.load_binary_file(local_file_name.clone()).await?;
 
-    let request = DeleteFieldsOnlineRequest::new(
-        (request_document).into()
-    ).with_node_path(("".to_owned()).into());
+    let request = DeleteFieldsOnlineRequest::new((request_document).into())
+        .with_node_path(("".to_owned()).into());
 
     context.api().delete_fields_online(request).await?;
     Ok(())
@@ -573,16 +646,24 @@ async fn field_update_document_fields() -> TestResult<()> {
     let local_file_name = "test_multi_pages.docx".to_owned();
     let remote_file_name = "TestUpdateDocumentFields.docx".to_owned();
 
-    context.upload_file("Common/".to_owned() + &local_file_name, remote_data_folder.clone() + "/" + &remote_file_name).await?;
+    context
+        .upload_file(
+            "Common/".to_owned() + &local_file_name,
+            remote_data_folder.clone() + "/" + &remote_file_name,
+        )
+        .await?;
 
-    let request = UpdateFieldsRequest::new(
-        (remote_file_name.clone()).into()
-    ).with_folder((remote_data_folder.clone()).into());
+    let request = UpdateFieldsRequest::new((remote_file_name.clone()).into())
+        .with_folder((remote_data_folder.clone()).into());
 
     let result = context.api().update_fields(request).await?;
     let result_json = serialize_result(&result)?;
     assert_not_null(&result_json, "Document")?;
-    assert_string(&result_json, "Document.FileName", "TestUpdateDocumentFields.docx".to_owned())?;
+    assert_string(
+        &result_json,
+        "Document.FileName",
+        "TestUpdateDocumentFields.docx".to_owned(),
+    )?;
     Ok(())
 }
 
@@ -596,9 +677,7 @@ async fn field_update_document_fields_online() -> TestResult<()> {
 
     let request_document = context.load_binary_file(local_file.clone()).await?;
 
-    let request = UpdateFieldsOnlineRequest::new(
-        (request_document).into()
-    );
+    let request = UpdateFieldsOnlineRequest::new((request_document).into());
 
     context.api().update_fields_online(request).await?;
     Ok(())

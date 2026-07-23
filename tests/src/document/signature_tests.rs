@@ -43,11 +43,15 @@ async fn signature_get_signatures() -> TestResult<()> {
     let signed_document = "signedDocument.docx".to_owned();
     let remote_name = "TestGetSignatures.docx".to_owned();
 
-    context.upload_file(local_folder.clone() + "/" + &signed_document, remote_folder.clone() + "/" + &remote_name).await?;
+    context
+        .upload_file(
+            local_folder.clone() + "/" + &signed_document,
+            remote_folder.clone() + "/" + &remote_name,
+        )
+        .await?;
 
-    let request = GetSignaturesRequest::new(
-        (remote_name.clone()).into()
-    ).with_folder((remote_folder.clone()).into());
+    let request = GetSignaturesRequest::new((remote_name.clone()).into())
+        .with_folder((remote_folder.clone()).into());
 
     let result = context.api().get_signatures(request).await?;
     let result_json = serialize_result(&result)?;
@@ -65,11 +69,11 @@ async fn signature_get_signatures_online() -> TestResult<()> {
     let local_folder = "DocumentActions/Signature".to_owned();
     let signed_document = "signedDocument.docx".to_owned();
 
-    let request_document = context.load_binary_file(local_folder.clone() + "/" + &signed_document).await?;
+    let request_document = context
+        .load_binary_file(local_folder.clone() + "/" + &signed_document)
+        .await?;
 
-    let request = GetSignaturesOnlineRequest::new(
-        (request_document).into()
-    );
+    let request = GetSignaturesOnlineRequest::new((request_document).into());
 
     let result = context.api().get_signatures_online(request).await?;
     let result_json = serialize_result(&result)?;
@@ -89,11 +93,15 @@ async fn signature_remove_all_signatures() -> TestResult<()> {
     let signed_document = "signedDocument.docx".to_owned();
     let remote_name = "TestRemoveAllSignatures.docx".to_owned();
 
-    context.upload_file(local_folder.clone() + "/" + &signed_document, remote_folder.clone() + "/" + &remote_name).await?;
+    context
+        .upload_file(
+            local_folder.clone() + "/" + &signed_document,
+            remote_folder.clone() + "/" + &remote_name,
+        )
+        .await?;
 
-    let request = RemoveAllSignaturesRequest::new(
-        (remote_name.clone()).into()
-    ).with_folder((remote_folder.clone()).into());
+    let request = RemoveAllSignaturesRequest::new((remote_name.clone()).into())
+        .with_folder((remote_folder.clone()).into());
 
     let result = context.api().remove_all_signatures(request).await?;
     let result_json = serialize_result(&result)?;
@@ -111,11 +119,11 @@ async fn signature_remove_all_signatures_online() -> TestResult<()> {
     let local_folder = "DocumentActions/Signature".to_owned();
     let signed_document = "signedDocument.docx".to_owned();
 
-    let request_document = context.load_binary_file(local_folder.clone() + "/" + &signed_document).await?;
+    let request_document = context
+        .load_binary_file(local_folder.clone() + "/" + &signed_document)
+        .await?;
 
-    let request = RemoveAllSignaturesOnlineRequest::new(
-        (request_document).into()
-    );
+    let request = RemoveAllSignaturesOnlineRequest::new((request_document).into());
 
     let result = context.api().remove_all_signatures_online(request).await?;
     let result_json = serialize_result(&result)?;
@@ -138,14 +146,25 @@ async fn signature_sign_document() -> TestResult<()> {
     let remote_name = "TestSignDocument.docx".to_owned();
     let remote_certificate_name = "TestCertificate.pfx".to_owned();
 
-    context.upload_file(local_folder.clone() + "/" + &unsigned_document, remote_folder.clone() + "/" + &remote_name).await?;
-    context.upload_file(local_folder.clone() + "/" + &certificate_name, remote_folder.clone() + "/" + &remote_certificate_name).await?;
+    context
+        .upload_file(
+            local_folder.clone() + "/" + &unsigned_document,
+            remote_folder.clone() + "/" + &remote_name,
+        )
+        .await?;
+    context
+        .upload_file(
+            local_folder.clone() + "/" + &certificate_name,
+            remote_folder.clone() + "/" + &remote_certificate_name,
+        )
+        .await?;
 
     let request = SignDocumentRequest::new(
         (remote_name.clone()).into(),
         (remote_folder.clone() + "/" + &remote_certificate_name).into(),
-        (certificate_password.clone()).into()
-    ).with_folder((remote_folder.clone()).into());
+        (certificate_password.clone()).into(),
+    )
+    .with_folder((remote_folder.clone()).into());
 
     let result = context.api().sign_document(request).await?;
     let result_json = serialize_result(&result)?;
@@ -167,13 +186,20 @@ async fn signature_sign_document_online() -> TestResult<()> {
     let certificate_password = "aw".to_owned();
     let remote_certificate_name = "TestCertificateOnline.pfx".to_owned();
 
-    context.upload_file(local_folder.clone() + "/" + &certificate_name, remote_folder.clone() + "/" + &remote_certificate_name).await?;
-    let request_document = context.load_binary_file(local_folder.clone() + "/" + &unsigned_document).await?;
+    context
+        .upload_file(
+            local_folder.clone() + "/" + &certificate_name,
+            remote_folder.clone() + "/" + &remote_certificate_name,
+        )
+        .await?;
+    let request_document = context
+        .load_binary_file(local_folder.clone() + "/" + &unsigned_document)
+        .await?;
 
     let request = SignDocumentOnlineRequest::new(
         (request_document).into(),
         (remote_folder.clone() + "/" + &remote_certificate_name).into(),
-        (certificate_password.clone()).into()
+        (certificate_password.clone()).into(),
     );
 
     let result = context.api().sign_document_online(request).await?;

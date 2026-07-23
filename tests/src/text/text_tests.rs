@@ -42,7 +42,12 @@ async fn text_replace_text() -> TestResult<()> {
     let remote_file_name = "TestReplaceText.docx".to_owned();
     let local_file = "Common/test_multi_pages.docx".to_owned();
 
-    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
+    context
+        .upload_file(
+            local_file.clone(),
+            remote_data_folder.clone() + "/" + &remote_file_name,
+        )
+        .await?;
     let mut request_replace_text = ReplaceTextParameters::default();
     request_replace_text.old_value = Some(("Testing".to_owned()).into());
     request_replace_text.new_value = Some(("Aspose testing".to_owned()).into());
@@ -52,9 +57,10 @@ async fn text_replace_text() -> TestResult<()> {
 
     let request = ReplaceTextRequest::new(
         (remote_file_name.clone()).into(),
-        (request_replace_text).into()
-    ).with_folder((remote_data_folder.clone()).into())
-.with_dest_file_name((base_test_out_path.clone() + "/" + &remote_file_name).into());
+        (request_replace_text).into(),
+    )
+    .with_folder((remote_data_folder.clone()).into())
+    .with_dest_file_name((base_test_out_path.clone() + "/" + &remote_file_name).into());
 
     let result = context.api().replace_text(request).await?;
     let result_json = serialize_result(&result)?;
@@ -78,10 +84,8 @@ async fn text_replace_text_online() -> TestResult<()> {
     request_replace_text.is_match_whole_word = Some((false).into());
     request_replace_text.is_old_value_regex = Some((false).into());
 
-    let request = ReplaceTextOnlineRequest::new(
-        (request_document).into(),
-        (request_replace_text).into()
-    );
+    let request =
+        ReplaceTextOnlineRequest::new((request_document).into(), (request_replace_text).into());
 
     context.api().replace_text_online(request).await?;
     Ok(())
@@ -97,12 +101,18 @@ async fn text_search() -> TestResult<()> {
     let remote_file_name = "TestSearch.docx".to_owned();
     let local_file = "DocumentElements/Text/SampleWordDocument.docx".to_owned();
 
-    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
+    context
+        .upload_file(
+            local_file.clone(),
+            remote_data_folder.clone() + "/" + &remote_file_name,
+        )
+        .await?;
 
     let request = SearchRequest::new(
         (remote_file_name.clone()).into(),
-        ("aspose".to_owned()).into()
-    ).with_folder((remote_data_folder.clone()).into());
+        ("aspose".to_owned()).into(),
+    )
+    .with_folder((remote_data_folder.clone()).into());
 
     let result = context.api().search(request).await?;
     let result_json = serialize_result(&result)?;
@@ -110,7 +120,11 @@ async fn text_search() -> TestResult<()> {
     assert_not_null(&result_json, "SearchResults.ResultsList")?;
     assert_length(&result_json, "SearchResults.ResultsList", 23)?;
     assert_not_null(&result_json, "SearchResults.ResultsList[0].RangeStart")?;
-    assert_integer(&result_json, "SearchResults.ResultsList[0].RangeStart.Offset", 65)?;
+    assert_integer(
+        &result_json,
+        "SearchResults.ResultsList[0].RangeStart.Offset",
+        65,
+    )?;
     Ok(())
 }
 
@@ -124,10 +138,7 @@ async fn text_search_online() -> TestResult<()> {
 
     let request_document = context.load_binary_file(local_file.clone()).await?;
 
-    let request = SearchOnlineRequest::new(
-        (request_document).into(),
-        ("aspose".to_owned()).into()
-    );
+    let request = SearchOnlineRequest::new((request_document).into(), ("aspose".to_owned()).into());
 
     context.api().search_online(request).await?;
     Ok(())

@@ -66,15 +66,15 @@ async fn main() -> SdkResult<()> {
 
 [Tests](tests) contain additional examples of using the SDK. Integration tests read credentials from `settings/servercreds.json`, test documents from `test_data`, and example documents from `examples_data`.
 
-Run the test suite from the workspace root:
+Run the test suite from the repository root:
 
 ```text
-cargo test --workspace
+cargo test --manifest-path tests/Cargo.toml
 ```
 
 ## Dependencies
 
-- Referenced crates are listed in [Cargo.toml](sdk/Cargo.toml).
+- Referenced crates are listed in [Cargo.toml](Cargo.toml).
 
 ## Licensing
 

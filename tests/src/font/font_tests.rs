@@ -39,9 +39,7 @@ async fn font_reset_cache() -> TestResult<()> {
     let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
     let base_test_out_path = context.base_test_out_path().to_owned();
 
-
-    let request = ResetCacheRequest::new(
-    );
+    let request = ResetCacheRequest::new();
 
     context.api().reset_cache(request).await?;
     Ok(())
@@ -54,9 +52,7 @@ async fn font_get_available_fonts() -> TestResult<()> {
     let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
     let base_test_out_path = context.base_test_out_path().to_owned();
 
-
-    let request = GetAvailableFontsRequest::new(
-    );
+    let request = GetAvailableFontsRequest::new();
 
     let result = context.api().get_available_fonts(request).await?;
     let result_json = serialize_result(&result)?;

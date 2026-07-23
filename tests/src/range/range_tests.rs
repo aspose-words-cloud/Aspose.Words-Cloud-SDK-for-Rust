@@ -42,13 +42,19 @@ async fn range_get_range_text() -> TestResult<()> {
     let local_file = "DocumentElements/Range/RangeGet.doc".to_owned();
     let remote_file_name = "TestGetRangeText.docx".to_owned();
 
-    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
+    context
+        .upload_file(
+            local_file.clone(),
+            remote_data_folder.clone() + "/" + &remote_file_name,
+        )
+        .await?;
 
     let request = GetRangeTextRequest::new(
         (remote_file_name.clone()).into(),
-        ("id0.0.0".to_owned()).into()
-    ).with_range_end_identifier(("id0.0.1".to_owned()).into())
-.with_folder((remote_data_folder.clone()).into());
+        ("id0.0.0".to_owned()).into(),
+    )
+    .with_range_end_identifier(("id0.0.1".to_owned()).into())
+    .with_folder((remote_data_folder.clone()).into());
 
     let result = context.api().get_range_text(request).await?;
     let result_json = serialize_result(&result)?;
@@ -66,10 +72,9 @@ async fn range_get_range_text_online() -> TestResult<()> {
 
     let request_document = context.load_binary_file(local_file.clone()).await?;
 
-    let request = GetRangeTextOnlineRequest::new(
-        (request_document).into(),
-        ("id0.0.0".to_owned()).into()
-    ).with_range_end_identifier(("id0.0.1".to_owned()).into());
+    let request =
+        GetRangeTextOnlineRequest::new((request_document).into(), ("id0.0.0".to_owned()).into())
+            .with_range_end_identifier(("id0.0.1".to_owned()).into());
 
     context.api().get_range_text_online(request).await?;
     Ok(())
@@ -85,13 +90,19 @@ async fn range_remove_range() -> TestResult<()> {
     let local_file = "DocumentElements/Range/RangeGet.doc".to_owned();
     let remote_file_name = "TestRemoveRange.docx".to_owned();
 
-    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
+    context
+        .upload_file(
+            local_file.clone(),
+            remote_data_folder.clone() + "/" + &remote_file_name,
+        )
+        .await?;
 
     let request = RemoveRangeRequest::new(
         (remote_file_name.clone()).into(),
-        ("id0.0.0".to_owned()).into()
-    ).with_range_end_identifier(("id0.0.1".to_owned()).into())
-.with_folder((remote_data_folder.clone()).into());
+        ("id0.0.0".to_owned()).into(),
+    )
+    .with_range_end_identifier(("id0.0.1".to_owned()).into())
+    .with_folder((remote_data_folder.clone()).into());
 
     context.api().remove_range(request).await?;
     Ok(())
@@ -107,10 +118,9 @@ async fn range_remove_range_online() -> TestResult<()> {
 
     let request_document = context.load_binary_file(local_file.clone()).await?;
 
-    let request = RemoveRangeOnlineRequest::new(
-        (request_document).into(),
-        ("id0.0.0".to_owned()).into()
-    ).with_range_end_identifier(("id0.0.1".to_owned()).into());
+    let request =
+        RemoveRangeOnlineRequest::new((request_document).into(), ("id0.0.0".to_owned()).into())
+            .with_range_end_identifier(("id0.0.1".to_owned()).into());
 
     context.api().remove_range_online(request).await?;
     Ok(())
@@ -126,16 +136,23 @@ async fn range_save_as_range() -> TestResult<()> {
     let local_file = "DocumentElements/Range/RangeGet.doc".to_owned();
     let remote_file_name = "TestSaveAsRange.docx".to_owned();
 
-    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
+    context
+        .upload_file(
+            local_file.clone(),
+            remote_data_folder.clone() + "/" + &remote_file_name,
+        )
+        .await?;
     let mut request_document_parameters = RangeDocument::default();
-    request_document_parameters.document_name = Some((remote_data_folder.clone() + "/NewDoc.docx").into());
+    request_document_parameters.document_name =
+        Some((remote_data_folder.clone() + "/NewDoc.docx").into());
 
     let request = SaveAsRangeRequest::new(
         (remote_file_name.clone()).into(),
         ("id0.0.0".to_owned()).into(),
-        (request_document_parameters).into()
-    ).with_range_end_identifier(("id0.0.1".to_owned()).into())
-.with_folder((remote_data_folder.clone()).into());
+        (request_document_parameters).into(),
+    )
+    .with_range_end_identifier(("id0.0.1".to_owned()).into())
+    .with_folder((remote_data_folder.clone()).into());
 
     let result = context.api().save_as_range(request).await?;
     let result_json = serialize_result(&result)?;
@@ -155,13 +172,15 @@ async fn range_save_as_range_online() -> TestResult<()> {
 
     let request_document = context.load_binary_file(local_file.clone()).await?;
     let mut request_document_parameters = RangeDocument::default();
-    request_document_parameters.document_name = Some((remote_data_folder.clone() + "/NewDoc.docx").into());
+    request_document_parameters.document_name =
+        Some((remote_data_folder.clone() + "/NewDoc.docx").into());
 
     let request = SaveAsRangeOnlineRequest::new(
         (request_document).into(),
         ("id0.0.0".to_owned()).into(),
-        (request_document_parameters).into()
-    ).with_range_end_identifier(("id0.0.1".to_owned()).into());
+        (request_document_parameters).into(),
+    )
+    .with_range_end_identifier(("id0.0.1".to_owned()).into());
 
     context.api().save_as_range_online(request).await?;
     Ok(())
@@ -177,21 +196,31 @@ async fn range_replace_with_text() -> TestResult<()> {
     let local_file = "DocumentElements/Range/RangeGet.doc".to_owned();
     let remote_file_name = "TestReplaceWithText.docx".to_owned();
 
-    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
+    context
+        .upload_file(
+            local_file.clone(),
+            remote_data_folder.clone() + "/" + &remote_file_name,
+        )
+        .await?;
     let mut request_range_text = ReplaceRange::default();
     request_range_text.text = Some(("Replaced header".to_owned()).into());
 
     let request = ReplaceWithTextRequest::new(
         (remote_file_name.clone()).into(),
         ("id0.0.0".to_owned()).into(),
-        (request_range_text).into()
-    ).with_range_end_identifier(("id0.0.1".to_owned()).into())
-.with_folder((remote_data_folder.clone()).into());
+        (request_range_text).into(),
+    )
+    .with_range_end_identifier(("id0.0.1".to_owned()).into())
+    .with_folder((remote_data_folder.clone()).into());
 
     let result = context.api().replace_with_text(request).await?;
     let result_json = serialize_result(&result)?;
     assert_not_null(&result_json, "Document")?;
-    assert_string(&result_json, "Document.FileName", "TestReplaceWithText.docx".to_owned())?;
+    assert_string(
+        &result_json,
+        "Document.FileName",
+        "TestReplaceWithText.docx".to_owned(),
+    )?;
     Ok(())
 }
 
@@ -210,8 +239,9 @@ async fn range_replace_with_text_online() -> TestResult<()> {
     let request = ReplaceWithTextOnlineRequest::new(
         (request_document).into(),
         ("id0.0.0".to_owned()).into(),
-        (request_range_text).into()
-    ).with_range_end_identifier(("id0.0.1".to_owned()).into());
+        (request_range_text).into(),
+    )
+    .with_range_end_identifier(("id0.0.1".to_owned()).into());
 
     context.api().replace_with_text_online(request).await?;
     Ok(())
@@ -227,16 +257,26 @@ async fn range_translate_node_id() -> TestResult<()> {
     let local_file = "DocumentElements/Range/RangeGet.doc".to_owned();
     let remote_file_name = "TestTranslateNodeId.docx".to_owned();
 
-    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
+    context
+        .upload_file(
+            local_file.clone(),
+            remote_data_folder.clone() + "/" + &remote_file_name,
+        )
+        .await?;
 
     let request = TranslateNodeIdRequest::new(
         (remote_file_name.clone()).into(),
-        ("id0.0.0".to_owned()).into()
-    ).with_folder((remote_data_folder.clone()).into());
+        ("id0.0.0".to_owned()).into(),
+    )
+    .with_folder((remote_data_folder.clone()).into());
 
     let result = context.api().translate_node_id(request).await?;
     let result_json = serialize_result(&result)?;
-    assert_string(&result_json, "Path", "sections/0/body/paragraphs/0".to_owned())?;
+    assert_string(
+        &result_json,
+        "Path",
+        "sections/0/body/paragraphs/0".to_owned(),
+    )?;
     Ok(())
 }
 
@@ -250,10 +290,8 @@ async fn range_translate_node_id_online() -> TestResult<()> {
 
     let request_document = context.load_binary_file(local_file.clone()).await?;
 
-    let request = TranslateNodeIdOnlineRequest::new(
-        (request_document).into(),
-        ("id0.0.0".to_owned()).into()
-    );
+    let request =
+        TranslateNodeIdOnlineRequest::new((request_document).into(), ("id0.0.0".to_owned()).into());
 
     context.api().translate_node_id_online(request).await?;
     Ok(())

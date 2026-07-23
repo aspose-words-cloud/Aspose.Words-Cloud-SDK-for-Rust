@@ -42,14 +42,21 @@ async fn convert_document_save_as() -> TestResult<()> {
     let local_name = "test_multi_pages.docx".to_owned();
     let remote_name = "TestSaveAs.docx".to_owned();
 
-    context.upload_file("Common/".to_owned() + &local_name, remote_folder.clone() + "/" + &remote_name).await?;
+    context
+        .upload_file(
+            "Common/".to_owned() + &local_name,
+            remote_folder.clone() + "/" + &remote_name,
+        )
+        .await?;
     let mut request_save_options_data = PdfSaveOptionsData::default();
-    request_save_options_data.file_name = Some((base_test_out_path.clone() + "/TestSaveAs.pdf").into());
+    request_save_options_data.file_name =
+        Some((base_test_out_path.clone() + "/TestSaveAs.pdf").into());
 
     let request = SaveAsRequest::new(
         (remote_name.clone()).into(),
-        (request_save_options_data).into()
-    ).with_folder((remote_folder.clone()).into());
+        (request_save_options_data).into(),
+    )
+    .with_folder((remote_folder.clone()).into());
 
     let result = context.api().save_as(request).await?;
     let result_json = serialize_result(&result)?;
@@ -66,13 +73,16 @@ async fn convert_document_save_as_online() -> TestResult<()> {
     let base_test_out_path = context.base_test_out_path().to_owned();
     let local_name = "test_multi_pages.docx".to_owned();
 
-    let request_document = context.load_binary_file("Common/".to_owned() + &local_name).await?;
+    let request_document = context
+        .load_binary_file("Common/".to_owned() + &local_name)
+        .await?;
     let mut request_save_options_data = PdfSaveOptionsData::default();
-    request_save_options_data.file_name = Some((base_test_out_path.clone() + "/TestSaveAs.pdf").into());
+    request_save_options_data.file_name =
+        Some((base_test_out_path.clone() + "/TestSaveAs.pdf").into());
 
     let request = SaveAsOnlineRequest::new(
         (request_document).into(),
-        (request_save_options_data).into()
+        (request_save_options_data).into(),
     );
 
     context.api().save_as_online(request).await?;
@@ -87,15 +97,20 @@ async fn convert_document_save_as_online_html_multifile() -> TestResult<()> {
     let base_test_out_path = context.base_test_out_path().to_owned();
     let local_name = "test_multi_pages.docx".to_owned();
 
-    let request_document = context.load_binary_file("Common/".to_owned() + &local_name).await?;
+    let request_document = context
+        .load_binary_file("Common/".to_owned() + &local_name)
+        .await?;
     let mut request_save_options_data = HtmlSaveOptionsData::default();
-    request_save_options_data.file_name = Some((base_test_out_path.clone() + "/TestSaveAsHtml.html").into());
-    request_save_options_data.css_style_sheet_type = Some((HtmlSaveOptionsDataCssStyleSheetTypeEnum::External).into());
-    request_save_options_data.css_style_sheet_file_name = Some((base_test_out_path.clone() + "/TestSaveAsHtml.css").into());
+    request_save_options_data.file_name =
+        Some((base_test_out_path.clone() + "/TestSaveAsHtml.html").into());
+    request_save_options_data.css_style_sheet_type =
+        Some((HtmlSaveOptionsDataCssStyleSheetTypeEnum::External).into());
+    request_save_options_data.css_style_sheet_file_name =
+        Some((base_test_out_path.clone() + "/TestSaveAsHtml.css").into());
 
     let request = SaveAsOnlineRequest::new(
         (request_document).into(),
-        (request_save_options_data).into()
+        (request_save_options_data).into(),
     );
 
     context.api().save_as_online(request).await?;
@@ -113,14 +128,21 @@ async fn convert_document_save_as_docx() -> TestResult<()> {
     let local_name = "45.pdf".to_owned();
     let remote_name = "TestSaveAsFromPdfToDoc.pdf".to_owned();
 
-    context.upload_file(local_folder.clone() + "/" + &local_name, remote_folder.clone() + "/" + &remote_name).await?;
+    context
+        .upload_file(
+            local_folder.clone() + "/" + &local_name,
+            remote_folder.clone() + "/" + &remote_name,
+        )
+        .await?;
     let mut request_save_options_data = DocxSaveOptionsData::default();
-    request_save_options_data.file_name = Some((base_test_out_path.clone() + "/TestSaveAsFromPdfToDoc.docx").into());
+    request_save_options_data.file_name =
+        Some((base_test_out_path.clone() + "/TestSaveAsFromPdfToDoc.docx").into());
 
     let request = SaveAsRequest::new(
         (remote_name.clone()).into(),
-        (request_save_options_data).into()
-    ).with_folder((remote_folder.clone()).into());
+        (request_save_options_data).into(),
+    )
+    .with_folder((remote_folder.clone()).into());
 
     let result = context.api().save_as(request).await?;
     let result_json = serialize_result(&result)?;
@@ -139,14 +161,18 @@ async fn convert_document_save_as_tiff() -> TestResult<()> {
     let local_name = "test_multi_pages.docx".to_owned();
     let remote_name = "TestSaveAsTiff.pdf".to_owned();
 
-    context.upload_file("Common/".to_owned() + &local_name, remote_folder.clone() + "/" + &remote_name).await?;
+    context
+        .upload_file(
+            "Common/".to_owned() + &local_name,
+            remote_folder.clone() + "/" + &remote_name,
+        )
+        .await?;
     let mut request_save_options = TiffSaveOptionsData::default();
     request_save_options.file_name = Some((base_test_out_path.clone() + "/abc.tiff").into());
 
-    let request = SaveAsTiffRequest::new(
-        (remote_name.clone()).into(),
-        (request_save_options).into()
-    ).with_folder((remote_folder.clone()).into());
+    let request =
+        SaveAsTiffRequest::new((remote_name.clone()).into(), (request_save_options).into())
+            .with_folder((remote_folder.clone()).into());
 
     let result = context.api().save_as_tiff(request).await?;
     let result_json = serialize_result(&result)?;
@@ -163,14 +189,14 @@ async fn convert_document_save_as_tiff_online() -> TestResult<()> {
     let base_test_out_path = context.base_test_out_path().to_owned();
     let local_name = "test_multi_pages.docx".to_owned();
 
-    let request_document = context.load_binary_file("Common/".to_owned() + &local_name).await?;
+    let request_document = context
+        .load_binary_file("Common/".to_owned() + &local_name)
+        .await?;
     let mut request_save_options = TiffSaveOptionsData::default();
     request_save_options.file_name = Some((base_test_out_path.clone() + "/abc.tiff").into());
 
-    let request = SaveAsTiffOnlineRequest::new(
-        (request_document).into(),
-        (request_save_options).into()
-    );
+    let request =
+        SaveAsTiffOnlineRequest::new((request_document).into(), (request_save_options).into());
 
     context.api().save_as_tiff_online(request).await?;
     Ok(())
@@ -184,12 +210,11 @@ async fn convert_document_convert_document() -> TestResult<()> {
     let base_test_out_path = context.base_test_out_path().to_owned();
     let local_folder = "DocumentActions/ConvertDocument".to_owned();
 
-    let request_document = context.load_binary_file(local_folder.clone() + "/test_uploadfile.docx").await?;
+    let request_document = context
+        .load_binary_file(local_folder.clone() + "/test_uploadfile.docx")
+        .await?;
 
-    let request = ConvertDocumentRequest::new(
-        (request_document).into(),
-        ("pdf".to_owned()).into()
-    );
+    let request = ConvertDocumentRequest::new((request_document).into(), ("pdf".to_owned()).into());
 
     context.api().convert_document(request).await?;
     Ok(())
@@ -203,12 +228,12 @@ async fn convert_document_convert_document_job() -> TestResult<()> {
     let base_test_out_path = context.base_test_out_path().to_owned();
     let local_folder = "DocumentActions/ConvertDocument".to_owned();
 
-    let request_document = context.load_binary_file(local_folder.clone() + "/test_uploadfile.docx").await?;
+    let request_document = context
+        .load_binary_file(local_folder.clone() + "/test_uploadfile.docx")
+        .await?;
 
-    let request = ConvertDocumentJobRequest::new(
-        (request_document).into(),
-        ("pdf".to_owned()).into()
-    );
+    let request =
+        ConvertDocumentJobRequest::new((request_document).into(), ("pdf".to_owned()).into());
 
     let job_handler = context.api().convert_document_job(request).await?;
     job_handler.wait_result(Duration::from_secs(3)).await?;

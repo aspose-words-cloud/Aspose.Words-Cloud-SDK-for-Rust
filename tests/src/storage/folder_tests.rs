@@ -40,10 +40,8 @@ async fn folder_create_folder() -> TestResult<()> {
     let base_test_out_path = context.base_test_out_path().to_owned();
     let remote_data_folder = remote_base_test_data_folder.clone() + "/Storage";
 
-
-    let request = CreateFolderRequest::new(
-        (remote_data_folder.clone() + "/TestCreateFolder").into()
-    );
+    let request =
+        CreateFolderRequest::new((remote_data_folder.clone() + "/TestCreateFolder").into());
 
     context.api().create_folder(request).await?;
     Ok(())
@@ -59,11 +57,15 @@ async fn folder_delete_folder() -> TestResult<()> {
     let local_file = "Common/test_multi_pages.docx".to_owned();
     let test_delete_folder = remote_data_folder.clone() + "/TestDeleteFolder";
 
-    context.upload_file(local_file.clone(), test_delete_folder.clone() + "/TestDeleteFolder.docx").await?;
+    context
+        .upload_file(
+            local_file.clone(),
+            test_delete_folder.clone() + "/TestDeleteFolder.docx",
+        )
+        .await?;
 
-    let request = DeleteFolderRequest::new(
-        (test_delete_folder.clone()).into()
-    ).with_recursive((true).into());
+    let request =
+        DeleteFolderRequest::new((test_delete_folder.clone()).into()).with_recursive((true).into());
 
     context.api().delete_folder(request).await?;
     Ok(())
@@ -77,10 +79,7 @@ async fn folder_get_files_list() -> TestResult<()> {
     let base_test_out_path = context.base_test_out_path().to_owned();
     let remote_data_folder = remote_base_test_data_folder.clone() + "/Storage";
 
-
-    let request = GetFilesListRequest::new(
-        (remote_data_folder.clone()).into()
-    );
+    let request = GetFilesListRequest::new((remote_data_folder.clone()).into());
 
     let result = context.api().get_files_list(request).await?;
     let result_json = serialize_result(&result)?;
@@ -98,11 +97,16 @@ async fn folder_copy_folder() -> TestResult<()> {
     let local_file = "Common/test_multi_pages.docx".to_owned();
     let folder_to_copy = remote_data_folder.clone() + "/TestCopyFolder";
 
-    context.upload_file(local_file.clone(), folder_to_copy.clone() + "Src/TestCopyFolderSrc.docx").await?;
+    context
+        .upload_file(
+            local_file.clone(),
+            folder_to_copy.clone() + "Src/TestCopyFolderSrc.docx",
+        )
+        .await?;
 
     let request = CopyFolderRequest::new(
         (folder_to_copy.clone() + "Dest").into(),
-        (folder_to_copy.clone() + "Src").into()
+        (folder_to_copy.clone() + "Src").into(),
     );
 
     context.api().copy_folder(request).await?;
@@ -118,11 +122,16 @@ async fn folder_move_folder() -> TestResult<()> {
     let remote_data_folder = remote_base_test_data_folder.clone() + "/Storage";
     let local_file = "Common/test_multi_pages.docx".to_owned();
 
-    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/TestMoveFolderSrc/TestMoveFolderSrc.docx").await?;
+    context
+        .upload_file(
+            local_file.clone(),
+            remote_data_folder.clone() + "/TestMoveFolderSrc/TestMoveFolderSrc.docx",
+        )
+        .await?;
 
     let request = MoveFolderRequest::new(
         (base_test_out_path.clone() + "/TestMoveFolderDest_" + &create_random_guid()).into(),
-        (remote_data_folder.clone() + "/TestMoveFolderSrc").into()
+        (remote_data_folder.clone() + "/TestMoveFolderSrc").into(),
     );
 
     context.api().move_folder(request).await?;

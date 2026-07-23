@@ -42,19 +42,26 @@ async fn section_get_section() -> TestResult<()> {
     let local_file = "Common/test_multi_pages.docx".to_owned();
     let remote_file_name = "TestGetSection.docx".to_owned();
 
-    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
+    context
+        .upload_file(
+            local_file.clone(),
+            remote_data_folder.clone() + "/" + &remote_file_name,
+        )
+        .await?;
 
-    let request = GetSectionRequest::new(
-        (remote_file_name.clone()).into(),
-        (0).into()
-    ).with_folder((remote_data_folder.clone()).into());
+    let request = GetSectionRequest::new((remote_file_name.clone()).into(), (0).into())
+        .with_folder((remote_data_folder.clone()).into());
 
     let result = context.api().get_section(request).await?;
     let result_json = serialize_result(&result)?;
     assert_not_null(&result_json, "Section")?;
     assert_not_null(&result_json, "Section.ChildNodes")?;
     assert_length(&result_json, "Section.ChildNodes", 13)?;
-    assert_string(&result_json, "Section.ChildNodes[0].NodeId", "0.3.0".to_owned())?;
+    assert_string(
+        &result_json,
+        "Section.ChildNodes[0].NodeId",
+        "0.3.0".to_owned(),
+    )?;
     Ok(())
 }
 
@@ -68,10 +75,7 @@ async fn section_get_section_online() -> TestResult<()> {
 
     let request_document = context.load_binary_file(local_file.clone()).await?;
 
-    let request = GetSectionOnlineRequest::new(
-        (request_document).into(),
-        (0).into()
-    );
+    let request = GetSectionOnlineRequest::new((request_document).into(), (0).into());
 
     context.api().get_section_online(request).await?;
     Ok(())
@@ -87,18 +91,26 @@ async fn section_get_sections() -> TestResult<()> {
     let local_file = "Common/test_multi_pages.docx".to_owned();
     let remote_file_name = "TestGetSections.docx".to_owned();
 
-    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
+    context
+        .upload_file(
+            local_file.clone(),
+            remote_data_folder.clone() + "/" + &remote_file_name,
+        )
+        .await?;
 
-    let request = GetSectionsRequest::new(
-        (remote_file_name.clone()).into()
-    ).with_folder((remote_data_folder.clone()).into());
+    let request = GetSectionsRequest::new((remote_file_name.clone()).into())
+        .with_folder((remote_data_folder.clone()).into());
 
     let result = context.api().get_sections(request).await?;
     let result_json = serialize_result(&result)?;
     assert_not_null(&result_json, "Sections")?;
     assert_not_null(&result_json, "Sections.SectionLinkList")?;
     assert_length(&result_json, "Sections.SectionLinkList", 1)?;
-    assert_string(&result_json, "Sections.SectionLinkList[0].NodeId", "0".to_owned())?;
+    assert_string(
+        &result_json,
+        "Sections.SectionLinkList[0].NodeId",
+        "0".to_owned(),
+    )?;
     Ok(())
 }
 
@@ -112,9 +124,7 @@ async fn section_get_sections_online() -> TestResult<()> {
 
     let request_document = context.load_binary_file(local_file.clone()).await?;
 
-    let request = GetSectionsOnlineRequest::new(
-        (request_document).into()
-    );
+    let request = GetSectionsOnlineRequest::new((request_document).into());
 
     context.api().get_sections_online(request).await?;
     Ok(())
@@ -130,12 +140,15 @@ async fn section_delete_section() -> TestResult<()> {
     let local_file = "Common/test_multi_pages.docx".to_owned();
     let remote_file_name = "TestDeleteSection.docx".to_owned();
 
-    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
+    context
+        .upload_file(
+            local_file.clone(),
+            remote_data_folder.clone() + "/" + &remote_file_name,
+        )
+        .await?;
 
-    let request = DeleteSectionRequest::new(
-        (remote_file_name.clone()).into(),
-        (0).into()
-    ).with_folder((remote_data_folder.clone()).into());
+    let request = DeleteSectionRequest::new((remote_file_name.clone()).into(), (0).into())
+        .with_folder((remote_data_folder.clone()).into());
 
     context.api().delete_section(request).await?;
     Ok(())
@@ -151,10 +164,7 @@ async fn section_delete_section_online() -> TestResult<()> {
 
     let request_document = context.load_binary_file(local_file.clone()).await?;
 
-    let request = DeleteSectionOnlineRequest::new(
-        (request_document).into(),
-        (0).into()
-    );
+    let request = DeleteSectionOnlineRequest::new((request_document).into(), (0).into());
 
     context.api().delete_section_online(request).await?;
     Ok(())
@@ -169,12 +179,15 @@ async fn section_merge_with_next() -> TestResult<()> {
     let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentElements/Section";
     let remote_file_name = "TestMergeWithNext.docx".to_owned();
 
-    context.upload_file("DocumentElements/Sections/Source.docx".to_owned(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
+    context
+        .upload_file(
+            "DocumentElements/Sections/Source.docx".to_owned(),
+            remote_data_folder.clone() + "/" + &remote_file_name,
+        )
+        .await?;
 
-    let request = MergeWithNextRequest::new(
-        (remote_file_name.clone()).into(),
-        (0).into()
-    ).with_folder((remote_data_folder.clone()).into());
+    let request = MergeWithNextRequest::new((remote_file_name.clone()).into(), (0).into())
+        .with_folder((remote_data_folder.clone()).into());
 
     context.api().merge_with_next(request).await?;
     Ok(())
@@ -187,12 +200,11 @@ async fn section_merge_with_next_online() -> TestResult<()> {
     let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
     let base_test_out_path = context.base_test_out_path().to_owned();
 
-    let request_document = context.load_binary_file("DocumentElements/Sections/Source.docx".to_owned()).await?;
+    let request_document = context
+        .load_binary_file("DocumentElements/Sections/Source.docx".to_owned())
+        .await?;
 
-    let request = MergeWithNextOnlineRequest::new(
-        (request_document).into(),
-        (0).into()
-    );
+    let request = MergeWithNextOnlineRequest::new((request_document).into(), (0).into());
 
     context.api().merge_with_next_online(request).await?;
     Ok(())
@@ -208,12 +220,15 @@ async fn section_insert_section() -> TestResult<()> {
     let local_file = "Common/test_multi_pages.docx".to_owned();
     let remote_file_name = "TestInsertSection.docx".to_owned();
 
-    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
+    context
+        .upload_file(
+            local_file.clone(),
+            remote_data_folder.clone() + "/" + &remote_file_name,
+        )
+        .await?;
 
-    let request = InsertSectionRequest::new(
-        (remote_file_name.clone()).into(),
-        (0).into()
-    ).with_folder((remote_data_folder.clone()).into());
+    let request = InsertSectionRequest::new((remote_file_name.clone()).into(), (0).into())
+        .with_folder((remote_data_folder.clone()).into());
 
     context.api().insert_section(request).await?;
     Ok(())
@@ -229,10 +244,7 @@ async fn section_insert_section_online() -> TestResult<()> {
 
     let request_document = context.load_binary_file(local_file.clone()).await?;
 
-    let request = InsertSectionOnlineRequest::new(
-        (request_document).into(),
-        (0).into()
-    );
+    let request = InsertSectionOnlineRequest::new((request_document).into(), (0).into());
 
     context.api().insert_section_online(request).await?;
     Ok(())
@@ -247,13 +259,20 @@ async fn section_link_header_footers_to_previous() -> TestResult<()> {
     let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentElements/Section";
     let remote_file_name = "TestLinkHeaderFootersToPrevious.docx".to_owned();
 
-    context.upload_file("DocumentElements/Sections/Source.docx".to_owned(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
+    context
+        .upload_file(
+            "DocumentElements/Sections/Source.docx".to_owned(),
+            remote_data_folder.clone() + "/" + &remote_file_name,
+        )
+        .await?;
 
-    let request = LinkHeaderFootersToPreviousRequest::new(
-        (remote_file_name.clone()).into(),
-        (1).into()
-    ).with_folder((remote_data_folder.clone()).into());
+    let request =
+        LinkHeaderFootersToPreviousRequest::new((remote_file_name.clone()).into(), (1).into())
+            .with_folder((remote_data_folder.clone()).into());
 
-    context.api().link_header_footers_to_previous(request).await?;
+    context
+        .api()
+        .link_header_footers_to_previous(request)
+        .await?;
     Ok(())
 }

@@ -42,14 +42,18 @@ async fn compatibility_optimize_document() -> TestResult<()> {
     let local_file = "Common/test_multi_pages.docx".to_owned();
     let remote_file_name = "TestOptimizeDocument.docx".to_owned();
 
-    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
+    context
+        .upload_file(
+            local_file.clone(),
+            remote_data_folder.clone() + "/" + &remote_file_name,
+        )
+        .await?;
     let mut request_options = OptimizationOptions::default();
     request_options.ms_word_version = Some((OptimizationOptionsMsWordVersionEnum::Word2002).into());
 
-    let request = OptimizeDocumentRequest::new(
-        (remote_file_name.clone()).into(),
-        (request_options).into()
-    ).with_folder((remote_data_folder.clone()).into());
+    let request =
+        OptimizeDocumentRequest::new((remote_file_name.clone()).into(), (request_options).into())
+            .with_folder((remote_data_folder.clone()).into());
 
     context.api().optimize_document(request).await?;
     Ok(())
@@ -67,10 +71,8 @@ async fn compatibility_optimize_document_online() -> TestResult<()> {
     let mut request_options = OptimizationOptions::default();
     request_options.ms_word_version = Some((OptimizationOptionsMsWordVersionEnum::Word2002).into());
 
-    let request = OptimizeDocumentOnlineRequest::new(
-        (request_document).into(),
-        (request_options).into()
-    );
+    let request =
+        OptimizeDocumentOnlineRequest::new((request_document).into(), (request_options).into());
 
     context.api().optimize_document_online(request).await?;
     Ok(())

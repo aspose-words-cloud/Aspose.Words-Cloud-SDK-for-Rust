@@ -89,23 +89,38 @@ async fn batch_with_intermediate_results() -> TestResult<()> {
         .await?;
     ensure(result.len() == 5, "batch response must contain five parts")?;
     ensure(
-        result.first().and_then(BatchResult::downcast_ref::<ParagraphLinkCollectionResponse>).is_some(),
+        result
+            .first()
+            .and_then(BatchResult::downcast_ref::<ParagraphLinkCollectionResponse>)
+            .is_some(),
         "GetParagraphs batch result has an unexpected type",
     )?;
     ensure(
-        result.get(1).and_then(BatchResult::downcast_ref::<ParagraphResponse>).is_some(),
+        result
+            .get(1)
+            .and_then(BatchResult::downcast_ref::<ParagraphResponse>)
+            .is_some(),
         "GetParagraph batch result has an unexpected type",
     )?;
     ensure(
-        result.get(2).and_then(BatchResult::downcast_ref::<ParagraphResponse>).is_some(),
+        result
+            .get(2)
+            .and_then(BatchResult::downcast_ref::<ParagraphResponse>)
+            .is_some(),
         "InsertParagraph batch result has an unexpected type",
     )?;
     ensure(
-        result.get(3).and_then(BatchResult::downcast_ref::<()>).is_some(),
+        result
+            .get(3)
+            .and_then(BatchResult::downcast_ref::<()>)
+            .is_some(),
         "DeleteParagraph batch result has an unexpected type",
     )?;
     ensure(
-        result.get(4).and_then(BatchResult::downcast_ref::<Vec<u8>>).is_some(),
+        result
+            .get(4)
+            .and_then(BatchResult::downcast_ref::<Vec<u8>>)
+            .is_some(),
         "BuildReportOnline batch result has an unexpected type",
     )?;
     Ok(())
@@ -155,7 +170,10 @@ async fn batch_without_intermediate_results() -> TestResult<()> {
         .api()
         .batch(vec![request1, request2, request3], false)
         .await?;
-    ensure(result.len() == 1, "batch response must contain one final part")?;
+    ensure(
+        result.len() == 1,
+        "batch response must contain one final part",
+    )?;
     ensure(
         result
             .first()

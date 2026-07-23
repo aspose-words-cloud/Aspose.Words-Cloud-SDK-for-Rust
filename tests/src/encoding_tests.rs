@@ -37,8 +37,7 @@ async fn url_encoding() -> TestResult<()> {
     context
         .upload_file(format!("Common/{local_name}"), full_name)
         .await?;
-    let request = GetSectionRequest::new(remote_name.to_owned(), 0)
-        .with_folder(data_folder);
+    let request = GetSectionRequest::new(remote_name.to_owned(), 0).with_folder(data_folder);
     let _result = context.api().get_section(request).await?;
     Ok(())
 }

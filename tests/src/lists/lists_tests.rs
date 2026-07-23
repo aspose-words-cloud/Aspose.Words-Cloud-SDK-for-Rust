@@ -42,11 +42,15 @@ async fn lists_get_lists() -> TestResult<()> {
     let local_file = "DocumentElements/Lists/ListsGet.doc".to_owned();
     let remote_file_name = "TestGetLists.doc".to_owned();
 
-    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
+    context
+        .upload_file(
+            local_file.clone(),
+            remote_data_folder.clone() + "/" + &remote_file_name,
+        )
+        .await?;
 
-    let request = GetListsRequest::new(
-        (remote_file_name.clone()).into()
-    ).with_folder((remote_data_folder.clone()).into());
+    let request = GetListsRequest::new((remote_file_name.clone()).into())
+        .with_folder((remote_data_folder.clone()).into());
 
     let result = context.api().get_lists(request).await?;
     let result_json = serialize_result(&result)?;
@@ -67,9 +71,7 @@ async fn lists_get_lists_online() -> TestResult<()> {
 
     let request_document = context.load_binary_file(local_file.clone()).await?;
 
-    let request = GetListsOnlineRequest::new(
-        (request_document).into()
-    );
+    let request = GetListsOnlineRequest::new((request_document).into());
 
     context.api().get_lists_online(request).await?;
     Ok(())
@@ -85,12 +87,15 @@ async fn lists_get_list() -> TestResult<()> {
     let local_file = "DocumentElements/Lists/ListsGet.doc".to_owned();
     let remote_file_name = "TestGetList.doc".to_owned();
 
-    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
+    context
+        .upload_file(
+            local_file.clone(),
+            remote_data_folder.clone() + "/" + &remote_file_name,
+        )
+        .await?;
 
-    let request = GetListRequest::new(
-        (remote_file_name.clone()).into(),
-        (1).into()
-    ).with_folder((remote_data_folder.clone()).into());
+    let request = GetListRequest::new((remote_file_name.clone()).into(), (1).into())
+        .with_folder((remote_data_folder.clone()).into());
 
     let result = context.api().get_list(request).await?;
     let result_json = serialize_result(&result)?;
@@ -109,10 +114,7 @@ async fn lists_get_list_online() -> TestResult<()> {
 
     let request_document = context.load_binary_file(local_file.clone()).await?;
 
-    let request = GetListOnlineRequest::new(
-        (request_document).into(),
-        (1).into()
-    );
+    let request = GetListOnlineRequest::new((request_document).into(), (1).into());
 
     context.api().get_list_online(request).await?;
     Ok(())
@@ -128,15 +130,21 @@ async fn lists_update_list() -> TestResult<()> {
     let local_file = "DocumentElements/Lists/ListsGet.doc".to_owned();
     let remote_file_name = "TestUpdateList.doc".to_owned();
 
-    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
+    context
+        .upload_file(
+            local_file.clone(),
+            remote_data_folder.clone() + "/" + &remote_file_name,
+        )
+        .await?;
     let mut request_list_update = ListUpdate::default();
     request_list_update.is_restart_at_each_section = Some((true).into());
 
     let request = UpdateListRequest::new(
         (remote_file_name.clone()).into(),
         (1).into(),
-        (request_list_update).into()
-    ).with_folder((remote_data_folder.clone()).into());
+        (request_list_update).into(),
+    )
+    .with_folder((remote_data_folder.clone()).into());
 
     context.api().update_list(request).await?;
     Ok(())
@@ -157,7 +165,7 @@ async fn lists_update_list_online() -> TestResult<()> {
     let request = UpdateListOnlineRequest::new(
         (request_document).into(),
         (1).into(),
-        (request_list_update).into()
+        (request_list_update).into(),
     );
 
     let result = context.api().update_list_online(request).await?;
@@ -178,7 +186,12 @@ async fn lists_update_list_level() -> TestResult<()> {
     let local_file = "DocumentElements/Lists/ListsGet.doc".to_owned();
     let remote_file_name = "TestUpdateListLevel.doc".to_owned();
 
-    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
+    context
+        .upload_file(
+            local_file.clone(),
+            remote_data_folder.clone() + "/" + &remote_file_name,
+        )
+        .await?;
     let mut request_list_update = ListLevelUpdate::default();
     request_list_update.alignment = Some((ListLevelUpdateAlignmentEnum::Right).into());
 
@@ -186,8 +199,9 @@ async fn lists_update_list_level() -> TestResult<()> {
         (remote_file_name.clone()).into(),
         (1).into(),
         (1).into(),
-        (request_list_update).into()
-    ).with_folder((remote_data_folder.clone()).into());
+        (request_list_update).into(),
+    )
+    .with_folder((remote_data_folder.clone()).into());
 
     context.api().update_list_level(request).await?;
     Ok(())
@@ -209,7 +223,7 @@ async fn lists_update_list_level_online() -> TestResult<()> {
         (request_document).into(),
         (1).into(),
         (request_list_update).into(),
-        (1).into()
+        (1).into(),
     );
 
     let result = context.api().update_list_level_online(request).await?;
@@ -232,14 +246,20 @@ async fn lists_insert_list() -> TestResult<()> {
     let local_file = "DocumentElements/Lists/ListsGet.doc".to_owned();
     let remote_file_name = "TestInsertList.doc".to_owned();
 
-    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
+    context
+        .upload_file(
+            local_file.clone(),
+            remote_data_folder.clone() + "/" + &remote_file_name,
+        )
+        .await?;
     let mut request_list_insert = ListInsert::default();
     request_list_insert.template = Some((ListInsertTemplateEnum::OutlineLegal).into());
 
     let request = InsertListRequest::new(
         (remote_file_name.clone()).into(),
-        (request_list_insert).into()
-    ).with_folder((remote_data_folder.clone()).into());
+        (request_list_insert).into(),
+    )
+    .with_folder((remote_data_folder.clone()).into());
 
     let result = context.api().insert_list(request).await?;
     let result_json = serialize_result(&result)?;
@@ -260,10 +280,8 @@ async fn lists_insert_list_online() -> TestResult<()> {
     let mut request_list_insert = ListInsert::default();
     request_list_insert.template = Some((ListInsertTemplateEnum::OutlineLegal).into());
 
-    let request = InsertListOnlineRequest::new(
-        (request_document).into(),
-        (request_list_insert).into()
-    );
+    let request =
+        InsertListOnlineRequest::new((request_document).into(), (request_list_insert).into());
 
     context.api().insert_list_online(request).await?;
     Ok(())

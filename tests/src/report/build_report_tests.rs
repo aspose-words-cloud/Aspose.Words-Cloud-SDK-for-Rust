@@ -42,15 +42,18 @@ async fn build_report_build_report_online() -> TestResult<()> {
     let local_document_file = "ReportTemplate.docx".to_owned();
     let local_data_file = read_text_file(reporting_folder.clone() + "/ReportData.json").await?;
 
-    let request_template = context.load_binary_file(reporting_folder.clone() + "/" + &local_document_file).await?;
+    let request_template = context
+        .load_binary_file(reporting_folder.clone() + "/" + &local_document_file)
+        .await?;
     let mut request_report_engine_settings = ReportEngineSettings::default();
-    request_report_engine_settings.data_source_type = Some((ReportEngineSettingsDataSourceTypeEnum::Json).into());
+    request_report_engine_settings.data_source_type =
+        Some((ReportEngineSettingsDataSourceTypeEnum::Json).into());
     request_report_engine_settings.data_source_name = Some(("persons".to_owned()).into());
 
     let request = BuildReportOnlineRequest::new(
         (request_template).into(),
         (local_data_file.clone()).into(),
-        (request_report_engine_settings).into()
+        (request_report_engine_settings).into(),
     );
 
     context.api().build_report_online(request).await?;
@@ -69,24 +72,36 @@ async fn build_report_build_report() -> TestResult<()> {
     let remote_file_name = "TestBuildReport.docx".to_owned();
     let local_data_file = read_text_file(reporting_folder.clone() + "/ReportData.json").await?;
 
-    context.upload_file(reporting_folder.clone() + "/" + &local_document_file, remote_data_folder.clone() + "/" + &remote_file_name).await?;
+    context
+        .upload_file(
+            reporting_folder.clone() + "/" + &local_document_file,
+            remote_data_folder.clone() + "/" + &remote_file_name,
+        )
+        .await?;
     let request_report_engine_settings_report_build_options = vec![
-    ReportBuildOptionsEnum::AllowMissingMembers,
-    ReportBuildOptionsEnum::RemoveEmptyParagraphs
+        ReportBuildOptionsEnum::AllowMissingMembers,
+        ReportBuildOptionsEnum::RemoveEmptyParagraphs,
     ];
     let mut request_report_engine_settings = ReportEngineSettings::default();
-    request_report_engine_settings.data_source_type = Some((ReportEngineSettingsDataSourceTypeEnum::Json).into());
-    request_report_engine_settings.report_build_options = Some((request_report_engine_settings_report_build_options).into());
+    request_report_engine_settings.data_source_type =
+        Some((ReportEngineSettingsDataSourceTypeEnum::Json).into());
+    request_report_engine_settings.report_build_options =
+        Some((request_report_engine_settings_report_build_options).into());
 
     let request = BuildReportRequest::new(
         (remote_file_name.clone()).into(),
         (local_data_file.clone()).into(),
-        (request_report_engine_settings).into()
-    ).with_folder((remote_data_folder.clone()).into());
+        (request_report_engine_settings).into(),
+    )
+    .with_folder((remote_data_folder.clone()).into());
 
     let result = context.api().build_report(request).await?;
     let result_json = serialize_result(&result)?;
     assert_not_null(&result_json, "Document")?;
-    assert_string(&result_json, "Document.FileName", "TestBuildReport.docx".to_owned())?;
+    assert_string(
+        &result_json,
+        "Document.FileName",
+        "TestBuildReport.docx".to_owned(),
+    )?;
     Ok(())
 }

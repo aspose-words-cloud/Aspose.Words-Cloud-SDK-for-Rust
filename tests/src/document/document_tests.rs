@@ -42,16 +42,24 @@ async fn document_get_document() -> TestResult<()> {
     let local_file = "Common/test_multi_pages.docx".to_owned();
     let remote_file_name = "TestGetDocument.docx".to_owned();
 
-    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
+    context
+        .upload_file(
+            local_file.clone(),
+            remote_data_folder.clone() + "/" + &remote_file_name,
+        )
+        .await?;
 
-    let request = GetDocumentRequest::new(
-        (remote_file_name.clone()).into()
-    ).with_folder((remote_data_folder.clone()).into());
+    let request = GetDocumentRequest::new((remote_file_name.clone()).into())
+        .with_folder((remote_data_folder.clone()).into());
 
     let result = context.api().get_document(request).await?;
     let result_json = serialize_result(&result)?;
     assert_not_null(&result_json, "Document")?;
-    assert_string(&result_json, "Document.FileName", "TestGetDocument.docx".to_owned())?;
+    assert_string(
+        &result_json,
+        "Document.FileName",
+        "TestGetDocument.docx".to_owned(),
+    )?;
     Ok(())
 }
 
@@ -64,14 +72,16 @@ async fn document_create_document() -> TestResult<()> {
     let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentActions/Document";
     let remote_file_name = "TestCreateDocument.doc".to_owned();
 
-
-    let request = CreateDocumentRequest::new(
-        (remote_file_name.clone()).into()
-    ).with_folder((remote_data_folder.clone()).into());
+    let request = CreateDocumentRequest::new((remote_file_name.clone()).into())
+        .with_folder((remote_data_folder.clone()).into());
 
     let result = context.api().create_document(request).await?;
     let result_json = serialize_result(&result)?;
     assert_not_null(&result_json, "Document")?;
-    assert_string(&result_json, "Document.FileName", "TestCreateDocument.doc".to_owned())?;
+    assert_string(
+        &result_json,
+        "Document.FileName",
+        "TestCreateDocument.doc".to_owned(),
+    )?;
     Ok(())
 }

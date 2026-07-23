@@ -42,11 +42,15 @@ async fn macros_delete_macros() -> TestResult<()> {
     let local_file = "Common/test_multi_pages.docx".to_owned();
     let remote_file_name = "TestDeleteDocumentMacros.docx".to_owned();
 
-    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
+    context
+        .upload_file(
+            local_file.clone(),
+            remote_data_folder.clone() + "/" + &remote_file_name,
+        )
+        .await?;
 
-    let request = DeleteMacrosRequest::new(
-        (remote_file_name.clone()).into()
-    ).with_folder((remote_data_folder.clone()).into());
+    let request = DeleteMacrosRequest::new((remote_file_name.clone()).into())
+        .with_folder((remote_data_folder.clone()).into());
 
     context.api().delete_macros(request).await?;
     Ok(())
@@ -62,9 +66,7 @@ async fn macros_delete_macros_online() -> TestResult<()> {
 
     let request_document = context.load_binary_file(local_file.clone()).await?;
 
-    let request = DeleteMacrosOnlineRequest::new(
-        (request_document).into()
-    );
+    let request = DeleteMacrosOnlineRequest::new((request_document).into());
 
     context.api().delete_macros_online(request).await?;
     Ok(())

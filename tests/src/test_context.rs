@@ -119,7 +119,10 @@ impl TestContext {
             "upload response contains errors",
         )?;
         ensure(
-            result.r#uploaded.as_ref().is_some_and(|files| files.len() == 1),
+            result
+                .r#uploaded
+                .as_ref()
+                .is_some_and(|files| files.len() == 1),
             "upload response does not contain exactly one file",
         )
     }
@@ -171,11 +174,7 @@ pub fn assert_length(root: &Value, path: &str, expected: usize) -> TestResult<()
     )
 }
 
-pub fn assert_string(
-    root: &Value,
-    path: &str,
-    expected: impl AsRef<str>,
-) -> TestResult<()> {
+pub fn assert_string(root: &Value, path: &str, expected: impl AsRef<str>) -> TestResult<()> {
     let expected = expected.as_ref();
     ensure(
         json_path(root, path).and_then(Value::as_str) == Some(expected),

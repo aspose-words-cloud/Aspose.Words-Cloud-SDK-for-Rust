@@ -1,3 +1,3 @@
-/target/
+target/
 /settings/servercreds.json
 Cargo.lock
