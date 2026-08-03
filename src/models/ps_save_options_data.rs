@@ -35,12 +35,11 @@ use super::*;
 pub struct PsSaveOptionsData {
     #[serde(flatten)]
     pub parent: FixedPageSaveOptionsData,
-    /// Gets or sets a value indicating whether the document should be saved using a booklet printing layout.
-    #[serde(
-        rename = "UseBookFoldPrintingSettings",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub use_book_fold_printing_settings: Option<bool>,
+        /// Gets or sets a value indicating whether the document should be saved using a booklet printing layout.
+        #[serde(rename = "UseBookFoldPrintingSettings", skip_serializing_if = "Option::is_none")]
+        pub use_book_fold_printing_settings: Option<bool>,
+
+
 }
 
 impl Default for PsSaveOptionsData {
@@ -50,6 +49,7 @@ impl Default for PsSaveOptionsData {
         Self {
             parent,
             use_book_fold_printing_settings: None,
+
         }
     }
 }
@@ -82,3 +82,4 @@ impl Model for PsSaveOptionsData {
         self
     }
 }
+

@@ -35,23 +35,28 @@ use super::*;
 pub struct OdtSaveOptionsData {
     #[serde(flatten)]
     pub parent: SaveOptionsData,
-    /// Gets or sets a value indicating whether export should correspond to ODT specification 1.1 strictly.
-    #[serde(rename = "IsStrictSchema11", skip_serializing_if = "Option::is_none")]
-    pub is_strict_schema11: Option<bool>,
+        /// Gets or sets a value indicating whether export should correspond to ODT specification 1.1 strictly.
+        #[serde(rename = "IsStrictSchema11", skip_serializing_if = "Option::is_none")]
+        pub is_strict_schema11: Option<bool>,
 
-    /// Gets or sets the units of measure to apply to document content. The default value is Aspose.Words.Saving.OdtSaveMeasureUnit.Centimeters.
-    /// Open Office uses centimeters when specifying lengths, widths and other measurable formatting and content properties in documents whereas MS Office uses inches.
-    #[serde(rename = "MeasureUnit", skip_serializing_if = "Option::is_none")]
-    pub measure_unit: Option<OdtSaveOptionsDataMeasureUnitEnum>,
 
-    /// Gets or sets the password to encrypt document.
-    /// In order to save document without encryption this property should be null or empty string.
-    #[serde(rename = "Password", skip_serializing_if = "Option::is_none")]
-    pub password: Option<String>,
+        /// Gets or sets the units of measure to apply to document content. The default value is Aspose.Words.Saving.OdtSaveMeasureUnit.Centimeters.
+            /// Open Office uses centimeters when specifying lengths, widths and other measurable formatting and content properties in documents whereas MS Office uses inches.
+        #[serde(rename = "MeasureUnit", skip_serializing_if = "Option::is_none")]
+        pub measure_unit: Option<OdtSaveOptionsDataMeasureUnitEnum>,
 
-    /// Gets or sets a value indicating whether to use pretty formats output.
-    #[serde(rename = "PrettyFormat", skip_serializing_if = "Option::is_none")]
-    pub pretty_format: Option<bool>,
+
+        /// Gets or sets the password to encrypt document.
+            /// In order to save document without encryption this property should be null or empty string.
+        #[serde(rename = "Password", skip_serializing_if = "Option::is_none")]
+        pub password: Option<String>,
+
+
+        /// Gets or sets a value indicating whether to use pretty formats output.
+        #[serde(rename = "PrettyFormat", skip_serializing_if = "Option::is_none")]
+        pub pretty_format: Option<bool>,
+
+
 }
 
 impl Default for OdtSaveOptionsData {
@@ -64,6 +69,7 @@ impl Default for OdtSaveOptionsData {
             measure_unit: None,
             password: None,
             pretty_format: None,
+
         }
     }
 }
@@ -102,7 +108,7 @@ impl Model for OdtSaveOptionsData {
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
 pub enum OdtSaveOptionsDataMeasureUnitEnum {
     #[serde(rename = "Centimeters")]
-    Centimeters,
+        Centimeters,
     #[serde(rename = "Inches")]
-    Inches,
+        Inches,
 }

@@ -35,41 +35,45 @@ use super::*;
 pub struct FixedPageSaveOptionsData {
     #[serde(flatten)]
     pub parent: SaveOptionsData,
-    /// Gets or sets the value determining how colors are rendered.
-    /// { Normal | Grayscale}.
-    /// The default value is Normal.
-    /// This property is used when the document is exported to fixed page formats.
-    #[serde(rename = "ColorMode", skip_serializing_if = "Option::is_none")]
-    pub color_mode: Option<FixedPageSaveOptionsDataColorModeEnum>,
+        /// Gets or sets the value determining how colors are rendered.
+            /// { Normal | Grayscale}.
+            /// The default value is Normal.
+            /// This property is used when the document is exported to fixed page formats.
+        #[serde(rename = "ColorMode", skip_serializing_if = "Option::is_none")]
+        pub color_mode: Option<FixedPageSaveOptionsDataColorModeEnum>,
 
-    /// Gets or sets the quality of the JPEG images inside PDF document.
-    #[serde(rename = "JpegQuality", skip_serializing_if = "Option::is_none")]
-    pub jpeg_quality: Option<i32>,
 
-    /// Gets or sets the metafile rendering options.
-    #[serde(
-        rename = "MetafileRenderingOptions",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub metafile_rendering_options: Option<MetafileRenderingOptionsData>,
+        /// Gets or sets the quality of the JPEG images inside PDF document.
+        #[serde(rename = "JpegQuality", skip_serializing_if = "Option::is_none")]
+        pub jpeg_quality: Option<i32>,
 
-    /// Gets or sets the symbol set, that is used to represent numbers while rendering to fixed page formats.
-    #[serde(rename = "NumeralFormat", skip_serializing_if = "Option::is_none")]
-    pub numeral_format: Option<FixedPageSaveOptionsDataNumeralFormatEnum>,
 
-    /// Gets or sets a value indicating whether it is required to optimize output of XPS.
-    /// If this flag is set redundant nested canvases and empty canvases are removed, also neighbor glyphs with the same formatting are concatenated.
-    /// Note: The accuracy of the content display may be affected if this property is set to true.. The default value is false.
-    #[serde(rename = "OptimizeOutput", skip_serializing_if = "Option::is_none")]
-    pub optimize_output: Option<bool>,
+        /// Gets or sets the metafile rendering options.
+        #[serde(rename = "MetafileRenderingOptions", skip_serializing_if = "Option::is_none")]
+        pub metafile_rendering_options: Option<MetafileRenderingOptionsData>,
 
-    /// Gets or sets the number of pages to render.
-    #[serde(rename = "PageCount", skip_serializing_if = "Option::is_none")]
-    pub page_count: Option<i32>,
 
-    /// Gets or sets the 0-based index of the first page to render.
-    #[serde(rename = "PageIndex", skip_serializing_if = "Option::is_none")]
-    pub page_index: Option<i32>,
+        /// Gets or sets the symbol set, that is used to represent numbers while rendering to fixed page formats.
+        #[serde(rename = "NumeralFormat", skip_serializing_if = "Option::is_none")]
+        pub numeral_format: Option<FixedPageSaveOptionsDataNumeralFormatEnum>,
+
+
+        /// Gets or sets a value indicating whether it is required to optimize output of XPS.
+            /// If this flag is set redundant nested canvases and empty canvases are removed, also neighbor glyphs with the same formatting are concatenated.
+            /// Note: The accuracy of the content display may be affected if this property is set to true.. The default value is false.
+        #[serde(rename = "OptimizeOutput", skip_serializing_if = "Option::is_none")]
+        pub optimize_output: Option<bool>,
+
+
+        /// Gets or sets the number of pages to render.
+        #[serde(rename = "PageCount", skip_serializing_if = "Option::is_none")]
+        pub page_count: Option<i32>,
+
+
+        /// Gets or sets the 0-based index of the first page to render.
+        #[serde(rename = "PageIndex", skip_serializing_if = "Option::is_none")]
+        pub page_index: Option<i32>,
+
 }
 
 impl Default for FixedPageSaveOptionsData {
@@ -106,8 +110,11 @@ impl Model for FixedPageSaveOptionsData {
     fn validate(&self) -> SdkResult<()> {
         self.parent.validate()?;
         if let Some(value) = &self.metafile_rendering_options {
-            value.validate()?;
+        value.validate()?;
         }
+
+
+
 
         Ok(())
     }
@@ -128,22 +135,22 @@ impl Model for FixedPageSaveOptionsData {
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
 pub enum FixedPageSaveOptionsDataColorModeEnum {
     #[serde(rename = "Normal")]
-    Normal,
+        Normal,
     #[serde(rename = "Grayscale")]
-    Grayscale,
+        Grayscale,
 }
 
 /// Gets or sets the symbol set, that is used to represent numbers while rendering to fixed page formats.
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
 pub enum FixedPageSaveOptionsDataNumeralFormatEnum {
     #[serde(rename = "European")]
-    European,
+        European,
     #[serde(rename = "ArabicIndic")]
-    ArabicIndic,
+        ArabicIndic,
     #[serde(rename = "EasternArabicIndic")]
-    EasternArabicIndic,
+        EasternArabicIndic,
     #[serde(rename = "Context")]
-    Context,
+        Context,
     #[serde(rename = "System")]
-    System,
+        System,
 }

@@ -35,9 +35,10 @@ use super::*;
 pub struct CompressResponse {
     #[serde(flatten)]
     pub parent: WordsResponse,
-    /// Gets or sets the destination document info.
-    #[serde(rename = "Document", skip_serializing_if = "Option::is_none")]
-    pub document: Option<Document>,
+        /// Gets or sets the destination document info.
+        #[serde(rename = "Document", skip_serializing_if = "Option::is_none")]
+        pub document: Option<Document>,
+
 }
 
 impl Default for CompressResponse {
@@ -68,7 +69,7 @@ impl Model for CompressResponse {
     fn validate(&self) -> SdkResult<()> {
         self.parent.validate()?;
         if let Some(value) = &self.document {
-            value.validate()?;
+        value.validate()?;
         }
         Ok(())
     }
@@ -81,3 +82,4 @@ impl Model for CompressResponse {
         self
     }
 }
+

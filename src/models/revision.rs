@@ -32,26 +32,25 @@ use super::*;
 /// Revision Dto.
 #[derive(Debug, Deserialize, Serialize)]
 pub struct Revision {
-    /// Gets or sets the revision author.
-    #[serde(rename = "RevisionAuthor", skip_serializing_if = "Option::is_none")]
-    pub revision_author: Option<String>,
+        /// Gets or sets the revision author.
+        #[serde(rename = "RevisionAuthor", skip_serializing_if = "Option::is_none")]
+        pub revision_author: Option<String>,
 
-    /// Gets or sets the revision date time.
-    #[serde(
-        rename = "RevisionDateTime",
-        skip_serializing_if = "Option::is_none",
-        default,
-        deserialize_with = "deserialize_optional_date_time"
-    )]
-    pub revision_date_time: Option<chrono::DateTime<chrono::Utc>>,
 
-    /// Gets or sets the revision text.
-    #[serde(rename = "RevisionText", skip_serializing_if = "Option::is_none")]
-    pub revision_text: Option<String>,
+        /// Gets or sets the revision date time.
+        #[serde(rename = "RevisionDateTime", skip_serializing_if = "Option::is_none", default, deserialize_with = "deserialize_optional_date_time")]
+        pub revision_date_time: Option<chrono::DateTime<chrono::Utc>>,
 
-    /// Gets or sets the revision type.
-    #[serde(rename = "RevisionType", skip_serializing_if = "Option::is_none")]
-    pub revision_type: Option<String>,
+
+        /// Gets or sets the revision text.
+        #[serde(rename = "RevisionText", skip_serializing_if = "Option::is_none")]
+        pub revision_text: Option<String>,
+
+
+        /// Gets or sets the revision type.
+        #[serde(rename = "RevisionType", skip_serializing_if = "Option::is_none")]
+        pub revision_type: Option<String>,
+
 }
 
 impl Default for Revision {
@@ -75,9 +74,11 @@ impl Model for Revision {
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {}
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+    }
 
     fn as_any(&self) -> &dyn Any {
         self
     }
 }
+

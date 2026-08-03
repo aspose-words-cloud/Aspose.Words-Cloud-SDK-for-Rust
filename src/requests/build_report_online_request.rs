@@ -25,13 +25,13 @@ use std::collections::HashMap;
 use async_trait::async_trait;
 use chrono::{DateTime, Utc};
 
-use super::*;
 use crate::models::*;
+use crate::responses::*;
 use crate::request::{
     ApiRequestData, DynamicResponse, ProgressCallback, Request, ResponseData, TypedRequest,
 };
-use crate::responses::*;
 use crate::{ApiClient, SdkResult};
+use super::*;
 
 /// Request parameters for the BuildReportOnline operation.
 pub struct BuildReportOnlineRequest {
@@ -48,11 +48,7 @@ pub struct BuildReportOnlineRequest {
 }
 
 impl BuildReportOnlineRequest {
-    pub fn new(
-        template: Vec<u8>,
-        data: String,
-        report_engine_settings: ReportEngineSettings,
-    ) -> Self {
+    pub fn new(template: Vec<u8>, data: String, report_engine_settings: ReportEngineSettings) -> Self {
         Self {
             template,
             data,
@@ -81,6 +77,7 @@ impl BuildReportOnlineRequest {
     async fn parse_response_data(response: ResponseData) -> SdkResult<Vec<u8>> {
         Ok(response.body)
     }
+
 }
 
 #[async_trait]
@@ -101,17 +98,11 @@ impl Request for BuildReportOnlineRequest {
         let mut body_parts = Vec::new();
 
         if let Some(value) = &self.document_file_name {
-            query.push(("documentFileName".to_owned(), client.query_value(value)?));
+        query.push(("documentFileName".to_owned(), client.query_value(value)?));
         }
         client.add_binary_part(&mut body_parts, "Template", &self.template);
         client.add_text_part(&mut body_parts, "Data", &self.data);
-        client
-            .add_model_part(
-                &mut body_parts,
-                "ReportEngineSettings",
-                &self.report_engine_settings,
-            )
-            .await?;
+        client.add_model_part(&mut body_parts, "ReportEngineSettings", &self.report_engine_settings).await?;
 
         let url = client.build_url(&path, &query)?;
         let body = client.request_body_from_parts(&mut headers, body_parts);

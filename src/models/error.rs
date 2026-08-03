@@ -32,21 +32,25 @@ use super::*;
 /// Error.
 #[derive(Debug, Deserialize, Serialize)]
 pub struct Error {
-    /// Gets or sets Code.
-    #[serde(rename = "Code", skip_serializing_if = "Option::is_none")]
-    pub code: Option<String>,
+        /// Gets or sets Code.
+        #[serde(rename = "Code", skip_serializing_if = "Option::is_none")]
+        pub code: Option<String>,
 
-    /// Gets or sets Description.
-    #[serde(rename = "Description", skip_serializing_if = "Option::is_none")]
-    pub description: Option<String>,
 
-    /// Gets or sets InnerError.
-    #[serde(rename = "InnerError", skip_serializing_if = "Option::is_none")]
-    pub inner_error: Option<Box<ApiError>>,
+        /// Gets or sets Description.
+        #[serde(rename = "Description", skip_serializing_if = "Option::is_none")]
+        pub description: Option<String>,
 
-    /// Gets or sets Message.
-    #[serde(rename = "Message", skip_serializing_if = "Option::is_none")]
-    pub message: Option<String>,
+
+        /// Gets or sets InnerError.
+        #[serde(rename = "InnerError", skip_serializing_if = "Option::is_none")]
+        pub inner_error: Option<Box<ApiError>>,
+
+
+        /// Gets or sets Message.
+        #[serde(rename = "Message", skip_serializing_if = "Option::is_none")]
+        pub message: Option<String>,
+
 }
 
 impl Default for Error {
@@ -63,15 +67,17 @@ impl Default for Error {
 impl Model for Error {
     fn validate(&self) -> SdkResult<()> {
         if let Some(value) = &self.inner_error {
-            value.validate()?;
+        value.validate()?;
         }
 
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {}
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+    }
 
     fn as_any(&self) -> &dyn Any {
         self
     }
 }
+

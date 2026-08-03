@@ -32,22 +32,20 @@ use super::*;
 /// DTO container with a table element.
 #[derive(Debug, Deserialize, Serialize)]
 pub struct TableInsert {
-    /// Gets or sets the number of columns. The default value is 2.
-    #[serde(rename = "ColumnsCount", skip_serializing_if = "Option::is_none")]
-    pub columns_count: Option<i32>,
+        /// Gets or sets the number of columns. The default value is 2.
+        #[serde(rename = "ColumnsCount", skip_serializing_if = "Option::is_none")]
+        pub columns_count: Option<i32>,
 
-    /// Gets or sets the position to insert the table. The table will be inserted using the specified position.
-    #[serde(
-        rename = "Position",
-        skip_serializing_if = "Option::is_none",
-        default,
-        deserialize_with = "deserialize_optional_model"
-    )]
-    pub position: Option<ModelBox>,
 
-    /// Gets or sets the number of rows. The default value is 2.
-    #[serde(rename = "RowsCount", skip_serializing_if = "Option::is_none")]
-    pub rows_count: Option<i32>,
+        /// Gets or sets the position to insert the table. The table will be inserted using the specified position.
+        #[serde(rename = "Position", skip_serializing_if = "Option::is_none", default, deserialize_with = "deserialize_optional_model")]
+        pub position: Option<ModelBox>,
+
+
+        /// Gets or sets the number of rows. The default value is 2.
+        #[serde(rename = "RowsCount", skip_serializing_if = "Option::is_none")]
+        pub rows_count: Option<i32>,
+
 }
 
 impl Default for TableInsert {
@@ -73,15 +71,17 @@ impl Model for TableInsert {
             ));
         }
         if let Some(value) = &self.position {
-            value.validate()?;
+        value.validate()?;
         }
 
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {}
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+    }
 
     fn as_any(&self) -> &dyn Any {
         self
     }
 }
+

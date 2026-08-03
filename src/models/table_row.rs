@@ -35,13 +35,15 @@ use super::*;
 pub struct TableRow {
     #[serde(flatten)]
     pub parent: NodeLink,
-    /// Gets or sets the collection of rows.
-    #[serde(rename = "TableCellList", skip_serializing_if = "Option::is_none")]
-    pub table_cell_list: Option<Vec<TableCell>>,
+        /// Gets or sets the collection of rows.
+        #[serde(rename = "TableCellList", skip_serializing_if = "Option::is_none")]
+        pub table_cell_list: Option<Vec<TableCell>>,
 
-    /// Gets or sets the formatting properties of a row.
-    #[serde(rename = "RowFormat", skip_serializing_if = "Option::is_none")]
-    pub row_format: Option<TableRowFormat>,
+
+        /// Gets or sets the formatting properties of a row.
+        #[serde(rename = "RowFormat", skip_serializing_if = "Option::is_none")]
+        pub row_format: Option<TableRowFormat>,
+
 }
 
 impl Default for TableRow {
@@ -73,12 +75,12 @@ impl Model for TableRow {
     fn validate(&self) -> SdkResult<()> {
         self.parent.validate()?;
         if let Some(values) = &self.table_cell_list {
-            for value in values {
-                value.validate()?;
-            }
+        for value in values {
+        value.validate()?;
+        }
         }
         if let Some(value) = &self.row_format {
-            value.validate()?;
+        value.validate()?;
         }
         Ok(())
     }
@@ -91,3 +93,4 @@ impl Model for TableRow {
         self
     }
 }
+

@@ -40,7 +40,9 @@ pub struct CustomXmlPartUpdate {
 impl Default for CustomXmlPartUpdate {
     fn default() -> Self {
         let mut parent = CustomXmlPart::default();
-        Self { parent }
+        Self {
+            parent,
+        }
     }
 }
 
@@ -72,3 +74,4 @@ impl Model for CustomXmlPartUpdate {
         self
     }
 }
+

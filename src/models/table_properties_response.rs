@@ -36,9 +36,10 @@ use super::*;
 pub struct TablePropertiesResponse {
     #[serde(flatten)]
     pub parent: WordsResponse,
-    /// Gets or sets the table.
-    #[serde(rename = "Properties", skip_serializing_if = "Option::is_none")]
-    pub properties: Option<TableProperties>,
+        /// Gets or sets the table.
+        #[serde(rename = "Properties", skip_serializing_if = "Option::is_none")]
+        pub properties: Option<TableProperties>,
+
 }
 
 impl Default for TablePropertiesResponse {
@@ -69,7 +70,7 @@ impl Model for TablePropertiesResponse {
     fn validate(&self) -> SdkResult<()> {
         self.parent.validate()?;
         if let Some(value) = &self.properties {
-            value.validate()?;
+        value.validate()?;
         }
         Ok(())
     }
@@ -82,3 +83,4 @@ impl Model for TablePropertiesResponse {
         self
     }
 }
+

@@ -42,15 +42,11 @@ async fn bookmark_get_bookmarks() -> TestResult<()> {
     let local_file = "Common/test_multi_pages.docx".to_owned();
     let remote_file_name = "TestGetDocumentBookmarks.docx".to_owned();
 
-    context
-        .upload_file(
-            local_file.clone(),
-            remote_data_folder.clone() + "/" + &remote_file_name,
-        )
-        .await?;
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
-    let request = GetBookmarksRequest::new((remote_file_name.clone()).into())
-        .with_folder((remote_data_folder.clone()).into());
+    let request = GetBookmarksRequest::new(
+        (remote_file_name.clone()).into()
+    ).with_folder((remote_data_folder.clone()).into());
 
     context.api().get_bookmarks(request).await?;
     Ok(())
@@ -66,7 +62,9 @@ async fn bookmark_get_bookmarks_online() -> TestResult<()> {
 
     let request_document = context.load_binary_file(local_file.clone()).await?;
 
-    let request = GetBookmarksOnlineRequest::new((request_document).into());
+    let request = GetBookmarksOnlineRequest::new(
+        (request_document).into()
+    );
 
     context.api().get_bookmarks_online(request).await?;
     Ok(())
@@ -83,18 +81,12 @@ async fn bookmark_get_bookmark_by_name() -> TestResult<()> {
     let bookmark_name = "aspose".to_owned();
     let remote_file_name = "TestGetDocumentBookmarkByName.docx".to_owned();
 
-    context
-        .upload_file(
-            local_file.clone(),
-            remote_data_folder.clone() + "/" + &remote_file_name,
-        )
-        .await?;
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
     let request = GetBookmarkByNameRequest::new(
         (remote_file_name.clone()).into(),
-        (bookmark_name.clone()).into(),
-    )
-    .with_folder((remote_data_folder.clone()).into());
+        (bookmark_name.clone()).into()
+    ).with_folder((remote_data_folder.clone()).into());
 
     context.api().get_bookmark_by_name(request).await?;
     Ok(())
@@ -113,7 +105,7 @@ async fn bookmark_get_bookmark_by_name_online() -> TestResult<()> {
 
     let request = GetBookmarkByNameOnlineRequest::new(
         (request_document).into(),
-        (bookmark_name.clone()).into(),
+        (bookmark_name.clone()).into()
     );
 
     context.api().get_bookmark_by_name_online(request).await?;
@@ -132,12 +124,7 @@ async fn bookmark_update_bookmark() -> TestResult<()> {
     let remote_file_name = "TestUpdateDocumentBookmark.docx".to_owned();
     let bookmark_text = "This will be the text for Aspose".to_owned();
 
-    context
-        .upload_file(
-            local_file.clone(),
-            remote_data_folder.clone() + "/" + &remote_file_name,
-        )
-        .await?;
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
     let mut request_bookmark_data = BookmarkData::default();
     request_bookmark_data.name = Some((bookmark_name.clone()).into());
     request_bookmark_data.text = Some((bookmark_text.clone()).into());
@@ -145,10 +132,9 @@ async fn bookmark_update_bookmark() -> TestResult<()> {
     let request = UpdateBookmarkRequest::new(
         (remote_file_name.clone()).into(),
         (bookmark_name.clone()).into(),
-        (request_bookmark_data).into(),
-    )
-    .with_folder((remote_data_folder.clone()).into())
-    .with_dest_file_name((base_test_out_path.clone() + "/" + &remote_file_name).into());
+        (request_bookmark_data).into()
+    ).with_folder((remote_data_folder.clone()).into())
+.with_dest_file_name((base_test_out_path.clone() + "/" + &remote_file_name).into());
 
     context.api().update_bookmark(request).await?;
     Ok(())
@@ -172,9 +158,8 @@ async fn bookmark_update_bookmark_online() -> TestResult<()> {
     let request = UpdateBookmarkOnlineRequest::new(
         (request_document).into(),
         (bookmark_name.clone()).into(),
-        (request_bookmark_data).into(),
-    )
-    .with_dest_file_name((base_test_out_path.clone() + "/" + &remote_file_name).into());
+        (request_bookmark_data).into()
+    ).with_dest_file_name((base_test_out_path.clone() + "/" + &remote_file_name).into());
 
     context.api().update_bookmark_online(request).await?;
     Ok(())
@@ -191,18 +176,12 @@ async fn bookmark_delete_bookmark() -> TestResult<()> {
     let bookmark_name = "aspose".to_owned();
     let remote_file_name = "TestDeleteBookmark.docx".to_owned();
 
-    context
-        .upload_file(
-            local_file.clone(),
-            remote_data_folder.clone() + "/" + &remote_file_name,
-        )
-        .await?;
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
     let request = DeleteBookmarkRequest::new(
         (remote_file_name.clone()).into(),
-        (bookmark_name.clone()).into(),
-    )
-    .with_folder((remote_data_folder.clone()).into());
+        (bookmark_name.clone()).into()
+    ).with_folder((remote_data_folder.clone()).into());
 
     context.api().delete_bookmark(request).await?;
     Ok(())
@@ -219,8 +198,10 @@ async fn bookmark_delete_bookmark_online() -> TestResult<()> {
 
     let request_document = context.load_binary_file(local_file.clone()).await?;
 
-    let request =
-        DeleteBookmarkOnlineRequest::new((request_document).into(), (bookmark_name.clone()).into());
+    let request = DeleteBookmarkOnlineRequest::new(
+        (request_document).into(),
+        (bookmark_name.clone()).into()
+    );
 
     context.api().delete_bookmark_online(request).await?;
     Ok(())
@@ -236,15 +217,11 @@ async fn bookmark_delete_bookmarks() -> TestResult<()> {
     let local_file = "Common/test_multi_pages.docx".to_owned();
     let remote_file_name = "TestDeleteBookmarks.docx".to_owned();
 
-    context
-        .upload_file(
-            local_file.clone(),
-            remote_data_folder.clone() + "/" + &remote_file_name,
-        )
-        .await?;
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
-    let request = DeleteBookmarksRequest::new((remote_file_name.clone()).into())
-        .with_folder((remote_data_folder.clone()).into());
+    let request = DeleteBookmarksRequest::new(
+        (remote_file_name.clone()).into()
+    ).with_folder((remote_data_folder.clone()).into());
 
     context.api().delete_bookmarks(request).await?;
     Ok(())
@@ -260,7 +237,9 @@ async fn bookmark_delete_bookmarks_online() -> TestResult<()> {
 
     let request_document = context.load_binary_file(local_file.clone()).await?;
 
-    let request = DeleteBookmarksOnlineRequest::new((request_document).into());
+    let request = DeleteBookmarksOnlineRequest::new(
+        (request_document).into()
+    );
 
     context.api().delete_bookmarks_online(request).await?;
     Ok(())
@@ -276,12 +255,7 @@ async fn bookmark_insert_bookmark() -> TestResult<()> {
     let local_file = "Common/test_multi_pages.docx".to_owned();
     let remote_file_name = "TestInsertBookmark.docx".to_owned();
 
-    context
-        .upload_file(
-            local_file.clone(),
-            remote_data_folder.clone() + "/" + &remote_file_name,
-        )
-        .await?;
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
     let mut request_bookmark_start_range = PositionInsideNode::default();
     request_bookmark_start_range.node_id = Some(("0.0.0.0".to_owned()).into());
     request_bookmark_start_range.offset = Some((0).into());
@@ -294,9 +268,10 @@ async fn bookmark_insert_bookmark() -> TestResult<()> {
     request_bookmark.name = Some(("new_bookmark".to_owned()).into());
     request_bookmark.text = Some(("Some text".to_owned()).into());
 
-    let request =
-        InsertBookmarkRequest::new((remote_file_name.clone()).into(), (request_bookmark).into())
-            .with_folder((remote_data_folder.clone()).into());
+    let request = InsertBookmarkRequest::new(
+        (remote_file_name.clone()).into(),
+        (request_bookmark).into()
+    ).with_folder((remote_data_folder.clone()).into());
 
     context.api().insert_bookmark(request).await?;
     Ok(())
@@ -323,8 +298,10 @@ async fn bookmark_insert_bookmark_online() -> TestResult<()> {
     request_bookmark.name = Some(("new_bookmark".to_owned()).into());
     request_bookmark.text = Some(("Some text".to_owned()).into());
 
-    let request =
-        InsertBookmarkOnlineRequest::new((request_document).into(), (request_bookmark).into());
+    let request = InsertBookmarkOnlineRequest::new(
+        (request_document).into(),
+        (request_bookmark).into()
+    );
 
     context.api().insert_bookmark_online(request).await?;
     Ok(())

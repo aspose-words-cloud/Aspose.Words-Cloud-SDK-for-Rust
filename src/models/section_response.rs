@@ -36,9 +36,10 @@ use super::*;
 pub struct SectionResponse {
     #[serde(flatten)]
     pub parent: WordsResponse,
-    /// Gets or sets the section.
-    #[serde(rename = "Section", skip_serializing_if = "Option::is_none")]
-    pub section: Option<Section>,
+        /// Gets or sets the section.
+        #[serde(rename = "Section", skip_serializing_if = "Option::is_none")]
+        pub section: Option<Section>,
+
 }
 
 impl Default for SectionResponse {
@@ -69,7 +70,7 @@ impl Model for SectionResponse {
     fn validate(&self) -> SdkResult<()> {
         self.parent.validate()?;
         if let Some(value) = &self.section {
-            value.validate()?;
+        value.validate()?;
         }
         Ok(())
     }
@@ -82,3 +83,4 @@ impl Model for SectionResponse {
         self
     }
 }
+

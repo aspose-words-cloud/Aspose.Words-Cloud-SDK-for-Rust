@@ -36,9 +36,10 @@ use super::*;
 pub struct BookmarkResponse {
     #[serde(flatten)]
     pub parent: WordsResponse,
-    /// Gets or sets the bookmark.
-    #[serde(rename = "Bookmark", skip_serializing_if = "Option::is_none")]
-    pub bookmark: Option<Bookmark>,
+        /// Gets or sets the bookmark.
+        #[serde(rename = "Bookmark", skip_serializing_if = "Option::is_none")]
+        pub bookmark: Option<Bookmark>,
+
 }
 
 impl Default for BookmarkResponse {
@@ -69,7 +70,7 @@ impl Model for BookmarkResponse {
     fn validate(&self) -> SdkResult<()> {
         self.parent.validate()?;
         if let Some(value) = &self.bookmark {
-            value.validate()?;
+        value.validate()?;
         }
         Ok(())
     }
@@ -82,3 +83,4 @@ impl Model for BookmarkResponse {
         self
     }
 }
+

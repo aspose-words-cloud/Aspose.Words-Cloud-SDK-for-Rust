@@ -36,15 +36,19 @@ use super::*;
 pub struct FontResponse {
     #[serde(flatten)]
     pub parent: WordsResponse,
-    /// Gets or sets the font.
-    #[serde(rename = "Font", skip_serializing_if = "Option::is_none")]
-    pub font: Option<Font>,
+        /// Gets or sets the font.
+        #[serde(rename = "Font", skip_serializing_if = "Option::is_none")]
+        pub font: Option<Font>,
+
 }
 
 impl Default for FontResponse {
     fn default() -> Self {
         let mut parent = WordsResponse::default();
-        Self { parent, font: None }
+        Self {
+            parent,
+            font: None,
+        }
     }
 }
 
@@ -66,7 +70,7 @@ impl Model for FontResponse {
     fn validate(&self) -> SdkResult<()> {
         self.parent.validate()?;
         if let Some(value) = &self.font {
-            value.validate()?;
+        value.validate()?;
         }
         Ok(())
     }
@@ -79,3 +83,4 @@ impl Model for FontResponse {
         self
     }
 }
+

@@ -46,18 +46,14 @@ async fn file_upload_file() -> TestResult<()> {
 
     let request = UploadFileRequest::new(
         (request_file_content).into(),
-        (remote_data_folder.clone() + "/" + &remote_file_name).into(),
+        (remote_data_folder.clone() + "/" + &remote_file_name).into()
     );
 
     let result = context.api().upload_file(request).await?;
     let result_json = serialize_result(&result)?;
     assert_not_null(&result_json, "Uploaded")?;
     assert_length(&result_json, "Uploaded", 1)?;
-    assert_string(
-        &result_json,
-        "Uploaded[0]",
-        "TestUploadFile.docx".to_owned(),
-    )?;
+    assert_string(&result_json, "Uploaded[0]", "TestUploadFile.docx".to_owned())?;
     Ok(())
 }
 
@@ -71,16 +67,11 @@ async fn file_copy_file() -> TestResult<()> {
     let local_file = "Common/test_multi_pages.docx".to_owned();
     let remote_file_name = "TestCopyFileSrc.docx".to_owned();
 
-    context
-        .upload_file(
-            local_file.clone(),
-            remote_data_folder.clone() + "/" + &remote_file_name,
-        )
-        .await?;
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
     let request = CopyFileRequest::new(
         (remote_data_folder.clone() + "/TestCopyFileDest.docx").into(),
-        (remote_data_folder.clone() + "/" + &remote_file_name).into(),
+        (remote_data_folder.clone() + "/" + &remote_file_name).into()
     );
 
     context.api().copy_file(request).await?;
@@ -97,17 +88,11 @@ async fn file_move_file() -> TestResult<()> {
     let local_file = "Common/test_multi_pages.docx".to_owned();
     let remote_file_name = "TestMoveFileSrc.docx".to_owned();
 
-    context
-        .upload_file(
-            local_file.clone(),
-            remote_data_folder.clone() + "/" + &remote_file_name,
-        )
-        .await?;
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
     let request = MoveFileRequest::new(
-        (base_test_out_path.clone() + "/TestMoveFileDest_" + &create_random_guid() + ".docx")
-            .into(),
-        (remote_data_folder.clone() + "/" + &remote_file_name).into(),
+        (base_test_out_path.clone() + "/TestMoveFileDest_" + &create_random_guid() + ".docx").into(),
+        (remote_data_folder.clone() + "/" + &remote_file_name).into()
     );
 
     context.api().move_file(request).await?;
@@ -124,15 +109,11 @@ async fn file_delete_file() -> TestResult<()> {
     let local_file = "Common/test_multi_pages.docx".to_owned();
     let remote_file_name = "TestDeleteFile.docx".to_owned();
 
-    context
-        .upload_file(
-            local_file.clone(),
-            remote_data_folder.clone() + "/" + &remote_file_name,
-        )
-        .await?;
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
-    let request =
-        DeleteFileRequest::new((remote_data_folder.clone() + "/" + &remote_file_name).into());
+    let request = DeleteFileRequest::new(
+        (remote_data_folder.clone() + "/" + &remote_file_name).into()
+    );
 
     context.api().delete_file(request).await?;
     Ok(())
@@ -148,15 +129,11 @@ async fn file_download_file() -> TestResult<()> {
     let local_file = "Common/test_multi_pages.docx".to_owned();
     let remote_file_name = "TestDownloadFile.docx".to_owned();
 
-    context
-        .upload_file(
-            local_file.clone(),
-            remote_data_folder.clone() + "/" + &remote_file_name,
-        )
-        .await?;
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
-    let request =
-        DownloadFileRequest::new((remote_data_folder.clone() + "/" + &remote_file_name).into());
+    let request = DownloadFileRequest::new(
+        (remote_data_folder.clone() + "/" + &remote_file_name).into()
+    );
 
     context.api().download_file(request).await?;
     Ok(())

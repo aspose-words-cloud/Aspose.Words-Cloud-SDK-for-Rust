@@ -35,13 +35,15 @@ use super::*;
 pub struct Bookmark {
     #[serde(flatten)]
     pub parent: LinkElement,
-    /// Gets or sets the name of the bookmark.
-    #[serde(rename = "Name", skip_serializing_if = "Option::is_none")]
-    pub name: Option<String>,
+        /// Gets or sets the name of the bookmark.
+        #[serde(rename = "Name", skip_serializing_if = "Option::is_none")]
+        pub name: Option<String>,
 
-    /// Gets or sets text, enclosed in the bookmark.
-    #[serde(rename = "Text", skip_serializing_if = "Option::is_none")]
-    pub text: Option<String>,
+
+        /// Gets or sets text, enclosed in the bookmark.
+        #[serde(rename = "Text", skip_serializing_if = "Option::is_none")]
+        pub text: Option<String>,
+
 }
 
 impl Default for Bookmark {
@@ -83,3 +85,4 @@ impl Model for Bookmark {
         self
     }
 }
+

@@ -35,13 +35,15 @@ use super::*;
 pub struct ProtectionDataResponse {
     #[serde(flatten)]
     pub parent: WordsResponse,
-    /// Gets or sets the link to the document.
-    #[serde(rename = "DocumentLink", skip_serializing_if = "Option::is_none")]
-    pub document_link: Option<FileLink>,
+        /// Gets or sets the link to the document.
+        #[serde(rename = "DocumentLink", skip_serializing_if = "Option::is_none")]
+        pub document_link: Option<FileLink>,
 
-    /// Gets or sets the protection properties of the document.
-    #[serde(rename = "ProtectionData", skip_serializing_if = "Option::is_none")]
-    pub protection_data: Option<ProtectionData>,
+
+        /// Gets or sets the protection properties of the document.
+        #[serde(rename = "ProtectionData", skip_serializing_if = "Option::is_none")]
+        pub protection_data: Option<ProtectionData>,
+
 }
 
 impl Default for ProtectionDataResponse {
@@ -73,10 +75,10 @@ impl Model for ProtectionDataResponse {
     fn validate(&self) -> SdkResult<()> {
         self.parent.validate()?;
         if let Some(value) = &self.document_link {
-            value.validate()?;
+        value.validate()?;
         }
         if let Some(value) = &self.protection_data {
-            value.validate()?;
+        value.validate()?;
         }
         Ok(())
     }
@@ -89,3 +91,4 @@ impl Model for ProtectionDataResponse {
         self
     }
 }
+

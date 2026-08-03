@@ -35,26 +35,28 @@ use super::*;
 pub struct DocSaveOptionsData {
     #[serde(flatten)]
     pub parent: SaveOptionsData,
-    /// Gets or sets a value indicating when False, that small metafiles are not compressed for performance reason.
-    /// The default value is true, all metafiles are compressed regardless of its size.
-    #[serde(
-        rename = "AlwaysCompressMetafiles",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub always_compress_metafiles: Option<bool>,
+        /// Gets or sets a value indicating when False, that small metafiles are not compressed for performance reason.
+            /// The default value is true, all metafiles are compressed regardless of its size.
+        #[serde(rename = "AlwaysCompressMetafiles", skip_serializing_if = "Option::is_none")]
+        pub always_compress_metafiles: Option<bool>,
 
-    /// Gets or sets the password.
-    #[serde(rename = "Password", skip_serializing_if = "Option::is_none")]
-    pub password: Option<String>,
 
-    /// Gets or sets a value indicating when False, that PictureBullet data is not saved to the output document.
-    /// The default value is true.
-    #[serde(rename = "SavePictureBullet", skip_serializing_if = "Option::is_none")]
-    pub save_picture_bullet: Option<bool>,
+        /// Gets or sets the password.
+        #[serde(rename = "Password", skip_serializing_if = "Option::is_none")]
+        pub password: Option<String>,
 
-    /// Gets or sets a value indicating whether to save RoutingSlip data to output document.
-    #[serde(rename = "SaveRoutingSlip", skip_serializing_if = "Option::is_none")]
-    pub save_routing_slip: Option<bool>,
+
+        /// Gets or sets a value indicating when False, that PictureBullet data is not saved to the output document.
+            /// The default value is true.
+        #[serde(rename = "SavePictureBullet", skip_serializing_if = "Option::is_none")]
+        pub save_picture_bullet: Option<bool>,
+
+
+        /// Gets or sets a value indicating whether to save RoutingSlip data to output document.
+        #[serde(rename = "SaveRoutingSlip", skip_serializing_if = "Option::is_none")]
+        pub save_routing_slip: Option<bool>,
+
+
 }
 
 impl Default for DocSaveOptionsData {
@@ -67,6 +69,7 @@ impl Default for DocSaveOptionsData {
             password: None,
             save_picture_bullet: None,
             save_routing_slip: None,
+
         }
     }
 }
@@ -99,3 +102,4 @@ impl Model for DocSaveOptionsData {
         self
     }
 }
+

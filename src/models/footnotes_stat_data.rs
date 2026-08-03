@@ -32,13 +32,15 @@ use super::*;
 /// Container for the footnotes statistical data.
 #[derive(Debug, Deserialize, Serialize)]
 pub struct FootnotesStatData {
-    /// Gets or sets the total count of paragraphs in footnotes.
-    #[serde(rename = "ParagraphCount", skip_serializing_if = "Option::is_none")]
-    pub paragraph_count: Option<i32>,
+        /// Gets or sets the total count of paragraphs in footnotes.
+        #[serde(rename = "ParagraphCount", skip_serializing_if = "Option::is_none")]
+        pub paragraph_count: Option<i32>,
 
-    /// Gets or sets the total count of words in footnotes.
-    #[serde(rename = "WordCount", skip_serializing_if = "Option::is_none")]
-    pub word_count: Option<i32>,
+
+        /// Gets or sets the total count of words in footnotes.
+        #[serde(rename = "WordCount", skip_serializing_if = "Option::is_none")]
+        pub word_count: Option<i32>,
+
 }
 
 impl Default for FootnotesStatData {
@@ -65,9 +67,11 @@ impl Model for FootnotesStatData {
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {}
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+    }
 
     fn as_any(&self) -> &dyn Any {
         self
     }
 }
+

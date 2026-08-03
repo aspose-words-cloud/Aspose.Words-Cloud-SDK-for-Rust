@@ -36,9 +36,10 @@ use super::*;
 pub struct SectionPageSetupResponse {
     #[serde(flatten)]
     pub parent: WordsResponse,
-    /// Gets or sets the page setup of a section.
-    #[serde(rename = "PageSetup", skip_serializing_if = "Option::is_none")]
-    pub page_setup: Option<PageSetup>,
+        /// Gets or sets the page setup of a section.
+        #[serde(rename = "PageSetup", skip_serializing_if = "Option::is_none")]
+        pub page_setup: Option<PageSetup>,
+
 }
 
 impl Default for SectionPageSetupResponse {
@@ -69,7 +70,7 @@ impl Model for SectionPageSetupResponse {
     fn validate(&self) -> SdkResult<()> {
         self.parent.validate()?;
         if let Some(value) = &self.page_setup {
-            value.validate()?;
+        value.validate()?;
         }
         Ok(())
     }
@@ -82,3 +83,4 @@ impl Model for SectionPageSetupResponse {
         self
     }
 }
+

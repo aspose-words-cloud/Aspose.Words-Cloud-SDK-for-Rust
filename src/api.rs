@@ -126,7 +126,10 @@ impl WordsApi {
     }
 
     /// Executes the report generation process using the specified document template and the external data source in XML, JSON or CSV format.
-    pub async fn build_report(&self, request: BuildReportRequest) -> SdkResult<DocumentResponse> {
+    pub async fn build_report(
+        &self,
+        request: BuildReportRequest,
+    ) -> SdkResult<DocumentResponse> {
         let response = self.client.execute(&request).await?;
         request.parse_response(response).await
     }
@@ -179,7 +182,10 @@ impl WordsApi {
     }
 
     /// Converts a document on a local drive to the specified format.
-    pub async fn convert_document(&self, request: ConvertDocumentRequest) -> SdkResult<Vec<u8>> {
+    pub async fn convert_document(
+        &self,
+        request: ConvertDocumentRequest,
+    ) -> SdkResult<Vec<u8>> {
         let response = self.client.execute(&request).await?;
         request.parse_response(response).await
     }
@@ -199,19 +205,28 @@ impl WordsApi {
     }
 
     /// Copy file.
-    pub async fn copy_file(&self, request: CopyFileRequest) -> SdkResult<()> {
+    pub async fn copy_file(
+        &self,
+        request: CopyFileRequest,
+    ) -> SdkResult<()> {
         let response = self.client.execute(&request).await?;
         request.parse_response(response).await
     }
 
     /// Copy folder.
-    pub async fn copy_folder(&self, request: CopyFolderRequest) -> SdkResult<()> {
+    pub async fn copy_folder(
+        &self,
+        request: CopyFolderRequest,
+    ) -> SdkResult<()> {
         let response = self.client.execute(&request).await?;
         request.parse_response(response).await
     }
 
     /// Makes a copy of the style in the document.
-    pub async fn copy_style(&self, request: CopyStyleRequest) -> SdkResult<StyleResponse> {
+    pub async fn copy_style(
+        &self,
+        request: CopyStyleRequest,
+    ) -> SdkResult<StyleResponse> {
         let response = self.client.execute(&request).await?;
         request.parse_response(response).await
     }
@@ -245,7 +260,10 @@ impl WordsApi {
     }
 
     /// Create the folder.
-    pub async fn create_folder(&self, request: CreateFolderRequest) -> SdkResult<()> {
+    pub async fn create_folder(
+        &self,
+        request: CreateFolderRequest,
+    ) -> SdkResult<()> {
         let response = self.client.execute(&request).await?;
         request.parse_response(response).await
     }
@@ -287,7 +305,10 @@ impl WordsApi {
     }
 
     /// Removes a bookmark from the document.
-    pub async fn delete_bookmark(&self, request: DeleteBookmarkRequest) -> SdkResult<()> {
+    pub async fn delete_bookmark(
+        &self,
+        request: DeleteBookmarkRequest,
+    ) -> SdkResult<()> {
         let response = self.client.execute(&request).await?;
         request.parse_response(response).await
     }
@@ -302,7 +323,10 @@ impl WordsApi {
     }
 
     /// Removes all bookmarks from the document.
-    pub async fn delete_bookmarks(&self, request: DeleteBookmarksRequest) -> SdkResult<()> {
+    pub async fn delete_bookmarks(
+        &self,
+        request: DeleteBookmarksRequest,
+    ) -> SdkResult<()> {
         let response = self.client.execute(&request).await?;
         request.parse_response(response).await
     }
@@ -318,7 +342,10 @@ impl WordsApi {
 
     /// Removes a border from the document node.
     /// The 'nodePath' parameter should refer to a paragraph, a cell or a row.
-    pub async fn delete_border(&self, request: DeleteBorderRequest) -> SdkResult<BorderResponse> {
+    pub async fn delete_border(
+        &self,
+        request: DeleteBorderRequest,
+    ) -> SdkResult<BorderResponse> {
         let response = self.client.execute(&request).await?;
         request.parse_response(response).await
     }
@@ -354,7 +381,10 @@ impl WordsApi {
     }
 
     /// Removes a comment from the document.
-    pub async fn delete_comment(&self, request: DeleteCommentRequest) -> SdkResult<()> {
+    pub async fn delete_comment(
+        &self,
+        request: DeleteCommentRequest,
+    ) -> SdkResult<()> {
         let response = self.client.execute(&request).await?;
         request.parse_response(response).await
     }
@@ -369,7 +399,10 @@ impl WordsApi {
     }
 
     /// Removes all comments from the document.
-    pub async fn delete_comments(&self, request: DeleteCommentsRequest) -> SdkResult<()> {
+    pub async fn delete_comments(
+        &self,
+        request: DeleteCommentsRequest,
+    ) -> SdkResult<()> {
         let response = self.client.execute(&request).await?;
         request.parse_response(response).await
     }
@@ -456,7 +489,10 @@ impl WordsApi {
     }
 
     /// Removes a field from the document node.
-    pub async fn delete_field(&self, request: DeleteFieldRequest) -> SdkResult<()> {
+    pub async fn delete_field(
+        &self,
+        request: DeleteFieldRequest,
+    ) -> SdkResult<()> {
         let response = self.client.execute(&request).await?;
         request.parse_response(response).await
     }
@@ -471,7 +507,10 @@ impl WordsApi {
     }
 
     /// Removes fields from the document node.
-    pub async fn delete_fields(&self, request: DeleteFieldsRequest) -> SdkResult<()> {
+    pub async fn delete_fields(
+        &self,
+        request: DeleteFieldsRequest,
+    ) -> SdkResult<()> {
         let response = self.client.execute(&request).await?;
         request.parse_response(response).await
     }
@@ -486,19 +525,28 @@ impl WordsApi {
     }
 
     /// Delete file.
-    pub async fn delete_file(&self, request: DeleteFileRequest) -> SdkResult<()> {
+    pub async fn delete_file(
+        &self,
+        request: DeleteFileRequest,
+    ) -> SdkResult<()> {
         let response = self.client.execute(&request).await?;
         request.parse_response(response).await
     }
 
     /// Delete folder.
-    pub async fn delete_folder(&self, request: DeleteFolderRequest) -> SdkResult<()> {
+    pub async fn delete_folder(
+        &self,
+        request: DeleteFolderRequest,
+    ) -> SdkResult<()> {
         let response = self.client.execute(&request).await?;
         request.parse_response(response).await
     }
 
     /// Removes a footnote from the document node.
-    pub async fn delete_footnote(&self, request: DeleteFootnoteRequest) -> SdkResult<()> {
+    pub async fn delete_footnote(
+        &self,
+        request: DeleteFootnoteRequest,
+    ) -> SdkResult<()> {
         let response = self.client.execute(&request).await?;
         request.parse_response(response).await
     }
@@ -513,7 +561,10 @@ impl WordsApi {
     }
 
     /// Removes a form field from the document node.
-    pub async fn delete_form_field(&self, request: DeleteFormFieldRequest) -> SdkResult<()> {
+    pub async fn delete_form_field(
+        &self,
+        request: DeleteFormFieldRequest,
+    ) -> SdkResult<()> {
         let response = self.client.execute(&request).await?;
         request.parse_response(response).await
     }
@@ -528,7 +579,10 @@ impl WordsApi {
     }
 
     /// Removes a HeaderFooter object from the document section.
-    pub async fn delete_header_footer(&self, request: DeleteHeaderFooterRequest) -> SdkResult<()> {
+    pub async fn delete_header_footer(
+        &self,
+        request: DeleteHeaderFooterRequest,
+    ) -> SdkResult<()> {
         let response = self.client.execute(&request).await?;
         request.parse_response(response).await
     }
@@ -561,7 +615,10 @@ impl WordsApi {
     }
 
     /// Removes macros from the document.
-    pub async fn delete_macros(&self, request: DeleteMacrosRequest) -> SdkResult<()> {
+    pub async fn delete_macros(
+        &self,
+        request: DeleteMacrosRequest,
+    ) -> SdkResult<()> {
         let response = self.client.execute(&request).await?;
         request.parse_response(response).await
     }
@@ -612,7 +669,10 @@ impl WordsApi {
     }
 
     /// Removes a paragraph from the document node.
-    pub async fn delete_paragraph(&self, request: DeleteParagraphRequest) -> SdkResult<()> {
+    pub async fn delete_paragraph(
+        &self,
+        request: DeleteParagraphRequest,
+    ) -> SdkResult<()> {
         let response = self.client.execute(&request).await?;
         request.parse_response(response).await
     }
@@ -663,7 +723,10 @@ impl WordsApi {
     }
 
     /// Removes a Run object from the paragraph.
-    pub async fn delete_run(&self, request: DeleteRunRequest) -> SdkResult<()> {
+    pub async fn delete_run(
+        &self,
+        request: DeleteRunRequest,
+    ) -> SdkResult<()> {
         let response = self.client.execute(&request).await?;
         request.parse_response(response).await
     }
@@ -678,7 +741,10 @@ impl WordsApi {
     }
 
     /// Removes a section from the document.
-    pub async fn delete_section(&self, request: DeleteSectionRequest) -> SdkResult<()> {
+    pub async fn delete_section(
+        &self,
+        request: DeleteSectionRequest,
+    ) -> SdkResult<()> {
         let response = self.client.execute(&request).await?;
         request.parse_response(response).await
     }
@@ -711,13 +777,19 @@ impl WordsApi {
     }
 
     /// Removes a table from the document node.
-    pub async fn delete_table(&self, request: DeleteTableRequest) -> SdkResult<()> {
+    pub async fn delete_table(
+        &self,
+        request: DeleteTableRequest,
+    ) -> SdkResult<()> {
         let response = self.client.execute(&request).await?;
         request.parse_response(response).await
     }
 
     /// Removes a cell from the table row.
-    pub async fn delete_table_cell(&self, request: DeleteTableCellRequest) -> SdkResult<()> {
+    pub async fn delete_table_cell(
+        &self,
+        request: DeleteTableCellRequest,
+    ) -> SdkResult<()> {
         let response = self.client.execute(&request).await?;
         request.parse_response(response).await
     }
@@ -741,7 +813,10 @@ impl WordsApi {
     }
 
     /// Removes a row from the table.
-    pub async fn delete_table_row(&self, request: DeleteTableRowRequest) -> SdkResult<()> {
+    pub async fn delete_table_row(
+        &self,
+        request: DeleteTableRowRequest,
+    ) -> SdkResult<()> {
         let response = self.client.execute(&request).await?;
         request.parse_response(response).await
     }
@@ -774,7 +849,10 @@ impl WordsApi {
     }
 
     /// Download file.
-    pub async fn download_file(&self, request: DownloadFileRequest) -> SdkResult<Vec<u8>> {
+    pub async fn download_file(
+        &self,
+        request: DownloadFileRequest,
+    ) -> SdkResult<Vec<u8>> {
         let response = self.client.execute(&request).await?;
         request.parse_response(response).await
     }
@@ -890,7 +968,10 @@ impl WordsApi {
 
     /// Reads a border from the document node.
     /// The 'nodePath' parameter should refer to a paragraph, a cell or a row.
-    pub async fn get_border(&self, request: GetBorderRequest) -> SdkResult<BorderResponse> {
+    pub async fn get_border(
+        &self,
+        request: GetBorderRequest,
+    ) -> SdkResult<BorderResponse> {
         let response = self.client.execute(&request).await?;
         request.parse_response(response).await
     }
@@ -906,7 +987,10 @@ impl WordsApi {
     }
 
     /// Reads borders from the document node.
-    pub async fn get_borders(&self, request: GetBordersRequest) -> SdkResult<BordersResponse> {
+    pub async fn get_borders(
+        &self,
+        request: GetBordersRequest,
+    ) -> SdkResult<BordersResponse> {
         let response = self.client.execute(&request).await?;
         request.parse_response(response).await
     }
@@ -921,7 +1005,10 @@ impl WordsApi {
     }
 
     /// Reads a comment from the document.
-    pub async fn get_comment(&self, request: GetCommentRequest) -> SdkResult<CommentResponse> {
+    pub async fn get_comment(
+        &self,
+        request: GetCommentRequest,
+    ) -> SdkResult<CommentResponse> {
         let response = self.client.execute(&request).await?;
         request.parse_response(response).await
     }
@@ -936,7 +1023,10 @@ impl WordsApi {
     }
 
     /// Reads comments from the document.
-    pub async fn get_comments(&self, request: GetCommentsRequest) -> SdkResult<CommentsResponse> {
+    pub async fn get_comments(
+        &self,
+        request: GetCommentsRequest,
+    ) -> SdkResult<CommentsResponse> {
         let response = self.client.execute(&request).await?;
         request.parse_response(response).await
     }
@@ -987,7 +1077,10 @@ impl WordsApi {
     }
 
     /// Reads common information from the document.
-    pub async fn get_document(&self, request: GetDocumentRequest) -> SdkResult<DocumentResponse> {
+    pub async fn get_document(
+        &self,
+        request: GetDocumentRequest,
+    ) -> SdkResult<DocumentResponse> {
         let response = self.client.execute(&request).await?;
         request.parse_response(response).await
     }
@@ -1200,7 +1293,10 @@ impl WordsApi {
     }
 
     /// Reads a field from the document node.
-    pub async fn get_field(&self, request: GetFieldRequest) -> SdkResult<FieldResponse> {
+    pub async fn get_field(
+        &self,
+        request: GetFieldRequest,
+    ) -> SdkResult<FieldResponse> {
         let response = self.client.execute(&request).await?;
         request.parse_response(response).await
     }
@@ -1215,7 +1311,10 @@ impl WordsApi {
     }
 
     /// Reads fields from the document node.
-    pub async fn get_fields(&self, request: GetFieldsRequest) -> SdkResult<FieldsResponse> {
+    pub async fn get_fields(
+        &self,
+        request: GetFieldsRequest,
+    ) -> SdkResult<FieldsResponse> {
         let response = self.client.execute(&request).await?;
         request.parse_response(response).await
     }
@@ -1230,13 +1329,19 @@ impl WordsApi {
     }
 
     /// Get all files and folders within a folder.
-    pub async fn get_files_list(&self, request: GetFilesListRequest) -> SdkResult<FilesList> {
+    pub async fn get_files_list(
+        &self,
+        request: GetFilesListRequest,
+    ) -> SdkResult<FilesList> {
         let response = self.client.execute(&request).await?;
         request.parse_response(response).await
     }
 
     /// Reads a footnote from the document node.
-    pub async fn get_footnote(&self, request: GetFootnoteRequest) -> SdkResult<FootnoteResponse> {
+    pub async fn get_footnote(
+        &self,
+        request: GetFootnoteRequest,
+    ) -> SdkResult<FootnoteResponse> {
         let response = self.client.execute(&request).await?;
         request.parse_response(response).await
     }
@@ -1359,25 +1464,37 @@ impl WordsApi {
     }
 
     /// Returns application info.
-    pub async fn get_info(&self, request: GetInfoRequest) -> SdkResult<InfoResponse> {
+    pub async fn get_info(
+        &self,
+        request: GetInfoRequest,
+    ) -> SdkResult<InfoResponse> {
         let response = self.client.execute(&request).await?;
         request.parse_response(response).await
     }
 
     /// Reads a list from the document.
-    pub async fn get_list(&self, request: GetListRequest) -> SdkResult<ListResponse> {
+    pub async fn get_list(
+        &self,
+        request: GetListRequest,
+    ) -> SdkResult<ListResponse> {
         let response = self.client.execute(&request).await?;
         request.parse_response(response).await
     }
 
     /// Reads a list from the document.
-    pub async fn get_list_online(&self, request: GetListOnlineRequest) -> SdkResult<ListResponse> {
+    pub async fn get_list_online(
+        &self,
+        request: GetListOnlineRequest,
+    ) -> SdkResult<ListResponse> {
         let response = self.client.execute(&request).await?;
         request.parse_response(response).await
     }
 
     /// Reads lists from the document.
-    pub async fn get_lists(&self, request: GetListsRequest) -> SdkResult<ListsResponse> {
+    pub async fn get_lists(
+        &self,
+        request: GetListsRequest,
+    ) -> SdkResult<ListsResponse> {
         let response = self.client.execute(&request).await?;
         request.parse_response(response).await
     }
@@ -1545,13 +1662,19 @@ impl WordsApi {
     }
 
     /// Reads a Run object from the paragraph.
-    pub async fn get_run(&self, request: GetRunRequest) -> SdkResult<RunResponse> {
+    pub async fn get_run(
+        &self,
+        request: GetRunRequest,
+    ) -> SdkResult<RunResponse> {
         let response = self.client.execute(&request).await?;
         request.parse_response(response).await
     }
 
     /// Reads the font properties of a Run object from the paragraph.
-    pub async fn get_run_font(&self, request: GetRunFontRequest) -> SdkResult<FontResponse> {
+    pub async fn get_run_font(
+        &self,
+        request: GetRunFontRequest,
+    ) -> SdkResult<FontResponse> {
         let response = self.client.execute(&request).await?;
         request.parse_response(response).await
     }
@@ -1566,25 +1689,37 @@ impl WordsApi {
     }
 
     /// Reads a Run object from the paragraph.
-    pub async fn get_run_online(&self, request: GetRunOnlineRequest) -> SdkResult<RunResponse> {
+    pub async fn get_run_online(
+        &self,
+        request: GetRunOnlineRequest,
+    ) -> SdkResult<RunResponse> {
         let response = self.client.execute(&request).await?;
         request.parse_response(response).await
     }
 
     /// Reads Run objects from the paragraph.
-    pub async fn get_runs(&self, request: GetRunsRequest) -> SdkResult<RunsResponse> {
+    pub async fn get_runs(
+        &self,
+        request: GetRunsRequest,
+    ) -> SdkResult<RunsResponse> {
         let response = self.client.execute(&request).await?;
         request.parse_response(response).await
     }
 
     /// Reads Run objects from the paragraph.
-    pub async fn get_runs_online(&self, request: GetRunsOnlineRequest) -> SdkResult<RunsResponse> {
+    pub async fn get_runs_online(
+        &self,
+        request: GetRunsOnlineRequest,
+    ) -> SdkResult<RunsResponse> {
         let response = self.client.execute(&request).await?;
         request.parse_response(response).await
     }
 
     /// Reads a section from the document.
-    pub async fn get_section(&self, request: GetSectionRequest) -> SdkResult<SectionResponse> {
+    pub async fn get_section(
+        &self,
+        request: GetSectionRequest,
+    ) -> SdkResult<SectionResponse> {
         let response = self.client.execute(&request).await?;
         request.parse_response(response).await
     }
@@ -1689,7 +1824,10 @@ impl WordsApi {
     }
 
     /// Reads a style from the document.
-    pub async fn get_style(&self, request: GetStyleRequest) -> SdkResult<StyleResponse> {
+    pub async fn get_style(
+        &self,
+        request: GetStyleRequest,
+    ) -> SdkResult<StyleResponse> {
         let response = self.client.execute(&request).await?;
         request.parse_response(response).await
     }
@@ -1722,7 +1860,10 @@ impl WordsApi {
     }
 
     /// Reads styles from the document.
-    pub async fn get_styles(&self, request: GetStylesRequest) -> SdkResult<StylesResponse> {
+    pub async fn get_styles(
+        &self,
+        request: GetStylesRequest,
+    ) -> SdkResult<StylesResponse> {
         let response = self.client.execute(&request).await?;
         request.parse_response(response).await
     }
@@ -1737,7 +1878,10 @@ impl WordsApi {
     }
 
     /// Reads a table from the document node.
-    pub async fn get_table(&self, request: GetTableRequest) -> SdkResult<TableResponse> {
+    pub async fn get_table(
+        &self,
+        request: GetTableRequest,
+    ) -> SdkResult<TableResponse> {
         let response = self.client.execute(&request).await?;
         request.parse_response(response).await
     }
@@ -1806,7 +1950,10 @@ impl WordsApi {
     }
 
     /// Reads a row from the table.
-    pub async fn get_table_row(&self, request: GetTableRowRequest) -> SdkResult<TableRowResponse> {
+    pub async fn get_table_row(
+        &self,
+        request: GetTableRowRequest,
+    ) -> SdkResult<TableRowResponse> {
         let response = self.client.execute(&request).await?;
         request.parse_response(response).await
     }
@@ -1929,7 +2076,10 @@ impl WordsApi {
     }
 
     /// Inserts a new field to the document node.
-    pub async fn insert_field(&self, request: InsertFieldRequest) -> SdkResult<FieldResponse> {
+    pub async fn insert_field(
+        &self,
+        request: InsertFieldRequest,
+    ) -> SdkResult<FieldResponse> {
         let response = self.client.execute(&request).await?;
         request.parse_response(response).await
     }
@@ -1998,7 +2148,10 @@ impl WordsApi {
     }
 
     /// Inserts a new list to the document.
-    pub async fn insert_list(&self, request: InsertListRequest) -> SdkResult<ListResponse> {
+    pub async fn insert_list(
+        &self,
+        request: InsertListRequest,
+    ) -> SdkResult<ListResponse> {
         let response = self.client.execute(&request).await?;
         request.parse_response(response).await
     }
@@ -2067,7 +2220,10 @@ impl WordsApi {
     }
 
     /// Inserts a new Run object to the paragraph.
-    pub async fn insert_run(&self, request: InsertRunRequest) -> SdkResult<RunResponse> {
+    pub async fn insert_run(
+        &self,
+        request: InsertRunRequest,
+    ) -> SdkResult<RunResponse> {
         let response = self.client.execute(&request).await?;
         request.parse_response(response).await
     }
@@ -2082,7 +2238,10 @@ impl WordsApi {
     }
 
     /// Inserts a section to the document.
-    pub async fn insert_section(&self, request: InsertSectionRequest) -> SdkResult<()> {
+    pub async fn insert_section(
+        &self,
+        request: InsertSectionRequest,
+    ) -> SdkResult<()> {
         let response = self.client.execute(&request).await?;
         request.parse_response(response).await
     }
@@ -2115,7 +2274,10 @@ impl WordsApi {
     }
 
     /// Inserts a new style to the document.
-    pub async fn insert_style(&self, request: InsertStyleRequest) -> SdkResult<StyleResponse> {
+    pub async fn insert_style(
+        &self,
+        request: InsertStyleRequest,
+    ) -> SdkResult<StyleResponse> {
         let response = self.client.execute(&request).await?;
         request.parse_response(response).await
     }
@@ -2130,7 +2292,10 @@ impl WordsApi {
     }
 
     /// Inserts a new table to the document node.
-    pub async fn insert_table(&self, request: InsertTableRequest) -> SdkResult<TableResponse> {
+    pub async fn insert_table(
+        &self,
+        request: InsertTableRequest,
+    ) -> SdkResult<TableResponse> {
         let response = self.client.execute(&request).await?;
         request.parse_response(response).await
     }
@@ -2262,7 +2427,10 @@ impl WordsApi {
     }
 
     /// Merge the section with the next one.
-    pub async fn merge_with_next(&self, request: MergeWithNextRequest) -> SdkResult<()> {
+    pub async fn merge_with_next(
+        &self,
+        request: MergeWithNextRequest,
+    ) -> SdkResult<()> {
         let response = self.client.execute(&request).await?;
         request.parse_response(response).await
     }
@@ -2277,19 +2445,28 @@ impl WordsApi {
     }
 
     /// Move file.
-    pub async fn move_file(&self, request: MoveFileRequest) -> SdkResult<()> {
+    pub async fn move_file(
+        &self,
+        request: MoveFileRequest,
+    ) -> SdkResult<()> {
         let response = self.client.execute(&request).await?;
         request.parse_response(response).await
     }
 
     /// Move folder.
-    pub async fn move_folder(&self, request: MoveFolderRequest) -> SdkResult<()> {
+    pub async fn move_folder(
+        &self,
+        request: MoveFolderRequest,
+    ) -> SdkResult<()> {
         let response = self.client.execute(&request).await?;
         request.parse_response(response).await
     }
 
     /// Applies document content optimization options, specific to a particular versions of Microsoft Word.
-    pub async fn optimize_document(&self, request: OptimizeDocumentRequest) -> SdkResult<()> {
+    pub async fn optimize_document(
+        &self,
+        request: OptimizeDocumentRequest,
+    ) -> SdkResult<()> {
         let response = self.client.execute(&request).await?;
         request.parse_response(response).await
     }
@@ -2358,7 +2535,10 @@ impl WordsApi {
     }
 
     /// Removes a range from the document.
-    pub async fn remove_range(&self, request: RemoveRangeRequest) -> SdkResult<DocumentResponse> {
+    pub async fn remove_range(
+        &self,
+        request: RemoveRangeRequest,
+    ) -> SdkResult<DocumentResponse> {
         let response = self.client.execute(&request).await?;
         request.parse_response(response).await
     }
@@ -2391,7 +2571,10 @@ impl WordsApi {
     }
 
     /// Renders an OfficeMath object to the specified format.
-    pub async fn render_math_object(&self, request: RenderMathObjectRequest) -> SdkResult<Vec<u8>> {
+    pub async fn render_math_object(
+        &self,
+        request: RenderMathObjectRequest,
+    ) -> SdkResult<Vec<u8>> {
         let response = self.client.execute(&request).await?;
         request.parse_response(response).await
     }
@@ -2406,19 +2589,28 @@ impl WordsApi {
     }
 
     /// Renders a page to the specified format.
-    pub async fn render_page(&self, request: RenderPageRequest) -> SdkResult<Vec<u8>> {
+    pub async fn render_page(
+        &self,
+        request: RenderPageRequest,
+    ) -> SdkResult<Vec<u8>> {
         let response = self.client.execute(&request).await?;
         request.parse_response(response).await
     }
 
     /// Renders a page to the specified format.
-    pub async fn render_page_online(&self, request: RenderPageOnlineRequest) -> SdkResult<Vec<u8>> {
+    pub async fn render_page_online(
+        &self,
+        request: RenderPageOnlineRequest,
+    ) -> SdkResult<Vec<u8>> {
         let response = self.client.execute(&request).await?;
         request.parse_response(response).await
     }
 
     /// Renders a paragraph to the specified format.
-    pub async fn render_paragraph(&self, request: RenderParagraphRequest) -> SdkResult<Vec<u8>> {
+    pub async fn render_paragraph(
+        &self,
+        request: RenderParagraphRequest,
+    ) -> SdkResult<Vec<u8>> {
         let response = self.client.execute(&request).await?;
         request.parse_response(response).await
     }
@@ -2433,7 +2625,10 @@ impl WordsApi {
     }
 
     /// Renders a table to the specified format.
-    pub async fn render_table(&self, request: RenderTableRequest) -> SdkResult<Vec<u8>> {
+    pub async fn render_table(
+        &self,
+        request: RenderTableRequest,
+    ) -> SdkResult<Vec<u8>> {
         let response = self.client.execute(&request).await?;
         request.parse_response(response).await
     }
@@ -2484,13 +2679,19 @@ impl WordsApi {
     }
 
     /// Clears the font cache.
-    pub async fn reset_cache(&self, request: ResetCacheRequest) -> SdkResult<()> {
+    pub async fn reset_cache(
+        &self,
+        request: ResetCacheRequest,
+    ) -> SdkResult<()> {
         let response = self.client.execute(&request).await?;
         request.parse_response(response).await
     }
 
     /// Converts a document in cloud storage to the specified format.
-    pub async fn save_as(&self, request: SaveAsRequest) -> SdkResult<SaveResponse> {
+    pub async fn save_as(
+        &self,
+        request: SaveAsRequest,
+    ) -> SdkResult<SaveResponse> {
         let response = self.client.execute(&request).await?;
         request.parse_response(response).await
     }
@@ -2505,7 +2706,10 @@ impl WordsApi {
     }
 
     /// Saves a range as a new document.
-    pub async fn save_as_range(&self, request: SaveAsRangeRequest) -> SdkResult<DocumentResponse> {
+    pub async fn save_as_range(
+        &self,
+        request: SaveAsRangeRequest,
+    ) -> SdkResult<DocumentResponse> {
         let response = self.client.execute(&request).await?;
         request.parse_response(response).await
     }
@@ -2520,7 +2724,10 @@ impl WordsApi {
     }
 
     /// Converts a document in cloud storage to TIFF format using detailed conversion settings.
-    pub async fn save_as_tiff(&self, request: SaveAsTiffRequest) -> SdkResult<SaveResponse> {
+    pub async fn save_as_tiff(
+        &self,
+        request: SaveAsTiffRequest,
+    ) -> SdkResult<SaveResponse> {
         let response = self.client.execute(&request).await?;
         request.parse_response(response).await
     }
@@ -2535,13 +2742,19 @@ impl WordsApi {
     }
 
     /// Searches text, specified by the regular expression, in the document.
-    pub async fn search(&self, request: SearchRequest) -> SdkResult<SearchResponse> {
+    pub async fn search(
+        &self,
+        request: SearchRequest,
+    ) -> SdkResult<SearchResponse> {
         let response = self.client.execute(&request).await?;
         request.parse_response(response).await
     }
 
     /// Searches text, specified by the regular expression, in the document.
-    pub async fn search_online(&self, request: SearchOnlineRequest) -> SdkResult<SearchResponse> {
+    pub async fn search_online(
+        &self,
+        request: SearchOnlineRequest,
+    ) -> SdkResult<SearchResponse> {
         let response = self.client.execute(&request).await?;
         request.parse_response(response).await
     }
@@ -2666,7 +2879,10 @@ impl WordsApi {
 
     /// Updates a border in the document node.
     /// The 'nodePath' parameter should refer to a paragraph, a cell or a row.
-    pub async fn update_border(&self, request: UpdateBorderRequest) -> SdkResult<BorderResponse> {
+    pub async fn update_border(
+        &self,
+        request: UpdateBorderRequest,
+    ) -> SdkResult<BorderResponse> {
         let response = self.client.execute(&request).await?;
         request.parse_response(response).await
     }
@@ -2736,7 +2952,10 @@ impl WordsApi {
     }
 
     /// Updates a field in the document node.
-    pub async fn update_field(&self, request: UpdateFieldRequest) -> SdkResult<FieldResponse> {
+    pub async fn update_field(
+        &self,
+        request: UpdateFieldRequest,
+    ) -> SdkResult<FieldResponse> {
         let response = self.client.execute(&request).await?;
         request.parse_response(response).await
     }
@@ -2751,7 +2970,10 @@ impl WordsApi {
     }
 
     /// Reevaluates field values in the document.
-    pub async fn update_fields(&self, request: UpdateFieldsRequest) -> SdkResult<DocumentResponse> {
+    pub async fn update_fields(
+        &self,
+        request: UpdateFieldsRequest,
+    ) -> SdkResult<DocumentResponse> {
         let response = self.client.execute(&request).await?;
         request.parse_response(response).await
     }
@@ -2802,7 +3024,10 @@ impl WordsApi {
     }
 
     /// Updates a list in the document.
-    pub async fn update_list(&self, request: UpdateListRequest) -> SdkResult<ListResponse> {
+    pub async fn update_list(
+        &self,
+        request: UpdateListRequest,
+    ) -> SdkResult<ListResponse> {
         let response = self.client.execute(&request).await?;
         request.parse_response(response).await
     }
@@ -2871,13 +3096,19 @@ impl WordsApi {
     }
 
     /// Updates a Run object in the paragraph.
-    pub async fn update_run(&self, request: UpdateRunRequest) -> SdkResult<RunResponse> {
+    pub async fn update_run(
+        &self,
+        request: UpdateRunRequest,
+    ) -> SdkResult<RunResponse> {
         let response = self.client.execute(&request).await?;
         request.parse_response(response).await
     }
 
     /// Updates the font properties of a Run object in the paragraph.
-    pub async fn update_run_font(&self, request: UpdateRunFontRequest) -> SdkResult<FontResponse> {
+    pub async fn update_run_font(
+        &self,
+        request: UpdateRunFontRequest,
+    ) -> SdkResult<FontResponse> {
         let response = self.client.execute(&request).await?;
         request.parse_response(response).await
     }
@@ -2937,7 +3168,10 @@ impl WordsApi {
     }
 
     /// Updates a style in the document.
-    pub async fn update_style(&self, request: UpdateStyleRequest) -> SdkResult<StyleResponse> {
+    pub async fn update_style(
+        &self,
+        request: UpdateStyleRequest,
+    ) -> SdkResult<StyleResponse> {
         let response = self.client.execute(&request).await?;
         request.parse_response(response).await
     }
@@ -3006,7 +3240,10 @@ impl WordsApi {
     }
 
     /// Upload file.
-    pub async fn upload_file(&self, request: UploadFileRequest) -> SdkResult<FilesUploadResult> {
+    pub async fn upload_file(
+        &self,
+        request: UploadFileRequest,
+    ) -> SdkResult<FilesUploadResult> {
         let response = self.client.execute(&request).await?;
         request.parse_response(response).await
     }

@@ -35,48 +35,51 @@ use super::*;
 pub struct SvgSaveOptionsData {
     #[serde(flatten)]
     pub parent: FixedPageSaveOptionsData,
-    /// Gets or sets a value indicating whether images should be embedded into SVG document as base64.
-    #[serde(
-        rename = "ExportEmbeddedImages",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub export_embedded_images: Option<bool>,
+        /// Gets or sets a value indicating whether images should be embedded into SVG document as base64.
+        #[serde(rename = "ExportEmbeddedImages", skip_serializing_if = "Option::is_none")]
+        pub export_embedded_images: Option<bool>,
 
-    /// Gets or sets a value indicating whether the output SVG should fill the available viewport area (browser window or container). When set to true width and height of output SVG are set to 100%.
-    #[serde(rename = "FitToViewPort", skip_serializing_if = "Option::is_none")]
-    pub fit_to_view_port: Option<bool>,
 
-    /// Gets or sets specifies a prefix that is prepended to all generated element IDs in the output document.
-    /// The default value is null and no prefix is prepended.
-    /// If the prefix is specified, it can contain only letters, digits, underscores, and hyphens,
-    /// and must start with a letter.
-    #[serde(rename = "IdPrefix", skip_serializing_if = "Option::is_none")]
-    pub id_prefix: Option<String>,
+        /// Gets or sets a value indicating whether the output SVG should fill the available viewport area (browser window or container). When set to true width and height of output SVG are set to 100%.
+        #[serde(rename = "FitToViewPort", skip_serializing_if = "Option::is_none")]
+        pub fit_to_view_port: Option<bool>,
 
-    /// Gets or sets a value in pixels per inch that limits resolution of exported raster images.
-    /// If the value of this property is non-zero, it limits resolution of exported raster images.
-    /// That is, higher-resolution images are resampled down to the limit and lower-resolution images are exported as is.
-    #[serde(rename = "MaxImageResolution", skip_serializing_if = "Option::is_none")]
-    pub max_image_resolution: Option<i32>,
 
-    /// Gets or sets the physical folder where resources (images) are saved when exporting.
-    #[serde(rename = "ResourcesFolder", skip_serializing_if = "Option::is_none")]
-    pub resources_folder: Option<String>,
+        /// Gets or sets specifies a prefix that is prepended to all generated element IDs in the output document.
+            /// The default value is null and no prefix is prepended.
+            /// If the prefix is specified, it can contain only letters, digits, underscores, and hyphens,
+            /// and must start with a letter.
+        #[serde(rename = "IdPrefix", skip_serializing_if = "Option::is_none")]
+        pub id_prefix: Option<String>,
 
-    /// Gets or sets the name of the folder used to construct image URIs.
-    #[serde(
-        rename = "ResourcesFolderAlias",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub resources_folder_alias: Option<String>,
 
-    /// Gets or sets a value indicating whether to show or hide page stepper.
-    #[serde(rename = "ShowPageBorder", skip_serializing_if = "Option::is_none")]
-    pub show_page_border: Option<bool>,
+        /// Gets or sets a value in pixels per inch that limits resolution of exported raster images.
+            /// If the value of this property is non-zero, it limits resolution of exported raster images.
+            /// That is, higher-resolution images are resampled down to the limit and lower-resolution images are exported as is.
+        #[serde(rename = "MaxImageResolution", skip_serializing_if = "Option::is_none")]
+        pub max_image_resolution: Option<i32>,
 
-    /// Gets or sets the option that controls how text should be rendered.
-    #[serde(rename = "TextOutputMode", skip_serializing_if = "Option::is_none")]
-    pub text_output_mode: Option<SvgSaveOptionsDataTextOutputModeEnum>,
+
+        /// Gets or sets the physical folder where resources (images) are saved when exporting.
+        #[serde(rename = "ResourcesFolder", skip_serializing_if = "Option::is_none")]
+        pub resources_folder: Option<String>,
+
+
+        /// Gets or sets the name of the folder used to construct image URIs.
+        #[serde(rename = "ResourcesFolderAlias", skip_serializing_if = "Option::is_none")]
+        pub resources_folder_alias: Option<String>,
+
+
+        /// Gets or sets a value indicating whether to show or hide page stepper.
+        #[serde(rename = "ShowPageBorder", skip_serializing_if = "Option::is_none")]
+        pub show_page_border: Option<bool>,
+
+
+        /// Gets or sets the option that controls how text should be rendered.
+        #[serde(rename = "TextOutputMode", skip_serializing_if = "Option::is_none")]
+        pub text_output_mode: Option<SvgSaveOptionsDataTextOutputModeEnum>,
+
+
 }
 
 impl Default for SvgSaveOptionsData {
@@ -93,6 +96,7 @@ impl Default for SvgSaveOptionsData {
             resources_folder_alias: None,
             show_page_border: None,
             text_output_mode: None,
+
         }
     }
 }
@@ -130,9 +134,9 @@ impl Model for SvgSaveOptionsData {
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
 pub enum SvgSaveOptionsDataTextOutputModeEnum {
     #[serde(rename = "UseSvgFonts")]
-    UseSvgFonts,
+        UseSvgFonts,
     #[serde(rename = "UseTargetMachineFonts")]
-    UseTargetMachineFonts,
+        UseTargetMachineFonts,
     #[serde(rename = "UsePlacedGlyphs")]
-    UsePlacedGlyphs,
+        UsePlacedGlyphs,
 }

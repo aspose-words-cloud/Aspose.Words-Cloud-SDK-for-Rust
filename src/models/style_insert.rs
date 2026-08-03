@@ -32,13 +32,15 @@ use super::*;
 /// Represents a single document style to insert.
 #[derive(Debug, Deserialize, Serialize)]
 pub struct StyleInsert {
-    /// Gets or sets the case sensitive name of the style to create.
-    #[serde(rename = "StyleName", skip_serializing_if = "Option::is_none")]
-    pub style_name: Option<String>,
+        /// Gets or sets the case sensitive name of the style to create.
+        #[serde(rename = "StyleName", skip_serializing_if = "Option::is_none")]
+        pub style_name: Option<String>,
 
-    /// Gets or sets the StyleType value that specifies the type of the style to create.
-    #[serde(rename = "StyleType", skip_serializing_if = "Option::is_none")]
-    pub style_type: Option<StyleInsertStyleTypeEnum>,
+
+        /// Gets or sets the StyleType value that specifies the type of the style to create.
+        #[serde(rename = "StyleType", skip_serializing_if = "Option::is_none")]
+        pub style_type: Option<StyleInsertStyleTypeEnum>,
+
 }
 
 impl Default for StyleInsert {
@@ -65,7 +67,8 @@ impl Model for StyleInsert {
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {}
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+    }
 
     fn as_any(&self) -> &dyn Any {
         self
@@ -76,11 +79,11 @@ impl Model for StyleInsert {
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
 pub enum StyleInsertStyleTypeEnum {
     #[serde(rename = "Paragraph")]
-    Paragraph,
+        Paragraph,
     #[serde(rename = "Character")]
-    Character,
+        Character,
     #[serde(rename = "Table")]
-    Table,
+        Table,
     #[serde(rename = "List")]
-    List,
+        List,
 }

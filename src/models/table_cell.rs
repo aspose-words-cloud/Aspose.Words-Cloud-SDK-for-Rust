@@ -35,9 +35,10 @@ use super::*;
 pub struct TableCell {
     #[serde(flatten)]
     pub parent: NodeLink,
-    /// Gets or sets the list of child nodes.
-    #[serde(rename = "ChildNodes", skip_serializing_if = "Option::is_none")]
-    pub child_nodes: Option<Vec<NodeLink>>,
+        /// Gets or sets the list of child nodes.
+        #[serde(rename = "ChildNodes", skip_serializing_if = "Option::is_none")]
+        pub child_nodes: Option<Vec<NodeLink>>,
+
 }
 
 impl Default for TableCell {
@@ -68,9 +69,9 @@ impl Model for TableCell {
     fn validate(&self) -> SdkResult<()> {
         self.parent.validate()?;
         if let Some(values) = &self.child_nodes {
-            for value in values {
-                value.validate()?;
-            }
+        for value in values {
+        value.validate()?;
+        }
         }
         Ok(())
     }
@@ -83,3 +84,4 @@ impl Model for TableCell {
         self
     }
 }
+

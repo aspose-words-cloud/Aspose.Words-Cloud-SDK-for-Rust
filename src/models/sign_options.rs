@@ -32,37 +32,35 @@ use super::*;
 /// Container class for digital signature options.
 #[derive(Debug, Deserialize, Serialize)]
 pub struct SignOptions {
-    /// Gets or sets comments on the digital signature. The default value is an empty string.
-    #[serde(rename = "Comments", skip_serializing_if = "Option::is_none")]
-    pub comments: Option<String>,
+        /// Gets or sets comments on the digital signature. The default value is an empty string.
+        #[serde(rename = "Comments", skip_serializing_if = "Option::is_none")]
+        pub comments: Option<String>,
 
-    /// Gets or sets the password to decrypt source document. The default value is an empty string.
-    #[serde(rename = "DecryptionPassword", skip_serializing_if = "Option::is_none")]
-    pub decryption_password: Option<String>,
 
-    /// Gets or sets the class Guid of the signature cryptography provider. The default value is Empty (all zeroes) Guid.
-    #[serde(rename = "ProviderId", skip_serializing_if = "Option::is_none")]
-    pub provider_id: Option<String>,
+        /// Gets or sets the password to decrypt source document. The default value is an empty string.
+        #[serde(rename = "DecryptionPassword", skip_serializing_if = "Option::is_none")]
+        pub decryption_password: Option<String>,
 
-    /// Gets or sets user defined signature line Guid. The default value is Empty (all zeroes) Guid.
-    #[serde(rename = "SignatureLineId", skip_serializing_if = "Option::is_none")]
-    pub signature_line_id: Option<String>,
 
-    /// Gets or sets the image that will be shown in associated SignatureLine. The default value is an empty string.
-    #[serde(
-        rename = "SignatureLineImageFilename",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub signature_line_image_filename: Option<String>,
+        /// Gets or sets the class Guid of the signature cryptography provider. The default value is Empty (all zeroes) Guid.
+        #[serde(rename = "ProviderId", skip_serializing_if = "Option::is_none")]
+        pub provider_id: Option<String>,
 
-    /// Gets or sets the date of signing. The default value is current time (Now).
-    #[serde(
-        rename = "SignTime",
-        skip_serializing_if = "Option::is_none",
-        default,
-        deserialize_with = "deserialize_optional_date_time"
-    )]
-    pub sign_time: Option<chrono::DateTime<chrono::Utc>>,
+
+        /// Gets or sets user defined signature line Guid. The default value is Empty (all zeroes) Guid.
+        #[serde(rename = "SignatureLineId", skip_serializing_if = "Option::is_none")]
+        pub signature_line_id: Option<String>,
+
+
+        /// Gets or sets the image that will be shown in associated SignatureLine. The default value is an empty string.
+        #[serde(rename = "SignatureLineImageFilename", skip_serializing_if = "Option::is_none")]
+        pub signature_line_image_filename: Option<String>,
+
+
+        /// Gets or sets the date of signing. The default value is current time (Now).
+        #[serde(rename = "SignTime", skip_serializing_if = "Option::is_none", default, deserialize_with = "deserialize_optional_date_time")]
+        pub sign_time: Option<chrono::DateTime<chrono::Utc>>,
+
 }
 
 impl Default for SignOptions {
@@ -83,9 +81,11 @@ impl Model for SignOptions {
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {}
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+    }
 
     fn as_any(&self) -> &dyn Any {
         self
     }
 }
+

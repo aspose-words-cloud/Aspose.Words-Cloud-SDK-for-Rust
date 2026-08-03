@@ -32,30 +32,30 @@ use super::*;
 /// Api error.
 #[derive(Debug, Deserialize, Serialize)]
 pub struct ApiError {
-    /// Gets or sets the API error code.
-    #[serde(rename = "Code", skip_serializing_if = "Option::is_none")]
-    pub code: Option<String>,
+        /// Gets or sets the API error code.
+        #[serde(rename = "Code", skip_serializing_if = "Option::is_none")]
+        pub code: Option<String>,
 
-    /// Gets or sets the server DateTime.
-    #[serde(
-        rename = "DateTime",
-        skip_serializing_if = "Option::is_none",
-        default,
-        deserialize_with = "deserialize_optional_date_time"
-    )]
-    pub date_time: Option<chrono::DateTime<chrono::Utc>>,
 
-    /// Gets or sets the error description.
-    #[serde(rename = "Description", skip_serializing_if = "Option::is_none")]
-    pub description: Option<String>,
+        /// Gets or sets the server DateTime.
+        #[serde(rename = "DateTime", skip_serializing_if = "Option::is_none", default, deserialize_with = "deserialize_optional_date_time")]
+        pub date_time: Option<chrono::DateTime<chrono::Utc>>,
 
-    /// Gets or sets the inner error.
-    #[serde(rename = "InnerError", skip_serializing_if = "Option::is_none")]
-    pub inner_error: Option<Box<ApiError>>,
 
-    /// Gets or sets the error message.
-    #[serde(rename = "Message", skip_serializing_if = "Option::is_none")]
-    pub message: Option<String>,
+        /// Gets or sets the error description.
+        #[serde(rename = "Description", skip_serializing_if = "Option::is_none")]
+        pub description: Option<String>,
+
+
+        /// Gets or sets the inner error.
+        #[serde(rename = "InnerError", skip_serializing_if = "Option::is_none")]
+        pub inner_error: Option<Box<ApiError>>,
+
+
+        /// Gets or sets the error message.
+        #[serde(rename = "Message", skip_serializing_if = "Option::is_none")]
+        pub message: Option<String>,
+
 }
 
 impl Default for ApiError {
@@ -73,15 +73,17 @@ impl Default for ApiError {
 impl Model for ApiError {
     fn validate(&self) -> SdkResult<()> {
         if let Some(value) = &self.inner_error {
-            value.validate()?;
+        value.validate()?;
         }
 
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {}
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+    }
 
     fn as_any(&self) -> &dyn Any {
         self
     }
 }
+

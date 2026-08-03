@@ -35,9 +35,10 @@ use super::*;
 pub struct Lists {
     #[serde(flatten)]
     pub parent: LinkElement,
-    /// Gets or sets the array of document lists.
-    #[serde(rename = "ListInfo", skip_serializing_if = "Option::is_none")]
-    pub list_info: Option<Vec<ListInfo>>,
+        /// Gets or sets the array of document lists.
+        #[serde(rename = "ListInfo", skip_serializing_if = "Option::is_none")]
+        pub list_info: Option<Vec<ListInfo>>,
+
 }
 
 impl Default for Lists {
@@ -68,9 +69,9 @@ impl Model for Lists {
     fn validate(&self) -> SdkResult<()> {
         self.parent.validate()?;
         if let Some(values) = &self.list_info {
-            for value in values {
-                value.validate()?;
-            }
+        for value in values {
+        value.validate()?;
+        }
         }
         Ok(())
     }
@@ -83,3 +84,4 @@ impl Model for Lists {
         self
     }
 }
+

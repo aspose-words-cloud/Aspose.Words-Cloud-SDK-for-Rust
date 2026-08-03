@@ -35,37 +35,31 @@ use super::*;
 pub struct XpsSaveOptionsData {
     #[serde(flatten)]
     pub parent: FixedPageSaveOptionsData,
-    /// Gets or sets the level in the XPS document outline at which to display Word bookmarks.
-    #[serde(
-        rename = "BookmarksOutlineLevel",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub bookmarks_outline_level: Option<i32>,
+        /// Gets or sets the level in the XPS document outline at which to display Word bookmarks.
+        #[serde(rename = "BookmarksOutlineLevel", skip_serializing_if = "Option::is_none")]
+        pub bookmarks_outline_level: Option<i32>,
 
-    /// Gets or sets the details for signing the output document.
-    #[serde(
-        rename = "DigitalSignatureDetails",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub digital_signature_details: Option<DigitalSignatureDetails>,
 
-    /// Gets or sets the number of heading levels (paragraphs formatted with the Heading styles) to include in the XPS document outline.
-    #[serde(
-        rename = "HeadingsOutlineLevels",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub headings_outline_levels: Option<i32>,
+        /// Gets or sets the details for signing the output document.
+        #[serde(rename = "DigitalSignatureDetails", skip_serializing_if = "Option::is_none")]
+        pub digital_signature_details: Option<DigitalSignatureDetails>,
 
-    /// Gets or sets the outline options.
-    #[serde(rename = "OutlineOptions", skip_serializing_if = "Option::is_none")]
-    pub outline_options: Option<OutlineOptionsData>,
 
-    /// Gets or sets a value indicating whether the document should be saved using a booklet printing layout.
-    #[serde(
-        rename = "UseBookFoldPrintingSettings",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub use_book_fold_printing_settings: Option<bool>,
+        /// Gets or sets the number of heading levels (paragraphs formatted with the Heading styles) to include in the XPS document outline.
+        #[serde(rename = "HeadingsOutlineLevels", skip_serializing_if = "Option::is_none")]
+        pub headings_outline_levels: Option<i32>,
+
+
+        /// Gets or sets the outline options.
+        #[serde(rename = "OutlineOptions", skip_serializing_if = "Option::is_none")]
+        pub outline_options: Option<OutlineOptionsData>,
+
+
+        /// Gets or sets a value indicating whether the document should be saved using a booklet printing layout.
+        #[serde(rename = "UseBookFoldPrintingSettings", skip_serializing_if = "Option::is_none")]
+        pub use_book_fold_printing_settings: Option<bool>,
+
+
 }
 
 impl Default for XpsSaveOptionsData {
@@ -79,6 +73,7 @@ impl Default for XpsSaveOptionsData {
             headings_outline_levels: None,
             outline_options: None,
             use_book_fold_printing_settings: None,
+
         }
     }
 }
@@ -101,12 +96,13 @@ impl Model for XpsSaveOptionsData {
     fn validate(&self) -> SdkResult<()> {
         self.parent.validate()?;
         if let Some(value) = &self.digital_signature_details {
-            value.validate()?;
+        value.validate()?;
         }
 
         if let Some(value) = &self.outline_options {
-            value.validate()?;
+        value.validate()?;
         }
+
 
         Ok(())
     }
@@ -119,3 +115,4 @@ impl Model for XpsSaveOptionsData {
         self
     }
 }
+

@@ -34,9 +34,9 @@ use crate::{SdkError, SdkResult};
 #[derive(Debug, Serialize)]
 pub struct ProtectDocumentOnlineResponse {
     #[serde(rename = "Model", skip_serializing_if = "Option::is_none")]
-    pub model: Option<ProtectionDataResponse>,
+        pub model: Option<ProtectionDataResponse>,
     #[serde(rename = "Document", skip_serializing_if = "Option::is_none")]
-    pub document: Option<std::collections::HashMap<String, Vec<u8>>>,
+        pub document: Option<std::collections::HashMap<String, Vec<u8>>>,
 }
 
 impl ProtectDocumentOnlineResponse {
@@ -47,42 +47,25 @@ impl ProtectDocumentOnlineResponse {
         let mut parts = parse_multipart(content_type, response.body).await?;
         Ok(Self {
             model: async {
-                let position = parts.iter().position(|part| {
-                    part.name
-                        .as_deref()
-                        .is_some_and(|name| name.eq_ignore_ascii_case("Model"))
-                });
-                let Some(position) = position else {
-                    return Ok::<Option<ProtectionDataResponse>, SdkError>(None);
-                };
-                let part = parts.remove(position);
-                Ok::<Option<ProtectionDataResponse>, SdkError>(Some(serde_json::from_slice::<
-                    ProtectionDataResponse,
-                >(&part.data)?))
-            }
-            .await?,
+            let position = parts.iter().position(|part| {
+            part.name.as_deref().is_some_and(|name| name.eq_ignore_ascii_case("Model"))
+            });
+            let Some(position) = position else { return Ok::<Option<ProtectionDataResponse>, SdkError>(None); };
+            let part = parts.remove(position);
+            Ok::<Option<ProtectionDataResponse>, SdkError>(Some(serde_json::from_slice::<ProtectionDataResponse>(&part.data)?))
+            }.await?,
             document: async {
-                let position = parts.iter().position(|part| {
-                    part.name
-                        .as_deref()
-                        .is_some_and(|name| name.eq_ignore_ascii_case("Document"))
-                });
-                let Some(position) = position else {
-                    return Ok::<Option<std::collections::HashMap<String, Vec<u8>>>, SdkError>(
-                        None,
-                    );
-                };
-                let part = parts.remove(position);
-                Ok::<Option<std::collections::HashMap<String, Vec<u8>>>, SdkError>(Some(
-                    parse_files_collection(
-                        part.content_type.as_deref(),
-                        part.filename.as_deref(),
-                        part.data,
-                    )
-                    .await?,
-                ))
-            }
-            .await?,
+            let position = parts.iter().position(|part| {
+            part.name.as_deref().is_some_and(|name| name.eq_ignore_ascii_case("Document"))
+            });
+            let Some(position) = position else { return Ok::<Option<std::collections::HashMap<String, Vec<u8>>>, SdkError>(None); };
+            let part = parts.remove(position);
+            Ok::<Option<std::collections::HashMap<String, Vec<u8>>>, SdkError>(Some(parse_files_collection(
+            part.content_type.as_deref(),
+            part.filename.as_deref(),
+            part.data,
+            ).await?))
+            }.await?,
         })
     }
 }

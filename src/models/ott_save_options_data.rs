@@ -41,7 +41,9 @@ impl Default for OttSaveOptionsData {
     fn default() -> Self {
         let mut parent = OdtSaveOptionsData::default();
         parent.save_format = Some("ott".to_owned());
-        Self { parent }
+        Self {
+            parent,
+        }
     }
 }
 
@@ -73,3 +75,4 @@ impl Model for OttSaveOptionsData {
         self
     }
 }
+

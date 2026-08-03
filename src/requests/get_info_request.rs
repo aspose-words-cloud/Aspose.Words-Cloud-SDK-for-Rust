@@ -25,13 +25,13 @@ use std::collections::HashMap;
 use async_trait::async_trait;
 use chrono::{DateTime, Utc};
 
-use super::*;
 use crate::models::*;
+use crate::responses::*;
 use crate::request::{
     ApiRequestData, DynamicResponse, ProgressCallback, Request, ResponseData, TypedRequest,
 };
-use crate::responses::*;
 use crate::{ApiClient, SdkResult};
+use super::*;
 
 /// Request parameters for the GetInfo operation.
 pub struct GetInfoRequest {
@@ -47,6 +47,7 @@ impl GetInfoRequest {
         }
     }
 
+
     pub fn with_send_progress(mut self, callback: ProgressCallback) -> Self {
         self.send_progress = Some(callback);
         self
@@ -60,6 +61,7 @@ impl GetInfoRequest {
     async fn parse_response_data(response: ResponseData) -> SdkResult<InfoResponse> {
         Ok(serde_json::from_slice::<InfoResponse>(&response.body)?)
     }
+
 }
 
 #[async_trait]
@@ -78,6 +80,7 @@ impl Request for GetInfoRequest {
         let mut query = Vec::new();
         let mut headers = Vec::new();
         let mut body_parts = Vec::new();
+
 
         let url = client.build_url(&path, &query)?;
         let body = client.request_body_from_parts(&mut headers, body_parts);

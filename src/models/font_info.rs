@@ -32,21 +32,25 @@ use super::*;
 /// DTO container with font info.
 #[derive(Debug, Deserialize, Serialize)]
 pub struct FontInfo {
-    /// Gets or sets the path to the font file if any.
-    #[serde(rename = "FilePath", skip_serializing_if = "Option::is_none")]
-    pub file_path: Option<String>,
+        /// Gets or sets the path to the font file if any.
+        #[serde(rename = "FilePath", skip_serializing_if = "Option::is_none")]
+        pub file_path: Option<String>,
 
-    /// Gets or sets the family name of the font.
-    #[serde(rename = "FontFamilyName", skip_serializing_if = "Option::is_none")]
-    pub font_family_name: Option<String>,
 
-    /// Gets or sets the full name of the font.
-    #[serde(rename = "FullFontName", skip_serializing_if = "Option::is_none")]
-    pub full_font_name: Option<String>,
+        /// Gets or sets the family name of the font.
+        #[serde(rename = "FontFamilyName", skip_serializing_if = "Option::is_none")]
+        pub font_family_name: Option<String>,
 
-    /// Gets or sets the version string of the font.
-    #[serde(rename = "Version", skip_serializing_if = "Option::is_none")]
-    pub version: Option<String>,
+
+        /// Gets or sets the full name of the font.
+        #[serde(rename = "FullFontName", skip_serializing_if = "Option::is_none")]
+        pub full_font_name: Option<String>,
+
+
+        /// Gets or sets the version string of the font.
+        #[serde(rename = "Version", skip_serializing_if = "Option::is_none")]
+        pub version: Option<String>,
+
 }
 
 impl Default for FontInfo {
@@ -65,9 +69,11 @@ impl Model for FontInfo {
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {}
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+    }
 
     fn as_any(&self) -> &dyn Any {
         self
     }
 }
+

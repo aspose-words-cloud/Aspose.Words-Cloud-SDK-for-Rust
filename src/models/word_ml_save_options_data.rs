@@ -35,9 +35,11 @@ use super::*;
 pub struct WordMlSaveOptionsData {
     #[serde(flatten)]
     pub parent: SaveOptionsData,
-    /// Gets or sets a value indicating whether to use pretty formats output.
-    #[serde(rename = "PrettyFormat", skip_serializing_if = "Option::is_none")]
-    pub pretty_format: Option<bool>,
+        /// Gets or sets a value indicating whether to use pretty formats output.
+        #[serde(rename = "PrettyFormat", skip_serializing_if = "Option::is_none")]
+        pub pretty_format: Option<bool>,
+
+
 }
 
 impl Default for WordMlSaveOptionsData {
@@ -47,6 +49,7 @@ impl Default for WordMlSaveOptionsData {
         Self {
             parent,
             pretty_format: None,
+
         }
     }
 }
@@ -79,3 +82,4 @@ impl Model for WordMlSaveOptionsData {
         self
     }
 }
+

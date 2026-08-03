@@ -25,13 +25,13 @@ use std::collections::HashMap;
 use async_trait::async_trait;
 use chrono::{DateTime, Utc};
 
-use super::*;
 use crate::models::*;
+use crate::responses::*;
 use crate::request::{
     ApiRequestData, DynamicResponse, ProgressCallback, Request, ResponseData, TypedRequest,
 };
-use crate::responses::*;
 use crate::{ApiClient, SdkResult};
+use super::*;
 
 /// Request parameters for the GetAvailableFonts operation.
 pub struct GetAvailableFontsRequest {
@@ -66,10 +66,9 @@ impl GetAvailableFontsRequest {
     }
 
     async fn parse_response_data(response: ResponseData) -> SdkResult<AvailableFontsResponse> {
-        Ok(serde_json::from_slice::<AvailableFontsResponse>(
-            &response.body,
-        )?)
+        Ok(serde_json::from_slice::<AvailableFontsResponse>(&response.body)?)
     }
+
 }
 
 #[async_trait]
@@ -90,7 +89,7 @@ impl Request for GetAvailableFontsRequest {
         let mut body_parts = Vec::new();
 
         if let Some(value) = &self.fonts_location {
-            query.push(("fontsLocation".to_owned(), client.query_value(value)?));
+        query.push(("fontsLocation".to_owned(), client.query_value(value)?));
         }
 
         let url = client.build_url(&path, &query)?;

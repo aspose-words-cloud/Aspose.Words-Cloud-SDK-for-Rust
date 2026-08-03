@@ -25,13 +25,13 @@ use std::collections::HashMap;
 use async_trait::async_trait;
 use chrono::{DateTime, Utc};
 
-use super::*;
 use crate::models::*;
+use crate::responses::*;
 use crate::request::{
     ApiRequestData, DynamicResponse, ProgressCallback, Request, ResponseData, TypedRequest,
 };
-use crate::responses::*;
 use crate::{ApiClient, SdkResult};
+use super::*;
 
 /// Request parameters for the RemoveRangeOnline operation.
 pub struct RemoveRangeOnlineRequest {
@@ -114,6 +114,7 @@ impl RemoveRangeOnlineRequest {
     async fn parse_response_data(response: ResponseData) -> SdkResult<RemoveRangeOnlineResponse> {
         RemoveRangeOnlineResponse::from_response(response).await
     }
+
 }
 
 #[async_trait]
@@ -128,8 +129,7 @@ impl TypedRequest for RemoveRangeOnlineRequest {
 #[async_trait]
 impl Request for RemoveRangeOnlineRequest {
     async fn build(&self, client: &ApiClient) -> SdkResult<ApiRequestData> {
-        let mut path =
-            "/words/online/delete/range/{rangeStartIdentifier}/{rangeEndIdentifier}".to_owned();
+        let mut path = "/words/online/delete/range/{rangeStartIdentifier}/{rangeEndIdentifier}".to_owned();
         let mut query = Vec::new();
         let mut headers = Vec::new();
         let mut body_parts = Vec::new();
@@ -137,27 +137,24 @@ impl Request for RemoveRangeOnlineRequest {
         let value = client.query_value(&self.range_start_identifier)?;
         path = path.replace("{rangeStartIdentifier}", &value);
         let value = match &self.range_end_identifier {
-            Some(value) => client.query_value(value)?,
-            None => String::new(),
+        Some(value) => client.query_value(value)?,
+        None => String::new(),
         };
         path = path.replace("{rangeEndIdentifier}", &value);
         if let Some(value) = &self.load_encoding {
-            query.push(("loadEncoding".to_owned(), client.query_value(value)?));
+        query.push(("loadEncoding".to_owned(), client.query_value(value)?));
         }
         if let Some(value) = &self.password {
-            query.push((
-                "encryptedPassword".to_owned(),
-                client.encrypt_password(value).await?,
-            ));
+        query.push(("encryptedPassword".to_owned(), client.encrypt_password(value).await?));
         }
         if let Some(value) = &self.encrypted_password {
-            query.push(("encryptedPassword".to_owned(), client.query_value(value)?));
+        query.push(("encryptedPassword".to_owned(), client.query_value(value)?));
         }
         if let Some(value) = &self.open_type_support {
-            query.push(("openTypeSupport".to_owned(), client.query_value(value)?));
+        query.push(("openTypeSupport".to_owned(), client.query_value(value)?));
         }
         if let Some(value) = &self.dest_file_name {
-            query.push(("destFileName".to_owned(), client.query_value(value)?));
+        query.push(("destFileName".to_owned(), client.query_value(value)?));
         }
         client.add_binary_part(&mut body_parts, "Document", &self.document);
 

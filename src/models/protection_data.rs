@@ -32,9 +32,10 @@ use super::*;
 /// Container for the data about protection of the document.
 #[derive(Debug, Deserialize, Serialize)]
 pub struct ProtectionData {
-    /// Gets or sets type of the protection.
-    #[serde(rename = "ProtectionType", skip_serializing_if = "Option::is_none")]
-    pub protection_type: Option<ProtectionDataProtectionTypeEnum>,
+        /// Gets or sets type of the protection.
+        #[serde(rename = "ProtectionType", skip_serializing_if = "Option::is_none")]
+        pub protection_type: Option<ProtectionDataProtectionTypeEnum>,
+
 }
 
 impl Default for ProtectionData {
@@ -55,7 +56,8 @@ impl Model for ProtectionData {
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {}
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+    }
 
     fn as_any(&self) -> &dyn Any {
         self
@@ -66,13 +68,13 @@ impl Model for ProtectionData {
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
 pub enum ProtectionDataProtectionTypeEnum {
     #[serde(rename = "AllowOnlyRevisions")]
-    AllowOnlyRevisions,
+        AllowOnlyRevisions,
     #[serde(rename = "AllowOnlyComments")]
-    AllowOnlyComments,
+        AllowOnlyComments,
     #[serde(rename = "AllowOnlyFormFields")]
-    AllowOnlyFormFields,
+        AllowOnlyFormFields,
     #[serde(rename = "ReadOnly")]
-    ReadOnly,
+        ReadOnly,
     #[serde(rename = "NoProtection")]
-    NoProtection,
+        NoProtection,
 }

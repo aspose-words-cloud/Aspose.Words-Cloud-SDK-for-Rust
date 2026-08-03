@@ -35,9 +35,10 @@ use super::*;
 pub struct CommentsCollection {
     #[serde(flatten)]
     pub parent: LinkElement,
-    /// Gets or sets the collection of comments.
-    #[serde(rename = "CommentList", skip_serializing_if = "Option::is_none")]
-    pub comment_list: Option<Vec<Comment>>,
+        /// Gets or sets the collection of comments.
+        #[serde(rename = "CommentList", skip_serializing_if = "Option::is_none")]
+        pub comment_list: Option<Vec<Comment>>,
+
 }
 
 impl Default for CommentsCollection {
@@ -68,9 +69,9 @@ impl Model for CommentsCollection {
     fn validate(&self) -> SdkResult<()> {
         self.parent.validate()?;
         if let Some(values) = &self.comment_list {
-            for value in values {
-                value.validate()?;
-            }
+        for value in values {
+        value.validate()?;
+        }
         }
         Ok(())
     }
@@ -83,3 +84,4 @@ impl Model for CommentsCollection {
         self
     }
 }
+

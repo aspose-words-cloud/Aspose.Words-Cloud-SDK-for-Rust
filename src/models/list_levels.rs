@@ -35,10 +35,11 @@ use super::*;
 pub struct ListLevels {
     #[serde(flatten)]
     pub parent: LinkElement,
-    /// Gets or sets the collection of list levels for this list.
-    /// Use this property to access and modify formatting individual to each level of the list.
-    #[serde(rename = "ListLevel", skip_serializing_if = "Option::is_none")]
-    pub list_level: Option<Vec<ListLevel>>,
+        /// Gets or sets the collection of list levels for this list.
+            /// Use this property to access and modify formatting individual to each level of the list.
+        #[serde(rename = "ListLevel", skip_serializing_if = "Option::is_none")]
+        pub list_level: Option<Vec<ListLevel>>,
+
 }
 
 impl Default for ListLevels {
@@ -69,9 +70,9 @@ impl Model for ListLevels {
     fn validate(&self) -> SdkResult<()> {
         self.parent.validate()?;
         if let Some(values) = &self.list_level {
-            for value in values {
-                value.validate()?;
-            }
+        for value in values {
+        value.validate()?;
+        }
         }
         Ok(())
     }
@@ -84,3 +85,4 @@ impl Model for ListLevels {
         self
     }
 }
+

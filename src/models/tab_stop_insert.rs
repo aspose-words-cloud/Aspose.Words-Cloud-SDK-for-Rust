@@ -40,7 +40,9 @@ pub struct TabStopInsert {
 impl Default for TabStopInsert {
     fn default() -> Self {
         let mut parent = TabStopBase::default();
-        Self { parent }
+        Self {
+            parent,
+        }
     }
 }
 
@@ -72,3 +74,4 @@ impl Model for TabStopInsert {
         self
     }
 }
+

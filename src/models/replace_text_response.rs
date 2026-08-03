@@ -35,13 +35,15 @@ use super::*;
 pub struct ReplaceTextResponse {
     #[serde(flatten)]
     pub parent: WordsResponse,
-    /// Gets or sets the link to the document.
-    #[serde(rename = "DocumentLink", skip_serializing_if = "Option::is_none")]
-    pub document_link: Option<FileLink>,
+        /// Gets or sets the link to the document.
+        #[serde(rename = "DocumentLink", skip_serializing_if = "Option::is_none")]
+        pub document_link: Option<FileLink>,
 
-    /// Gets or sets the number of occurrences of the captured text in the document.
-    #[serde(rename = "Matches", skip_serializing_if = "Option::is_none")]
-    pub matches: Option<i32>,
+
+        /// Gets or sets the number of occurrences of the captured text in the document.
+        #[serde(rename = "Matches", skip_serializing_if = "Option::is_none")]
+        pub matches: Option<i32>,
+
 }
 
 impl Default for ReplaceTextResponse {
@@ -78,7 +80,7 @@ impl Model for ReplaceTextResponse {
             ));
         }
         if let Some(value) = &self.document_link {
-            value.validate()?;
+        value.validate()?;
         }
 
         Ok(())
@@ -92,3 +94,4 @@ impl Model for ReplaceTextResponse {
         self
     }
 }
+

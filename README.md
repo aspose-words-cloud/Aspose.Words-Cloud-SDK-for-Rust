@@ -22,7 +22,7 @@ The complete source code is available in this repository. You can either use it 
 
 ### Prerequisites
 
-To use Aspose.Words Cloud SDK for Rust, register an account with [Aspose Cloud](https://www.aspose.cloud/) and create an application in the [Cloud Dashboard](https://dashboard.aspose.cloud/#/apps) to obtain a Client ID and Client Secret. A free quota is available. For more details, see [Aspose Cloud Pricing](https://purchase.aspose.cloud/pricing).
+To use Aspose.Words Cloud SDK for Rust, register an account with [Aspose Cloud](https://www.aspose.cloud/) and create an application in the [Cloud Dashboard](https://dashboard.aspose.cloud/#/apps) to obtain a Client ID and Client Secret. A free quota is available. For more details, see [Aspose Cloud Pricing](https://purchase.aspose.cloud/cloud/pricing/).
 
 Rust 1.88 or newer is required.
 

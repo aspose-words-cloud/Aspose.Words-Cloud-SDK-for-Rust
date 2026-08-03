@@ -41,7 +41,9 @@ impl Default for BmpSaveOptionsData {
     fn default() -> Self {
         let mut parent = ImageSaveOptionsData::default();
         parent.save_format = Some("bmp".to_owned());
-        Self { parent }
+        Self {
+            parent,
+        }
     }
 }
 
@@ -73,3 +75,4 @@ impl Model for BmpSaveOptionsData {
         self
     }
 }
+

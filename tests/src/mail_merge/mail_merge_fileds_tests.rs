@@ -41,26 +41,18 @@ async fn mail_merge_fileds_get_document_field_names_online() -> TestResult<()> {
     let mail_merge_folder = "DocumentActions/MailMerge".to_owned();
     let local_document_file = "SampleExecuteTemplate.docx".to_owned();
 
-    let request_template = context
-        .load_binary_file(mail_merge_folder.clone() + "/" + &local_document_file)
-        .await?;
+    let request_template = context.load_binary_file(mail_merge_folder.clone() + "/" + &local_document_file).await?;
 
-    let request = GetDocumentFieldNamesOnlineRequest::new((request_template).into())
-        .with_use_non_merge_fields((true).into());
+    let request = GetDocumentFieldNamesOnlineRequest::new(
+        (request_template).into()
+    ).with_use_non_merge_fields((true).into());
 
-    let result = context
-        .api()
-        .get_document_field_names_online(request)
-        .await?;
+    let result = context.api().get_document_field_names_online(request).await?;
     let result_json = serialize_result(&result)?;
     assert_not_null(&result_json, "FieldNames")?;
     assert_not_null(&result_json, "FieldNames.Names")?;
     assert_length(&result_json, "FieldNames.Names", 15)?;
-    assert_string(
-        &result_json,
-        "FieldNames.Names[0]",
-        "TableStart:Order".to_owned(),
-    )?;
+    assert_string(&result_json, "FieldNames.Names[0]", "TableStart:Order".to_owned())?;
     Ok(())
 }
 
@@ -73,15 +65,11 @@ async fn mail_merge_fileds_get_document_field_names() -> TestResult<()> {
     let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentActions/MailMerge";
     let remote_file_name = "TestGetDocumentFieldNames.docx".to_owned();
 
-    context
-        .upload_file(
-            "Common/test_multi_pages.docx".to_owned(),
-            remote_data_folder.clone() + "/" + &remote_file_name,
-        )
-        .await?;
+    context.upload_file("Common/test_multi_pages.docx".to_owned(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
-    let request = GetDocumentFieldNamesRequest::new((remote_file_name.clone()).into())
-        .with_folder((remote_data_folder.clone()).into());
+    let request = GetDocumentFieldNamesRequest::new(
+        (remote_file_name.clone()).into()
+    ).with_folder((remote_data_folder.clone()).into());
 
     let result = context.api().get_document_field_names(request).await?;
     let result_json = serialize_result(&result)?;

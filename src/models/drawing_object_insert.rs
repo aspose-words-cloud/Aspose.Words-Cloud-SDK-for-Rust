@@ -32,52 +32,50 @@ use super::*;
 /// Drawing object element for insert.
 #[derive(Debug, Deserialize, Serialize)]
 pub struct DrawingObjectInsert {
-    /// Gets or sets the position, where the DrawingObject will be inserted.
-    #[serde(
-        rename = "Position",
-        skip_serializing_if = "Option::is_none",
-        default,
-        deserialize_with = "deserialize_optional_model"
-    )]
-    pub position: Option<ModelBox>,
+        /// Gets or sets the position, where the DrawingObject will be inserted.
+        #[serde(rename = "Position", skip_serializing_if = "Option::is_none", default, deserialize_with = "deserialize_optional_model")]
+        pub position: Option<ModelBox>,
 
-    /// Gets or sets the relative horizontal position, from which the distance to the image is measured.
-    #[serde(
-        rename = "RelativeHorizontalPosition",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub relative_horizontal_position: Option<DrawingObjectInsertRelativeHorizontalPositionEnum>,
 
-    /// Gets or sets the distance in points from the origin to the left side of the image.
-    #[serde(rename = "Left", skip_serializing_if = "Option::is_none")]
-    pub left: Option<f64>,
+        /// Gets or sets the relative horizontal position, from which the distance to the image is measured.
+        #[serde(rename = "RelativeHorizontalPosition", skip_serializing_if = "Option::is_none")]
+        pub relative_horizontal_position: Option<DrawingObjectInsertRelativeHorizontalPositionEnum>,
 
-    /// Gets or sets the relative vertical position, from which the distance to the image is measured.
-    #[serde(
-        rename = "RelativeVerticalPosition",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub relative_vertical_position: Option<DrawingObjectInsertRelativeVerticalPositionEnum>,
 
-    /// Gets or sets the distance in points from the origin to the top side of the image.
-    #[serde(rename = "Top", skip_serializing_if = "Option::is_none")]
-    pub top: Option<f64>,
+        /// Gets or sets the distance in points from the origin to the left side of the image.
+        #[serde(rename = "Left", skip_serializing_if = "Option::is_none")]
+        pub left: Option<f64>,
 
-    /// Gets or sets the width of the DrawingObjects in points.
-    #[serde(rename = "Width", skip_serializing_if = "Option::is_none")]
-    pub width: Option<f64>,
 
-    /// Gets or sets the height of the DrawingObject in points.
-    #[serde(rename = "Height", skip_serializing_if = "Option::is_none")]
-    pub height: Option<f64>,
+        /// Gets or sets the relative vertical position, from which the distance to the image is measured.
+        #[serde(rename = "RelativeVerticalPosition", skip_serializing_if = "Option::is_none")]
+        pub relative_vertical_position: Option<DrawingObjectInsertRelativeVerticalPositionEnum>,
 
-    /// Gets or sets the option indicating how to wrap text around the image.
-    #[serde(rename = "WrapType", skip_serializing_if = "Option::is_none")]
-    pub wrap_type: Option<DrawingObjectInsertWrapTypeEnum>,
 
-    /// Gets or sets a value indicating whether AspectRatioLocked option on or off.
-    #[serde(rename = "AspectRatioLocked", skip_serializing_if = "Option::is_none")]
-    pub aspect_ratio_locked: Option<bool>,
+        /// Gets or sets the distance in points from the origin to the top side of the image.
+        #[serde(rename = "Top", skip_serializing_if = "Option::is_none")]
+        pub top: Option<f64>,
+
+
+        /// Gets or sets the width of the DrawingObjects in points.
+        #[serde(rename = "Width", skip_serializing_if = "Option::is_none")]
+        pub width: Option<f64>,
+
+
+        /// Gets or sets the height of the DrawingObject in points.
+        #[serde(rename = "Height", skip_serializing_if = "Option::is_none")]
+        pub height: Option<f64>,
+
+
+        /// Gets or sets the option indicating how to wrap text around the image.
+        #[serde(rename = "WrapType", skip_serializing_if = "Option::is_none")]
+        pub wrap_type: Option<DrawingObjectInsertWrapTypeEnum>,
+
+
+        /// Gets or sets a value indicating whether AspectRatioLocked option on or off.
+        #[serde(rename = "AspectRatioLocked", skip_serializing_if = "Option::is_none")]
+        pub aspect_ratio_locked: Option<bool>,
+
 }
 
 impl Default for DrawingObjectInsert {
@@ -134,13 +132,21 @@ impl Model for DrawingObjectInsert {
             ));
         }
         if let Some(value) = &self.position {
-            value.validate()?;
+        value.validate()?;
         }
+
+
+
+
+
+
+
 
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {}
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+    }
 
     fn as_any(&self) -> &dyn Any {
         self
@@ -151,63 +157,63 @@ impl Model for DrawingObjectInsert {
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
 pub enum DrawingObjectInsertRelativeHorizontalPositionEnum {
     #[serde(rename = "Margin")]
-    Margin,
+        Margin,
     #[serde(rename = "Page")]
-    Page,
+        Page,
     #[serde(rename = "Column")]
-    Column,
+        Column,
     #[serde(rename = "Default")]
-    Default,
+        Default,
     #[serde(rename = "Character")]
-    Character,
+        Character,
     #[serde(rename = "LeftMargin")]
-    LeftMargin,
+        LeftMargin,
     #[serde(rename = "RightMargin")]
-    RightMargin,
+        RightMargin,
     #[serde(rename = "InsideMargin")]
-    InsideMargin,
+        InsideMargin,
     #[serde(rename = "OutsideMargin")]
-    OutsideMargin,
+        OutsideMargin,
 }
 
 /// Gets or sets the relative vertical position, from which the distance to the image is measured.
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
 pub enum DrawingObjectInsertRelativeVerticalPositionEnum {
     #[serde(rename = "Margin")]
-    Margin,
+        Margin,
     #[serde(rename = "TableDefault")]
-    TableDefault,
+        TableDefault,
     #[serde(rename = "Page")]
-    Page,
+        Page,
     #[serde(rename = "Paragraph")]
-    Paragraph,
+        Paragraph,
     #[serde(rename = "TextFrameDefault")]
-    TextFrameDefault,
+        TextFrameDefault,
     #[serde(rename = "Line")]
-    Line,
+        Line,
     #[serde(rename = "TopMargin")]
-    TopMargin,
+        TopMargin,
     #[serde(rename = "BottomMargin")]
-    BottomMargin,
+        BottomMargin,
     #[serde(rename = "InsideMargin")]
-    InsideMargin,
+        InsideMargin,
     #[serde(rename = "OutsideMargin")]
-    OutsideMargin,
+        OutsideMargin,
 }
 
 /// Gets or sets the option indicating how to wrap text around the image.
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
 pub enum DrawingObjectInsertWrapTypeEnum {
     #[serde(rename = "Inline")]
-    Inline,
+        Inline,
     #[serde(rename = "TopBottom")]
-    TopBottom,
+        TopBottom,
     #[serde(rename = "Square")]
-    Square,
+        Square,
     #[serde(rename = "None")]
-    None,
+        None,
     #[serde(rename = "Tight")]
-    Tight,
+        Tight,
     #[serde(rename = "Through")]
-    Through,
+        Through,
 }

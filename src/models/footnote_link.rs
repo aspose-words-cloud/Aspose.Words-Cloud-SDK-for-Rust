@@ -40,7 +40,9 @@ pub struct FootnoteLink {
 impl Default for FootnoteLink {
     fn default() -> Self {
         let mut parent = NodeLink::default();
-        Self { parent }
+        Self {
+            parent,
+        }
     }
 }
 
@@ -72,3 +74,4 @@ impl Model for FootnoteLink {
         self
     }
 }
+

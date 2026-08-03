@@ -35,20 +35,20 @@ use super::*;
 pub struct FormFieldCheckbox {
     #[serde(flatten)]
     pub parent: FormField,
-    /// Gets or sets a value indicating whether the size of the textbox is automatic or specified explicitly.
-    #[serde(
-        rename = "IsCheckBoxExactSize",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub is_check_box_exact_size: Option<bool>,
+        /// Gets or sets a value indicating whether the size of the textbox is automatic or specified explicitly.
+        #[serde(rename = "IsCheckBoxExactSize", skip_serializing_if = "Option::is_none")]
+        pub is_check_box_exact_size: Option<bool>,
 
-    /// Gets or sets the size of the checkbox in points. Has effect only when IsCheckBoxExactSize is true.
-    #[serde(rename = "CheckBoxSize", skip_serializing_if = "Option::is_none")]
-    pub check_box_size: Option<f64>,
 
-    /// Gets or sets the checked status of the check box form field.
-    #[serde(rename = "Checked", skip_serializing_if = "Option::is_none")]
-    pub checked: Option<bool>,
+        /// Gets or sets the size of the checkbox in points. Has effect only when IsCheckBoxExactSize is true.
+        #[serde(rename = "CheckBoxSize", skip_serializing_if = "Option::is_none")]
+        pub check_box_size: Option<f64>,
+
+
+        /// Gets or sets the checked status of the check box form field.
+        #[serde(rename = "Checked", skip_serializing_if = "Option::is_none")]
+        pub checked: Option<bool>,
+
 }
 
 impl Default for FormFieldCheckbox {
@@ -96,3 +96,4 @@ impl Model for FormFieldCheckbox {
         self
     }
 }
+

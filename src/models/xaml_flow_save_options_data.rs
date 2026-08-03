@@ -35,24 +35,25 @@ use super::*;
 pub struct XamlFlowSaveOptionsData {
     #[serde(flatten)]
     pub parent: SaveOptionsData,
-    /// Gets or sets the physical folder where images are saved when exporting.
-    #[serde(rename = "ImagesFolder", skip_serializing_if = "Option::is_none")]
-    pub images_folder: Option<String>,
+        /// Gets or sets the physical folder where images are saved when exporting.
+        #[serde(rename = "ImagesFolder", skip_serializing_if = "Option::is_none")]
+        pub images_folder: Option<String>,
 
-    /// Gets or sets the name of the folder used to construct image URIs.
-    #[serde(rename = "ImagesFolderAlias", skip_serializing_if = "Option::is_none")]
-    pub images_folder_alias: Option<String>,
 
-    /// Gets or sets the flag that indicates whether backslash characters should be replaced with yen signs.
-    /// The default value is false.
-    /// By default, Aspose.Words mimics MS Word's behavior and doesn't replace backslash characters with yen signs in
-    /// generated HTML documents. However, previous versions of Aspose.Words performed such replacements in certain
-    /// scenarios. This flag enables backward compatibility with previous versions of Aspose.Words.
-    #[serde(
-        rename = "ReplaceBackslashWithYenSign",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub replace_backslash_with_yen_sign: Option<bool>,
+        /// Gets or sets the name of the folder used to construct image URIs.
+        #[serde(rename = "ImagesFolderAlias", skip_serializing_if = "Option::is_none")]
+        pub images_folder_alias: Option<String>,
+
+
+        /// Gets or sets the flag that indicates whether backslash characters should be replaced with yen signs.
+            /// The default value is false.
+            /// By default, Aspose.Words mimics MS Word's behavior and doesn't replace backslash characters with yen signs in
+            /// generated HTML documents. However, previous versions of Aspose.Words performed such replacements in certain
+            /// scenarios. This flag enables backward compatibility with previous versions of Aspose.Words.
+        #[serde(rename = "ReplaceBackslashWithYenSign", skip_serializing_if = "Option::is_none")]
+        pub replace_backslash_with_yen_sign: Option<bool>,
+
+
 }
 
 impl Default for XamlFlowSaveOptionsData {
@@ -64,6 +65,7 @@ impl Default for XamlFlowSaveOptionsData {
             images_folder: None,
             images_folder_alias: None,
             replace_backslash_with_yen_sign: None,
+
         }
     }
 }
@@ -96,3 +98,4 @@ impl Model for XamlFlowSaveOptionsData {
         self
     }
 }
+

@@ -36,9 +36,10 @@ use super::*;
 pub struct FootnotesResponse {
     #[serde(flatten)]
     pub parent: WordsResponse,
-    /// Gets or sets the collection of footnotes.
-    #[serde(rename = "Footnotes", skip_serializing_if = "Option::is_none")]
-    pub footnotes: Option<FootnoteCollection>,
+        /// Gets or sets the collection of footnotes.
+        #[serde(rename = "Footnotes", skip_serializing_if = "Option::is_none")]
+        pub footnotes: Option<FootnoteCollection>,
+
 }
 
 impl Default for FootnotesResponse {
@@ -69,7 +70,7 @@ impl Model for FootnotesResponse {
     fn validate(&self) -> SdkResult<()> {
         self.parent.validate()?;
         if let Some(value) = &self.footnotes {
-            value.validate()?;
+        value.validate()?;
         }
         Ok(())
     }
@@ -82,3 +83,4 @@ impl Model for FootnotesResponse {
         self
     }
 }
+

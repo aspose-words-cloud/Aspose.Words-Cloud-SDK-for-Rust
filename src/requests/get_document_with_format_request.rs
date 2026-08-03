@@ -25,13 +25,13 @@ use std::collections::HashMap;
 use async_trait::async_trait;
 use chrono::{DateTime, Utc};
 
-use super::*;
 use crate::models::*;
+use crate::responses::*;
 use crate::request::{
     ApiRequestData, DynamicResponse, ProgressCallback, Request, ResponseData, TypedRequest,
 };
-use crate::responses::*;
 use crate::{ApiClient, SdkResult};
+use super::*;
 
 /// Request parameters for the GetDocumentWithFormat operation.
 pub struct GetDocumentWithFormatRequest {
@@ -130,6 +130,7 @@ impl GetDocumentWithFormatRequest {
     async fn parse_response_data(response: ResponseData) -> SdkResult<Vec<u8>> {
         Ok(response.body)
     }
+
 }
 
 #[async_trait]
@@ -153,31 +154,28 @@ impl Request for GetDocumentWithFormatRequest {
         path = path.replace("{name}", &value);
         query.push(("format".to_owned(), client.query_value(&self.format)?));
         if let Some(value) = &self.folder {
-            query.push(("folder".to_owned(), client.query_value(value)?));
+        query.push(("folder".to_owned(), client.query_value(value)?));
         }
         if let Some(value) = &self.storage {
-            query.push(("storage".to_owned(), client.query_value(value)?));
+        query.push(("storage".to_owned(), client.query_value(value)?));
         }
         if let Some(value) = &self.load_encoding {
-            query.push(("loadEncoding".to_owned(), client.query_value(value)?));
+        query.push(("loadEncoding".to_owned(), client.query_value(value)?));
         }
         if let Some(value) = &self.password {
-            query.push((
-                "encryptedPassword".to_owned(),
-                client.encrypt_password(value).await?,
-            ));
+        query.push(("encryptedPassword".to_owned(), client.encrypt_password(value).await?));
         }
         if let Some(value) = &self.encrypted_password {
-            query.push(("encryptedPassword".to_owned(), client.query_value(value)?));
+        query.push(("encryptedPassword".to_owned(), client.query_value(value)?));
         }
         if let Some(value) = &self.open_type_support {
-            query.push(("openTypeSupport".to_owned(), client.query_value(value)?));
+        query.push(("openTypeSupport".to_owned(), client.query_value(value)?));
         }
         if let Some(value) = &self.out_path {
-            query.push(("outPath".to_owned(), client.query_value(value)?));
+        query.push(("outPath".to_owned(), client.query_value(value)?));
         }
         if let Some(value) = &self.fonts_location {
-            query.push(("fontsLocation".to_owned(), client.query_value(value)?));
+        query.push(("fontsLocation".to_owned(), client.query_value(value)?));
         }
 
         let url = client.build_url(&path, &query)?;

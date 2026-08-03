@@ -32,33 +32,30 @@ use super::*;
 /// Container class for details of digital signature.
 #[derive(Debug, Deserialize, Serialize)]
 pub struct PdfDigitalSignatureDetailsData {
-    /// Gets or sets the certificate's filename using for signing.
-    #[serde(
-        rename = "CertificateFilename",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub certificate_filename: Option<String>,
+        /// Gets or sets the certificate's filename using for signing.
+        #[serde(rename = "CertificateFilename", skip_serializing_if = "Option::is_none")]
+        pub certificate_filename: Option<String>,
 
-    /// Gets or sets the hash algorithm.
-    #[serde(rename = "HashAlgorithm", skip_serializing_if = "Option::is_none")]
-    pub hash_algorithm: Option<PdfDigitalSignatureDetailsDataHashAlgorithmEnum>,
 
-    /// Gets or sets the location of the signing.
-    #[serde(rename = "Location", skip_serializing_if = "Option::is_none")]
-    pub location: Option<String>,
+        /// Gets or sets the hash algorithm.
+        #[serde(rename = "HashAlgorithm", skip_serializing_if = "Option::is_none")]
+        pub hash_algorithm: Option<PdfDigitalSignatureDetailsDataHashAlgorithmEnum>,
 
-    /// Gets or sets the reason for the signing.
-    #[serde(rename = "Reason", skip_serializing_if = "Option::is_none")]
-    pub reason: Option<String>,
 
-    /// Gets or sets the date of the signing.
-    #[serde(
-        rename = "SignatureDate",
-        skip_serializing_if = "Option::is_none",
-        default,
-        deserialize_with = "deserialize_optional_date_time"
-    )]
-    pub signature_date: Option<chrono::DateTime<chrono::Utc>>,
+        /// Gets or sets the location of the signing.
+        #[serde(rename = "Location", skip_serializing_if = "Option::is_none")]
+        pub location: Option<String>,
+
+
+        /// Gets or sets the reason for the signing.
+        #[serde(rename = "Reason", skip_serializing_if = "Option::is_none")]
+        pub reason: Option<String>,
+
+
+        /// Gets or sets the date of the signing.
+        #[serde(rename = "SignatureDate", skip_serializing_if = "Option::is_none", default, deserialize_with = "deserialize_optional_date_time")]
+        pub signature_date: Option<chrono::DateTime<chrono::Utc>>,
+
 }
 
 impl Default for PdfDigitalSignatureDetailsData {
@@ -78,7 +75,8 @@ impl Model for PdfDigitalSignatureDetailsData {
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {}
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+    }
 
     fn as_any(&self) -> &dyn Any {
         self
@@ -89,11 +87,11 @@ impl Model for PdfDigitalSignatureDetailsData {
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
 pub enum PdfDigitalSignatureDetailsDataHashAlgorithmEnum {
     #[serde(rename = "Sha256")]
-    Sha256,
+        Sha256,
     #[serde(rename = "Sha384")]
-    Sha384,
+        Sha384,
     #[serde(rename = "Sha512")]
-    Sha512,
+        Sha512,
     #[serde(rename = "RipeMD160")]
-    RipeMd160,
+        RipeMd160,
 }

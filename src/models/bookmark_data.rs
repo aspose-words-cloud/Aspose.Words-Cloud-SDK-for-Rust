@@ -32,13 +32,15 @@ use super::*;
 /// DTO for bookmark updating.
 #[derive(Debug, Deserialize, Serialize)]
 pub struct BookmarkData {
-    /// Gets or sets the name of the bookmark.
-    #[serde(rename = "Name", skip_serializing_if = "Option::is_none")]
-    pub name: Option<String>,
+        /// Gets or sets the name of the bookmark.
+        #[serde(rename = "Name", skip_serializing_if = "Option::is_none")]
+        pub name: Option<String>,
 
-    /// Gets or sets text, enclosed in the bookmark.
-    #[serde(rename = "Text", skip_serializing_if = "Option::is_none")]
-    pub text: Option<String>,
+
+        /// Gets or sets text, enclosed in the bookmark.
+        #[serde(rename = "Text", skip_serializing_if = "Option::is_none")]
+        pub text: Option<String>,
+
 }
 
 impl Default for BookmarkData {
@@ -55,9 +57,11 @@ impl Model for BookmarkData {
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {}
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+    }
 
     fn as_any(&self) -> &dyn Any {
         self
     }
 }
+

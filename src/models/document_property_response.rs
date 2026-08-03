@@ -36,9 +36,10 @@ use super::*;
 pub struct DocumentPropertyResponse {
     #[serde(flatten)]
     pub parent: WordsResponse,
-    /// Gets or sets the document property.
-    #[serde(rename = "DocumentProperty", skip_serializing_if = "Option::is_none")]
-    pub document_property: Option<DocumentProperty>,
+        /// Gets or sets the document property.
+        #[serde(rename = "DocumentProperty", skip_serializing_if = "Option::is_none")]
+        pub document_property: Option<DocumentProperty>,
+
 }
 
 impl Default for DocumentPropertyResponse {
@@ -69,7 +70,7 @@ impl Model for DocumentPropertyResponse {
     fn validate(&self) -> SdkResult<()> {
         self.parent.validate()?;
         if let Some(value) = &self.document_property {
-            value.validate()?;
+        value.validate()?;
         }
         Ok(())
     }
@@ -82,3 +83,4 @@ impl Model for DocumentPropertyResponse {
         self
     }
 }
+

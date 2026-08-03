@@ -32,13 +32,15 @@ use super::*;
 /// DTO container with a range element.
 #[derive(Debug, Deserialize, Serialize)]
 pub struct ReplaceRange {
-    /// Gets or sets the range's text.
-    #[serde(rename = "Text", skip_serializing_if = "Option::is_none")]
-    pub text: Option<String>,
+        /// Gets or sets the range's text.
+        #[serde(rename = "Text", skip_serializing_if = "Option::is_none")]
+        pub text: Option<String>,
 
-    /// Gets or sets the range's text type.
-    #[serde(rename = "TextType", skip_serializing_if = "Option::is_none")]
-    pub text_type: Option<ReplaceRangeTextTypeEnum>,
+
+        /// Gets or sets the range's text type.
+        #[serde(rename = "TextType", skip_serializing_if = "Option::is_none")]
+        pub text_type: Option<ReplaceRangeTextTypeEnum>,
+
 }
 
 impl Default for ReplaceRange {
@@ -60,7 +62,8 @@ impl Model for ReplaceRange {
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {}
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+    }
 
     fn as_any(&self) -> &dyn Any {
         self
@@ -71,7 +74,7 @@ impl Model for ReplaceRange {
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
 pub enum ReplaceRangeTextTypeEnum {
     #[serde(rename = "Text")]
-    Text,
+        Text,
     #[serde(rename = "Html")]
-    Html,
+        Html,
 }

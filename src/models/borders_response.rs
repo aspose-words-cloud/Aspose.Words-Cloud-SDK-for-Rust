@@ -36,9 +36,10 @@ use super::*;
 pub struct BordersResponse {
     #[serde(flatten)]
     pub parent: WordsResponse,
-    /// Gets or sets the collection of borders.
-    #[serde(rename = "Borders", skip_serializing_if = "Option::is_none")]
-    pub borders: Option<BordersCollection>,
+        /// Gets or sets the collection of borders.
+        #[serde(rename = "Borders", skip_serializing_if = "Option::is_none")]
+        pub borders: Option<BordersCollection>,
+
 }
 
 impl Default for BordersResponse {
@@ -69,7 +70,7 @@ impl Model for BordersResponse {
     fn validate(&self) -> SdkResult<()> {
         self.parent.validate()?;
         if let Some(value) = &self.borders {
-            value.validate()?;
+        value.validate()?;
         }
         Ok(())
     }
@@ -82,3 +83,4 @@ impl Model for BordersResponse {
         self
     }
 }
+

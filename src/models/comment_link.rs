@@ -40,7 +40,9 @@ pub struct CommentLink {
 impl Default for CommentLink {
     fn default() -> Self {
         let mut parent = LinkElement::default();
-        Self { parent }
+        Self {
+            parent,
+        }
     }
 }
 
@@ -72,3 +74,4 @@ impl Model for CommentLink {
         self
     }
 }
+

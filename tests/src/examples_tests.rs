@@ -41,14 +41,22 @@ async fn accept_all_revisions() -> TestResult<()> {
     let file_name = "test_doc.docx".to_owned();
 
     // Upload original document to cloud storage.
-    let my_var1 = tokio::fs::read(examples_data.join(file_name.clone())).await?;
+    let my_var1 = tokio::fs::read(
+    examples_data.join(file_name.clone()),
+    ).await?;
     let my_var2 = file_name.clone();
-    let upload_file_request = UploadFileRequest::new((my_var1).into(), (my_var2).into());
+    let upload_file_request = UploadFileRequest::new(
+        (my_var1).into(),
+        (my_var2).into()
+    );
     let _result = words_api.upload_file(upload_file_request).await?;
+
 
     // Calls AcceptAllRevisions method for document in cloud.
     let my_var3 = file_name.clone();
-    let request = AcceptAllRevisionsRequest::new((my_var3).into());
+    let request = AcceptAllRevisionsRequest::new(
+        (my_var3).into()
+    );
     let _result = words_api.accept_all_revisions(request).await?;
 
     Ok(())
@@ -63,14 +71,18 @@ async fn accept_all_revisions_online() -> TestResult<()> {
     let file_name = "test_doc.docx".to_owned();
 
     // Calls AcceptAllRevisionsOnline method for document in cloud.
-    let request_document = tokio::fs::read(examples_data.join(file_name.clone())).await?;
-    let request = AcceptAllRevisionsOnlineRequest::new((request_document).into());
+    let request_document = tokio::fs::read(
+    examples_data.join(file_name.clone()),
+    ).await?;
+    let request = AcceptAllRevisionsOnlineRequest::new(
+        (request_document).into()
+    );
     let result = words_api.accept_all_revisions_online(request).await?;
     let files = result.r#document.ok_or_else(|| {
-        SdkError::InvalidResponse("the example response does not contain a document".to_owned())
+    SdkError::InvalidResponse("the example response does not contain a document".to_owned())
     })?;
     let content = files.into_values().next().ok_or_else(|| {
-        SdkError::InvalidResponse("the example response contains an empty document".to_owned())
+    SdkError::InvalidResponse("the example response contains an empty document".to_owned())
     })?;
     tokio::fs::write(examples_data.join("test_result.docx"), content).await?;
     Ok(())

@@ -35,14 +35,10 @@ use super::*;
 pub struct FieldInsert {
     #[serde(flatten)]
     pub parent: FieldBase,
-    /// Gets or sets the position of the node that will be used to determine the placement of a new field.
-    #[serde(
-        rename = "Position",
-        skip_serializing_if = "Option::is_none",
-        default,
-        deserialize_with = "deserialize_optional_model"
-    )]
-    pub position: Option<ModelBox>,
+        /// Gets or sets the position of the node that will be used to determine the placement of a new field.
+        #[serde(rename = "Position", skip_serializing_if = "Option::is_none", default, deserialize_with = "deserialize_optional_model")]
+        pub position: Option<ModelBox>,
+
 }
 
 impl Default for FieldInsert {
@@ -73,7 +69,7 @@ impl Model for FieldInsert {
     fn validate(&self) -> SdkResult<()> {
         self.parent.validate()?;
         if let Some(value) = &self.position {
-            value.validate()?;
+        value.validate()?;
         }
         Ok(())
     }
@@ -86,3 +82,4 @@ impl Model for FieldInsert {
         self
     }
 }
+

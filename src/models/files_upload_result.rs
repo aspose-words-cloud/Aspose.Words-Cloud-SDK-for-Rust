@@ -32,13 +32,15 @@ use super::*;
 /// File upload result.
 #[derive(Debug, Deserialize, Serialize)]
 pub struct FilesUploadResult {
-    /// List of errors.
-    #[serde(rename = "Errors", skip_serializing_if = "Option::is_none")]
-    pub errors: Option<Vec<Error>>,
+        /// List of errors.
+        #[serde(rename = "Errors", skip_serializing_if = "Option::is_none")]
+        pub errors: Option<Vec<Error>>,
 
-    /// List of uploaded file names.
-    #[serde(rename = "Uploaded", skip_serializing_if = "Option::is_none")]
-    pub uploaded: Option<Vec<String>>,
+
+        /// List of uploaded file names.
+        #[serde(rename = "Uploaded", skip_serializing_if = "Option::is_none")]
+        pub uploaded: Option<Vec<String>>,
+
 }
 
 impl Default for FilesUploadResult {
@@ -53,17 +55,19 @@ impl Default for FilesUploadResult {
 impl Model for FilesUploadResult {
     fn validate(&self) -> SdkResult<()> {
         if let Some(values) = &self.errors {
-            for value in values {
-                value.validate()?;
-            }
+        for value in values {
+        value.validate()?;
+        }
         }
 
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {}
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+    }
 
     fn as_any(&self) -> &dyn Any {
         self
     }
 }
+

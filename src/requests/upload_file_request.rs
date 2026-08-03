@@ -25,21 +25,21 @@ use std::collections::HashMap;
 use async_trait::async_trait;
 use chrono::{DateTime, Utc};
 
-use super::*;
 use crate::models::*;
+use crate::responses::*;
 use crate::request::{
     ApiRequestData, DynamicResponse, ProgressCallback, Request, ResponseData, TypedRequest,
 };
-use crate::responses::*;
 use crate::{ApiClient, SdkResult};
+use super::*;
 
 /// Request parameters for the UploadFile operation.
 pub struct UploadFileRequest {
     /// File to upload.
     pub file_content: Vec<u8>,
     /// Path where to upload including filename and extension e.g. /file.ext or /Folder 1/file.ext
-    /// If the content is multipart and path does not contains the file name it tries to get them from filename parameter
-    /// from Content-Disposition header.
+        /// If the content is multipart and path does not contains the file name it tries to get them from filename parameter
+        /// from Content-Disposition header.
     pub path: String,
     /// Storage name.
     pub storage_name: Option<String>,
@@ -76,6 +76,7 @@ impl UploadFileRequest {
     async fn parse_response_data(response: ResponseData) -> SdkResult<FilesUploadResult> {
         Ok(serde_json::from_slice::<FilesUploadResult>(&response.body)?)
     }
+
 }
 
 #[async_trait]
@@ -98,7 +99,7 @@ impl Request for UploadFileRequest {
         let value = client.query_value(&self.path)?;
         path = path.replace("{path}", &value);
         if let Some(value) = &self.storage_name {
-            query.push(("storageName".to_owned(), client.query_value(value)?));
+        query.push(("storageName".to_owned(), client.query_value(value)?));
         }
         client.add_binary_part(&mut body_parts, "FileContent", &self.file_content);
 

@@ -25,13 +25,13 @@ use std::collections::HashMap;
 use async_trait::async_trait;
 use chrono::{DateTime, Utc};
 
-use super::*;
 use crate::models::*;
+use crate::responses::*;
 use crate::request::{
     ApiRequestData, DynamicResponse, ProgressCallback, Request, ResponseData, TypedRequest,
 };
-use crate::responses::*;
 use crate::{ApiClient, SdkResult};
+use super::*;
 
 /// Request parameters for the ResetCache operation.
 pub struct ResetCacheRequest {
@@ -47,6 +47,7 @@ impl ResetCacheRequest {
         }
     }
 
+
     pub fn with_send_progress(mut self, callback: ProgressCallback) -> Self {
         self.send_progress = Some(callback);
         self
@@ -61,6 +62,7 @@ impl ResetCacheRequest {
         let _response = response;
         Ok(())
     }
+
 }
 
 #[async_trait]
@@ -79,6 +81,7 @@ impl Request for ResetCacheRequest {
         let mut query = Vec::new();
         let mut headers = Vec::new();
         let mut body_parts = Vec::new();
+
 
         let url = client.build_url(&path, &query)?;
         let body = client.request_body_from_parts(&mut headers, body_parts);

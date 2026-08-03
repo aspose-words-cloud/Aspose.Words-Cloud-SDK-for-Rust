@@ -35,64 +35,76 @@ use super::*;
 pub struct ListLevel {
     #[serde(flatten)]
     pub parent: LinkElement,
-    /// Gets or sets the starting number for this list level.
-    /// The default value is 1.
-    #[serde(rename = "StartAt", skip_serializing_if = "Option::is_none")]
-    pub start_at: Option<i32>,
+        /// Gets or sets the starting number for this list level.
+            /// The default value is 1.
+        #[serde(rename = "StartAt", skip_serializing_if = "Option::is_none")]
+        pub start_at: Option<i32>,
 
-    /// Gets or sets the number style for this list level.
-    #[serde(rename = "NumberStyle", skip_serializing_if = "Option::is_none")]
-    pub number_style: Option<ListLevelNumberStyleEnum>,
 
-    /// Gets or sets the number format for the list level.
-    /// Among normal text characters, the string can contain placeholder characters \\x0000 to \\x0008 representing the numbers from the corresponding list levels. For example, the string "\\x0000.\\x0001)" will generate a list label that looks something like "1.5)". The number "1" is the current number from the 1st list level, the number "5" is the current number from the 2nd list level. Null is not allowed, but an empty string meaning no number is valid.
-    #[serde(rename = "NumberFormat", skip_serializing_if = "Option::is_none")]
-    pub number_format: Option<String>,
+        /// Gets or sets the number style for this list level.
+        #[serde(rename = "NumberStyle", skip_serializing_if = "Option::is_none")]
+        pub number_style: Option<ListLevelNumberStyleEnum>,
 
-    /// Gets or sets the justification of the actual number of the list item.
-    /// The list label is justified relative to the Aspose.Words.Lists.ListLevel.NumberPosition property.
-    #[serde(rename = "Alignment", skip_serializing_if = "Option::is_none")]
-    pub alignment: Option<ListLevelAlignmentEnum>,
 
-    /// Gets or sets a value indicating whether the level turns all inherited numbers to Arabic, false if it preserves their number style.
-    #[serde(rename = "IsLegal", skip_serializing_if = "Option::is_none")]
-    pub is_legal: Option<bool>,
+        /// Gets or sets the number format for the list level.
+            /// Among normal text characters, the string can contain placeholder characters \\x0000 to \\x0008 representing the numbers from the corresponding list levels. For example, the string "\\x0000.\\x0001)" will generate a list label that looks something like "1.5)". The number "1" is the current number from the 1st list level, the number "5" is the current number from the 2nd list level. Null is not allowed, but an empty string meaning no number is valid.
+        #[serde(rename = "NumberFormat", skip_serializing_if = "Option::is_none")]
+        pub number_format: Option<String>,
 
-    /// Gets or sets the list level, that must appear before the specified list level restarts numbering.
-    /// The value of -1 means the numbering will continue.
-    #[serde(rename = "RestartAfterLevel", skip_serializing_if = "Option::is_none")]
-    pub restart_after_level: Option<i32>,
 
-    /// Gets or sets the character inserted after the number for the list level.
-    #[serde(rename = "TrailingCharacter", skip_serializing_if = "Option::is_none")]
-    pub trailing_character: Option<ListLevelTrailingCharacterEnum>,
+        /// Gets or sets the justification of the actual number of the list item.
+            /// The list label is justified relative to the Aspose.Words.Lists.ListLevel.NumberPosition property.
+        #[serde(rename = "Alignment", skip_serializing_if = "Option::is_none")]
+        pub alignment: Option<ListLevelAlignmentEnum>,
 
-    /// Gets or sets character formatting used for the list label.
-    #[serde(rename = "Font", skip_serializing_if = "Option::is_none")]
-    pub font: Option<Font>,
 
-    /// Gets or sets the tab position (in points) for the list level.
-    /// Has effect only when Aspose.Words.Lists.ListLevel.TrailingCharacter is a tab.
-    /// Aspose.Words.Lists.ListLevel.NumberPosition Aspose.Words.Lists.ListLevel.TextPosition.
-    #[serde(rename = "TabPosition", skip_serializing_if = "Option::is_none")]
-    pub tab_position: Option<f64>,
+        /// Gets or sets a value indicating whether the level turns all inherited numbers to Arabic, false if it preserves their number style.
+        #[serde(rename = "IsLegal", skip_serializing_if = "Option::is_none")]
+        pub is_legal: Option<bool>,
 
-    /// Gets or sets the position (in points) of the number or bullet for the list level.
-    /// Aspose.Words.Lists.ListLevel.NumberPosition corresponds to LeftIndent plus FirstLineIndent of the paragraph. Aspose.Words.Lists.ListLevel.TextPosition Aspose.Words.Lists.ListLevel.TabPosition.
-    #[serde(rename = "NumberPosition", skip_serializing_if = "Option::is_none")]
-    pub number_position: Option<f64>,
 
-    /// Gets or sets the position (in points) for the second line of wrapping text for the list level.
-    /// Aspose.Words.Lists.ListLevel.TextPosition corresponds to LeftIndent of the paragraph.
-    /// Aspose.Words.Lists.ListLevel.NumberPosition Aspose.Words.Lists.ListLevel.TabPosition.
-    #[serde(rename = "TextPosition", skip_serializing_if = "Option::is_none")]
-    pub text_position: Option<f64>,
+        /// Gets or sets the list level, that must appear before the specified list level restarts numbering.
+            /// The value of -1 means the numbering will continue.
+        #[serde(rename = "RestartAfterLevel", skip_serializing_if = "Option::is_none")]
+        pub restart_after_level: Option<i32>,
 
-    /// Gets or sets the paragraph style that is linked to this list level.
-    /// This property is null when the list level is not linked to a paragraph style.
-    /// This property can be set to null.
-    #[serde(rename = "LinkedStyle", skip_serializing_if = "Option::is_none")]
-    pub linked_style: Option<Style>,
+
+        /// Gets or sets the character inserted after the number for the list level.
+        #[serde(rename = "TrailingCharacter", skip_serializing_if = "Option::is_none")]
+        pub trailing_character: Option<ListLevelTrailingCharacterEnum>,
+
+
+        /// Gets or sets character formatting used for the list label.
+        #[serde(rename = "Font", skip_serializing_if = "Option::is_none")]
+        pub font: Option<Font>,
+
+
+        /// Gets or sets the tab position (in points) for the list level.
+            /// Has effect only when Aspose.Words.Lists.ListLevel.TrailingCharacter is a tab.
+            /// Aspose.Words.Lists.ListLevel.NumberPosition Aspose.Words.Lists.ListLevel.TextPosition.
+        #[serde(rename = "TabPosition", skip_serializing_if = "Option::is_none")]
+        pub tab_position: Option<f64>,
+
+
+        /// Gets or sets the position (in points) of the number or bullet for the list level.
+            /// Aspose.Words.Lists.ListLevel.NumberPosition corresponds to LeftIndent plus FirstLineIndent of the paragraph. Aspose.Words.Lists.ListLevel.TextPosition Aspose.Words.Lists.ListLevel.TabPosition.
+        #[serde(rename = "NumberPosition", skip_serializing_if = "Option::is_none")]
+        pub number_position: Option<f64>,
+
+
+        /// Gets or sets the position (in points) for the second line of wrapping text for the list level.
+            /// Aspose.Words.Lists.ListLevel.TextPosition corresponds to LeftIndent of the paragraph.
+            /// Aspose.Words.Lists.ListLevel.NumberPosition Aspose.Words.Lists.ListLevel.TabPosition.
+        #[serde(rename = "TextPosition", skip_serializing_if = "Option::is_none")]
+        pub text_position: Option<f64>,
+
+
+        /// Gets or sets the paragraph style that is linked to this list level.
+            /// This property is null when the list level is not linked to a paragraph style.
+            /// This property can be set to null.
+        #[serde(rename = "LinkedStyle", skip_serializing_if = "Option::is_none")]
+        pub linked_style: Option<Style>,
+
 }
 
 impl Default for ListLevel {
@@ -179,11 +191,13 @@ impl Model for ListLevel {
             ));
         }
         if let Some(value) = &self.font {
-            value.validate()?;
+        value.validate()?;
         }
 
+
+
         if let Some(value) = &self.linked_style {
-            value.validate()?;
+        value.validate()?;
         }
         Ok(())
     }
@@ -201,129 +215,129 @@ impl Model for ListLevel {
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
 pub enum ListLevelNumberStyleEnum {
     #[serde(rename = "Arabic")]
-    Arabic,
+        Arabic,
     #[serde(rename = "UppercaseRoman")]
-    UppercaseRoman,
+        UppercaseRoman,
     #[serde(rename = "LowercaseRoman")]
-    LowercaseRoman,
+        LowercaseRoman,
     #[serde(rename = "UppercaseLetter")]
-    UppercaseLetter,
+        UppercaseLetter,
     #[serde(rename = "LowercaseLetter")]
-    LowercaseLetter,
+        LowercaseLetter,
     #[serde(rename = "Ordinal")]
-    Ordinal,
+        Ordinal,
     #[serde(rename = "Number")]
-    Number,
+        Number,
     #[serde(rename = "OrdinalText")]
-    OrdinalText,
+        OrdinalText,
     #[serde(rename = "Hex")]
-    Hex,
+        Hex,
     #[serde(rename = "ChicagoManual")]
-    ChicagoManual,
+        ChicagoManual,
     #[serde(rename = "Kanji")]
-    Kanji,
+        Kanji,
     #[serde(rename = "KanjiDigit")]
-    KanjiDigit,
+        KanjiDigit,
     #[serde(rename = "AiueoHalfWidth")]
-    AiueoHalfWidth,
+        AiueoHalfWidth,
     #[serde(rename = "IrohaHalfWidth")]
-    IrohaHalfWidth,
+        IrohaHalfWidth,
     #[serde(rename = "ArabicFullWidth")]
-    ArabicFullWidth,
+        ArabicFullWidth,
     #[serde(rename = "ArabicHalfWidth")]
-    ArabicHalfWidth,
+        ArabicHalfWidth,
     #[serde(rename = "KanjiTraditional")]
-    KanjiTraditional,
+        KanjiTraditional,
     #[serde(rename = "KanjiTraditional2")]
-    KanjiTraditional2,
+        KanjiTraditional2,
     #[serde(rename = "NumberInCircle")]
-    NumberInCircle,
+        NumberInCircle,
     #[serde(rename = "DecimalFullWidth")]
-    DecimalFullWidth,
+        DecimalFullWidth,
     #[serde(rename = "Aiueo")]
-    Aiueo,
+        Aiueo,
     #[serde(rename = "Iroha")]
-    Iroha,
+        Iroha,
     #[serde(rename = "LeadingZero")]
-    LeadingZero,
+        LeadingZero,
     #[serde(rename = "Bullet")]
-    Bullet,
+        Bullet,
     #[serde(rename = "Ganada")]
-    Ganada,
+        Ganada,
     #[serde(rename = "Chosung")]
-    Chosung,
+        Chosung,
     #[serde(rename = "GB1")]
-    Gb1,
+        Gb1,
     #[serde(rename = "GB2")]
-    Gb2,
+        Gb2,
     #[serde(rename = "GB3")]
-    Gb3,
+        Gb3,
     #[serde(rename = "GB4")]
-    Gb4,
+        Gb4,
     #[serde(rename = "Zodiac1")]
-    Zodiac1,
+        Zodiac1,
     #[serde(rename = "Zodiac2")]
-    Zodiac2,
+        Zodiac2,
     #[serde(rename = "Zodiac3")]
-    Zodiac3,
+        Zodiac3,
     #[serde(rename = "TradChinNum1")]
-    TradChinNum1,
+        TradChinNum1,
     #[serde(rename = "TradChinNum2")]
-    TradChinNum2,
+        TradChinNum2,
     #[serde(rename = "TradChinNum3")]
-    TradChinNum3,
+        TradChinNum3,
     #[serde(rename = "TradChinNum4")]
-    TradChinNum4,
+        TradChinNum4,
     #[serde(rename = "SimpChinNum1")]
-    SimpChinNum1,
+        SimpChinNum1,
     #[serde(rename = "SimpChinNum2")]
-    SimpChinNum2,
+        SimpChinNum2,
     #[serde(rename = "SimpChinNum3")]
-    SimpChinNum3,
+        SimpChinNum3,
     #[serde(rename = "SimpChinNum4")]
-    SimpChinNum4,
+        SimpChinNum4,
     #[serde(rename = "HanjaRead")]
-    HanjaRead,
+        HanjaRead,
     #[serde(rename = "HanjaReadDigit")]
-    HanjaReadDigit,
+        HanjaReadDigit,
     #[serde(rename = "Hangul")]
-    Hangul,
+        Hangul,
     #[serde(rename = "Hanja")]
-    Hanja,
+        Hanja,
     #[serde(rename = "Hebrew1")]
-    Hebrew1,
+        Hebrew1,
     #[serde(rename = "Arabic1")]
-    Arabic1,
+        Arabic1,
     #[serde(rename = "Hebrew2")]
-    Hebrew2,
+        Hebrew2,
     #[serde(rename = "Arabic2")]
-    Arabic2,
+        Arabic2,
     #[serde(rename = "HindiLetter1")]
-    HindiLetter1,
+        HindiLetter1,
     #[serde(rename = "HindiLetter2")]
-    HindiLetter2,
+        HindiLetter2,
     #[serde(rename = "HindiArabic")]
-    HindiArabic,
+        HindiArabic,
     #[serde(rename = "HindiCardinalText")]
-    HindiCardinalText,
+        HindiCardinalText,
     #[serde(rename = "ThaiLetter")]
-    ThaiLetter,
+        ThaiLetter,
     #[serde(rename = "ThaiArabic")]
-    ThaiArabic,
+        ThaiArabic,
     #[serde(rename = "ThaiCardinalText")]
-    ThaiCardinalText,
+        ThaiCardinalText,
     #[serde(rename = "VietCardinalText")]
-    VietCardinalText,
+        VietCardinalText,
     #[serde(rename = "NumberInDash")]
-    NumberInDash,
+        NumberInDash,
     #[serde(rename = "LowercaseRussian")]
-    LowercaseRussian,
+        LowercaseRussian,
     #[serde(rename = "UppercaseRussian")]
-    UppercaseRussian,
+        UppercaseRussian,
     #[serde(rename = "None")]
-    None,
+        None,
     #[serde(rename = "Custom")]
-    Custom,
+        Custom,
 }
 
 /// Gets or sets the justification of the actual number of the list item.
@@ -331,20 +345,20 @@ pub enum ListLevelNumberStyleEnum {
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
 pub enum ListLevelAlignmentEnum {
     #[serde(rename = "Left")]
-    Left,
+        Left,
     #[serde(rename = "Center")]
-    Center,
+        Center,
     #[serde(rename = "Right")]
-    Right,
+        Right,
 }
 
 /// Gets or sets the character inserted after the number for the list level.
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
 pub enum ListLevelTrailingCharacterEnum {
     #[serde(rename = "Tab")]
-    Tab,
+        Tab,
     #[serde(rename = "Space")]
-    Space,
+        Space,
     #[serde(rename = "Nothing")]
-    Nothing,
+        Nothing,
 }

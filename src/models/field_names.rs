@@ -35,9 +35,10 @@ use super::*;
 pub struct FieldNames {
     #[serde(flatten)]
     pub parent: LinkElement,
-    /// Gets or sets the collection of fields names.
-    #[serde(rename = "Names", skip_serializing_if = "Option::is_none")]
-    pub names: Option<Vec<String>>,
+        /// Gets or sets the collection of fields names.
+        #[serde(rename = "Names", skip_serializing_if = "Option::is_none")]
+        pub names: Option<Vec<String>>,
+
 }
 
 impl Default for FieldNames {
@@ -78,3 +79,4 @@ impl Model for FieldNames {
         self
     }
 }
+

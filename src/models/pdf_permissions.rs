@@ -26,23 +26,23 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
 pub enum PdfPermissionsEnum {
     #[serde(rename = "DisallowAll")]
-    DisallowAll,
+        DisallowAll,
     #[serde(rename = "Printing")]
-    Printing,
+        Printing,
     #[serde(rename = "ModifyContents")]
-    ModifyContents,
+        ModifyContents,
     #[serde(rename = "ContentCopy")]
-    ContentCopy,
+        ContentCopy,
     #[serde(rename = "ModifyAnnotations")]
-    ModifyAnnotations,
+        ModifyAnnotations,
     #[serde(rename = "FillIn")]
-    FillIn,
+        FillIn,
     #[serde(rename = "ContentCopyForAccessibility")]
-    ContentCopyForAccessibility,
+        ContentCopyForAccessibility,
     #[serde(rename = "DocumentAssembly")]
-    DocumentAssembly,
+        DocumentAssembly,
     #[serde(rename = "HighResolutionPrinting")]
-    HighResolutionPrinting,
+        HighResolutionPrinting,
     #[serde(rename = "AllowAll")]
-    AllowAll,
+        AllowAll,
 }

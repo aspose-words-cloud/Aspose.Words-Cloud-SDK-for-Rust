@@ -42,25 +42,17 @@ async fn styles_get_styles() -> TestResult<()> {
     let local_file = "DocumentElements/Styles/GetStyles.docx".to_owned();
     let remote_file_name = "TestGetStyles.docx".to_owned();
 
-    context
-        .upload_file(
-            local_file.clone(),
-            remote_data_folder.clone() + "/" + &remote_file_name,
-        )
-        .await?;
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
-    let request = GetStylesRequest::new((remote_file_name.clone()).into())
-        .with_folder((remote_data_folder.clone()).into());
+    let request = GetStylesRequest::new(
+        (remote_file_name.clone()).into()
+    ).with_folder((remote_data_folder.clone()).into());
 
     let result = context.api().get_styles(request).await?;
     let result_json = serialize_result(&result)?;
     assert_not_null(&result_json, "Styles")?;
     assert_length(&result_json, "Styles", 22)?;
-    assert_string(
-        &result_json,
-        "Styles[0].Name",
-        "Default Paragraph Font".to_owned(),
-    )?;
+    assert_string(&result_json, "Styles[0].Name", "Default Paragraph Font".to_owned())?;
     Ok(())
 }
 
@@ -74,7 +66,9 @@ async fn styles_get_styles_online() -> TestResult<()> {
 
     let request_document = context.load_binary_file(local_file.clone()).await?;
 
-    let request = GetStylesOnlineRequest::new((request_document).into());
+    let request = GetStylesOnlineRequest::new(
+        (request_document).into()
+    );
 
     context.api().get_styles_online(request).await?;
     Ok(())
@@ -90,18 +84,12 @@ async fn styles_get_style() -> TestResult<()> {
     let local_file = "DocumentElements/Styles/GetStyles.docx".to_owned();
     let remote_file_name = "TestGetStyle.docx".to_owned();
 
-    context
-        .upload_file(
-            local_file.clone(),
-            remote_data_folder.clone() + "/" + &remote_file_name,
-        )
-        .await?;
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
     let request = GetStyleRequest::new(
         (remote_file_name.clone()).into(),
-        ("Heading 1".to_owned()).into(),
-    )
-    .with_folder((remote_data_folder.clone()).into());
+        ("Heading 1".to_owned()).into()
+    ).with_folder((remote_data_folder.clone()).into());
 
     let result = context.api().get_style(request).await?;
     let result_json = serialize_result(&result)?;
@@ -120,8 +108,10 @@ async fn styles_get_style_online() -> TestResult<()> {
 
     let request_document = context.load_binary_file(local_file.clone()).await?;
 
-    let request =
-        GetStyleOnlineRequest::new((request_document).into(), ("Heading 1".to_owned()).into());
+    let request = GetStyleOnlineRequest::new(
+        (request_document).into(),
+        ("Heading 1".to_owned()).into()
+    );
 
     context.api().get_style_online(request).await?;
     Ok(())
@@ -137,21 +127,15 @@ async fn styles_update_style() -> TestResult<()> {
     let local_file = "DocumentElements/Styles/GetStyles.docx".to_owned();
     let remote_file_name = "TestUpdateStyle.docx".to_owned();
 
-    context
-        .upload_file(
-            local_file.clone(),
-            remote_data_folder.clone() + "/" + &remote_file_name,
-        )
-        .await?;
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
     let mut request_style_update = StyleUpdate::default();
     request_style_update.name = Some(("My Style".to_owned()).into());
 
     let request = UpdateStyleRequest::new(
         (remote_file_name.clone()).into(),
         ("Heading 1".to_owned()).into(),
-        (request_style_update).into(),
-    )
-    .with_folder((remote_data_folder.clone()).into());
+        (request_style_update).into()
+    ).with_folder((remote_data_folder.clone()).into());
 
     let result = context.api().update_style(request).await?;
     let result_json = serialize_result(&result)?;
@@ -175,7 +159,7 @@ async fn styles_update_style_online() -> TestResult<()> {
     let request = UpdateStyleOnlineRequest::new(
         (request_document).into(),
         ("Heading 1".to_owned()).into(),
-        (request_style_update).into(),
+        (request_style_update).into()
     );
 
     context.api().update_style_online(request).await?;
@@ -192,21 +176,15 @@ async fn styles_insert_style() -> TestResult<()> {
     let local_file = "DocumentElements/Styles/GetStyles.docx".to_owned();
     let remote_file_name = "TestInsertStyle.docx".to_owned();
 
-    context
-        .upload_file(
-            local_file.clone(),
-            remote_data_folder.clone() + "/" + &remote_file_name,
-        )
-        .await?;
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
     let mut request_style_insert = StyleInsert::default();
     request_style_insert.style_name = Some(("My Style".to_owned()).into());
     request_style_insert.style_type = Some((StyleInsertStyleTypeEnum::Paragraph).into());
 
     let request = InsertStyleRequest::new(
         (remote_file_name.clone()).into(),
-        (request_style_insert).into(),
-    )
-    .with_folder((remote_data_folder.clone()).into());
+        (request_style_insert).into()
+    ).with_folder((remote_data_folder.clone()).into());
 
     let result = context.api().insert_style(request).await?;
     let result_json = serialize_result(&result)?;
@@ -228,8 +206,10 @@ async fn styles_insert_style_online() -> TestResult<()> {
     request_style_insert.style_name = Some(("My Style".to_owned()).into());
     request_style_insert.style_type = Some((StyleInsertStyleTypeEnum::Paragraph).into());
 
-    let request =
-        InsertStyleOnlineRequest::new((request_document).into(), (request_style_insert).into());
+    let request = InsertStyleOnlineRequest::new(
+        (request_document).into(),
+        (request_style_insert).into()
+    );
 
     context.api().insert_style_online(request).await?;
     Ok(())
@@ -245,20 +225,14 @@ async fn styles_copy_style() -> TestResult<()> {
     let local_file = "DocumentElements/Styles/GetStyles.docx".to_owned();
     let remote_file_name = "TestCopyStyle.docx".to_owned();
 
-    context
-        .upload_file(
-            local_file.clone(),
-            remote_data_folder.clone() + "/" + &remote_file_name,
-        )
-        .await?;
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
     let mut request_style_copy = StyleCopy::default();
     request_style_copy.style_name = Some(("Heading 1".to_owned()).into());
 
     let request = CopyStyleRequest::new(
         (remote_file_name.clone()).into(),
-        (request_style_copy).into(),
-    )
-    .with_folder((remote_data_folder.clone()).into());
+        (request_style_copy).into()
+    ).with_folder((remote_data_folder.clone()).into());
 
     let result = context.api().copy_style(request).await?;
     let result_json = serialize_result(&result)?;
@@ -279,8 +253,10 @@ async fn styles_copy_style_online() -> TestResult<()> {
     let mut request_style_copy = StyleCopy::default();
     request_style_copy.style_name = Some(("Heading 1".to_owned()).into());
 
-    let request =
-        CopyStyleOnlineRequest::new((request_document).into(), (request_style_copy).into());
+    let request = CopyStyleOnlineRequest::new(
+        (request_document).into(),
+        (request_style_copy).into()
+    );
 
     context.api().copy_style_online(request).await?;
     Ok(())
@@ -296,23 +272,14 @@ async fn styles_get_style_from_document_element() -> TestResult<()> {
     let local_file = "DocumentElements/Styles/GetStyles.docx".to_owned();
     let remote_file_name = "TestGetStyleFromDocumentElement.docx".to_owned();
 
-    context
-        .upload_file(
-            local_file.clone(),
-            remote_data_folder.clone() + "/" + &remote_file_name,
-        )
-        .await?;
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
     let request = GetStyleFromDocumentElementRequest::new(
         (remote_file_name.clone()).into(),
-        ("paragraphs/1/paragraphFormat".to_owned()).into(),
-    )
-    .with_folder((remote_data_folder.clone()).into());
+        ("paragraphs/1/paragraphFormat".to_owned()).into()
+    ).with_folder((remote_data_folder.clone()).into());
 
-    let result = context
-        .api()
-        .get_style_from_document_element(request)
-        .await?;
+    let result = context.api().get_style_from_document_element(request).await?;
     let result_json = serialize_result(&result)?;
     assert_not_null(&result_json, "Style")?;
     assert_string(&result_json, "Style.Name", "TOC 1".to_owned())?;
@@ -331,13 +298,10 @@ async fn styles_get_style_from_document_element_online() -> TestResult<()> {
 
     let request = GetStyleFromDocumentElementOnlineRequest::new(
         (request_document).into(),
-        ("paragraphs/1/paragraphFormat".to_owned()).into(),
+        ("paragraphs/1/paragraphFormat".to_owned()).into()
     );
 
-    context
-        .api()
-        .get_style_from_document_element_online(request)
-        .await?;
+    context.api().get_style_from_document_element_online(request).await?;
     Ok(())
 }
 
@@ -351,26 +315,17 @@ async fn styles_apply_style_to_document_element() -> TestResult<()> {
     let local_file = "DocumentElements/Styles/GetStyles.docx".to_owned();
     let remote_file_name = "TestApplyStyleToDocumentElement.docx".to_owned();
 
-    context
-        .upload_file(
-            local_file.clone(),
-            remote_data_folder.clone() + "/" + &remote_file_name,
-        )
-        .await?;
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
     let mut request_style_apply = StyleApply::default();
     request_style_apply.style_name = Some(("Heading 1".to_owned()).into());
 
     let request = ApplyStyleToDocumentElementRequest::new(
         (remote_file_name.clone()).into(),
         ("paragraphs/1/paragraphFormat".to_owned()).into(),
-        (request_style_apply).into(),
-    )
-    .with_folder((remote_data_folder.clone()).into());
+        (request_style_apply).into()
+    ).with_folder((remote_data_folder.clone()).into());
 
-    context
-        .api()
-        .apply_style_to_document_element(request)
-        .await?;
+    context.api().apply_style_to_document_element(request).await?;
     Ok(())
 }
 
@@ -389,13 +344,10 @@ async fn styles_apply_style_to_document_element_online() -> TestResult<()> {
     let request = ApplyStyleToDocumentElementOnlineRequest::new(
         (request_document).into(),
         ("paragraphs/1/paragraphFormat".to_owned()).into(),
-        (request_style_apply).into(),
+        (request_style_apply).into()
     );
 
-    context
-        .api()
-        .apply_style_to_document_element_online(request)
-        .await?;
+    context.api().apply_style_to_document_element_online(request).await?;
     Ok(())
 }
 
@@ -411,24 +363,13 @@ async fn styles_copy_styles_from_template() -> TestResult<()> {
     let template_folder = "DocumentElements/Styles".to_owned();
     let template_name = "StyleTemplate.docx".to_owned();
 
-    context
-        .upload_file(
-            local_file.clone(),
-            remote_data_folder.clone() + "/" + &remote_file_name,
-        )
-        .await?;
-    context
-        .upload_file(
-            template_folder.clone() + "/" + &template_name,
-            remote_data_folder.clone() + "/" + &template_name,
-        )
-        .await?;
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
+    context.upload_file(template_folder.clone() + "/" + &template_name, remote_data_folder.clone() + "/" + &template_name).await?;
 
     let request = CopyStylesFromTemplateRequest::new(
         (remote_file_name.clone()).into(),
-        (template_name.clone()).into(),
-    )
-    .with_folder((remote_data_folder.clone()).into());
+        (template_name.clone()).into()
+    ).with_folder((remote_data_folder.clone()).into());
 
     context.api().copy_styles_from_template(request).await?;
     Ok(())

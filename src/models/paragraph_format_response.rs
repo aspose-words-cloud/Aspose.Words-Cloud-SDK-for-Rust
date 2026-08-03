@@ -36,9 +36,10 @@ use super::*;
 pub struct ParagraphFormatResponse {
     #[serde(flatten)]
     pub parent: WordsResponse,
-    /// Gets or sets the formatting properties of a paragraph.
-    #[serde(rename = "ParagraphFormat", skip_serializing_if = "Option::is_none")]
-    pub paragraph_format: Option<ParagraphFormat>,
+        /// Gets or sets the formatting properties of a paragraph.
+        #[serde(rename = "ParagraphFormat", skip_serializing_if = "Option::is_none")]
+        pub paragraph_format: Option<ParagraphFormat>,
+
 }
 
 impl Default for ParagraphFormatResponse {
@@ -69,7 +70,7 @@ impl Model for ParagraphFormatResponse {
     fn validate(&self) -> SdkResult<()> {
         self.parent.validate()?;
         if let Some(value) = &self.paragraph_format {
-            value.validate()?;
+        value.validate()?;
         }
         Ok(())
     }
@@ -82,3 +83,4 @@ impl Model for ParagraphFormatResponse {
         self
     }
 }
+

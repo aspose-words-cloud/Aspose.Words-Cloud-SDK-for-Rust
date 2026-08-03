@@ -36,9 +36,10 @@ use super::*;
 pub struct CustomXmlPartResponse {
     #[serde(flatten)]
     pub parent: WordsResponse,
-    /// Gets or sets the custom xml part.
-    #[serde(rename = "CustomXmlPart", skip_serializing_if = "Option::is_none")]
-    pub custom_xml_part: Option<CustomXmlPart>,
+        /// Gets or sets the custom xml part.
+        #[serde(rename = "CustomXmlPart", skip_serializing_if = "Option::is_none")]
+        pub custom_xml_part: Option<CustomXmlPart>,
+
 }
 
 impl Default for CustomXmlPartResponse {
@@ -69,7 +70,7 @@ impl Model for CustomXmlPartResponse {
     fn validate(&self) -> SdkResult<()> {
         self.parent.validate()?;
         if let Some(value) = &self.custom_xml_part {
-            value.validate()?;
+        value.validate()?;
         }
         Ok(())
     }
@@ -82,3 +83,4 @@ impl Model for CustomXmlPartResponse {
         self
     }
 }
+

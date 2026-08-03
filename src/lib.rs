@@ -28,6 +28,7 @@
     clippy::field_reassign_with_default,
     clippy::new_without_default
 )]
+
 #![forbid(unsafe_code)]
 
 mod api;

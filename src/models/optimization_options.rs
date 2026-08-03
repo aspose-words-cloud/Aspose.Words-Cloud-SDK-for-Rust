@@ -32,9 +32,10 @@ use super::*;
 /// Container class for the document optimization options.
 #[derive(Debug, Deserialize, Serialize)]
 pub struct OptimizationOptions {
-    /// Gets or sets the specific MSWord version.
-    #[serde(rename = "MsWordVersion", skip_serializing_if = "Option::is_none")]
-    pub ms_word_version: Option<OptimizationOptionsMsWordVersionEnum>,
+        /// Gets or sets the specific MSWord version.
+        #[serde(rename = "MsWordVersion", skip_serializing_if = "Option::is_none")]
+        pub ms_word_version: Option<OptimizationOptionsMsWordVersionEnum>,
+
 }
 
 impl Default for OptimizationOptions {
@@ -55,7 +56,8 @@ impl Model for OptimizationOptions {
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {}
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+    }
 
     fn as_any(&self) -> &dyn Any {
         self
@@ -66,19 +68,19 @@ impl Model for OptimizationOptions {
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
 pub enum OptimizationOptionsMsWordVersionEnum {
     #[serde(rename = "Word2000")]
-    Word2000,
+        Word2000,
     #[serde(rename = "Word2002")]
-    Word2002,
+        Word2002,
     #[serde(rename = "Word2003")]
-    Word2003,
+        Word2003,
     #[serde(rename = "Word2007")]
-    Word2007,
+        Word2007,
     #[serde(rename = "Word2010")]
-    Word2010,
+        Word2010,
     #[serde(rename = "Word2013")]
-    Word2013,
+        Word2013,
     #[serde(rename = "Word2016")]
-    Word2016,
+        Word2016,
     #[serde(rename = "Word2019")]
-    Word2019,
+        Word2019,
 }

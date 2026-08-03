@@ -35,23 +35,27 @@ use super::*;
 pub struct FormFieldTextInput {
     #[serde(flatten)]
     pub parent: FormField,
-    /// Gets or sets text formatting for the text form field.
-    /// If the text form field contains regular text, then valid format strings are "", "UPPERCASE", "LOWERCASE", "FIRST CAPITAL" and "TITLE CASE". The strings are case-insensitive.If the text form field contains a number or a date/time value, then valid format strings are number or date and time format strings.
-    #[serde(rename = "TextInputFormat", skip_serializing_if = "Option::is_none")]
-    pub text_input_format: Option<String>,
+        /// Gets or sets text formatting for the text form field.
+            /// If the text form field contains regular text, then valid format strings are "", "UPPERCASE", "LOWERCASE", "FIRST CAPITAL" and "TITLE CASE". The strings are case-insensitive.If the text form field contains a number or a date/time value, then valid format strings are number or date and time format strings.
+        #[serde(rename = "TextInputFormat", skip_serializing_if = "Option::is_none")]
+        pub text_input_format: Option<String>,
 
-    /// Gets or sets the type of the text form field.
-    #[serde(rename = "TextInputType", skip_serializing_if = "Option::is_none")]
-    pub text_input_type: Option<FormFieldTextInputTextInputTypeEnum>,
 
-    /// Gets or sets the default string or a calculation expression of the text form field.
-    /// The meaning of this property depends on the value of the TextInputType property.When TextInputType is Regular or Number, this string specifies the default string for the text form field. This string is the content that Microsoft Word will display in the document when the form field is empty.When TextInputType is Calculated, then this string holds the expression to be calculated. The expression needs to be a formula valid according to Microsoft Word formula field requirements. When you set a new expression using this property, Aspose.Words calculates the formula result automatically and inserts it into the form field.
-    #[serde(rename = "TextInputDefault", skip_serializing_if = "Option::is_none")]
-    pub text_input_default: Option<String>,
+        /// Gets or sets the type of the text form field.
+        #[serde(rename = "TextInputType", skip_serializing_if = "Option::is_none")]
+        pub text_input_type: Option<FormFieldTextInputTextInputTypeEnum>,
 
-    /// Gets or sets the maximum length for the text field. Zero when the length is not limited.
-    #[serde(rename = "MaxLength", skip_serializing_if = "Option::is_none")]
-    pub max_length: Option<i32>,
+
+        /// Gets or sets the default string or a calculation expression of the text form field.
+            /// The meaning of this property depends on the value of the TextInputType property.When TextInputType is Regular or Number, this string specifies the default string for the text form field. This string is the content that Microsoft Word will display in the document when the form field is empty.When TextInputType is Calculated, then this string holds the expression to be calculated. The expression needs to be a formula valid according to Microsoft Word formula field requirements. When you set a new expression using this property, Aspose.Words calculates the formula result automatically and inserts it into the form field.
+        #[serde(rename = "TextInputDefault", skip_serializing_if = "Option::is_none")]
+        pub text_input_default: Option<String>,
+
+
+        /// Gets or sets the maximum length for the text field. Zero when the length is not limited.
+        #[serde(rename = "MaxLength", skip_serializing_if = "Option::is_none")]
+        pub max_length: Option<i32>,
+
 }
 
 impl Default for FormFieldTextInput {
@@ -110,15 +114,15 @@ impl Model for FormFieldTextInput {
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
 pub enum FormFieldTextInputTextInputTypeEnum {
     #[serde(rename = "Regular")]
-    Regular,
+        Regular,
     #[serde(rename = "Number")]
-    Number,
+        Number,
     #[serde(rename = "Date")]
-    Date,
+        Date,
     #[serde(rename = "CurrentDate")]
-    CurrentDate,
+        CurrentDate,
     #[serde(rename = "CurrentTime")]
-    CurrentTime,
+        CurrentTime,
     #[serde(rename = "Calculated")]
-    Calculated,
+        Calculated,
 }

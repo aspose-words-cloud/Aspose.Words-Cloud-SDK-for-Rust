@@ -32,25 +32,30 @@ use super::*;
 /// Container for the document's statistical data.
 #[derive(Debug, Deserialize, Serialize)]
 pub struct DocumentStatData {
-    /// Gets or sets the detailed statistics on footnotes.
-    #[serde(rename = "FootnotesStatData", skip_serializing_if = "Option::is_none")]
-    pub footnotes_stat_data: Option<FootnotesStatData>,
+        /// Gets or sets the detailed statistics on footnotes.
+        #[serde(rename = "FootnotesStatData", skip_serializing_if = "Option::is_none")]
+        pub footnotes_stat_data: Option<FootnotesStatData>,
 
-    /// Gets or sets the total count of pages in the document.
-    #[serde(rename = "PageCount", skip_serializing_if = "Option::is_none")]
-    pub page_count: Option<i32>,
 
-    /// Gets or sets the total count of paragraphs in the document.
-    #[serde(rename = "ParagraphCount", skip_serializing_if = "Option::is_none")]
-    pub paragraph_count: Option<i32>,
+        /// Gets or sets the total count of pages in the document.
+        #[serde(rename = "PageCount", skip_serializing_if = "Option::is_none")]
+        pub page_count: Option<i32>,
 
-    /// Gets or sets the total count of words in the document.
-    #[serde(rename = "WordCount", skip_serializing_if = "Option::is_none")]
-    pub word_count: Option<i32>,
 
-    /// Gets or sets the detailed statistics on all pages.
-    #[serde(rename = "PageStatData", skip_serializing_if = "Option::is_none")]
-    pub page_stat_data: Option<Vec<PageStatData>>,
+        /// Gets or sets the total count of paragraphs in the document.
+        #[serde(rename = "ParagraphCount", skip_serializing_if = "Option::is_none")]
+        pub paragraph_count: Option<i32>,
+
+
+        /// Gets or sets the total count of words in the document.
+        #[serde(rename = "WordCount", skip_serializing_if = "Option::is_none")]
+        pub word_count: Option<i32>,
+
+
+        /// Gets or sets the detailed statistics on all pages.
+        #[serde(rename = "PageStatData", skip_serializing_if = "Option::is_none")]
+        pub page_stat_data: Option<Vec<PageStatData>>,
+
 }
 
 impl Default for DocumentStatData {
@@ -83,20 +88,24 @@ impl Model for DocumentStatData {
             ));
         }
         if let Some(value) = &self.footnotes_stat_data {
-            value.validate()?;
+        value.validate()?;
         }
 
+
+
         if let Some(values) = &self.page_stat_data {
-            for value in values {
-                value.validate()?;
-            }
+        for value in values {
+        value.validate()?;
+        }
         }
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {}
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+    }
 
     fn as_any(&self) -> &dyn Any {
         self
     }
 }
+

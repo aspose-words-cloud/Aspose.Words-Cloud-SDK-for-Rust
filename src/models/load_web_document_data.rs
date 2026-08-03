@@ -32,18 +32,15 @@ use super::*;
 /// Contains data for load web document.
 #[derive(Debug, Deserialize, Serialize)]
 pub struct LoadWebDocumentData {
-    /// Gets or sets the save options.
-    #[serde(
-        rename = "SaveOptions",
-        skip_serializing_if = "Option::is_none",
-        default,
-        deserialize_with = "deserialize_optional_model"
-    )]
-    pub save_options: Option<ModelBox>,
+        /// Gets or sets the save options.
+        #[serde(rename = "SaveOptions", skip_serializing_if = "Option::is_none", default, deserialize_with = "deserialize_optional_model")]
+        pub save_options: Option<ModelBox>,
 
-    /// Gets or sets the web document URL.
-    #[serde(rename = "LoadingDocumentUrl", skip_serializing_if = "Option::is_none")]
-    pub loading_document_url: Option<String>,
+
+        /// Gets or sets the web document URL.
+        #[serde(rename = "LoadingDocumentUrl", skip_serializing_if = "Option::is_none")]
+        pub loading_document_url: Option<String>,
+
 }
 
 impl Default for LoadWebDocumentData {
@@ -63,15 +60,17 @@ impl Model for LoadWebDocumentData {
             ));
         }
         if let Some(value) = &self.save_options {
-            value.validate()?;
+        value.validate()?;
         }
 
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {}
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+    }
 
     fn as_any(&self) -> &dyn Any {
         self
     }
 }
+

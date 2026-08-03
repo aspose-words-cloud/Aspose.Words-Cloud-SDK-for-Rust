@@ -35,9 +35,10 @@ use super::*;
 pub struct CommentRangeEnd {
     #[serde(flatten)]
     pub parent: NodeLink,
-    /// Gets or sets the link to comment.
-    #[serde(rename = "CommentLink", skip_serializing_if = "Option::is_none")]
-    pub comment_link: Option<CommentLink>,
+        /// Gets or sets the link to comment.
+        #[serde(rename = "CommentLink", skip_serializing_if = "Option::is_none")]
+        pub comment_link: Option<CommentLink>,
+
 }
 
 impl Default for CommentRangeEnd {
@@ -68,7 +69,7 @@ impl Model for CommentRangeEnd {
     fn validate(&self) -> SdkResult<()> {
         self.parent.validate()?;
         if let Some(value) = &self.comment_link {
-            value.validate()?;
+        value.validate()?;
         }
         Ok(())
     }
@@ -81,3 +82,4 @@ impl Model for CommentRangeEnd {
         self
     }
 }
+

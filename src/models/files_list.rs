@@ -32,30 +32,35 @@ use super::*;
 /// Files list.
 #[derive(Debug, Deserialize, Serialize)]
 pub struct FilesList {
-    /// Files and folders contained by folder StorageFile.
-    #[serde(rename = "Value", skip_serializing_if = "Option::is_none")]
-    pub value: Option<Vec<StorageFile>>,
+        /// Files and folders contained by folder StorageFile.
+        #[serde(rename = "Value", skip_serializing_if = "Option::is_none")]
+        pub value: Option<Vec<StorageFile>>,
+
 }
 
 impl Default for FilesList {
     fn default() -> Self {
-        Self { value: None }
+        Self {
+            value: None,
+        }
     }
 }
 
 impl Model for FilesList {
     fn validate(&self) -> SdkResult<()> {
         if let Some(values) = &self.value {
-            for value in values {
-                value.validate()?;
-            }
+        for value in values {
+        value.validate()?;
+        }
         }
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {}
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+    }
 
     fn as_any(&self) -> &dyn Any {
         self
     }
 }
+

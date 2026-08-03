@@ -36,9 +36,10 @@ use super::*;
 pub struct CommentsResponse {
     #[serde(flatten)]
     pub parent: WordsResponse,
-    /// Gets or sets the collection of comments.
-    #[serde(rename = "Comments", skip_serializing_if = "Option::is_none")]
-    pub comments: Option<CommentsCollection>,
+        /// Gets or sets the collection of comments.
+        #[serde(rename = "Comments", skip_serializing_if = "Option::is_none")]
+        pub comments: Option<CommentsCollection>,
+
 }
 
 impl Default for CommentsResponse {
@@ -69,7 +70,7 @@ impl Model for CommentsResponse {
     fn validate(&self) -> SdkResult<()> {
         self.parent.validate()?;
         if let Some(value) = &self.comments {
-            value.validate()?;
+        value.validate()?;
         }
         Ok(())
     }
@@ -82,3 +83,4 @@ impl Model for CommentsResponse {
         self
     }
 }
+

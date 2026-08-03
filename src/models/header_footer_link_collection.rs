@@ -35,15 +35,19 @@ use super::*;
 pub struct HeaderFooterLinkCollection {
     #[serde(flatten)]
     pub parent: LinkElement,
-    /// Gets or sets the collection of HeaderFooter's links.
-    #[serde(rename = "List", skip_serializing_if = "Option::is_none")]
-    pub list: Option<Vec<HeaderFooterLink>>,
+        /// Gets or sets the collection of HeaderFooter's links.
+        #[serde(rename = "List", skip_serializing_if = "Option::is_none")]
+        pub list: Option<Vec<HeaderFooterLink>>,
+
 }
 
 impl Default for HeaderFooterLinkCollection {
     fn default() -> Self {
         let mut parent = LinkElement::default();
-        Self { parent, list: None }
+        Self {
+            parent,
+            list: None,
+        }
     }
 }
 
@@ -65,9 +69,9 @@ impl Model for HeaderFooterLinkCollection {
     fn validate(&self) -> SdkResult<()> {
         self.parent.validate()?;
         if let Some(values) = &self.list {
-            for value in values {
-                value.validate()?;
-            }
+        for value in values {
+        value.validate()?;
+        }
         }
         Ok(())
     }
@@ -80,3 +84,4 @@ impl Model for HeaderFooterLinkCollection {
         self
     }
 }
+

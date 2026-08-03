@@ -36,9 +36,10 @@ use super::*;
 pub struct FieldResponse {
     #[serde(flatten)]
     pub parent: WordsResponse,
-    /// Gets or sets the field.
-    #[serde(rename = "Field", skip_serializing_if = "Option::is_none")]
-    pub field: Option<Field>,
+        /// Gets or sets the field.
+        #[serde(rename = "Field", skip_serializing_if = "Option::is_none")]
+        pub field: Option<Field>,
+
 }
 
 impl Default for FieldResponse {
@@ -69,7 +70,7 @@ impl Model for FieldResponse {
     fn validate(&self) -> SdkResult<()> {
         self.parent.validate()?;
         if let Some(value) = &self.field {
-            value.validate()?;
+        value.validate()?;
         }
         Ok(())
     }
@@ -82,3 +83,4 @@ impl Model for FieldResponse {
         self
     }
 }
+

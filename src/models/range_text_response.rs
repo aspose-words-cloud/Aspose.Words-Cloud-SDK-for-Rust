@@ -36,15 +36,19 @@ use super::*;
 pub struct RangeTextResponse {
     #[serde(flatten)]
     pub parent: WordsResponse,
-    /// Gets or sets the range's text.
-    #[serde(rename = "Text", skip_serializing_if = "Option::is_none")]
-    pub text: Option<String>,
+        /// Gets or sets the range's text.
+        #[serde(rename = "Text", skip_serializing_if = "Option::is_none")]
+        pub text: Option<String>,
+
 }
 
 impl Default for RangeTextResponse {
     fn default() -> Self {
         let mut parent = WordsResponse::default();
-        Self { parent, text: None }
+        Self {
+            parent,
+            text: None,
+        }
     }
 }
 
@@ -76,3 +80,4 @@ impl Model for RangeTextResponse {
         self
     }
 }
+

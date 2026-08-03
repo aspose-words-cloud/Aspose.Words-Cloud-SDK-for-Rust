@@ -32,48 +32,36 @@ use super::*;
 /// Container class for outline options.
 #[derive(Debug, Deserialize, Serialize)]
 pub struct OutlineOptionsData {
-    /// Gets or sets a value indicating whether to create missing outline levels when the document is exported. The default value is false.
-    #[serde(
-        rename = "CreateMissingOutlineLevels",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub create_missing_outline_levels: Option<bool>,
+        /// Gets or sets a value indicating whether to create missing outline levels when the document is exported. The default value is false.
+        #[serde(rename = "CreateMissingOutlineLevels", skip_serializing_if = "Option::is_none")]
+        pub create_missing_outline_levels: Option<bool>,
 
-    /// Gets or sets a value indicating whether to create outlines for headings (paragraphs formatted with the Heading styles) inside tables.
-    /// The default value is false.
-    #[serde(
-        rename = "CreateOutlinesForHeadingsInTables",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub create_outlines_for_headings_in_tables: Option<bool>,
 
-    /// Gets or sets the default level in the document outline at which to display Word bookmarks.
-    #[serde(
-        rename = "DefaultBookmarksOutlineLevel",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub default_bookmarks_outline_level: Option<i32>,
+        /// Gets or sets a value indicating whether to create outlines for headings (paragraphs formatted with the Heading styles) inside tables.
+            /// The default value is false.
+        #[serde(rename = "CreateOutlinesForHeadingsInTables", skip_serializing_if = "Option::is_none")]
+        pub create_outlines_for_headings_in_tables: Option<bool>,
 
-    /// Gets or sets the number of levels in the document outline to show expanded when the file is viewed.
-    #[serde(
-        rename = "ExpandedOutlineLevels",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub expanded_outline_levels: Option<i32>,
 
-    /// Gets or sets the number of levels of headings (paragraphs formatted with the Heading styles) to include in the document outline.
-    #[serde(
-        rename = "HeadingsOutlineLevels",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub headings_outline_levels: Option<i32>,
+        /// Gets or sets the default level in the document outline at which to display Word bookmarks.
+        #[serde(rename = "DefaultBookmarksOutlineLevel", skip_serializing_if = "Option::is_none")]
+        pub default_bookmarks_outline_level: Option<i32>,
 
-    /// Gets or sets the individual bookmarks outline level.
-    #[serde(
-        rename = "BookmarksOutlineLevels",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub bookmarks_outline_levels: Option<Vec<BookmarksOutlineLevelData>>,
+
+        /// Gets or sets the number of levels in the document outline to show expanded when the file is viewed.
+        #[serde(rename = "ExpandedOutlineLevels", skip_serializing_if = "Option::is_none")]
+        pub expanded_outline_levels: Option<i32>,
+
+
+        /// Gets or sets the number of levels of headings (paragraphs formatted with the Heading styles) to include in the document outline.
+        #[serde(rename = "HeadingsOutlineLevels", skip_serializing_if = "Option::is_none")]
+        pub headings_outline_levels: Option<i32>,
+
+
+        /// Gets or sets the individual bookmarks outline level.
+        #[serde(rename = "BookmarksOutlineLevels", skip_serializing_if = "Option::is_none")]
+        pub bookmarks_outline_levels: Option<Vec<BookmarksOutlineLevelData>>,
+
 }
 
 impl Default for OutlineOptionsData {
@@ -92,16 +80,18 @@ impl Default for OutlineOptionsData {
 impl Model for OutlineOptionsData {
     fn validate(&self) -> SdkResult<()> {
         if let Some(values) = &self.bookmarks_outline_levels {
-            for value in values {
-                value.validate()?;
-            }
+        for value in values {
+        value.validate()?;
+        }
         }
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {}
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+    }
 
     fn as_any(&self) -> &dyn Any {
         self
     }
 }
+

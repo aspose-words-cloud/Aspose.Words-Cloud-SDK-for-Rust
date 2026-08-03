@@ -35,9 +35,10 @@ use super::*;
 pub struct HeaderFooterLink {
     #[serde(flatten)]
     pub parent: LinkElement,
-    /// Gets or sets the paragraph's text.
-    #[serde(rename = "Type", skip_serializing_if = "Option::is_none")]
-    pub r#type: Option<HeaderFooterLinkTypeEnum>,
+        /// Gets or sets the paragraph's text.
+        #[serde(rename = "Type", skip_serializing_if = "Option::is_none")]
+        pub r#type: Option<HeaderFooterLinkTypeEnum>,
+
 }
 
 impl Default for HeaderFooterLink {
@@ -88,15 +89,15 @@ impl Model for HeaderFooterLink {
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
 pub enum HeaderFooterLinkTypeEnum {
     #[serde(rename = "HeaderEven")]
-    HeaderEven,
+        HeaderEven,
     #[serde(rename = "HeaderPrimary")]
-    HeaderPrimary,
+        HeaderPrimary,
     #[serde(rename = "FooterEven")]
-    FooterEven,
+        FooterEven,
     #[serde(rename = "FooterPrimary")]
-    FooterPrimary,
+        FooterPrimary,
     #[serde(rename = "HeaderFirst")]
-    HeaderFirst,
+        HeaderFirst,
     #[serde(rename = "FooterFirst")]
-    FooterFirst,
+        FooterFirst,
 }

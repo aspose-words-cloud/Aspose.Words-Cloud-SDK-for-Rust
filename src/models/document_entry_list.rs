@@ -35,23 +35,20 @@ use super::*;
 pub struct DocumentEntryList {
     #[serde(flatten)]
     pub parent: BaseEntryList,
-    /// Gets or sets a value indicating whether to append all documents to the same section.
-    #[serde(
-        rename = "AppendAllEntriesToOneSection",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub append_all_entries_to_one_section: Option<bool>,
+        /// Gets or sets a value indicating whether to append all documents to the same section.
+        #[serde(rename = "AppendAllEntriesToOneSection", skip_serializing_if = "Option::is_none")]
+        pub append_all_entries_to_one_section: Option<bool>,
 
-    /// Gets or sets a value indicating whether to apply headers and footers from base document to appending documents. The default value is true.
-    #[serde(
-        rename = "ApplyBaseDocumentHeadersAndFootersToAppendingDocuments",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub apply_base_document_headers_and_footers_to_appending_documents: Option<bool>,
 
-    /// Gets or sets the list of documents.
-    #[serde(rename = "DocumentEntries", skip_serializing_if = "Option::is_none")]
-    pub document_entries: Option<Vec<DocumentEntry>>,
+        /// Gets or sets a value indicating whether to apply headers and footers from base document to appending documents. The default value is true.
+        #[serde(rename = "ApplyBaseDocumentHeadersAndFootersToAppendingDocuments", skip_serializing_if = "Option::is_none")]
+        pub apply_base_document_headers_and_footers_to_appending_documents: Option<bool>,
+
+
+        /// Gets or sets the list of documents.
+        #[serde(rename = "DocumentEntries", skip_serializing_if = "Option::is_none")]
+        pub document_entries: Option<Vec<DocumentEntry>>,
+
 }
 
 impl Default for DocumentEntryList {
@@ -89,9 +86,9 @@ impl Model for DocumentEntryList {
             ));
         }
         if let Some(values) = &self.document_entries {
-            for value in values {
-                value.validate()?;
-            }
+        for value in values {
+        value.validate()?;
+        }
         }
         Ok(())
     }
@@ -99,9 +96,9 @@ impl Model for DocumentEntryList {
     fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
         self.parent.collect_file_references(_output);
         if let Some(values) = &self.document_entries {
-            for value in values {
-                value.collect_file_references(_output);
-            }
+        for value in values {
+        value.collect_file_references(_output);
+        }
         }
     }
 
@@ -109,3 +106,4 @@ impl Model for DocumentEntryList {
         self
     }
 }
+

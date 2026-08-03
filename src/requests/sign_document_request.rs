@@ -25,13 +25,13 @@ use std::collections::HashMap;
 use async_trait::async_trait;
 use chrono::{DateTime, Utc};
 
-use super::*;
 use crate::models::*;
+use crate::responses::*;
 use crate::request::{
     ApiRequestData, DynamicResponse, ProgressCallback, Request, ResponseData, TypedRequest,
 };
-use crate::responses::*;
 use crate::{ApiClient, SdkResult};
+use super::*;
 
 /// Request parameters for the SignDocument operation.
 pub struct SignDocumentRequest {
@@ -123,10 +123,9 @@ impl SignDocumentRequest {
     }
 
     async fn parse_response_data(response: ResponseData) -> SdkResult<SignatureCollectionResponse> {
-        Ok(serde_json::from_slice::<SignatureCollectionResponse>(
-            &response.body,
-        )?)
+        Ok(serde_json::from_slice::<SignatureCollectionResponse>(&response.body)?)
     }
+
 }
 
 #[async_trait]
@@ -148,37 +147,28 @@ impl Request for SignDocumentRequest {
 
         let value = client.query_value(&self.name)?;
         path = path.replace("{name}", &value);
-        query.push((
-            "certificatePath".to_owned(),
-            client.query_value(&self.certificate_path)?,
-        ));
-        query.push((
-            "certificatePassword".to_owned(),
-            client.query_value(&self.certificate_password)?,
-        ));
+        query.push(("certificatePath".to_owned(), client.query_value(&self.certificate_path)?));
+        query.push(("certificatePassword".to_owned(), client.query_value(&self.certificate_password)?));
         if let Some(value) = &self.folder {
-            query.push(("folder".to_owned(), client.query_value(value)?));
+        query.push(("folder".to_owned(), client.query_value(value)?));
         }
         if let Some(value) = &self.storage {
-            query.push(("storage".to_owned(), client.query_value(value)?));
+        query.push(("storage".to_owned(), client.query_value(value)?));
         }
         if let Some(value) = &self.load_encoding {
-            query.push(("loadEncoding".to_owned(), client.query_value(value)?));
+        query.push(("loadEncoding".to_owned(), client.query_value(value)?));
         }
         if let Some(value) = &self.password {
-            query.push((
-                "encryptedPassword".to_owned(),
-                client.encrypt_password(value).await?,
-            ));
+        query.push(("encryptedPassword".to_owned(), client.encrypt_password(value).await?));
         }
         if let Some(value) = &self.encrypted_password {
-            query.push(("encryptedPassword".to_owned(), client.query_value(value)?));
+        query.push(("encryptedPassword".to_owned(), client.query_value(value)?));
         }
         if let Some(value) = &self.open_type_support {
-            query.push(("openTypeSupport".to_owned(), client.query_value(value)?));
+        query.push(("openTypeSupport".to_owned(), client.query_value(value)?));
         }
         if let Some(value) = &self.dest_file_name {
-            query.push(("destFileName".to_owned(), client.query_value(value)?));
+        query.push(("destFileName".to_owned(), client.query_value(value)?));
         }
 
         let url = client.build_url(&path, &query)?;

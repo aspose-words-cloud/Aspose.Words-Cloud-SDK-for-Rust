@@ -40,7 +40,9 @@ pub struct RunUpdate {
 impl Default for RunUpdate {
     fn default() -> Self {
         let mut parent = RunBase::default();
-        Self { parent }
+        Self {
+            parent,
+        }
     }
 }
 
@@ -72,3 +74,4 @@ impl Model for RunUpdate {
         self
     }
 }
+

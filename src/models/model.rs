@@ -48,7 +48,10 @@ impl ModelBox {
         self.0.validate()
     }
 
-    pub fn collect_file_references<'a>(&'a self, output: &mut Vec<&'a FileReference>) {
+    pub fn collect_file_references<'a>(
+        &'a self,
+        output: &mut Vec<&'a FileReference>,
+    ) {
         self.0.collect_file_references(output);
     }
 }
@@ -97,9 +100,7 @@ fn deserialize_model_value(value: Value) -> SdkResult<ModelBox> {
 
     match model_type {
         "ApiError" => Ok(serde_json::from_value::<ApiError>(value)?.into()),
-        "AvailableFontsResponse" => {
-            Ok(serde_json::from_value::<AvailableFontsResponse>(value)?.into())
-        }
+        "AvailableFontsResponse" => Ok(serde_json::from_value::<AvailableFontsResponse>(value)?.into()),
         "Azw3SaveOptionsData" => Ok(serde_json::from_value::<Azw3SaveOptionsData>(value)?.into()),
         "BmpSaveOptionsData" => Ok(serde_json::from_value::<BmpSaveOptionsData>(value)?.into()),
         "Bookmark" => Ok(serde_json::from_value::<Bookmark>(value)?.into()),
@@ -107,9 +108,7 @@ fn deserialize_model_value(value: Value) -> SdkResult<ModelBox> {
         "BookmarkInsert" => Ok(serde_json::from_value::<BookmarkInsert>(value)?.into()),
         "BookmarkResponse" => Ok(serde_json::from_value::<BookmarkResponse>(value)?.into()),
         "Bookmarks" => Ok(serde_json::from_value::<Bookmarks>(value)?.into()),
-        "BookmarksOutlineLevelData" => {
-            Ok(serde_json::from_value::<BookmarksOutlineLevelData>(value)?.into())
-        }
+        "BookmarksOutlineLevelData" => Ok(serde_json::from_value::<BookmarksOutlineLevelData>(value)?.into()),
         "BookmarksResponse" => Ok(serde_json::from_value::<BookmarksResponse>(value)?.into()),
         "Border" => Ok(serde_json::from_value::<Border>(value)?.into()),
         "BorderResponse" => Ok(serde_json::from_value::<BorderResponse>(value)?.into()),
@@ -132,22 +131,12 @@ fn deserialize_model_value(value: Value) -> SdkResult<ModelBox> {
         "CustomXmlPart" => Ok(serde_json::from_value::<CustomXmlPart>(value)?.into()),
         "CustomXmlPartInsert" => Ok(serde_json::from_value::<CustomXmlPartInsert>(value)?.into()),
         "CustomXmlPartLink" => Ok(serde_json::from_value::<CustomXmlPartLink>(value)?.into()),
-        "CustomXmlPartResponse" => {
-            Ok(serde_json::from_value::<CustomXmlPartResponse>(value)?.into())
-        }
-        "CustomXmlPartsCollection" => {
-            Ok(serde_json::from_value::<CustomXmlPartsCollection>(value)?.into())
-        }
-        "CustomXmlPartsResponse" => {
-            Ok(serde_json::from_value::<CustomXmlPartsResponse>(value)?.into())
-        }
+        "CustomXmlPartResponse" => Ok(serde_json::from_value::<CustomXmlPartResponse>(value)?.into()),
+        "CustomXmlPartsCollection" => Ok(serde_json::from_value::<CustomXmlPartsCollection>(value)?.into()),
+        "CustomXmlPartsResponse" => Ok(serde_json::from_value::<CustomXmlPartsResponse>(value)?.into()),
         "CustomXmlPartUpdate" => Ok(serde_json::from_value::<CustomXmlPartUpdate>(value)?.into()),
-        "DigitalSignatureDetails" => {
-            Ok(serde_json::from_value::<DigitalSignatureDetails>(value)?.into())
-        }
-        "DoclingSaveOptionsData" => {
-            Ok(serde_json::from_value::<DoclingSaveOptionsData>(value)?.into())
-        }
+        "DigitalSignatureDetails" => Ok(serde_json::from_value::<DigitalSignatureDetails>(value)?.into()),
+        "DoclingSaveOptionsData" => Ok(serde_json::from_value::<DoclingSaveOptionsData>(value)?.into()),
         "DocmSaveOptionsData" => Ok(serde_json::from_value::<DocmSaveOptionsData>(value)?.into()),
         "DocSaveOptionsData" => Ok(serde_json::from_value::<DocSaveOptionsData>(value)?.into()),
         "Document" => Ok(serde_json::from_value::<Document>(value)?.into()),
@@ -155,37 +144,23 @@ fn deserialize_model_value(value: Value) -> SdkResult<ModelBox> {
         "DocumentEntryList" => Ok(serde_json::from_value::<DocumentEntryList>(value)?.into()),
         "DocumentPosition" => Ok(serde_json::from_value::<DocumentPosition>(value)?.into()),
         "DocumentProperties" => Ok(serde_json::from_value::<DocumentProperties>(value)?.into()),
-        "DocumentPropertiesResponse" => {
-            Ok(serde_json::from_value::<DocumentPropertiesResponse>(value)?.into())
-        }
+        "DocumentPropertiesResponse" => Ok(serde_json::from_value::<DocumentPropertiesResponse>(value)?.into()),
         "DocumentProperty" => Ok(serde_json::from_value::<DocumentProperty>(value)?.into()),
-        "DocumentPropertyCreateOrUpdate" => {
-            Ok(serde_json::from_value::<DocumentPropertyCreateOrUpdate>(value)?.into())
-        }
-        "DocumentPropertyResponse" => {
-            Ok(serde_json::from_value::<DocumentPropertyResponse>(value)?.into())
-        }
+        "DocumentPropertyCreateOrUpdate" => Ok(serde_json::from_value::<DocumentPropertyCreateOrUpdate>(value)?.into()),
+        "DocumentPropertyResponse" => Ok(serde_json::from_value::<DocumentPropertyResponse>(value)?.into()),
         "DocumentResponse" => Ok(serde_json::from_value::<DocumentResponse>(value)?.into()),
         "DocumentStatData" => Ok(serde_json::from_value::<DocumentStatData>(value)?.into()),
         "DocxSaveOptionsData" => Ok(serde_json::from_value::<DocxSaveOptionsData>(value)?.into()),
         "DotmSaveOptionsData" => Ok(serde_json::from_value::<DotmSaveOptionsData>(value)?.into()),
         "DotSaveOptionsData" => Ok(serde_json::from_value::<DotSaveOptionsData>(value)?.into()),
         "DotxSaveOptionsData" => Ok(serde_json::from_value::<DotxSaveOptionsData>(value)?.into()),
-        "DownsampleOptionsData" => {
-            Ok(serde_json::from_value::<DownsampleOptionsData>(value)?.into())
-        }
+        "DownsampleOptionsData" => Ok(serde_json::from_value::<DownsampleOptionsData>(value)?.into()),
         "DrawingObject" => Ok(serde_json::from_value::<DrawingObject>(value)?.into()),
-        "DrawingObjectCollection" => {
-            Ok(serde_json::from_value::<DrawingObjectCollection>(value)?.into())
-        }
+        "DrawingObjectCollection" => Ok(serde_json::from_value::<DrawingObjectCollection>(value)?.into()),
         "DrawingObjectInsert" => Ok(serde_json::from_value::<DrawingObjectInsert>(value)?.into()),
         "DrawingObjectLink" => Ok(serde_json::from_value::<DrawingObjectLink>(value)?.into()),
-        "DrawingObjectResponse" => {
-            Ok(serde_json::from_value::<DrawingObjectResponse>(value)?.into())
-        }
-        "DrawingObjectsResponse" => {
-            Ok(serde_json::from_value::<DrawingObjectsResponse>(value)?.into())
-        }
+        "DrawingObjectResponse" => Ok(serde_json::from_value::<DrawingObjectResponse>(value)?.into()),
+        "DrawingObjectsResponse" => Ok(serde_json::from_value::<DrawingObjectsResponse>(value)?.into()),
         "DrawingObjectUpdate" => Ok(serde_json::from_value::<DrawingObjectUpdate>(value)?.into()),
         "EmfSaveOptionsData" => Ok(serde_json::from_value::<EmfSaveOptionsData>(value)?.into()),
         "EpsSaveOptionsData" => Ok(serde_json::from_value::<EpsSaveOptionsData>(value)?.into()),
@@ -205,18 +180,10 @@ fn deserialize_model_value(value: Value) -> SdkResult<ModelBox> {
         "FileLink" => Ok(serde_json::from_value::<FileLink>(value)?.into()),
         "FilesList" => Ok(serde_json::from_value::<FilesList>(value)?.into()),
         "FilesUploadResult" => Ok(serde_json::from_value::<FilesUploadResult>(value)?.into()),
-        "FlatOpcMacroSaveOptionsData" => {
-            Ok(serde_json::from_value::<FlatOpcMacroSaveOptionsData>(value)?.into())
-        }
-        "FlatOpcSaveOptionsData" => {
-            Ok(serde_json::from_value::<FlatOpcSaveOptionsData>(value)?.into())
-        }
-        "FlatOpcTemplateMacroSaveOptionsData" => {
-            Ok(serde_json::from_value::<FlatOpcTemplateMacroSaveOptionsData>(value)?.into())
-        }
-        "FlatOpcTemplateSaveOptionsData" => {
-            Ok(serde_json::from_value::<FlatOpcTemplateSaveOptionsData>(value)?.into())
-        }
+        "FlatOpcMacroSaveOptionsData" => Ok(serde_json::from_value::<FlatOpcMacroSaveOptionsData>(value)?.into()),
+        "FlatOpcSaveOptionsData" => Ok(serde_json::from_value::<FlatOpcSaveOptionsData>(value)?.into()),
+        "FlatOpcTemplateMacroSaveOptionsData" => Ok(serde_json::from_value::<FlatOpcTemplateMacroSaveOptionsData>(value)?.into()),
+        "FlatOpcTemplateSaveOptionsData" => Ok(serde_json::from_value::<FlatOpcTemplateSaveOptionsData>(value)?.into()),
         "Font" => Ok(serde_json::from_value::<Font>(value)?.into()),
         "FontInfo" => Ok(serde_json::from_value::<FontInfo>(value)?.into()),
         "FontResponse" => Ok(serde_json::from_value::<FontResponse>(value)?.into()),
@@ -229,33 +196,21 @@ fn deserialize_model_value(value: Value) -> SdkResult<ModelBox> {
         "FootnotesStatData" => Ok(serde_json::from_value::<FootnotesStatData>(value)?.into()),
         "FootnoteUpdate" => Ok(serde_json::from_value::<FootnoteUpdate>(value)?.into()),
         "FormFieldCheckbox" => Ok(serde_json::from_value::<FormFieldCheckbox>(value)?.into()),
-        "FormFieldCheckboxLink" => {
-            Ok(serde_json::from_value::<FormFieldCheckboxLink>(value)?.into())
-        }
+        "FormFieldCheckboxLink" => Ok(serde_json::from_value::<FormFieldCheckboxLink>(value)?.into()),
         "FormFieldCollection" => Ok(serde_json::from_value::<FormFieldCollection>(value)?.into()),
         "FormFieldDropDown" => Ok(serde_json::from_value::<FormFieldDropDown>(value)?.into()),
-        "FormFieldDropDownLink" => {
-            Ok(serde_json::from_value::<FormFieldDropDownLink>(value)?.into())
-        }
+        "FormFieldDropDownLink" => Ok(serde_json::from_value::<FormFieldDropDownLink>(value)?.into()),
         "FormFieldResponse" => Ok(serde_json::from_value::<FormFieldResponse>(value)?.into()),
         "FormFieldsResponse" => Ok(serde_json::from_value::<FormFieldsResponse>(value)?.into()),
         "FormFieldTextInput" => Ok(serde_json::from_value::<FormFieldTextInput>(value)?.into()),
-        "FormFieldTextInputLink" => {
-            Ok(serde_json::from_value::<FormFieldTextInputLink>(value)?.into())
-        }
+        "FormFieldTextInputLink" => Ok(serde_json::from_value::<FormFieldTextInputLink>(value)?.into()),
         "GifSaveOptionsData" => Ok(serde_json::from_value::<GifSaveOptionsData>(value)?.into()),
         "HeaderFooter" => Ok(serde_json::from_value::<HeaderFooter>(value)?.into()),
         "HeaderFooterLink" => Ok(serde_json::from_value::<HeaderFooterLink>(value)?.into()),
-        "HeaderFooterLinkCollection" => {
-            Ok(serde_json::from_value::<HeaderFooterLinkCollection>(value)?.into())
-        }
+        "HeaderFooterLinkCollection" => Ok(serde_json::from_value::<HeaderFooterLinkCollection>(value)?.into()),
         "HeaderFooterResponse" => Ok(serde_json::from_value::<HeaderFooterResponse>(value)?.into()),
-        "HeaderFootersResponse" => {
-            Ok(serde_json::from_value::<HeaderFootersResponse>(value)?.into())
-        }
-        "HtmlFixedSaveOptionsData" => {
-            Ok(serde_json::from_value::<HtmlFixedSaveOptionsData>(value)?.into())
-        }
+        "HeaderFootersResponse" => Ok(serde_json::from_value::<HeaderFootersResponse>(value)?.into()),
+        "HtmlFixedSaveOptionsData" => Ok(serde_json::from_value::<HtmlFixedSaveOptionsData>(value)?.into()),
         "HtmlSaveOptionsData" => Ok(serde_json::from_value::<HtmlSaveOptionsData>(value)?.into()),
         "Hyperlink" => Ok(serde_json::from_value::<Hyperlink>(value)?.into()),
         "HyperlinkResponse" => Ok(serde_json::from_value::<HyperlinkResponse>(value)?.into()),
@@ -282,32 +237,18 @@ fn deserialize_model_value(value: Value) -> SdkResult<ModelBox> {
         "ListsResponse" => Ok(serde_json::from_value::<ListsResponse>(value)?.into()),
         "ListUpdate" => Ok(serde_json::from_value::<ListUpdate>(value)?.into()),
         "LoadWebDocumentData" => Ok(serde_json::from_value::<LoadWebDocumentData>(value)?.into()),
-        "MarkdownSaveOptionsData" => {
-            Ok(serde_json::from_value::<MarkdownSaveOptionsData>(value)?.into())
-        }
-        "MetafileRenderingOptionsData" => {
-            Ok(serde_json::from_value::<MetafileRenderingOptionsData>(value)?.into())
-        }
+        "MarkdownSaveOptionsData" => Ok(serde_json::from_value::<MarkdownSaveOptionsData>(value)?.into()),
+        "MetafileRenderingOptionsData" => Ok(serde_json::from_value::<MetafileRenderingOptionsData>(value)?.into()),
         "MhtmlSaveOptionsData" => Ok(serde_json::from_value::<MhtmlSaveOptionsData>(value)?.into()),
-        "ModificationOperationResult" => {
-            Ok(serde_json::from_value::<ModificationOperationResult>(value)?.into())
-        }
+        "ModificationOperationResult" => Ok(serde_json::from_value::<ModificationOperationResult>(value)?.into()),
         "NodeLink" => Ok(serde_json::from_value::<NodeLink>(value)?.into()),
         "OdtSaveOptionsData" => Ok(serde_json::from_value::<OdtSaveOptionsData>(value)?.into()),
         "OfficeMathLink" => Ok(serde_json::from_value::<OfficeMathLink>(value)?.into()),
         "OfficeMathObject" => Ok(serde_json::from_value::<OfficeMathObject>(value)?.into()),
-        "OfficeMathObjectResponse" => {
-            Ok(serde_json::from_value::<OfficeMathObjectResponse>(value)?.into())
-        }
-        "OfficeMathObjectsCollection" => {
-            Ok(serde_json::from_value::<OfficeMathObjectsCollection>(value)?.into())
-        }
-        "OfficeMathObjectsResponse" => {
-            Ok(serde_json::from_value::<OfficeMathObjectsResponse>(value)?.into())
-        }
-        "OpenXpsSaveOptionsData" => {
-            Ok(serde_json::from_value::<OpenXpsSaveOptionsData>(value)?.into())
-        }
+        "OfficeMathObjectResponse" => Ok(serde_json::from_value::<OfficeMathObjectResponse>(value)?.into()),
+        "OfficeMathObjectsCollection" => Ok(serde_json::from_value::<OfficeMathObjectsCollection>(value)?.into()),
+        "OfficeMathObjectsResponse" => Ok(serde_json::from_value::<OfficeMathObjectsResponse>(value)?.into()),
+        "OpenXpsSaveOptionsData" => Ok(serde_json::from_value::<OpenXpsSaveOptionsData>(value)?.into()),
         "OptimizationOptions" => Ok(serde_json::from_value::<OptimizationOptions>(value)?.into()),
         "OttSaveOptionsData" => Ok(serde_json::from_value::<OttSaveOptionsData>(value)?.into()),
         "OutlineOptionsData" => Ok(serde_json::from_value::<OutlineOptionsData>(value)?.into()),
@@ -316,31 +257,17 @@ fn deserialize_model_value(value: Value) -> SdkResult<ModelBox> {
         "PageStatData" => Ok(serde_json::from_value::<PageStatData>(value)?.into()),
         "Paragraph" => Ok(serde_json::from_value::<Paragraph>(value)?.into()),
         "ParagraphFormat" => Ok(serde_json::from_value::<ParagraphFormat>(value)?.into()),
-        "ParagraphFormatResponse" => {
-            Ok(serde_json::from_value::<ParagraphFormatResponse>(value)?.into())
-        }
-        "ParagraphFormatUpdate" => {
-            Ok(serde_json::from_value::<ParagraphFormatUpdate>(value)?.into())
-        }
+        "ParagraphFormatResponse" => Ok(serde_json::from_value::<ParagraphFormatResponse>(value)?.into()),
+        "ParagraphFormatUpdate" => Ok(serde_json::from_value::<ParagraphFormatUpdate>(value)?.into()),
         "ParagraphInsert" => Ok(serde_json::from_value::<ParagraphInsert>(value)?.into()),
         "ParagraphLink" => Ok(serde_json::from_value::<ParagraphLink>(value)?.into()),
-        "ParagraphLinkCollection" => {
-            Ok(serde_json::from_value::<ParagraphLinkCollection>(value)?.into())
-        }
-        "ParagraphLinkCollectionResponse" => {
-            Ok(serde_json::from_value::<ParagraphLinkCollectionResponse>(value)?.into())
-        }
-        "ParagraphListFormatResponse" => {
-            Ok(serde_json::from_value::<ParagraphListFormatResponse>(value)?.into())
-        }
+        "ParagraphLinkCollection" => Ok(serde_json::from_value::<ParagraphLinkCollection>(value)?.into()),
+        "ParagraphLinkCollectionResponse" => Ok(serde_json::from_value::<ParagraphLinkCollectionResponse>(value)?.into()),
+        "ParagraphListFormatResponse" => Ok(serde_json::from_value::<ParagraphListFormatResponse>(value)?.into()),
         "ParagraphResponse" => Ok(serde_json::from_value::<ParagraphResponse>(value)?.into()),
         "PclSaveOptionsData" => Ok(serde_json::from_value::<PclSaveOptionsData>(value)?.into()),
-        "PdfDigitalSignatureDetailsData" => {
-            Ok(serde_json::from_value::<PdfDigitalSignatureDetailsData>(value)?.into())
-        }
-        "PdfEncryptionDetailsData" => {
-            Ok(serde_json::from_value::<PdfEncryptionDetailsData>(value)?.into())
-        }
+        "PdfDigitalSignatureDetailsData" => Ok(serde_json::from_value::<PdfDigitalSignatureDetailsData>(value)?.into()),
+        "PdfEncryptionDetailsData" => Ok(serde_json::from_value::<PdfEncryptionDetailsData>(value)?.into()),
 
         "PdfSaveOptionsData" => Ok(serde_json::from_value::<PdfSaveOptionsData>(value)?.into()),
         "PngSaveOptionsData" => Ok(serde_json::from_value::<PngSaveOptionsData>(value)?.into()),
@@ -349,9 +276,7 @@ fn deserialize_model_value(value: Value) -> SdkResult<ModelBox> {
         "PositionInsideNode" => Ok(serde_json::from_value::<PositionInsideNode>(value)?.into()),
         "PreferredWidth" => Ok(serde_json::from_value::<PreferredWidth>(value)?.into()),
         "ProtectionData" => Ok(serde_json::from_value::<ProtectionData>(value)?.into()),
-        "ProtectionDataResponse" => {
-            Ok(serde_json::from_value::<ProtectionDataResponse>(value)?.into())
-        }
+        "ProtectionDataResponse" => Ok(serde_json::from_value::<ProtectionDataResponse>(value)?.into()),
         "ProtectionRequest" => Ok(serde_json::from_value::<ProtectionRequest>(value)?.into()),
         "ProtectionRequestV2" => Ok(serde_json::from_value::<ProtectionRequestV2>(value)?.into()),
         "PsSaveOptionsData" => Ok(serde_json::from_value::<PsSaveOptionsData>(value)?.into()),
@@ -359,17 +284,13 @@ fn deserialize_model_value(value: Value) -> SdkResult<ModelBox> {
         "RangeDocument" => Ok(serde_json::from_value::<RangeDocument>(value)?.into()),
         "RangeTextResponse" => Ok(serde_json::from_value::<RangeTextResponse>(value)?.into()),
         "ReplaceRange" => Ok(serde_json::from_value::<ReplaceRange>(value)?.into()),
-        "ReplaceTextParameters" => {
-            Ok(serde_json::from_value::<ReplaceTextParameters>(value)?.into())
-        }
+        "ReplaceTextParameters" => Ok(serde_json::from_value::<ReplaceTextParameters>(value)?.into()),
         "ReplaceTextResponse" => Ok(serde_json::from_value::<ReplaceTextResponse>(value)?.into()),
 
         "ReportEngineSettings" => Ok(serde_json::from_value::<ReportEngineSettings>(value)?.into()),
         "Revision" => Ok(serde_json::from_value::<Revision>(value)?.into()),
         "RevisionCollection" => Ok(serde_json::from_value::<RevisionCollection>(value)?.into()),
-        "RevisionsModificationResponse" => {
-            Ok(serde_json::from_value::<RevisionsModificationResponse>(value)?.into())
-        }
+        "RevisionsModificationResponse" => Ok(serde_json::from_value::<RevisionsModificationResponse>(value)?.into()),
         "RevisionsResponse" => Ok(serde_json::from_value::<RevisionsResponse>(value)?.into()),
         "RtfSaveOptionsData" => Ok(serde_json::from_value::<RtfSaveOptionsData>(value)?.into()),
         "Run" => Ok(serde_json::from_value::<Run>(value)?.into()),
@@ -383,55 +304,29 @@ fn deserialize_model_value(value: Value) -> SdkResult<ModelBox> {
         "SaveResult" => Ok(serde_json::from_value::<SaveResult>(value)?.into()),
         "SearchResponse" => Ok(serde_json::from_value::<SearchResponse>(value)?.into()),
         "SearchResult" => Ok(serde_json::from_value::<SearchResult>(value)?.into()),
-        "SearchResultsCollection" => {
-            Ok(serde_json::from_value::<SearchResultsCollection>(value)?.into())
-        }
+        "SearchResultsCollection" => Ok(serde_json::from_value::<SearchResultsCollection>(value)?.into()),
         "Section" => Ok(serde_json::from_value::<Section>(value)?.into()),
         "SectionLink" => Ok(serde_json::from_value::<SectionLink>(value)?.into()),
-        "SectionLinkCollection" => {
-            Ok(serde_json::from_value::<SectionLinkCollection>(value)?.into())
-        }
-        "SectionLinkCollectionResponse" => {
-            Ok(serde_json::from_value::<SectionLinkCollectionResponse>(value)?.into())
-        }
-        "SectionPageSetupResponse" => {
-            Ok(serde_json::from_value::<SectionPageSetupResponse>(value)?.into())
-        }
+        "SectionLinkCollection" => Ok(serde_json::from_value::<SectionLinkCollection>(value)?.into()),
+        "SectionLinkCollectionResponse" => Ok(serde_json::from_value::<SectionLinkCollectionResponse>(value)?.into()),
+        "SectionPageSetupResponse" => Ok(serde_json::from_value::<SectionPageSetupResponse>(value)?.into()),
         "SectionResponse" => Ok(serde_json::from_value::<SectionResponse>(value)?.into()),
         "Shading" => Ok(serde_json::from_value::<Shading>(value)?.into()),
         "Signature" => Ok(serde_json::from_value::<Signature>(value)?.into()),
-        "SignatureCollectionResponse" => {
-            Ok(serde_json::from_value::<SignatureCollectionResponse>(value)?.into())
-        }
+        "SignatureCollectionResponse" => Ok(serde_json::from_value::<SignatureCollectionResponse>(value)?.into()),
         "SignOptions" => Ok(serde_json::from_value::<SignOptions>(value)?.into()),
-        "SplitDocumentResponse" => {
-            Ok(serde_json::from_value::<SplitDocumentResponse>(value)?.into())
-        }
+        "SplitDocumentResponse" => Ok(serde_json::from_value::<SplitDocumentResponse>(value)?.into()),
         "SplitDocumentResult" => Ok(serde_json::from_value::<SplitDocumentResult>(value)?.into()),
         "StatDataResponse" => Ok(serde_json::from_value::<StatDataResponse>(value)?.into()),
         "StorageFile" => Ok(serde_json::from_value::<StorageFile>(value)?.into()),
         "StoryChildNodes" => Ok(serde_json::from_value::<StoryChildNodes>(value)?.into()),
-        "StructuredDocumentTag" => {
-            Ok(serde_json::from_value::<StructuredDocumentTag>(value)?.into())
-        }
-        "StructuredDocumentTagCollection" => {
-            Ok(serde_json::from_value::<StructuredDocumentTagCollection>(value)?.into())
-        }
-        "StructuredDocumentTagInsert" => {
-            Ok(serde_json::from_value::<StructuredDocumentTagInsert>(value)?.into())
-        }
-        "StructuredDocumentTagListItem" => {
-            Ok(serde_json::from_value::<StructuredDocumentTagListItem>(value)?.into())
-        }
-        "StructuredDocumentTagResponse" => {
-            Ok(serde_json::from_value::<StructuredDocumentTagResponse>(value)?.into())
-        }
-        "StructuredDocumentTagsResponse" => {
-            Ok(serde_json::from_value::<StructuredDocumentTagsResponse>(value)?.into())
-        }
-        "StructuredDocumentTagUpdate" => {
-            Ok(serde_json::from_value::<StructuredDocumentTagUpdate>(value)?.into())
-        }
+        "StructuredDocumentTag" => Ok(serde_json::from_value::<StructuredDocumentTag>(value)?.into()),
+        "StructuredDocumentTagCollection" => Ok(serde_json::from_value::<StructuredDocumentTagCollection>(value)?.into()),
+        "StructuredDocumentTagInsert" => Ok(serde_json::from_value::<StructuredDocumentTagInsert>(value)?.into()),
+        "StructuredDocumentTagListItem" => Ok(serde_json::from_value::<StructuredDocumentTagListItem>(value)?.into()),
+        "StructuredDocumentTagResponse" => Ok(serde_json::from_value::<StructuredDocumentTagResponse>(value)?.into()),
+        "StructuredDocumentTagsResponse" => Ok(serde_json::from_value::<StructuredDocumentTagsResponse>(value)?.into()),
+        "StructuredDocumentTagUpdate" => Ok(serde_json::from_value::<StructuredDocumentTagUpdate>(value)?.into()),
         "Style" => Ok(serde_json::from_value::<Style>(value)?.into()),
         "StyleApply" => Ok(serde_json::from_value::<StyleApply>(value)?.into()),
         "StyleCopy" => Ok(serde_json::from_value::<StyleCopy>(value)?.into()),
@@ -443,27 +338,19 @@ fn deserialize_model_value(value: Value) -> SdkResult<ModelBox> {
         "Table" => Ok(serde_json::from_value::<Table>(value)?.into()),
         "TableCell" => Ok(serde_json::from_value::<TableCell>(value)?.into()),
         "TableCellFormat" => Ok(serde_json::from_value::<TableCellFormat>(value)?.into()),
-        "TableCellFormatResponse" => {
-            Ok(serde_json::from_value::<TableCellFormatResponse>(value)?.into())
-        }
+        "TableCellFormatResponse" => Ok(serde_json::from_value::<TableCellFormatResponse>(value)?.into()),
         "TableCellInsert" => Ok(serde_json::from_value::<TableCellInsert>(value)?.into()),
         "TableCellResponse" => Ok(serde_json::from_value::<TableCellResponse>(value)?.into()),
         "TableInsert" => Ok(serde_json::from_value::<TableInsert>(value)?.into()),
         "TableLink" => Ok(serde_json::from_value::<TableLink>(value)?.into()),
         "TableLinkCollection" => Ok(serde_json::from_value::<TableLinkCollection>(value)?.into()),
-        "TableLinkCollectionResponse" => {
-            Ok(serde_json::from_value::<TableLinkCollectionResponse>(value)?.into())
-        }
+        "TableLinkCollectionResponse" => Ok(serde_json::from_value::<TableLinkCollectionResponse>(value)?.into()),
         "TableProperties" => Ok(serde_json::from_value::<TableProperties>(value)?.into()),
-        "TablePropertiesResponse" => {
-            Ok(serde_json::from_value::<TablePropertiesResponse>(value)?.into())
-        }
+        "TablePropertiesResponse" => Ok(serde_json::from_value::<TablePropertiesResponse>(value)?.into()),
         "TableResponse" => Ok(serde_json::from_value::<TableResponse>(value)?.into()),
         "TableRow" => Ok(serde_json::from_value::<TableRow>(value)?.into()),
         "TableRowFormat" => Ok(serde_json::from_value::<TableRowFormat>(value)?.into()),
-        "TableRowFormatResponse" => {
-            Ok(serde_json::from_value::<TableRowFormatResponse>(value)?.into())
-        }
+        "TableRowFormatResponse" => Ok(serde_json::from_value::<TableRowFormatResponse>(value)?.into()),
         "TableRowInsert" => Ok(serde_json::from_value::<TableRowInsert>(value)?.into()),
         "TableRowResponse" => Ok(serde_json::from_value::<TableRowResponse>(value)?.into()),
         "TabStop" => Ok(serde_json::from_value::<TabStop>(value)?.into()),
@@ -472,30 +359,18 @@ fn deserialize_model_value(value: Value) -> SdkResult<ModelBox> {
         "TextSaveOptionsData" => Ok(serde_json::from_value::<TextSaveOptionsData>(value)?.into()),
         "TiffSaveOptionsData" => Ok(serde_json::from_value::<TiffSaveOptionsData>(value)?.into()),
         "TimeZoneInfoData" => Ok(serde_json::from_value::<TimeZoneInfoData>(value)?.into()),
-        "TranslateNodeIdResponse" => {
-            Ok(serde_json::from_value::<TranslateNodeIdResponse>(value)?.into())
-        }
+        "TranslateNodeIdResponse" => Ok(serde_json::from_value::<TranslateNodeIdResponse>(value)?.into()),
         "UserInformation" => Ok(serde_json::from_value::<UserInformation>(value)?.into()),
         "WatermarkDataImage" => Ok(serde_json::from_value::<WatermarkDataImage>(value)?.into()),
         "WatermarkDataText" => Ok(serde_json::from_value::<WatermarkDataText>(value)?.into()),
         "WatermarkText" => Ok(serde_json::from_value::<WatermarkText>(value)?.into()),
-        "WordMLSaveOptionsData" => {
-            Ok(serde_json::from_value::<WordMlSaveOptionsData>(value)?.into())
-        }
-        "WordsApiErrorResponse" => {
-            Ok(serde_json::from_value::<WordsApiErrorResponse>(value)?.into())
-        }
+        "WordMLSaveOptionsData" => Ok(serde_json::from_value::<WordMlSaveOptionsData>(value)?.into()),
+        "WordsApiErrorResponse" => Ok(serde_json::from_value::<WordsApiErrorResponse>(value)?.into()),
         "WordsApiLink" => Ok(serde_json::from_value::<WordsApiLink>(value)?.into()),
         "WordsResponse" => Ok(serde_json::from_value::<WordsResponse>(value)?.into()),
-        "XamlFixedSaveOptionsData" => {
-            Ok(serde_json::from_value::<XamlFixedSaveOptionsData>(value)?.into())
-        }
-        "XamlFlowPackSaveOptionsData" => {
-            Ok(serde_json::from_value::<XamlFlowPackSaveOptionsData>(value)?.into())
-        }
-        "XamlFlowSaveOptionsData" => {
-            Ok(serde_json::from_value::<XamlFlowSaveOptionsData>(value)?.into())
-        }
+        "XamlFixedSaveOptionsData" => Ok(serde_json::from_value::<XamlFixedSaveOptionsData>(value)?.into()),
+        "XamlFlowPackSaveOptionsData" => Ok(serde_json::from_value::<XamlFlowPackSaveOptionsData>(value)?.into()),
+        "XamlFlowSaveOptionsData" => Ok(serde_json::from_value::<XamlFlowSaveOptionsData>(value)?.into()),
         "XmlColor" => Ok(serde_json::from_value::<XmlColor>(value)?.into()),
         "XmlDataLoadOptions" => Ok(serde_json::from_value::<XmlDataLoadOptions>(value)?.into()),
         "XpsSaveOptionsData" => Ok(serde_json::from_value::<XpsSaveOptionsData>(value)?.into()),

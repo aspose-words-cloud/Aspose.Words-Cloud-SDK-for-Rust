@@ -32,13 +32,15 @@ use super::*;
 /// DTO container with a position in the document tree.
 #[derive(Debug, Deserialize, Serialize)]
 pub struct DocumentPosition {
-    /// Gets or sets the link to a node.
-    #[serde(rename = "Node", skip_serializing_if = "Option::is_none")]
-    pub node: Option<NodeLink>,
+        /// Gets or sets the link to a node.
+        #[serde(rename = "Node", skip_serializing_if = "Option::is_none")]
+        pub node: Option<NodeLink>,
 
-    /// Gets or sets the offset in the node.
-    #[serde(rename = "Offset", skip_serializing_if = "Option::is_none")]
-    pub offset: Option<i32>,
+
+        /// Gets or sets the offset in the node.
+        #[serde(rename = "Offset", skip_serializing_if = "Option::is_none")]
+        pub offset: Option<i32>,
+
 }
 
 impl Default for DocumentPosition {
@@ -53,15 +55,17 @@ impl Default for DocumentPosition {
 impl Model for DocumentPosition {
     fn validate(&self) -> SdkResult<()> {
         if let Some(value) = &self.node {
-            value.validate()?;
+        value.validate()?;
         }
 
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {}
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+    }
 
     fn as_any(&self) -> &dyn Any {
         self
     }
 }
+

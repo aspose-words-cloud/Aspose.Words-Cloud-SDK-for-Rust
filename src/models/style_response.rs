@@ -36,9 +36,10 @@ use super::*;
 pub struct StyleResponse {
     #[serde(flatten)]
     pub parent: WordsResponse,
-    /// Gets or sets the style, containded in the document.
-    #[serde(rename = "Style", skip_serializing_if = "Option::is_none")]
-    pub style: Option<Style>,
+        /// Gets or sets the style, containded in the document.
+        #[serde(rename = "Style", skip_serializing_if = "Option::is_none")]
+        pub style: Option<Style>,
+
 }
 
 impl Default for StyleResponse {
@@ -69,7 +70,7 @@ impl Model for StyleResponse {
     fn validate(&self) -> SdkResult<()> {
         self.parent.validate()?;
         if let Some(value) = &self.style {
-            value.validate()?;
+        value.validate()?;
         }
         Ok(())
     }
@@ -82,3 +83,4 @@ impl Model for StyleResponse {
         self
     }
 }
+

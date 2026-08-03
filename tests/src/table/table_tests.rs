@@ -42,27 +42,19 @@ async fn table_get_tables() -> TestResult<()> {
     let local_file = "DocumentElements/Tables/TablesGet.docx".to_owned();
     let remote_file_name = "TestGetTables.docx".to_owned();
 
-    context
-        .upload_file(
-            local_file.clone(),
-            remote_data_folder.clone() + "/" + &remote_file_name,
-        )
-        .await?;
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
-    let request = GetTablesRequest::new((remote_file_name.clone()).into())
-        .with_node_path(("".to_owned()).into())
-        .with_folder((remote_data_folder.clone()).into());
+    let request = GetTablesRequest::new(
+        (remote_file_name.clone()).into()
+    ).with_node_path(("".to_owned()).into())
+.with_folder((remote_data_folder.clone()).into());
 
     let result = context.api().get_tables(request).await?;
     let result_json = serialize_result(&result)?;
     assert_not_null(&result_json, "Tables")?;
     assert_not_null(&result_json, "Tables.TableLinkList")?;
     assert_length(&result_json, "Tables.TableLinkList", 5)?;
-    assert_string(
-        &result_json,
-        "Tables.TableLinkList[0].NodeId",
-        "0.0.1".to_owned(),
-    )?;
+    assert_string(&result_json, "Tables.TableLinkList[0].NodeId", "0.0.1".to_owned())?;
     Ok(())
 }
 
@@ -76,8 +68,9 @@ async fn table_get_tables_online() -> TestResult<()> {
 
     let request_document = context.load_binary_file(local_file.clone()).await?;
 
-    let request = GetTablesOnlineRequest::new((request_document).into())
-        .with_node_path(("".to_owned()).into());
+    let request = GetTablesOnlineRequest::new(
+        (request_document).into()
+    ).with_node_path(("".to_owned()).into());
 
     context.api().get_tables_online(request).await?;
     Ok(())
@@ -93,26 +86,18 @@ async fn table_get_tables_without_node_path() -> TestResult<()> {
     let local_file = "DocumentElements/Tables/TablesGet.docx".to_owned();
     let remote_file_name = "TestGetTablesWithoutNodePath.docx".to_owned();
 
-    context
-        .upload_file(
-            local_file.clone(),
-            remote_data_folder.clone() + "/" + &remote_file_name,
-        )
-        .await?;
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
-    let request = GetTablesRequest::new((remote_file_name.clone()).into())
-        .with_folder((remote_data_folder.clone()).into());
+    let request = GetTablesRequest::new(
+        (remote_file_name.clone()).into()
+    ).with_folder((remote_data_folder.clone()).into());
 
     let result = context.api().get_tables(request).await?;
     let result_json = serialize_result(&result)?;
     assert_not_null(&result_json, "Tables")?;
     assert_not_null(&result_json, "Tables.TableLinkList")?;
     assert_length(&result_json, "Tables.TableLinkList", 5)?;
-    assert_string(
-        &result_json,
-        "Tables.TableLinkList[0].NodeId",
-        "0.0.1".to_owned(),
-    )?;
+    assert_string(&result_json, "Tables.TableLinkList[0].NodeId", "0.0.1".to_owned())?;
     Ok(())
 }
 
@@ -126,16 +111,13 @@ async fn table_get_table() -> TestResult<()> {
     let local_file = "DocumentElements/Tables/TablesGet.docx".to_owned();
     let remote_file_name = "TestGetTable.docx".to_owned();
 
-    context
-        .upload_file(
-            local_file.clone(),
-            remote_data_folder.clone() + "/" + &remote_file_name,
-        )
-        .await?;
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
-    let request = GetTableRequest::new((remote_file_name.clone()).into(), (1).into())
-        .with_node_path(("".to_owned()).into())
-        .with_folder((remote_data_folder.clone()).into());
+    let request = GetTableRequest::new(
+        (remote_file_name.clone()).into(),
+        (1).into()
+    ).with_node_path(("".to_owned()).into())
+.with_folder((remote_data_folder.clone()).into());
 
     let result = context.api().get_table(request).await?;
     let result_json = serialize_result(&result)?;
@@ -157,8 +139,10 @@ async fn table_get_table_online() -> TestResult<()> {
 
     let request_document = context.load_binary_file(local_file.clone()).await?;
 
-    let request = GetTableOnlineRequest::new((request_document).into(), (1).into())
-        .with_node_path(("".to_owned()).into());
+    let request = GetTableOnlineRequest::new(
+        (request_document).into(),
+        (1).into()
+    ).with_node_path(("".to_owned()).into());
 
     context.api().get_table_online(request).await?;
     Ok(())
@@ -174,15 +158,12 @@ async fn table_get_table_without_node_path() -> TestResult<()> {
     let local_file = "DocumentElements/Tables/TablesGet.docx".to_owned();
     let remote_file_name = "TestGetTableWithoutNodePath.docx".to_owned();
 
-    context
-        .upload_file(
-            local_file.clone(),
-            remote_data_folder.clone() + "/" + &remote_file_name,
-        )
-        .await?;
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
-    let request = GetTableRequest::new((remote_file_name.clone()).into(), (1).into())
-        .with_folder((remote_data_folder.clone()).into());
+    let request = GetTableRequest::new(
+        (remote_file_name.clone()).into(),
+        (1).into()
+    ).with_folder((remote_data_folder.clone()).into());
 
     let result = context.api().get_table(request).await?;
     let result_json = serialize_result(&result)?;
@@ -204,16 +185,13 @@ async fn table_delete_table() -> TestResult<()> {
     let local_file = "DocumentElements/Tables/TablesGet.docx".to_owned();
     let remote_file_name = "TestDeleteTable.docx".to_owned();
 
-    context
-        .upload_file(
-            local_file.clone(),
-            remote_data_folder.clone() + "/" + &remote_file_name,
-        )
-        .await?;
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
-    let request = DeleteTableRequest::new((remote_file_name.clone()).into(), (1).into())
-        .with_node_path(("".to_owned()).into())
-        .with_folder((remote_data_folder.clone()).into());
+    let request = DeleteTableRequest::new(
+        (remote_file_name.clone()).into(),
+        (1).into()
+    ).with_node_path(("".to_owned()).into())
+.with_folder((remote_data_folder.clone()).into());
 
     context.api().delete_table(request).await?;
     Ok(())
@@ -229,8 +207,10 @@ async fn table_delete_table_online() -> TestResult<()> {
 
     let request_document = context.load_binary_file(local_file.clone()).await?;
 
-    let request = DeleteTableOnlineRequest::new((request_document).into(), (1).into())
-        .with_node_path(("".to_owned()).into());
+    let request = DeleteTableOnlineRequest::new(
+        (request_document).into(),
+        (1).into()
+    ).with_node_path(("".to_owned()).into());
 
     context.api().delete_table_online(request).await?;
     Ok(())
@@ -246,15 +226,12 @@ async fn table_delete_table_without_node_path() -> TestResult<()> {
     let local_file = "DocumentElements/Tables/TablesGet.docx".to_owned();
     let remote_file_name = "TestDeleteTableWithoutNodePath.docx".to_owned();
 
-    context
-        .upload_file(
-            local_file.clone(),
-            remote_data_folder.clone() + "/" + &remote_file_name,
-        )
-        .await?;
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
-    let request = DeleteTableRequest::new((remote_file_name.clone()).into(), (1).into())
-        .with_folder((remote_data_folder.clone()).into());
+    let request = DeleteTableRequest::new(
+        (remote_file_name.clone()).into(),
+        (1).into()
+    ).with_folder((remote_data_folder.clone()).into());
 
     context.api().delete_table(request).await?;
     Ok(())
@@ -270,20 +247,16 @@ async fn table_insert_table() -> TestResult<()> {
     let local_file = "DocumentElements/Tables/TablesGet.docx".to_owned();
     let remote_file_name = "TestInsertTable.docx".to_owned();
 
-    context
-        .upload_file(
-            local_file.clone(),
-            remote_data_folder.clone() + "/" + &remote_file_name,
-        )
-        .await?;
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
     let mut request_table = TableInsert::default();
     request_table.columns_count = Some((5).into());
     request_table.rows_count = Some((4).into());
 
-    let request =
-        InsertTableRequest::new((remote_file_name.clone()).into(), (request_table).into())
-            .with_node_path(("".to_owned()).into())
-            .with_folder((remote_data_folder.clone()).into());
+    let request = InsertTableRequest::new(
+        (remote_file_name.clone()).into(),
+        (request_table).into()
+    ).with_node_path(("".to_owned()).into())
+.with_folder((remote_data_folder.clone()).into());
 
     let result = context.api().insert_table(request).await?;
     let result_json = serialize_result(&result)?;
@@ -308,8 +281,10 @@ async fn table_insert_table_online() -> TestResult<()> {
     request_table.columns_count = Some((5).into());
     request_table.rows_count = Some((4).into());
 
-    let request = InsertTableOnlineRequest::new((request_document).into(), (request_table).into())
-        .with_node_path(("".to_owned()).into());
+    let request = InsertTableOnlineRequest::new(
+        (request_document).into(),
+        (request_table).into()
+    ).with_node_path(("".to_owned()).into());
 
     context.api().insert_table_online(request).await?;
     Ok(())
@@ -325,19 +300,15 @@ async fn table_insert_table_without_node_path() -> TestResult<()> {
     let local_file = "DocumentElements/Tables/TablesGet.docx".to_owned();
     let remote_file_name = "TestInsertTableWithoutNodePath.docx".to_owned();
 
-    context
-        .upload_file(
-            local_file.clone(),
-            remote_data_folder.clone() + "/" + &remote_file_name,
-        )
-        .await?;
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
     let mut request_table = TableInsert::default();
     request_table.columns_count = Some((5).into());
     request_table.rows_count = Some((4).into());
 
-    let request =
-        InsertTableRequest::new((remote_file_name.clone()).into(), (request_table).into())
-            .with_folder((remote_data_folder.clone()).into());
+    let request = InsertTableRequest::new(
+        (remote_file_name.clone()).into(),
+        (request_table).into()
+    ).with_folder((remote_data_folder.clone()).into());
 
     let result = context.api().insert_table(request).await?;
     let result_json = serialize_result(&result)?;
@@ -359,25 +330,18 @@ async fn table_get_table_properties() -> TestResult<()> {
     let local_file = "DocumentElements/Tables/TablesGet.docx".to_owned();
     let remote_file_name = "TestGetTableProperties.docx".to_owned();
 
-    context
-        .upload_file(
-            local_file.clone(),
-            remote_data_folder.clone() + "/" + &remote_file_name,
-        )
-        .await?;
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
-    let request = GetTablePropertiesRequest::new((remote_file_name.clone()).into(), (1).into())
-        .with_node_path(("".to_owned()).into())
-        .with_folder((remote_data_folder.clone()).into());
+    let request = GetTablePropertiesRequest::new(
+        (remote_file_name.clone()).into(),
+        (1).into()
+    ).with_node_path(("".to_owned()).into())
+.with_folder((remote_data_folder.clone()).into());
 
     let result = context.api().get_table_properties(request).await?;
     let result_json = serialize_result(&result)?;
     assert_not_null(&result_json, "Properties")?;
-    assert_string(
-        &result_json,
-        "Properties.StyleName",
-        "Table Grid".to_owned(),
-    )?;
+    assert_string(&result_json, "Properties.StyleName", "Table Grid".to_owned())?;
     Ok(())
 }
 
@@ -391,8 +355,10 @@ async fn table_get_table_properties_online() -> TestResult<()> {
 
     let request_document = context.load_binary_file(local_file.clone()).await?;
 
-    let request = GetTablePropertiesOnlineRequest::new((request_document).into(), (1).into())
-        .with_node_path(("".to_owned()).into());
+    let request = GetTablePropertiesOnlineRequest::new(
+        (request_document).into(),
+        (1).into()
+    ).with_node_path(("".to_owned()).into());
 
     context.api().get_table_properties_online(request).await?;
     Ok(())
@@ -408,24 +374,17 @@ async fn table_get_table_properties_without_node_path() -> TestResult<()> {
     let local_file = "DocumentElements/Tables/TablesGet.docx".to_owned();
     let remote_file_name = "TestGetTablePropertiesWithoutNodePath.docx".to_owned();
 
-    context
-        .upload_file(
-            local_file.clone(),
-            remote_data_folder.clone() + "/" + &remote_file_name,
-        )
-        .await?;
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
-    let request = GetTablePropertiesRequest::new((remote_file_name.clone()).into(), (1).into())
-        .with_folder((remote_data_folder.clone()).into());
+    let request = GetTablePropertiesRequest::new(
+        (remote_file_name.clone()).into(),
+        (1).into()
+    ).with_folder((remote_data_folder.clone()).into());
 
     let result = context.api().get_table_properties(request).await?;
     let result_json = serialize_result(&result)?;
     assert_not_null(&result_json, "Properties")?;
-    assert_string(
-        &result_json,
-        "Properties.StyleName",
-        "Table Grid".to_owned(),
-    )?;
+    assert_string(&result_json, "Properties.StyleName", "Table Grid".to_owned())?;
     Ok(())
 }
 
@@ -439,12 +398,7 @@ async fn table_update_table_properties() -> TestResult<()> {
     let local_file = "DocumentElements/Tables/TablesGet.docx".to_owned();
     let remote_file_name = "TestUpdateTableProperties.docx".to_owned();
 
-    context
-        .upload_file(
-            local_file.clone(),
-            remote_data_folder.clone() + "/" + &remote_file_name,
-        )
-        .await?;
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
     let mut request_properties = TableProperties::default();
     request_properties.alignment = Some((TablePropertiesAlignmentEnum::Right).into());
     request_properties.allow_auto_fit = Some((false).into());
@@ -456,10 +410,9 @@ async fn table_update_table_properties() -> TestResult<()> {
     let request = UpdateTablePropertiesRequest::new(
         (remote_file_name.clone()).into(),
         (1).into(),
-        (request_properties).into(),
-    )
-    .with_node_path(("".to_owned()).into())
-    .with_folder((remote_data_folder.clone()).into());
+        (request_properties).into()
+    ).with_node_path(("".to_owned()).into())
+.with_folder((remote_data_folder.clone()).into());
 
     let result = context.api().update_table_properties(request).await?;
     let result_json = serialize_result(&result)?;
@@ -491,14 +444,10 @@ async fn table_update_table_properties_online() -> TestResult<()> {
     let request = UpdateTablePropertiesOnlineRequest::new(
         (request_document).into(),
         (request_properties).into(),
-        (1).into(),
-    )
-    .with_node_path(("".to_owned()).into());
+        (1).into()
+    ).with_node_path(("".to_owned()).into());
 
-    context
-        .api()
-        .update_table_properties_online(request)
-        .await?;
+    context.api().update_table_properties_online(request).await?;
     Ok(())
 }
 
@@ -512,12 +461,7 @@ async fn table_update_table_properties_without_node_path() -> TestResult<()> {
     let local_file = "DocumentElements/Tables/TablesGet.docx".to_owned();
     let remote_file_name = "TestUpdateTablePropertiesWithoutNodePath.docx".to_owned();
 
-    context
-        .upload_file(
-            local_file.clone(),
-            remote_data_folder.clone() + "/" + &remote_file_name,
-        )
-        .await?;
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
     let mut request_properties = TableProperties::default();
     request_properties.alignment = Some((TablePropertiesAlignmentEnum::Right).into());
     request_properties.allow_auto_fit = Some((false).into());
@@ -529,9 +473,8 @@ async fn table_update_table_properties_without_node_path() -> TestResult<()> {
     let request = UpdateTablePropertiesRequest::new(
         (remote_file_name.clone()).into(),
         (1).into(),
-        (request_properties).into(),
-    )
-    .with_folder((remote_data_folder.clone()).into());
+        (request_properties).into()
+    ).with_folder((remote_data_folder.clone()).into());
 
     let result = context.api().update_table_properties(request).await?;
     let result_json = serialize_result(&result)?;
@@ -553,19 +496,13 @@ async fn table_get_table_row() -> TestResult<()> {
     let local_file = "DocumentElements/Tables/TablesGet.docx".to_owned();
     let remote_file_name = "TestGetTableRow.docx".to_owned();
 
-    context
-        .upload_file(
-            local_file.clone(),
-            remote_data_folder.clone() + "/" + &remote_file_name,
-        )
-        .await?;
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
     let request = GetTableRowRequest::new(
         (remote_file_name.clone()).into(),
         ("tables/1".to_owned()).into(),
-        (0).into(),
-    )
-    .with_folder((remote_data_folder.clone()).into());
+        (0).into()
+    ).with_folder((remote_data_folder.clone()).into());
 
     let result = context.api().get_table_row(request).await?;
     let result_json = serialize_result(&result)?;
@@ -588,7 +525,7 @@ async fn table_get_table_row_online() -> TestResult<()> {
     let request = GetTableRowOnlineRequest::new(
         (request_document).into(),
         ("tables/1".to_owned()).into(),
-        (0).into(),
+        (0).into()
     );
 
     context.api().get_table_row_online(request).await?;
@@ -605,19 +542,13 @@ async fn table_delete_table_row() -> TestResult<()> {
     let local_file = "DocumentElements/Tables/TablesGet.docx".to_owned();
     let remote_file_name = "TestDeleteTableRow.docx".to_owned();
 
-    context
-        .upload_file(
-            local_file.clone(),
-            remote_data_folder.clone() + "/" + &remote_file_name,
-        )
-        .await?;
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
     let request = DeleteTableRowRequest::new(
         (remote_file_name.clone()).into(),
         ("tables/1".to_owned()).into(),
-        (0).into(),
-    )
-    .with_folder((remote_data_folder.clone()).into());
+        (0).into()
+    ).with_folder((remote_data_folder.clone()).into());
 
     context.api().delete_table_row(request).await?;
     Ok(())
@@ -636,7 +567,7 @@ async fn table_delete_table_row_online() -> TestResult<()> {
     let request = DeleteTableRowOnlineRequest::new(
         (request_document).into(),
         ("tables/1".to_owned()).into(),
-        (0).into(),
+        (0).into()
     );
 
     context.api().delete_table_row_online(request).await?;
@@ -653,19 +584,15 @@ async fn table_insert_table_row() -> TestResult<()> {
     let local_file = "DocumentElements/Tables/TablesGet.docx".to_owned();
     let remote_file_name = "TestInsertTableRow.docx".to_owned();
 
-    context
-        .upload_file(
-            local_file.clone(),
-            remote_data_folder.clone() + "/" + &remote_file_name,
-        )
-        .await?;
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
     let mut request_row = TableRowInsert::default();
     request_row.columns_count = Some((5).into());
 
-    let request =
-        InsertTableRowRequest::new((remote_file_name.clone()).into(), (request_row).into())
-            .with_node_path(("sections/0/tables/2".to_owned()).into())
-            .with_folder((remote_data_folder.clone()).into());
+    let request = InsertTableRowRequest::new(
+        (remote_file_name.clone()).into(),
+        (request_row).into()
+    ).with_node_path(("sections/0/tables/2".to_owned()).into())
+.with_folder((remote_data_folder.clone()).into());
 
     let result = context.api().insert_table_row(request).await?;
     let result_json = serialize_result(&result)?;
@@ -687,8 +614,10 @@ async fn table_insert_table_row_online() -> TestResult<()> {
     let mut request_row = TableRowInsert::default();
     request_row.columns_count = Some((5).into());
 
-    let request = InsertTableRowOnlineRequest::new((request_document).into(), (request_row).into())
-        .with_node_path(("sections/0/tables/2".to_owned()).into());
+    let request = InsertTableRowOnlineRequest::new(
+        (request_document).into(),
+        (request_row).into()
+    ).with_node_path(("sections/0/tables/2".to_owned()).into());
 
     context.api().insert_table_row_online(request).await?;
     Ok(())
@@ -704,19 +633,13 @@ async fn table_get_table_row_format() -> TestResult<()> {
     let local_file = "DocumentElements/Tables/TablesGet.docx".to_owned();
     let remote_file_name = "TestGetTableRowFormat.docx".to_owned();
 
-    context
-        .upload_file(
-            local_file.clone(),
-            remote_data_folder.clone() + "/" + &remote_file_name,
-        )
-        .await?;
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
     let request = GetTableRowFormatRequest::new(
         (remote_file_name.clone()).into(),
         ("sections/0/tables/2".to_owned()).into(),
-        (0).into(),
-    )
-    .with_folder((remote_data_folder.clone()).into());
+        (0).into()
+    ).with_folder((remote_data_folder.clone()).into());
 
     let result = context.api().get_table_row_format(request).await?;
     let result_json = serialize_result(&result)?;
@@ -738,7 +661,7 @@ async fn table_get_table_row_format_online() -> TestResult<()> {
     let request = GetTableRowFormatOnlineRequest::new(
         (request_document).into(),
         ("sections/0/tables/2".to_owned()).into(),
-        (0).into(),
+        (0).into()
     );
 
     context.api().get_table_row_format_online(request).await?;
@@ -755,12 +678,7 @@ async fn table_update_table_row_format() -> TestResult<()> {
     let local_file = "DocumentElements/Tables/TablesGet.docx".to_owned();
     let remote_file_name = "TestUpdateTableRowFormat.docx".to_owned();
 
-    context
-        .upload_file(
-            local_file.clone(),
-            remote_data_folder.clone() + "/" + &remote_file_name,
-        )
-        .await?;
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
     let mut request_format = TableRowFormat::default();
     request_format.allow_break_across_pages = Some((true).into());
     request_format.heading_format = Some((true).into());
@@ -771,9 +689,8 @@ async fn table_update_table_row_format() -> TestResult<()> {
         (remote_file_name.clone()).into(),
         ("sections/0/tables/2".to_owned()).into(),
         (0).into(),
-        (request_format).into(),
-    )
-    .with_folder((remote_data_folder.clone()).into());
+        (request_format).into()
+    ).with_folder((remote_data_folder.clone()).into());
 
     let result = context.api().update_table_row_format(request).await?;
     let result_json = serialize_result(&result)?;
@@ -803,13 +720,10 @@ async fn table_update_table_row_format_online() -> TestResult<()> {
         (request_document).into(),
         ("sections/0/tables/2".to_owned()).into(),
         (request_format).into(),
-        (0).into(),
+        (0).into()
     );
 
-    context
-        .api()
-        .update_table_row_format_online(request)
-        .await?;
+    context.api().update_table_row_format_online(request).await?;
     Ok(())
 }
 
@@ -823,19 +737,13 @@ async fn table_get_table_cell() -> TestResult<()> {
     let local_file = "DocumentElements/Tables/TablesGet.docx".to_owned();
     let remote_file_name = "TestGetTableCell.docx".to_owned();
 
-    context
-        .upload_file(
-            local_file.clone(),
-            remote_data_folder.clone() + "/" + &remote_file_name,
-        )
-        .await?;
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
     let request = GetTableCellRequest::new(
         (remote_file_name.clone()).into(),
         ("sections/0/tables/2/rows/0".to_owned()).into(),
-        (0).into(),
-    )
-    .with_folder((remote_data_folder.clone()).into());
+        (0).into()
+    ).with_folder((remote_data_folder.clone()).into());
 
     let result = context.api().get_table_cell(request).await?;
     let result_json = serialize_result(&result)?;
@@ -857,7 +765,7 @@ async fn table_get_table_cell_online() -> TestResult<()> {
     let request = GetTableCellOnlineRequest::new(
         (request_document).into(),
         ("sections/0/tables/2/rows/0".to_owned()).into(),
-        (0).into(),
+        (0).into()
     );
 
     context.api().get_table_cell_online(request).await?;
@@ -874,19 +782,13 @@ async fn table_delete_table_cell() -> TestResult<()> {
     let local_file = "DocumentElements/Tables/TablesGet.docx".to_owned();
     let remote_file_name = "TestDeleteTableCell.docx".to_owned();
 
-    context
-        .upload_file(
-            local_file.clone(),
-            remote_data_folder.clone() + "/" + &remote_file_name,
-        )
-        .await?;
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
     let request = DeleteTableCellRequest::new(
         (remote_file_name.clone()).into(),
         ("sections/0/tables/2/rows/0".to_owned()).into(),
-        (0).into(),
-    )
-    .with_folder((remote_data_folder.clone()).into());
+        (0).into()
+    ).with_folder((remote_data_folder.clone()).into());
 
     context.api().delete_table_cell(request).await?;
     Ok(())
@@ -905,7 +807,7 @@ async fn table_delete_table_cell_online() -> TestResult<()> {
     let request = DeleteTableCellOnlineRequest::new(
         (request_document).into(),
         ("sections/0/tables/2/rows/0".to_owned()).into(),
-        (0).into(),
+        (0).into()
     );
 
     context.api().delete_table_cell_online(request).await?;
@@ -922,18 +824,15 @@ async fn table_insert_table_cell() -> TestResult<()> {
     let local_file = "DocumentElements/Tables/TablesGet.docx".to_owned();
     let remote_file_name = "TestInsertTableCell.docx".to_owned();
 
-    context
-        .upload_file(
-            local_file.clone(),
-            remote_data_folder.clone() + "/" + &remote_file_name,
-        )
-        .await?;
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
     let mut request_cell = TableCellInsert::default();
 
-    let request =
-        InsertTableCellRequest::new((remote_file_name.clone()).into(), (request_cell).into())
-            .with_table_row_path(("sections/0/tables/2/rows/0".to_owned()).into())
-            .with_folder((remote_data_folder.clone()).into());
+
+    let request = InsertTableCellRequest::new(
+        (remote_file_name.clone()).into(),
+        (request_cell).into()
+    ).with_table_row_path(("sections/0/tables/2/rows/0".to_owned()).into())
+.with_folder((remote_data_folder.clone()).into());
 
     let result = context.api().insert_table_cell(request).await?;
     let result_json = serialize_result(&result)?;
@@ -953,9 +852,11 @@ async fn table_insert_table_cell_online() -> TestResult<()> {
     let request_document = context.load_binary_file(local_file.clone()).await?;
     let mut request_cell = TableCellInsert::default();
 
-    let request =
-        InsertTableCellOnlineRequest::new((request_document).into(), (request_cell).into())
-            .with_table_row_path(("sections/0/tables/2/rows/0".to_owned()).into());
+
+    let request = InsertTableCellOnlineRequest::new(
+        (request_document).into(),
+        (request_cell).into()
+    ).with_table_row_path(("sections/0/tables/2/rows/0".to_owned()).into());
 
     context.api().insert_table_cell_online(request).await?;
     Ok(())
@@ -971,19 +872,13 @@ async fn table_get_table_cell_format() -> TestResult<()> {
     let local_file = "DocumentElements/Tables/TablesGet.docx".to_owned();
     let remote_file_name = "TestGetTableCellFormat.docx".to_owned();
 
-    context
-        .upload_file(
-            local_file.clone(),
-            remote_data_folder.clone() + "/" + &remote_file_name,
-        )
-        .await?;
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
     let request = GetTableCellFormatRequest::new(
         (remote_file_name.clone()).into(),
         ("sections/0/tables/2/rows/0".to_owned()).into(),
-        (0).into(),
-    )
-    .with_folder((remote_data_folder.clone()).into());
+        (0).into()
+    ).with_folder((remote_data_folder.clone()).into());
 
     let result = context.api().get_table_cell_format(request).await?;
     let result_json = serialize_result(&result)?;
@@ -1005,7 +900,7 @@ async fn table_get_table_cell_format_online() -> TestResult<()> {
     let request = GetTableCellFormatOnlineRequest::new(
         (request_document).into(),
         ("sections/0/tables/2/rows/0".to_owned()).into(),
-        (0).into(),
+        (0).into()
     );
 
     context.api().get_table_cell_format_online(request).await?;
@@ -1022,12 +917,7 @@ async fn table_update_table_cell_format() -> TestResult<()> {
     let local_file = "DocumentElements/Tables/TablesGet.docx".to_owned();
     let remote_file_name = "TestUpdateTableCellFormat.docx".to_owned();
 
-    context
-        .upload_file(
-            local_file.clone(),
-            remote_data_folder.clone() + "/" + &remote_file_name,
-        )
-        .await?;
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
     let mut request_format = TableCellFormat::default();
     request_format.bottom_padding = Some(((5.0) as f64).into());
     request_format.fit_text = Some((true).into());
@@ -1038,9 +928,8 @@ async fn table_update_table_cell_format() -> TestResult<()> {
         (remote_file_name.clone()).into(),
         ("sections/0/tables/2/rows/0".to_owned()).into(),
         (0).into(),
-        (request_format).into(),
-    )
-    .with_folder((remote_data_folder.clone()).into());
+        (request_format).into()
+    ).with_folder((remote_data_folder.clone()).into());
 
     let result = context.api().update_table_cell_format(request).await?;
     let result_json = serialize_result(&result)?;
@@ -1070,13 +959,10 @@ async fn table_update_table_cell_format_online() -> TestResult<()> {
         (request_document).into(),
         ("sections/0/tables/2/rows/0".to_owned()).into(),
         (request_format).into(),
-        (0).into(),
+        (0).into()
     );
 
-    context
-        .api()
-        .update_table_cell_format_online(request)
-        .await?;
+    context.api().update_table_cell_format_online(request).await?;
     Ok(())
 }
 
@@ -1090,20 +976,14 @@ async fn table_render_table() -> TestResult<()> {
     let local_file = "DocumentElements/Tables/TablesGet.docx".to_owned();
     let remote_file_name = "TestRenderTable.docx".to_owned();
 
-    context
-        .upload_file(
-            local_file.clone(),
-            remote_data_folder.clone() + "/" + &remote_file_name,
-        )
-        .await?;
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
     let request = RenderTableRequest::new(
         (remote_file_name.clone()).into(),
         ("png".to_owned()).into(),
-        (0).into(),
-    )
-    .with_node_path(("".to_owned()).into())
-    .with_folder((remote_data_folder.clone()).into());
+        (0).into()
+    ).with_node_path(("".to_owned()).into())
+.with_folder((remote_data_folder.clone()).into());
 
     context.api().render_table(request).await?;
     Ok(())
@@ -1122,9 +1002,8 @@ async fn table_render_table_online() -> TestResult<()> {
     let request = RenderTableOnlineRequest::new(
         (request_document).into(),
         ("png".to_owned()).into(),
-        (0).into(),
-    )
-    .with_node_path(("".to_owned()).into());
+        (0).into()
+    ).with_node_path(("".to_owned()).into());
 
     context.api().render_table_online(request).await?;
     Ok(())
@@ -1140,19 +1019,13 @@ async fn table_render_table_without_node_path() -> TestResult<()> {
     let local_file = "DocumentElements/Tables/TablesGet.docx".to_owned();
     let remote_file_name = "TestRenderTableWithoutNodePath.docx".to_owned();
 
-    context
-        .upload_file(
-            local_file.clone(),
-            remote_data_folder.clone() + "/" + &remote_file_name,
-        )
-        .await?;
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
     let request = RenderTableRequest::new(
         (remote_file_name.clone()).into(),
         ("png".to_owned()).into(),
-        (0).into(),
-    )
-    .with_folder((remote_data_folder.clone()).into());
+        (0).into()
+    ).with_folder((remote_data_folder.clone()).into());
 
     context.api().render_table(request).await?;
     Ok(())

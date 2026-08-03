@@ -32,18 +32,15 @@ use super::*;
 /// DTO container with a table cell.
 #[derive(Debug, Deserialize, Serialize)]
 pub struct TableCellInsert {
-    /// Gets or sets the position of the table cell that will be used to determine the placement of a new cell.
-    #[serde(
-        rename = "ExistingCellPosition",
-        skip_serializing_if = "Option::is_none",
-        default,
-        deserialize_with = "deserialize_optional_model"
-    )]
-    pub existing_cell_position: Option<ModelBox>,
+        /// Gets or sets the position of the table cell that will be used to determine the placement of a new cell.
+        #[serde(rename = "ExistingCellPosition", skip_serializing_if = "Option::is_none", default, deserialize_with = "deserialize_optional_model")]
+        pub existing_cell_position: Option<ModelBox>,
 
-    /// Gets or sets the 0-based index, the table cell will be inserted after.
-    #[serde(rename = "InsertAfter", skip_serializing_if = "Option::is_none")]
-    pub insert_after: Option<i32>,
+
+        /// Gets or sets the 0-based index, the table cell will be inserted after.
+        #[serde(rename = "InsertAfter", skip_serializing_if = "Option::is_none")]
+        pub insert_after: Option<i32>,
+
 }
 
 impl Default for TableCellInsert {
@@ -58,15 +55,17 @@ impl Default for TableCellInsert {
 impl Model for TableCellInsert {
     fn validate(&self) -> SdkResult<()> {
         if let Some(value) = &self.existing_cell_position {
-            value.validate()?;
+        value.validate()?;
         }
 
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {}
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+    }
 
     fn as_any(&self) -> &dyn Any {
         self
     }
 }
+

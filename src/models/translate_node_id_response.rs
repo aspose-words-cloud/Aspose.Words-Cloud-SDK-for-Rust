@@ -36,15 +36,19 @@ use super::*;
 pub struct TranslateNodeIdResponse {
     #[serde(flatten)]
     pub parent: WordsResponse,
-    /// Gets or sets the node path.
-    #[serde(rename = "Path", skip_serializing_if = "Option::is_none")]
-    pub path: Option<String>,
+        /// Gets or sets the node path.
+        #[serde(rename = "Path", skip_serializing_if = "Option::is_none")]
+        pub path: Option<String>,
+
 }
 
 impl Default for TranslateNodeIdResponse {
     fn default() -> Self {
         let mut parent = WordsResponse::default();
-        Self { parent, path: None }
+        Self {
+            parent,
+            path: None,
+        }
     }
 }
 
@@ -76,3 +80,4 @@ impl Model for TranslateNodeIdResponse {
         self
     }
 }
+

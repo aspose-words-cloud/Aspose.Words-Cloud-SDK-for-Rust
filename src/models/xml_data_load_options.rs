@@ -34,15 +34,13 @@ use super::*;
 /// An instance of this class can be passed into constructors of XmlDataSource.
 #[derive(Debug, Deserialize, Serialize)]
 pub struct XmlDataLoadOptions {
-    /// Gets or sets a flag indicating whether a generated data source will always contain an object for an XML root
-    /// element. If an XML root element has no attributes and all its child elements have same names, such an object
-    /// is not created by default.
-    /// The default value is false.
-    #[serde(
-        rename = "AlwaysGenerateRootObject",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub always_generate_root_object: Option<bool>,
+        /// Gets or sets a flag indicating whether a generated data source will always contain an object for an XML root
+            /// element. If an XML root element has no attributes and all its child elements have same names, such an object
+            /// is not created by default.
+            /// The default value is false.
+        #[serde(rename = "AlwaysGenerateRootObject", skip_serializing_if = "Option::is_none")]
+        pub always_generate_root_object: Option<bool>,
+
 }
 
 impl Default for XmlDataLoadOptions {
@@ -63,9 +61,11 @@ impl Model for XmlDataLoadOptions {
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {}
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+    }
 
     fn as_any(&self) -> &dyn Any {
         self
     }
 }
+

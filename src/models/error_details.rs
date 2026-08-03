@@ -32,18 +32,15 @@ use super::*;
 /// The error details.
 #[derive(Debug, Deserialize, Serialize)]
 pub struct ErrorDetails {
-    /// Gets or sets ErrorDateTime.
-    #[serde(
-        rename = "ErrorDateTime",
-        skip_serializing_if = "Option::is_none",
-        default,
-        deserialize_with = "deserialize_optional_date_time"
-    )]
-    pub error_date_time: Option<chrono::DateTime<chrono::Utc>>,
+        /// Gets or sets ErrorDateTime.
+        #[serde(rename = "ErrorDateTime", skip_serializing_if = "Option::is_none", default, deserialize_with = "deserialize_optional_date_time")]
+        pub error_date_time: Option<chrono::DateTime<chrono::Utc>>,
 
-    /// Gets or sets RequestId.
-    #[serde(rename = "RequestId", skip_serializing_if = "Option::is_none")]
-    pub request_id: Option<String>,
+
+        /// Gets or sets RequestId.
+        #[serde(rename = "RequestId", skip_serializing_if = "Option::is_none")]
+        pub request_id: Option<String>,
+
 }
 
 impl Default for ErrorDetails {
@@ -65,9 +62,11 @@ impl Model for ErrorDetails {
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {}
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+    }
 
     fn as_any(&self) -> &dyn Any {
         self
     }
 }
+

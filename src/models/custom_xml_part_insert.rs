@@ -40,7 +40,9 @@ pub struct CustomXmlPartInsert {
 impl Default for CustomXmlPartInsert {
     fn default() -> Self {
         let mut parent = CustomXmlPart::default();
-        Self { parent }
+        Self {
+            parent,
+        }
     }
 }
 
@@ -72,3 +74,4 @@ impl Model for CustomXmlPartInsert {
         self
     }
 }
+

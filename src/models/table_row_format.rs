@@ -35,24 +35,25 @@ use super::*;
 pub struct TableRowFormat {
     #[serde(flatten)]
     pub parent: LinkElement,
-    /// Gets or sets the height of the table row in points.
-    #[serde(rename = "Height", skip_serializing_if = "Option::is_none")]
-    pub height: Option<f64>,
+        /// Gets or sets the height of the table row in points.
+        #[serde(rename = "Height", skip_serializing_if = "Option::is_none")]
+        pub height: Option<f64>,
 
-    /// Gets or sets the rule for determining the height of the table row.
-    #[serde(rename = "HeightRule", skip_serializing_if = "Option::is_none")]
-    pub height_rule: Option<TableRowFormatHeightRuleEnum>,
 
-    /// Gets or sets a value indicating whether the text in a table row is allowed to split across a page break.
-    #[serde(
-        rename = "AllowBreakAcrossPages",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub allow_break_across_pages: Option<bool>,
+        /// Gets or sets the rule for determining the height of the table row.
+        #[serde(rename = "HeightRule", skip_serializing_if = "Option::is_none")]
+        pub height_rule: Option<TableRowFormatHeightRuleEnum>,
 
-    /// Gets or sets a value indicating whether the row is repeated as a table heading on every page when the table spans more than one page.
-    #[serde(rename = "HeadingFormat", skip_serializing_if = "Option::is_none")]
-    pub heading_format: Option<bool>,
+
+        /// Gets or sets a value indicating whether the text in a table row is allowed to split across a page break.
+        #[serde(rename = "AllowBreakAcrossPages", skip_serializing_if = "Option::is_none")]
+        pub allow_break_across_pages: Option<bool>,
+
+
+        /// Gets or sets a value indicating whether the row is repeated as a table heading on every page when the table spans more than one page.
+        #[serde(rename = "HeadingFormat", skip_serializing_if = "Option::is_none")]
+        pub heading_format: Option<bool>,
+
 }
 
 impl Default for TableRowFormat {
@@ -101,9 +102,9 @@ impl Model for TableRowFormat {
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
 pub enum TableRowFormatHeightRuleEnum {
     #[serde(rename = "AtLeast")]
-    AtLeast,
+        AtLeast,
     #[serde(rename = "Exactly")]
-    Exactly,
+        Exactly,
     #[serde(rename = "Auto")]
-    Auto,
+        Auto,
 }

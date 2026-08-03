@@ -35,24 +35,22 @@ use super::*;
 pub struct TiffSaveOptionsData {
     #[serde(flatten)]
     pub parent: ImageSaveOptionsData,
-    /// Gets or sets the threshold that determines the value of the binarization error in the Floyd-Steinberg method. when ImageBinarizationMethod is ImageBinarizationMethod.FloydSteinbergDithering.
-    /// The default value is 128.
-    #[serde(
-        rename = "ThresholdForFloydSteinbergDithering",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub threshold_for_floyd_steinberg_dithering: Option<i32>,
+        /// Gets or sets the threshold that determines the value of the binarization error in the Floyd-Steinberg method. when ImageBinarizationMethod is ImageBinarizationMethod.FloydSteinbergDithering.
+            /// The default value is 128.
+        #[serde(rename = "ThresholdForFloydSteinbergDithering", skip_serializing_if = "Option::is_none")]
+        pub threshold_for_floyd_steinberg_dithering: Option<i32>,
 
-    /// Gets or sets the method used while converting images to 1 bpp format.
-    #[serde(
-        rename = "TiffBinarizationMethod",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub tiff_binarization_method: Option<TiffSaveOptionsDataTiffBinarizationMethodEnum>,
 
-    /// Gets or sets the type of compression.
-    #[serde(rename = "TiffCompression", skip_serializing_if = "Option::is_none")]
-    pub tiff_compression: Option<TiffSaveOptionsDataTiffCompressionEnum>,
+        /// Gets or sets the method used while converting images to 1 bpp format.
+        #[serde(rename = "TiffBinarizationMethod", skip_serializing_if = "Option::is_none")]
+        pub tiff_binarization_method: Option<TiffSaveOptionsDataTiffBinarizationMethodEnum>,
+
+
+        /// Gets or sets the type of compression.
+        #[serde(rename = "TiffCompression", skip_serializing_if = "Option::is_none")]
+        pub tiff_compression: Option<TiffSaveOptionsDataTiffCompressionEnum>,
+
+
 }
 
 impl Default for TiffSaveOptionsData {
@@ -64,6 +62,7 @@ impl Default for TiffSaveOptionsData {
             threshold_for_floyd_steinberg_dithering: None,
             tiff_binarization_method: None,
             tiff_compression: None,
+
         }
     }
 }
@@ -101,22 +100,22 @@ impl Model for TiffSaveOptionsData {
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
 pub enum TiffSaveOptionsDataTiffBinarizationMethodEnum {
     #[serde(rename = "Threshold")]
-    Threshold,
+        Threshold,
     #[serde(rename = "FloydSteinbergDithering")]
-    FloydSteinbergDithering,
+        FloydSteinbergDithering,
 }
 
 /// Gets or sets the type of compression.
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
 pub enum TiffSaveOptionsDataTiffCompressionEnum {
     #[serde(rename = "None")]
-    None,
+        None,
     #[serde(rename = "Rle")]
-    Rle,
+        Rle,
     #[serde(rename = "Lzw")]
-    Lzw,
+        Lzw,
     #[serde(rename = "Ccitt3")]
-    Ccitt3,
+        Ccitt3,
     #[serde(rename = "Ccitt4")]
-    Ccitt4,
+        Ccitt4,
 }

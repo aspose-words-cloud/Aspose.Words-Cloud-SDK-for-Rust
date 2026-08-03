@@ -35,9 +35,10 @@ use super::*;
 pub struct DrawingObjectResponse {
     #[serde(flatten)]
     pub parent: WordsResponse,
-    /// Gets or sets the DrawingObject.
-    #[serde(rename = "DrawingObject", skip_serializing_if = "Option::is_none")]
-    pub drawing_object: Option<DrawingObject>,
+        /// Gets or sets the DrawingObject.
+        #[serde(rename = "DrawingObject", skip_serializing_if = "Option::is_none")]
+        pub drawing_object: Option<DrawingObject>,
+
 }
 
 impl Default for DrawingObjectResponse {
@@ -68,7 +69,7 @@ impl Model for DrawingObjectResponse {
     fn validate(&self) -> SdkResult<()> {
         self.parent.validate()?;
         if let Some(value) = &self.drawing_object {
-            value.validate()?;
+        value.validate()?;
         }
         Ok(())
     }
@@ -81,3 +82,4 @@ impl Model for DrawingObjectResponse {
         self
     }
 }
+

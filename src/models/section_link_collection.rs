@@ -35,9 +35,10 @@ use super::*;
 pub struct SectionLinkCollection {
     #[serde(flatten)]
     pub parent: LinkElement,
-    /// Gets or sets the collection of section's links.
-    #[serde(rename = "SectionLinkList", skip_serializing_if = "Option::is_none")]
-    pub section_link_list: Option<Vec<SectionLink>>,
+        /// Gets or sets the collection of section's links.
+        #[serde(rename = "SectionLinkList", skip_serializing_if = "Option::is_none")]
+        pub section_link_list: Option<Vec<SectionLink>>,
+
 }
 
 impl Default for SectionLinkCollection {
@@ -68,9 +69,9 @@ impl Model for SectionLinkCollection {
     fn validate(&self) -> SdkResult<()> {
         self.parent.validate()?;
         if let Some(values) = &self.section_link_list {
-            for value in values {
-                value.validate()?;
-            }
+        for value in values {
+        value.validate()?;
+        }
         }
         Ok(())
     }
@@ -83,3 +84,4 @@ impl Model for SectionLinkCollection {
         self
     }
 }
+

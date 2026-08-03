@@ -35,15 +35,19 @@ use super::*;
 pub struct RunLink {
     #[serde(flatten)]
     pub parent: NodeLink,
-    /// Gets or sets the run's text.
-    #[serde(rename = "Text", skip_serializing_if = "Option::is_none")]
-    pub text: Option<String>,
+        /// Gets or sets the run's text.
+        #[serde(rename = "Text", skip_serializing_if = "Option::is_none")]
+        pub text: Option<String>,
+
 }
 
 impl Default for RunLink {
     fn default() -> Self {
         let mut parent = NodeLink::default();
-        Self { parent, text: None }
+        Self {
+            parent,
+            text: None,
+        }
     }
 }
 
@@ -75,3 +79,4 @@ impl Model for RunLink {
         self
     }
 }
+

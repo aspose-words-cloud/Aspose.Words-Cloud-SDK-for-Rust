@@ -40,7 +40,9 @@ pub struct FootnoteUpdate {
 impl Default for FootnoteUpdate {
     fn default() -> Self {
         let mut parent = FootnoteBase::default();
-        Self { parent }
+        Self {
+            parent,
+        }
     }
 }
 
@@ -72,3 +74,4 @@ impl Model for FootnoteUpdate {
         self
     }
 }
+

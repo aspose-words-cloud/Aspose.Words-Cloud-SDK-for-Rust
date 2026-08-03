@@ -25,13 +25,13 @@ use std::collections::HashMap;
 use async_trait::async_trait;
 use chrono::{DateTime, Utc};
 
-use super::*;
 use crate::models::*;
+use crate::responses::*;
 use crate::request::{
     ApiRequestData, DynamicResponse, ProgressCallback, Request, ResponseData, TypedRequest,
 };
-use crate::responses::*;
 use crate::{ApiClient, SdkResult};
+use super::*;
 
 /// Request parameters for the DownloadFile operation.
 pub struct DownloadFileRequest {
@@ -79,6 +79,7 @@ impl DownloadFileRequest {
     async fn parse_response_data(response: ResponseData) -> SdkResult<Vec<u8>> {
         Ok(response.body)
     }
+
 }
 
 #[async_trait]
@@ -101,10 +102,10 @@ impl Request for DownloadFileRequest {
         let value = client.query_value(&self.path)?;
         path = path.replace("{path}", &value);
         if let Some(value) = &self.storage_name {
-            query.push(("storageName".to_owned(), client.query_value(value)?));
+        query.push(("storageName".to_owned(), client.query_value(value)?));
         }
         if let Some(value) = &self.version_id {
-            query.push(("versionId".to_owned(), client.query_value(value)?));
+        query.push(("versionId".to_owned(), client.query_value(value)?));
         }
 
         let url = client.build_url(&path, &query)?;

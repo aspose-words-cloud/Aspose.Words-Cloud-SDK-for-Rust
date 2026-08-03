@@ -25,13 +25,13 @@ use std::collections::HashMap;
 use async_trait::async_trait;
 use chrono::{DateTime, Utc};
 
-use super::*;
 use crate::models::*;
+use crate::responses::*;
 use crate::request::{
     ApiRequestData, DynamicResponse, ProgressCallback, Request, ResponseData, TypedRequest,
 };
-use crate::responses::*;
 use crate::{ApiClient, SdkResult};
+use super::*;
 
 /// Request parameters for the ExecuteMailMerge operation.
 pub struct ExecuteMailMergeRequest {
@@ -175,6 +175,7 @@ impl ExecuteMailMergeRequest {
     async fn parse_response_data(response: ResponseData) -> SdkResult<DocumentResponse> {
         Ok(serde_json::from_slice::<DocumentResponse>(&response.body)?)
     }
+
 }
 
 #[async_trait]
@@ -197,54 +198,46 @@ impl Request for ExecuteMailMergeRequest {
         let value = client.query_value(&self.name)?;
         path = path.replace("{name}", &value);
         if let Some(value) = &self.folder {
-            query.push(("folder".to_owned(), client.query_value(value)?));
+        query.push(("folder".to_owned(), client.query_value(value)?));
         }
         if let Some(value) = &self.storage {
-            query.push(("storage".to_owned(), client.query_value(value)?));
+        query.push(("storage".to_owned(), client.query_value(value)?));
         }
         if let Some(value) = &self.load_encoding {
-            query.push(("loadEncoding".to_owned(), client.query_value(value)?));
+        query.push(("loadEncoding".to_owned(), client.query_value(value)?));
         }
         if let Some(value) = &self.password {
-            query.push((
-                "encryptedPassword".to_owned(),
-                client.encrypt_password(value).await?,
-            ));
+        query.push(("encryptedPassword".to_owned(), client.encrypt_password(value).await?));
         }
         if let Some(value) = &self.encrypted_password {
-            query.push(("encryptedPassword".to_owned(), client.query_value(value)?));
+        query.push(("encryptedPassword".to_owned(), client.query_value(value)?));
         }
         if let Some(value) = &self.open_type_support {
-            query.push(("openTypeSupport".to_owned(), client.query_value(value)?));
+        query.push(("openTypeSupport".to_owned(), client.query_value(value)?));
         }
         if let Some(value) = &self.with_regions {
-            query.push(("withRegions".to_owned(), client.query_value(value)?));
+        query.push(("withRegions".to_owned(), client.query_value(value)?));
         }
         if let Some(value) = &self.mail_merge_data_file {
-            query.push(("mailMergeDataFile".to_owned(), client.query_value(value)?));
+        query.push(("mailMergeDataFile".to_owned(), client.query_value(value)?));
         }
         if let Some(value) = &self.cleanup {
-            query.push(("cleanup".to_owned(), client.query_value(value)?));
+        query.push(("cleanup".to_owned(), client.query_value(value)?));
         }
         if let Some(value) = &self.use_whole_paragraph_as_region {
-            query.push((
-                "useWholeParagraphAsRegion".to_owned(),
-                client.query_value(value)?,
-            ));
+        query.push(("useWholeParagraphAsRegion".to_owned(), client.query_value(value)?));
         }
         if let Some(value) = &self.merge_whole_document {
-            query.push(("mergeWholeDocument".to_owned(), client.query_value(value)?));
+        query.push(("mergeWholeDocument".to_owned(), client.query_value(value)?));
         }
         if let Some(value) = &self.dest_file_name {
-            query.push(("destFileName".to_owned(), client.query_value(value)?));
+        query.push(("destFileName".to_owned(), client.query_value(value)?));
         }
         if let Some(value) = &self.data {
-            client.add_text_part(&mut body_parts, "Data", value);
+        client.add_text_part(&mut body_parts, "Data", value);
         }
         if let Some(value) = &self.options {
-            client
-                .add_model_part(&mut body_parts, "Options", value)
-                .await?;
+        client.add_model_part(&mut body_parts, "Options", value).await?;
         }
 
         let url = client.build_url(&path, &query)?;

@@ -36,15 +36,19 @@ use super::*;
 pub struct ListResponse {
     #[serde(flatten)]
     pub parent: WordsResponse,
-    /// Gets or sets the list information.
-    #[serde(rename = "List", skip_serializing_if = "Option::is_none")]
-    pub list: Option<ListInfo>,
+        /// Gets or sets the list information.
+        #[serde(rename = "List", skip_serializing_if = "Option::is_none")]
+        pub list: Option<ListInfo>,
+
 }
 
 impl Default for ListResponse {
     fn default() -> Self {
         let mut parent = WordsResponse::default();
-        Self { parent, list: None }
+        Self {
+            parent,
+            list: None,
+        }
     }
 }
 
@@ -66,7 +70,7 @@ impl Model for ListResponse {
     fn validate(&self) -> SdkResult<()> {
         self.parent.validate()?;
         if let Some(value) = &self.list {
-            value.validate()?;
+        value.validate()?;
         }
         Ok(())
     }
@@ -79,3 +83,4 @@ impl Model for ListResponse {
         self
     }
 }
+

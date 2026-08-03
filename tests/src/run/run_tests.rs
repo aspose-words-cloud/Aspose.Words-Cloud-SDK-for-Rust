@@ -42,12 +42,7 @@ async fn run_update_run() -> TestResult<()> {
     let local_file = "DocumentElements/Runs/Run.doc".to_owned();
     let remote_file_name = "TestUpdateRun.docx".to_owned();
 
-    context
-        .upload_file(
-            local_file.clone(),
-            remote_data_folder.clone() + "/" + &remote_file_name,
-        )
-        .await?;
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
     let mut request_run = RunUpdate::default();
     request_run.text = Some(("run with text".to_owned()).into());
 
@@ -55,9 +50,8 @@ async fn run_update_run() -> TestResult<()> {
         (remote_file_name.clone()).into(),
         ("paragraphs/1".to_owned()).into(),
         (0).into(),
-        (request_run).into(),
-    )
-    .with_folder((remote_data_folder.clone()).into());
+        (request_run).into()
+    ).with_folder((remote_data_folder.clone()).into());
 
     let result = context.api().update_run(request).await?;
     let result_json = serialize_result(&result)?;
@@ -82,7 +76,7 @@ async fn run_update_run_online() -> TestResult<()> {
         (request_document).into(),
         ("paragraphs/1".to_owned()).into(),
         (request_run).into(),
-        (0).into(),
+        (0).into()
     );
 
     context.api().update_run_online(request).await?;
@@ -99,18 +93,15 @@ async fn run_insert_run() -> TestResult<()> {
     let local_file = "DocumentElements/Runs/Run.doc".to_owned();
     let remote_file_name = "TestInsertRun.docx".to_owned();
 
-    context
-        .upload_file(
-            local_file.clone(),
-            remote_data_folder.clone() + "/" + &remote_file_name,
-        )
-        .await?;
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
     let mut request_run = RunInsert::default();
     request_run.text = Some(("run with text".to_owned()).into());
 
-    let request = InsertRunRequest::new((remote_file_name.clone()).into(), (request_run).into())
-        .with_paragraph_path(("paragraphs/1".to_owned()).into())
-        .with_folder((remote_data_folder.clone()).into());
+    let request = InsertRunRequest::new(
+        (remote_file_name.clone()).into(),
+        (request_run).into()
+    ).with_paragraph_path(("paragraphs/1".to_owned()).into())
+.with_folder((remote_data_folder.clone()).into());
 
     let result = context.api().insert_run(request).await?;
     let result_json = serialize_result(&result)?;
@@ -132,8 +123,10 @@ async fn run_insert_run_online() -> TestResult<()> {
     let mut request_run = RunInsert::default();
     request_run.text = Some(("run with text".to_owned()).into());
 
-    let request = InsertRunOnlineRequest::new((request_document).into(), (request_run).into())
-        .with_paragraph_path(("paragraphs/1".to_owned()).into());
+    let request = InsertRunOnlineRequest::new(
+        (request_document).into(),
+        (request_run).into()
+    ).with_paragraph_path(("paragraphs/1".to_owned()).into());
 
     context.api().insert_run_online(request).await?;
     Ok(())
@@ -149,19 +142,13 @@ async fn run_delete_run() -> TestResult<()> {
     let local_file = "DocumentElements/Runs/Run.doc".to_owned();
     let remote_file_name = "TestDeleteRun.docx".to_owned();
 
-    context
-        .upload_file(
-            local_file.clone(),
-            remote_data_folder.clone() + "/" + &remote_file_name,
-        )
-        .await?;
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
     let request = DeleteRunRequest::new(
         (remote_file_name.clone()).into(),
         ("paragraphs/1".to_owned()).into(),
-        (0).into(),
-    )
-    .with_folder((remote_data_folder.clone()).into());
+        (0).into()
+    ).with_folder((remote_data_folder.clone()).into());
 
     context.api().delete_run(request).await?;
     Ok(())
@@ -180,7 +167,7 @@ async fn run_delete_run_online() -> TestResult<()> {
     let request = DeleteRunOnlineRequest::new(
         (request_document).into(),
         ("paragraphs/1".to_owned()).into(),
-        (0).into(),
+        (0).into()
     );
 
     context.api().delete_run_online(request).await?;

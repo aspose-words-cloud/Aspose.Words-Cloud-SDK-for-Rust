@@ -35,9 +35,10 @@ use super::*;
 pub struct Bookmarks {
     #[serde(flatten)]
     pub parent: LinkElement,
-    /// Gets or sets the array of bookmarks.
-    #[serde(rename = "BookmarkList", skip_serializing_if = "Option::is_none")]
-    pub bookmark_list: Option<Vec<Bookmark>>,
+        /// Gets or sets the array of bookmarks.
+        #[serde(rename = "BookmarkList", skip_serializing_if = "Option::is_none")]
+        pub bookmark_list: Option<Vec<Bookmark>>,
+
 }
 
 impl Default for Bookmarks {
@@ -68,9 +69,9 @@ impl Model for Bookmarks {
     fn validate(&self) -> SdkResult<()> {
         self.parent.validate()?;
         if let Some(values) = &self.bookmark_list {
-            for value in values {
-                value.validate()?;
-            }
+        for value in values {
+        value.validate()?;
+        }
         }
         Ok(())
     }
@@ -83,3 +84,4 @@ impl Model for Bookmarks {
         self
     }
 }
+

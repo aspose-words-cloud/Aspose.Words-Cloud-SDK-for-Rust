@@ -40,7 +40,9 @@ pub struct FormFieldDropDownLink {
 impl Default for FormFieldDropDownLink {
     fn default() -> Self {
         let mut parent = NodeLink::default();
-        Self { parent }
+        Self {
+            parent,
+        }
     }
 }
 
@@ -72,3 +74,4 @@ impl Model for FormFieldDropDownLink {
         self
     }
 }
+

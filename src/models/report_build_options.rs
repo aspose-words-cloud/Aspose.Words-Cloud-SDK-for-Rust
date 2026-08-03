@@ -26,17 +26,17 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
 pub enum ReportBuildOptionsEnum {
     #[serde(rename = "None")]
-    None,
+        None,
     #[serde(rename = "AllowMissingMembers")]
-    AllowMissingMembers,
+        AllowMissingMembers,
     #[serde(rename = "RemoveEmptyParagraphs")]
-    RemoveEmptyParagraphs,
+        RemoveEmptyParagraphs,
     #[serde(rename = "InlineErrorMessages")]
-    InlineErrorMessages,
+        InlineErrorMessages,
     #[serde(rename = "UseLegacyHeaderFooterVisiting")]
-    UseLegacyHeaderFooterVisiting,
+        UseLegacyHeaderFooterVisiting,
     #[serde(rename = "RespectJpegExifOrientation")]
-    RespectJpegExifOrientation,
+        RespectJpegExifOrientation,
     #[serde(rename = "UpdateFieldsSyntaxAware")]
-    UpdateFieldsSyntaxAware,
+        UpdateFieldsSyntaxAware,
 }

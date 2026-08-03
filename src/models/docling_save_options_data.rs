@@ -35,15 +35,14 @@ use super::*;
 pub struct DoclingSaveOptionsData {
     #[serde(flatten)]
     pub parent: SaveOptionsData,
-    /// Gets or sets a value indicating whether non-image shapes should be rendered and written to the output
-    /// Docling JSON document.
-    /// If the property is false, non-image shapes are not exported to the output document.
-    /// The default value is false.
-    #[serde(
-        rename = "RenderNonImageShapes",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub render_non_image_shapes: Option<bool>,
+        /// Gets or sets a value indicating whether non-image shapes should be rendered and written to the output
+            /// Docling JSON document.
+            /// If the property is false, non-image shapes are not exported to the output document.
+            /// The default value is false.
+        #[serde(rename = "RenderNonImageShapes", skip_serializing_if = "Option::is_none")]
+        pub render_non_image_shapes: Option<bool>,
+
+
 }
 
 impl Default for DoclingSaveOptionsData {
@@ -53,6 +52,7 @@ impl Default for DoclingSaveOptionsData {
         Self {
             parent,
             render_non_image_shapes: None,
+
         }
     }
 }
@@ -85,3 +85,4 @@ impl Model for DoclingSaveOptionsData {
         self
     }
 }
+

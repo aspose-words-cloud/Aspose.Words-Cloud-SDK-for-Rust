@@ -36,9 +36,10 @@ use super::*;
 pub struct ParagraphLinkCollectionResponse {
     #[serde(flatten)]
     pub parent: WordsResponse,
-    /// Gets or sets the collection of paragraphs.
-    #[serde(rename = "Paragraphs", skip_serializing_if = "Option::is_none")]
-    pub paragraphs: Option<ParagraphLinkCollection>,
+        /// Gets or sets the collection of paragraphs.
+        #[serde(rename = "Paragraphs", skip_serializing_if = "Option::is_none")]
+        pub paragraphs: Option<ParagraphLinkCollection>,
+
 }
 
 impl Default for ParagraphLinkCollectionResponse {
@@ -69,7 +70,7 @@ impl Model for ParagraphLinkCollectionResponse {
     fn validate(&self) -> SdkResult<()> {
         self.parent.validate()?;
         if let Some(value) = &self.paragraphs {
-            value.validate()?;
+        value.validate()?;
         }
         Ok(())
     }
@@ -82,3 +83,4 @@ impl Model for ParagraphLinkCollectionResponse {
         self
     }
 }
+

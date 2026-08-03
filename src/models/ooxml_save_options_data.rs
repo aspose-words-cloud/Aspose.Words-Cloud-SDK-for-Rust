@@ -35,21 +35,25 @@ use super::*;
 pub struct OoxmlSaveOptionsData {
     #[serde(flatten)]
     pub parent: SaveOptionsData,
-    /// Gets or sets the oOXML version for the output document.
-    #[serde(rename = "Compliance", skip_serializing_if = "Option::is_none")]
-    pub compliance: Option<OoxmlSaveOptionsDataComplianceEnum>,
+        /// Gets or sets the oOXML version for the output document.
+        #[serde(rename = "Compliance", skip_serializing_if = "Option::is_none")]
+        pub compliance: Option<OoxmlSaveOptionsDataComplianceEnum>,
 
-    /// Gets or sets the compression level.
-    #[serde(rename = "CompressionLevel", skip_serializing_if = "Option::is_none")]
-    pub compression_level: Option<OoxmlSaveOptionsDataCompressionLevelEnum>,
 
-    /// Gets or sets the password to encrypt document using ECMA376 Standard encryption algorithm.
-    #[serde(rename = "Password", skip_serializing_if = "Option::is_none")]
-    pub password: Option<String>,
+        /// Gets or sets the compression level.
+        #[serde(rename = "CompressionLevel", skip_serializing_if = "Option::is_none")]
+        pub compression_level: Option<OoxmlSaveOptionsDataCompressionLevelEnum>,
 
-    /// Gets or sets a value indicating whether to use pretty formats output.
-    #[serde(rename = "PrettyFormat", skip_serializing_if = "Option::is_none")]
-    pub pretty_format: Option<bool>,
+
+        /// Gets or sets the password to encrypt document using ECMA376 Standard encryption algorithm.
+        #[serde(rename = "Password", skip_serializing_if = "Option::is_none")]
+        pub password: Option<String>,
+
+
+        /// Gets or sets a value indicating whether to use pretty formats output.
+        #[serde(rename = "PrettyFormat", skip_serializing_if = "Option::is_none")]
+        pub pretty_format: Option<bool>,
+
 }
 
 impl Default for OoxmlSaveOptionsData {
@@ -98,22 +102,22 @@ impl Model for OoxmlSaveOptionsData {
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
 pub enum OoxmlSaveOptionsDataComplianceEnum {
     #[serde(rename = "Ecma376_2006")]
-    Ecma3762006,
+        Ecma3762006,
     #[serde(rename = "Iso29500_2008_Transitional")]
-    Iso295002008Transitional,
+        Iso295002008Transitional,
     #[serde(rename = "Iso29500_2008_Strict")]
-    Iso295002008Strict,
+        Iso295002008Strict,
 }
 
 /// Gets or sets the compression level.
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
 pub enum OoxmlSaveOptionsDataCompressionLevelEnum {
     #[serde(rename = "Normal")]
-    Normal,
+        Normal,
     #[serde(rename = "Maximum")]
-    Maximum,
+        Maximum,
     #[serde(rename = "Fast")]
-    Fast,
+        Fast,
     #[serde(rename = "SuperFast")]
-    SuperFast,
+        SuperFast,
 }

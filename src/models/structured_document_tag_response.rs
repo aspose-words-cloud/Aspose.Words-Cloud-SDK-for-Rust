@@ -35,12 +35,10 @@ use super::*;
 pub struct StructuredDocumentTagResponse {
     #[serde(flatten)]
     pub parent: WordsResponse,
-    /// Gets or sets the StructuredDocumentTag.
-    #[serde(
-        rename = "StructuredDocumentTag",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub structured_document_tag: Option<StructuredDocumentTag>,
+        /// Gets or sets the StructuredDocumentTag.
+        #[serde(rename = "StructuredDocumentTag", skip_serializing_if = "Option::is_none")]
+        pub structured_document_tag: Option<StructuredDocumentTag>,
+
 }
 
 impl Default for StructuredDocumentTagResponse {
@@ -71,7 +69,7 @@ impl Model for StructuredDocumentTagResponse {
     fn validate(&self) -> SdkResult<()> {
         self.parent.validate()?;
         if let Some(value) = &self.structured_document_tag {
-            value.validate()?;
+        value.validate()?;
         }
         Ok(())
     }
@@ -84,3 +82,4 @@ impl Model for StructuredDocumentTagResponse {
         self
     }
 }
+

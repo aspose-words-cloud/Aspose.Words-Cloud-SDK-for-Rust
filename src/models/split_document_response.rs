@@ -36,9 +36,10 @@ use super::*;
 pub struct SplitDocumentResponse {
     #[serde(flatten)]
     pub parent: WordsResponse,
-    /// Gets or sets the result of document splitting.
-    #[serde(rename = "SplitResult", skip_serializing_if = "Option::is_none")]
-    pub split_result: Option<SplitDocumentResult>,
+        /// Gets or sets the result of document splitting.
+        #[serde(rename = "SplitResult", skip_serializing_if = "Option::is_none")]
+        pub split_result: Option<SplitDocumentResult>,
+
 }
 
 impl Default for SplitDocumentResponse {
@@ -69,7 +70,7 @@ impl Model for SplitDocumentResponse {
     fn validate(&self) -> SdkResult<()> {
         self.parent.validate()?;
         if let Some(value) = &self.split_result {
-            value.validate()?;
+        value.validate()?;
         }
         Ok(())
     }
@@ -82,3 +83,4 @@ impl Model for SplitDocumentResponse {
         self
     }
 }
+

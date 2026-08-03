@@ -32,14 +32,17 @@ use super::*;
 /// Run element.
 #[derive(Debug, Deserialize, Serialize)]
 pub struct RunBase {
-    /// Gets or sets the run's text.
-    #[serde(rename = "Text", skip_serializing_if = "Option::is_none")]
-    pub text: Option<String>,
+        /// Gets or sets the run's text.
+        #[serde(rename = "Text", skip_serializing_if = "Option::is_none")]
+        pub text: Option<String>,
+
 }
 
 impl Default for RunBase {
     fn default() -> Self {
-        Self { text: None }
+        Self {
+            text: None,
+        }
     }
 }
 
@@ -53,9 +56,11 @@ impl Model for RunBase {
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {}
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+    }
 
     fn as_any(&self) -> &dyn Any {
         self
     }
 }
+

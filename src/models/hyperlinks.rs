@@ -35,9 +35,10 @@ use super::*;
 pub struct Hyperlinks {
     #[serde(flatten)]
     pub parent: LinkElement,
-    /// Gets or sets the array of Hyperlink.
-    #[serde(rename = "HyperlinkList", skip_serializing_if = "Option::is_none")]
-    pub hyperlink_list: Option<Vec<Hyperlink>>,
+        /// Gets or sets the array of Hyperlink.
+        #[serde(rename = "HyperlinkList", skip_serializing_if = "Option::is_none")]
+        pub hyperlink_list: Option<Vec<Hyperlink>>,
+
 }
 
 impl Default for Hyperlinks {
@@ -68,9 +69,9 @@ impl Model for Hyperlinks {
     fn validate(&self) -> SdkResult<()> {
         self.parent.validate()?;
         if let Some(values) = &self.hyperlink_list {
-            for value in values {
-                value.validate()?;
-            }
+        for value in values {
+        value.validate()?;
+        }
         }
         Ok(())
     }
@@ -83,3 +84,4 @@ impl Model for Hyperlinks {
         self
     }
 }
+

@@ -36,9 +36,10 @@ use super::*;
 pub struct ListsResponse {
     #[serde(flatten)]
     pub parent: WordsResponse,
-    /// Gets or sets the collection of lists, contained in the document.
-    #[serde(rename = "Lists", skip_serializing_if = "Option::is_none")]
-    pub lists: Option<Lists>,
+        /// Gets or sets the collection of lists, contained in the document.
+        #[serde(rename = "Lists", skip_serializing_if = "Option::is_none")]
+        pub lists: Option<Lists>,
+
 }
 
 impl Default for ListsResponse {
@@ -69,7 +70,7 @@ impl Model for ListsResponse {
     fn validate(&self) -> SdkResult<()> {
         self.parent.validate()?;
         if let Some(value) = &self.lists {
-            value.validate()?;
+        value.validate()?;
         }
         Ok(())
     }
@@ -82,3 +83,4 @@ impl Model for ListsResponse {
         self
     }
 }
+

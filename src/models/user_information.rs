@@ -32,17 +32,20 @@ use super::*;
 /// DTO for user information.
 #[derive(Debug, Deserialize, Serialize)]
 pub struct UserInformation {
-    /// Gets or sets user address.
-    #[serde(rename = "Address", skip_serializing_if = "Option::is_none")]
-    pub address: Option<String>,
+        /// Gets or sets user address.
+        #[serde(rename = "Address", skip_serializing_if = "Option::is_none")]
+        pub address: Option<String>,
 
-    /// Gets or sets user initials.
-    #[serde(rename = "Initials", skip_serializing_if = "Option::is_none")]
-    pub initials: Option<String>,
 
-    /// Gets or sets user name.
-    #[serde(rename = "Name", skip_serializing_if = "Option::is_none")]
-    pub name: Option<String>,
+        /// Gets or sets user initials.
+        #[serde(rename = "Initials", skip_serializing_if = "Option::is_none")]
+        pub initials: Option<String>,
+
+
+        /// Gets or sets user name.
+        #[serde(rename = "Name", skip_serializing_if = "Option::is_none")]
+        pub name: Option<String>,
+
 }
 
 impl Default for UserInformation {
@@ -60,9 +63,11 @@ impl Model for UserInformation {
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {}
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+    }
 
     fn as_any(&self) -> &dyn Any {
         self
     }
 }
+

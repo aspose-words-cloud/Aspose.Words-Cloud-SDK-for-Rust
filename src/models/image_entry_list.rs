@@ -35,17 +35,16 @@ use super::*;
 pub struct ImageEntryList {
     #[serde(flatten)]
     pub parent: BaseEntryList,
-    /// Gets or sets a value indicating whether each image should be added to a new page in the document.
-    /// This value only has an effect when adding images to a document that supports pagination.
-    #[serde(
-        rename = "AppendEachImageOnNewPage",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub append_each_image_on_new_page: Option<bool>,
+        /// Gets or sets a value indicating whether each image should be added to a new page in the document.
+            /// This value only has an effect when adding images to a document that supports pagination.
+        #[serde(rename = "AppendEachImageOnNewPage", skip_serializing_if = "Option::is_none")]
+        pub append_each_image_on_new_page: Option<bool>,
 
-    /// Gets or sets the list of images.
-    #[serde(rename = "ImageEntries", skip_serializing_if = "Option::is_none")]
-    pub image_entries: Option<Vec<ImageEntry>>,
+
+        /// Gets or sets the list of images.
+        #[serde(rename = "ImageEntries", skip_serializing_if = "Option::is_none")]
+        pub image_entries: Option<Vec<ImageEntry>>,
+
 }
 
 impl Default for ImageEntryList {
@@ -82,9 +81,9 @@ impl Model for ImageEntryList {
             ));
         }
         if let Some(values) = &self.image_entries {
-            for value in values {
-                value.validate()?;
-            }
+        for value in values {
+        value.validate()?;
+        }
         }
         Ok(())
     }
@@ -92,9 +91,9 @@ impl Model for ImageEntryList {
     fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
         self.parent.collect_file_references(_output);
         if let Some(values) = &self.image_entries {
-            for value in values {
-                value.collect_file_references(_output);
-            }
+        for value in values {
+        value.collect_file_references(_output);
+        }
         }
     }
 
@@ -102,3 +101,4 @@ impl Model for ImageEntryList {
         self
     }
 }
+

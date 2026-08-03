@@ -32,15 +32,18 @@ use super::*;
 /// Insert document to document list.
 #[derive(Debug, Deserialize, Serialize)]
 pub struct ListInsert {
-    /// Gets or sets the option that controls how list should be restarted at each section.
-    /// This option is supported only in RTF, DOC and DOCX document formats. This option will be written to DOCX only if Aspose.Words.Saving.OoxmlCompliance is higher then Aspose.Words.Saving.OoxmlCompliance.Ecma376_2006.
-    #[serde(rename = "Template", skip_serializing_if = "Option::is_none")]
-    pub template: Option<ListInsertTemplateEnum>,
+        /// Gets or sets the option that controls how list should be restarted at each section.
+            /// This option is supported only in RTF, DOC and DOCX document formats. This option will be written to DOCX only if Aspose.Words.Saving.OoxmlCompliance is higher then Aspose.Words.Saving.OoxmlCompliance.Ecma376_2006.
+        #[serde(rename = "Template", skip_serializing_if = "Option::is_none")]
+        pub template: Option<ListInsertTemplateEnum>,
+
 }
 
 impl Default for ListInsert {
     fn default() -> Self {
-        Self { template: None }
+        Self {
+            template: None,
+        }
     }
 }
 
@@ -54,7 +57,8 @@ impl Model for ListInsert {
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {}
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+    }
 
     fn as_any(&self) -> &dyn Any {
         self
@@ -66,47 +70,47 @@ impl Model for ListInsert {
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
 pub enum ListInsertTemplateEnum {
     #[serde(rename = "BulletDefault")]
-    BulletDefault,
+        BulletDefault,
     #[serde(rename = "BulletDisk")]
-    BulletDisk,
+        BulletDisk,
     #[serde(rename = "BulletCircle")]
-    BulletCircle,
+        BulletCircle,
     #[serde(rename = "BulletSquare")]
-    BulletSquare,
+        BulletSquare,
     #[serde(rename = "BulletDiamonds")]
-    BulletDiamonds,
+        BulletDiamonds,
     #[serde(rename = "BulletArrowHead")]
-    BulletArrowHead,
+        BulletArrowHead,
     #[serde(rename = "BulletTick")]
-    BulletTick,
+        BulletTick,
     #[serde(rename = "NumberDefault")]
-    NumberDefault,
+        NumberDefault,
     #[serde(rename = "NumberArabicDot")]
-    NumberArabicDot,
+        NumberArabicDot,
     #[serde(rename = "NumberArabicParenthesis")]
-    NumberArabicParenthesis,
+        NumberArabicParenthesis,
     #[serde(rename = "NumberUppercaseRomanDot")]
-    NumberUppercaseRomanDot,
+        NumberUppercaseRomanDot,
     #[serde(rename = "NumberUppercaseLetterDot")]
-    NumberUppercaseLetterDot,
+        NumberUppercaseLetterDot,
     #[serde(rename = "NumberLowercaseLetterParenthesis")]
-    NumberLowercaseLetterParenthesis,
+        NumberLowercaseLetterParenthesis,
     #[serde(rename = "NumberLowercaseLetterDot")]
-    NumberLowercaseLetterDot,
+        NumberLowercaseLetterDot,
     #[serde(rename = "NumberLowercaseRomanDot")]
-    NumberLowercaseRomanDot,
+        NumberLowercaseRomanDot,
     #[serde(rename = "OutlineNumbers")]
-    OutlineNumbers,
+        OutlineNumbers,
     #[serde(rename = "OutlineLegal")]
-    OutlineLegal,
+        OutlineLegal,
     #[serde(rename = "OutlineBullets")]
-    OutlineBullets,
+        OutlineBullets,
     #[serde(rename = "OutlineHeadingsArticleSection")]
-    OutlineHeadingsArticleSection,
+        OutlineHeadingsArticleSection,
     #[serde(rename = "OutlineHeadingsLegal")]
-    OutlineHeadingsLegal,
+        OutlineHeadingsLegal,
     #[serde(rename = "OutlineHeadingsNumbers")]
-    OutlineHeadingsNumbers,
+        OutlineHeadingsNumbers,
     #[serde(rename = "OutlineHeadingsChapter")]
-    OutlineHeadingsChapter,
+        OutlineHeadingsChapter,
 }

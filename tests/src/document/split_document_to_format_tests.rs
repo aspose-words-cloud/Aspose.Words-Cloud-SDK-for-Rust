@@ -38,26 +38,19 @@ async fn split_document_to_format_split_document() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
     let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
     let base_test_out_path = context.base_test_out_path().to_owned();
-    let remote_data_folder =
-        remote_base_test_data_folder.clone() + "/DocumentActions/SplitDocument";
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentActions/SplitDocument";
     let local_file = "Common/test_multi_pages.docx".to_owned();
     let remote_file_name = "TestSplitDocument.docx".to_owned();
 
-    context
-        .upload_file(
-            local_file.clone(),
-            remote_data_folder.clone() + "/" + &remote_file_name,
-        )
-        .await?;
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
     let request = SplitDocumentRequest::new(
         (remote_file_name.clone()).into(),
-        ("text".to_owned()).into(),
-    )
-    .with_folder((remote_data_folder.clone()).into())
-    .with_dest_file_name((base_test_out_path.clone() + "/TestSplitDocument.text").into())
-    .with_from((1).into())
-    .with_to((2).into());
+        ("text".to_owned()).into()
+    ).with_folder((remote_data_folder.clone()).into())
+.with_dest_file_name((base_test_out_path.clone() + "/TestSplitDocument.text").into())
+.with_from((1).into())
+.with_to((2).into());
 
     let result = context.api().split_document(request).await?;
     let result_json = serialize_result(&result)?;
@@ -73,26 +66,19 @@ async fn split_document_to_format_split_document_job() -> TestResult<()> {
     let context = TestContext::from_settings().await?;
     let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
     let base_test_out_path = context.base_test_out_path().to_owned();
-    let remote_data_folder =
-        remote_base_test_data_folder.clone() + "/DocumentActions/SplitDocument";
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentActions/SplitDocument";
     let local_file = "Common/test_multi_pages.docx".to_owned();
     let remote_file_name = "TestSplitDocument.docx".to_owned();
 
-    context
-        .upload_file(
-            local_file.clone(),
-            remote_data_folder.clone() + "/" + &remote_file_name,
-        )
-        .await?;
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
     let request = SplitDocumentJobRequest::new(
         (remote_file_name.clone()).into(),
-        ("text".to_owned()).into(),
-    )
-    .with_folder((remote_data_folder.clone()).into())
-    .with_dest_file_name((base_test_out_path.clone() + "/TestSplitDocument.text").into())
-    .with_from((1).into())
-    .with_to((2).into());
+        ("text".to_owned()).into()
+    ).with_folder((remote_data_folder.clone()).into())
+.with_dest_file_name((base_test_out_path.clone() + "/TestSplitDocument.text").into())
+.with_from((1).into())
+.with_to((2).into());
 
     let job_handler = context.api().split_document_job(request).await?;
     let result = job_handler.wait_result(Duration::from_secs(3)).await?;
@@ -113,11 +99,12 @@ async fn split_document_to_format_split_document_online() -> TestResult<()> {
 
     let request_document = context.load_binary_file(local_file.clone()).await?;
 
-    let request =
-        SplitDocumentOnlineRequest::new((request_document).into(), ("text".to_owned()).into())
-            .with_dest_file_name((base_test_out_path.clone() + "/TestSplitDocument.text").into())
-            .with_from((1).into())
-            .with_to((2).into());
+    let request = SplitDocumentOnlineRequest::new(
+        (request_document).into(),
+        ("text".to_owned()).into()
+    ).with_dest_file_name((base_test_out_path.clone() + "/TestSplitDocument.text").into())
+.with_from((1).into())
+.with_to((2).into());
 
     context.api().split_document_online(request).await?;
     Ok(())
@@ -133,11 +120,12 @@ async fn split_document_to_format_split_document_online_job() -> TestResult<()> 
 
     let request_document = context.load_binary_file(local_file.clone()).await?;
 
-    let request =
-        SplitDocumentOnlineJobRequest::new((request_document).into(), ("text".to_owned()).into())
-            .with_dest_file_name((base_test_out_path.clone() + "/TestSplitDocument.text").into())
-            .with_from((1).into())
-            .with_to((2).into());
+    let request = SplitDocumentOnlineJobRequest::new(
+        (request_document).into(),
+        ("text".to_owned()).into()
+    ).with_dest_file_name((base_test_out_path.clone() + "/TestSplitDocument.text").into())
+.with_from((1).into())
+.with_to((2).into());
 
     let job_handler = context.api().split_document_online_job(request).await?;
     job_handler.wait_result(Duration::from_secs(3)).await?;

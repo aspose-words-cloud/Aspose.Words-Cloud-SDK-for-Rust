@@ -32,15 +32,17 @@ use super::*;
 /// DTO container with a SdtListItem for StructuredDocumentTag.
 #[derive(Debug, Deserialize, Serialize)]
 pub struct StructuredDocumentTagListItem {
-    /// Gets or sets the text to display in the run content in place of the Aspose.Words.Markup.SdtListItem.Value attribute contents for this list item.
-    /// Cannot be null and cannot be an empty string.
-    #[serde(rename = "DisplayText", skip_serializing_if = "Option::is_none")]
-    pub display_text: Option<String>,
+        /// Gets or sets the text to display in the run content in place of the Aspose.Words.Markup.SdtListItem.Value attribute contents for this list item.
+            /// Cannot be null and cannot be an empty string.
+        #[serde(rename = "DisplayText", skip_serializing_if = "Option::is_none")]
+        pub display_text: Option<String>,
 
-    /// Gets or sets the value of this list item.
-    /// Cannot be null and cannot be an empty string.
-    #[serde(rename = "Value", skip_serializing_if = "Option::is_none")]
-    pub value: Option<String>,
+
+        /// Gets or sets the value of this list item.
+            /// Cannot be null and cannot be an empty string.
+        #[serde(rename = "Value", skip_serializing_if = "Option::is_none")]
+        pub value: Option<String>,
+
 }
 
 impl Default for StructuredDocumentTagListItem {
@@ -57,9 +59,11 @@ impl Model for StructuredDocumentTagListItem {
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {}
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+    }
 
     fn as_any(&self) -> &dyn Any {
         self
     }
 }
+

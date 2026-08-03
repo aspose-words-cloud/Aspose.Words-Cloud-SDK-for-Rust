@@ -41,7 +41,9 @@ impl Default for PositionBeforeNode {
     fn default() -> Self {
         let mut parent = Position::default();
         parent.r#type = Some("Before".to_owned());
-        Self { parent }
+        Self {
+            parent,
+        }
     }
 }
 
@@ -73,3 +75,4 @@ impl Model for PositionBeforeNode {
         self
     }
 }
+

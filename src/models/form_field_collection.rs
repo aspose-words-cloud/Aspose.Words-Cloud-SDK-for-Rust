@@ -35,20 +35,19 @@ use super::*;
 pub struct FormFieldCollection {
     #[serde(flatten)]
     pub parent: LinkElement,
-    /// Gets or sets the collection of form fields.
-    #[serde(
-        rename = "List",
-        skip_serializing_if = "Option::is_none",
-        default,
-        deserialize_with = "deserialize_optional_models"
-    )]
-    pub list: Option<Vec<ModelBox>>,
+        /// Gets or sets the collection of form fields.
+        #[serde(rename = "List", skip_serializing_if = "Option::is_none", default, deserialize_with = "deserialize_optional_models")]
+        pub list: Option<Vec<ModelBox>>,
+
 }
 
 impl Default for FormFieldCollection {
     fn default() -> Self {
         let mut parent = LinkElement::default();
-        Self { parent, list: None }
+        Self {
+            parent,
+            list: None,
+        }
     }
 }
 
@@ -70,9 +69,9 @@ impl Model for FormFieldCollection {
     fn validate(&self) -> SdkResult<()> {
         self.parent.validate()?;
         if let Some(values) = &self.list {
-            for value in values {
-                value.validate()?;
-            }
+        for value in values {
+        value.validate()?;
+        }
         }
         Ok(())
     }
@@ -85,3 +84,4 @@ impl Model for FormFieldCollection {
         self
     }
 }
+

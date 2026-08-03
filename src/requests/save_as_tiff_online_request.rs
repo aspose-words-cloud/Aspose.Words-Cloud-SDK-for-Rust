@@ -25,13 +25,13 @@ use std::collections::HashMap;
 use async_trait::async_trait;
 use chrono::{DateTime, Utc};
 
-use super::*;
 use crate::models::*;
+use crate::responses::*;
 use crate::request::{
     ApiRequestData, DynamicResponse, ProgressCallback, Request, ResponseData, TypedRequest,
 };
-use crate::responses::*;
 use crate::{ApiClient, SdkResult};
+use super::*;
 
 /// Request parameters for the SaveAsTiffOnline operation.
 pub struct SaveAsTiffOnlineRequest {
@@ -242,6 +242,7 @@ impl SaveAsTiffOnlineRequest {
     async fn parse_response_data(response: ResponseData) -> SdkResult<SaveAsTiffOnlineResponse> {
         SaveAsTiffOnlineResponse::from_response(response).await
     }
+
 }
 
 #[async_trait]
@@ -262,87 +263,73 @@ impl Request for SaveAsTiffOnlineRequest {
         let mut body_parts = Vec::new();
 
         if let Some(value) = &self.load_encoding {
-            query.push(("loadEncoding".to_owned(), client.query_value(value)?));
+        query.push(("loadEncoding".to_owned(), client.query_value(value)?));
         }
         if let Some(value) = &self.password {
-            query.push((
-                "encryptedPassword".to_owned(),
-                client.encrypt_password(value).await?,
-            ));
+        query.push(("encryptedPassword".to_owned(), client.encrypt_password(value).await?));
         }
         if let Some(value) = &self.encrypted_password {
-            query.push(("encryptedPassword".to_owned(), client.query_value(value)?));
+        query.push(("encryptedPassword".to_owned(), client.query_value(value)?));
         }
         if let Some(value) = &self.open_type_support {
-            query.push(("openTypeSupport".to_owned(), client.query_value(value)?));
+        query.push(("openTypeSupport".to_owned(), client.query_value(value)?));
         }
         if let Some(value) = &self.use_anti_aliasing {
-            query.push(("useAntiAliasing".to_owned(), client.query_value(value)?));
+        query.push(("useAntiAliasing".to_owned(), client.query_value(value)?));
         }
         if let Some(value) = &self.use_high_quality_rendering {
-            query.push((
-                "useHighQualityRendering".to_owned(),
-                client.query_value(value)?,
-            ));
+        query.push(("useHighQualityRendering".to_owned(), client.query_value(value)?));
         }
         if let Some(value) = &self.image_brightness {
-            query.push(("imageBrightness".to_owned(), client.query_value(value)?));
+        query.push(("imageBrightness".to_owned(), client.query_value(value)?));
         }
         if let Some(value) = &self.image_color_mode {
-            query.push(("imageColorMode".to_owned(), client.query_value(value)?));
+        query.push(("imageColorMode".to_owned(), client.query_value(value)?));
         }
         if let Some(value) = &self.image_contrast {
-            query.push(("imageContrast".to_owned(), client.query_value(value)?));
+        query.push(("imageContrast".to_owned(), client.query_value(value)?));
         }
         if let Some(value) = &self.numeral_format {
-            query.push(("numeralFormat".to_owned(), client.query_value(value)?));
+        query.push(("numeralFormat".to_owned(), client.query_value(value)?));
         }
         if let Some(value) = &self.page_count {
-            query.push(("pageCount".to_owned(), client.query_value(value)?));
+        query.push(("pageCount".to_owned(), client.query_value(value)?));
         }
         if let Some(value) = &self.page_index {
-            query.push(("pageIndex".to_owned(), client.query_value(value)?));
+        query.push(("pageIndex".to_owned(), client.query_value(value)?));
         }
         if let Some(value) = &self.paper_color {
-            query.push(("paperColor".to_owned(), client.query_value(value)?));
+        query.push(("paperColor".to_owned(), client.query_value(value)?));
         }
         if let Some(value) = &self.pixel_format {
-            query.push(("pixelFormat".to_owned(), client.query_value(value)?));
+        query.push(("pixelFormat".to_owned(), client.query_value(value)?));
         }
         if let Some(value) = &self.resolution {
-            query.push(("resolution".to_owned(), client.query_value(value)?));
+        query.push(("resolution".to_owned(), client.query_value(value)?));
         }
         if let Some(value) = &self.scale {
-            query.push(("scale".to_owned(), client.query_value(value)?));
+        query.push(("scale".to_owned(), client.query_value(value)?));
         }
         if let Some(value) = &self.tiff_compression {
-            query.push(("tiffCompression".to_owned(), client.query_value(value)?));
+        query.push(("tiffCompression".to_owned(), client.query_value(value)?));
         }
         if let Some(value) = &self.dml_rendering_mode {
-            query.push(("dmlRenderingMode".to_owned(), client.query_value(value)?));
+        query.push(("dmlRenderingMode".to_owned(), client.query_value(value)?));
         }
         if let Some(value) = &self.dml_effects_rendering_mode {
-            query.push((
-                "dmlEffectsRenderingMode".to_owned(),
-                client.query_value(value)?,
-            ));
+        query.push(("dmlEffectsRenderingMode".to_owned(), client.query_value(value)?));
         }
         if let Some(value) = &self.tiff_binarization_method {
-            query.push((
-                "tiffBinarizationMethod".to_owned(),
-                client.query_value(value)?,
-            ));
+        query.push(("tiffBinarizationMethod".to_owned(), client.query_value(value)?));
         }
         if let Some(value) = &self.zip_output {
-            query.push(("zipOutput".to_owned(), client.query_value(value)?));
+        query.push(("zipOutput".to_owned(), client.query_value(value)?));
         }
         if let Some(value) = &self.fonts_location {
-            query.push(("fontsLocation".to_owned(), client.query_value(value)?));
+        query.push(("fontsLocation".to_owned(), client.query_value(value)?));
         }
         client.add_binary_part(&mut body_parts, "Document", &self.document);
-        client
-            .add_model_part(&mut body_parts, "SaveOptions", &self.save_options)
-            .await?;
+        client.add_model_part(&mut body_parts, "SaveOptions", &self.save_options).await?;
 
         let url = client.build_url(&path, &query)?;
         let body = client.request_body_from_parts(&mut headers, body_parts);

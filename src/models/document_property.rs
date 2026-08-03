@@ -35,18 +35,21 @@ use super::*;
 pub struct DocumentProperty {
     #[serde(flatten)]
     pub parent: LinkElement,
-    /// Gets or sets the name of the document property.
-    #[serde(rename = "Name", skip_serializing_if = "Option::is_none")]
-    pub name: Option<String>,
+        /// Gets or sets the name of the document property.
+        #[serde(rename = "Name", skip_serializing_if = "Option::is_none")]
+        pub name: Option<String>,
 
-    /// Gets or sets the value of the document property.
-    #[serde(rename = "Value", skip_serializing_if = "Option::is_none")]
-    pub value: Option<String>,
 
-    /// Gets or sets a value indicating whether the property is built-in or not.
-    /// If true the property is built-in, if false the property is custom.
-    #[serde(rename = "BuiltIn", skip_serializing_if = "Option::is_none")]
-    pub built_in: Option<bool>,
+        /// Gets or sets the value of the document property.
+        #[serde(rename = "Value", skip_serializing_if = "Option::is_none")]
+        pub value: Option<String>,
+
+
+        /// Gets or sets a value indicating whether the property is built-in or not.
+            /// If true the property is built-in, if false the property is custom.
+        #[serde(rename = "BuiltIn", skip_serializing_if = "Option::is_none")]
+        pub built_in: Option<bool>,
+
 }
 
 impl Default for DocumentProperty {
@@ -94,3 +97,4 @@ impl Model for DocumentProperty {
         self
     }
 }
+

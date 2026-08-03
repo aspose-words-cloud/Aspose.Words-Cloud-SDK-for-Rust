@@ -35,13 +35,15 @@ use super::*;
 pub struct ParagraphFormat {
     #[serde(flatten)]
     pub parent: ParagraphFormatBase,
-    /// Gets or sets a value indicating whether the paragraph is an item in a bulleted or numbered list.
-    #[serde(rename = "IsListItem", skip_serializing_if = "Option::is_none")]
-    pub is_list_item: Option<bool>,
+        /// Gets or sets a value indicating whether the paragraph is an item in a bulleted or numbered list.
+        #[serde(rename = "IsListItem", skip_serializing_if = "Option::is_none")]
+        pub is_list_item: Option<bool>,
 
-    /// Gets or sets a value indicating whether the paragraph style is one of the built-in Heading styles.
-    #[serde(rename = "IsHeading", skip_serializing_if = "Option::is_none")]
-    pub is_heading: Option<bool>,
+
+        /// Gets or sets a value indicating whether the paragraph style is one of the built-in Heading styles.
+        #[serde(rename = "IsHeading", skip_serializing_if = "Option::is_none")]
+        pub is_heading: Option<bool>,
+
 }
 
 impl Default for ParagraphFormat {
@@ -83,3 +85,4 @@ impl Model for ParagraphFormat {
         self
     }
 }
+

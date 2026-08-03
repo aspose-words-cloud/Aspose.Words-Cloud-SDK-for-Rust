@@ -36,9 +36,10 @@ use super::*;
 pub struct OfficeMathObjectResponse {
     #[serde(flatten)]
     pub parent: WordsResponse,
-    /// Gets or sets the OfficeMath object.
-    #[serde(rename = "OfficeMathObject", skip_serializing_if = "Option::is_none")]
-    pub office_math_object: Option<OfficeMathObject>,
+        /// Gets or sets the OfficeMath object.
+        #[serde(rename = "OfficeMathObject", skip_serializing_if = "Option::is_none")]
+        pub office_math_object: Option<OfficeMathObject>,
+
 }
 
 impl Default for OfficeMathObjectResponse {
@@ -69,7 +70,7 @@ impl Model for OfficeMathObjectResponse {
     fn validate(&self) -> SdkResult<()> {
         self.parent.validate()?;
         if let Some(value) = &self.office_math_object {
-            value.validate()?;
+        value.validate()?;
         }
         Ok(())
     }
@@ -82,3 +83,4 @@ impl Model for OfficeMathObjectResponse {
         self
     }
 }
+

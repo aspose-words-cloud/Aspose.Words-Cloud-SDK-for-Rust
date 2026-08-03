@@ -35,17 +35,20 @@ use super::*;
 pub struct InfoResponse {
     #[serde(flatten)]
     pub parent: WordsResponse,
-    /// Gets or sets AdditionalInfo.
-    #[serde(rename = "AdditionalInfo", skip_serializing_if = "Option::is_none")]
-    pub additional_info: Option<Vec<InfoAdditionalItem>>,
+        /// Gets or sets AdditionalInfo.
+        #[serde(rename = "AdditionalInfo", skip_serializing_if = "Option::is_none")]
+        pub additional_info: Option<Vec<InfoAdditionalItem>>,
 
-    /// Gets or sets Name.
-    #[serde(rename = "Name", skip_serializing_if = "Option::is_none")]
-    pub name: Option<String>,
 
-    /// Gets or sets Version.
-    #[serde(rename = "Version", skip_serializing_if = "Option::is_none")]
-    pub version: Option<String>,
+        /// Gets or sets Name.
+        #[serde(rename = "Name", skip_serializing_if = "Option::is_none")]
+        pub name: Option<String>,
+
+
+        /// Gets or sets Version.
+        #[serde(rename = "Version", skip_serializing_if = "Option::is_none")]
+        pub version: Option<String>,
+
 }
 
 impl Default for InfoResponse {
@@ -78,10 +81,11 @@ impl Model for InfoResponse {
     fn validate(&self) -> SdkResult<()> {
         self.parent.validate()?;
         if let Some(values) = &self.additional_info {
-            for value in values {
-                value.validate()?;
-            }
+        for value in values {
+        value.validate()?;
         }
+        }
+
 
         Ok(())
     }
@@ -94,3 +98,4 @@ impl Model for InfoResponse {
         self
     }
 }
+

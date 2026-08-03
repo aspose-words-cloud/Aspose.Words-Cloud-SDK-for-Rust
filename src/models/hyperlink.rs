@@ -35,13 +35,15 @@ use super::*;
 pub struct Hyperlink {
     #[serde(flatten)]
     pub parent: LinkElement,
-    /// Gets or sets the hypelink's display text.
-    #[serde(rename = "DisplayText", skip_serializing_if = "Option::is_none")]
-    pub display_text: Option<String>,
+        /// Gets or sets the hypelink's display text.
+        #[serde(rename = "DisplayText", skip_serializing_if = "Option::is_none")]
+        pub display_text: Option<String>,
 
-    /// Gets or sets the value.
-    #[serde(rename = "Value", skip_serializing_if = "Option::is_none")]
-    pub value: Option<String>,
+
+        /// Gets or sets the value.
+        #[serde(rename = "Value", skip_serializing_if = "Option::is_none")]
+        pub value: Option<String>,
+
 }
 
 impl Default for Hyperlink {
@@ -83,3 +85,4 @@ impl Model for Hyperlink {
         self
     }
 }
+

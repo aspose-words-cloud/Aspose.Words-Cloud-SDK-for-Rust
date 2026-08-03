@@ -71,7 +71,11 @@ impl ApiClient {
         &self.configuration
     }
 
-    pub(crate) fn build_url(&self, path: &str, query: &[(String, String)]) -> SdkResult<String> {
+    pub(crate) fn build_url(
+        &self,
+        path: &str,
+        query: &[(String, String)],
+    ) -> SdkResult<String> {
         let root = self.configuration.api_root();
         let mut path = path.to_owned();
         while path.contains("//") {
@@ -201,9 +205,7 @@ impl ApiClient {
         if response.status == reqwest::StatusCode::UNAUTHORIZED {
             let token = self.auth_token(true).await?;
             let data = request.build(self).await?;
-            return self
-                .finish_response(self.send_once(data, &token).await?)
-                .await;
+            return self.finish_response(self.send_once(data, &token).await?).await;
         }
         self.finish_response(response).await
     }
@@ -344,7 +346,10 @@ impl ApiClient {
             .request(data.method.clone(), &data.url)
             .header(AUTHORIZATION, token)
             .header("x-aspose-client", "rust sdk")
-            .header("x-aspose-client-version", "26.7");
+            .header(
+                "x-aspose-client-version",
+                "26.7",
+            );
         for (name, value) in data.headers {
             let name = HeaderName::from_bytes(name.as_bytes()).map_err(|error| {
                 SdkError::InvalidRequest(format!("invalid header name: {error}"))
@@ -360,8 +365,8 @@ impl ApiClient {
             RequestBody::Multipart(parts) => {
                 let mut form = reqwest::multipart::Form::new();
                 for part in parts {
-                    let mut value =
-                        reqwest::multipart::Part::bytes(part.data).mime_str(&part.content_type)?;
+                    let mut value = reqwest::multipart::Part::bytes(part.data)
+                        .mime_str(&part.content_type)?;
                     if let Some(filename) = part.filename {
                         value = value.file_name(filename);
                     }
@@ -444,7 +449,9 @@ pub(crate) async fn parse_multipart(
     let boundary = media_type
         .get_param("boundary")
         .map(|value| value.as_str().to_owned())
-        .ok_or_else(|| SdkError::InvalidResponse("multipart boundary is missing".to_owned()))?;
+        .ok_or_else(|| {
+            SdkError::InvalidResponse("multipart boundary is missing".to_owned())
+        })?;
     let source = stream::once(async move { Ok::<Bytes, std::io::Error>(Bytes::from(data)) });
     let mut multipart = multer::Multipart::new(source, boundary);
     let mut result = Vec::new();
@@ -457,7 +464,10 @@ pub(crate) async fn parse_multipart(
             let value = header_value.to_str().map_err(|error| {
                 SdkError::InvalidResponse(format!("invalid multipart header: {error}"))
             })?;
-            headers.insert(header_name.as_str().to_ascii_lowercase(), value.to_owned());
+            headers.insert(
+                header_name.as_str().to_ascii_lowercase(),
+                value.to_owned(),
+            );
         }
         let data = field.bytes().await?.to_vec();
         result.push(MultipartPart {
@@ -491,7 +501,10 @@ pub(crate) async fn parse_files_collection(
     Ok(result)
 }
 
-pub(crate) fn encode_multipart(parts: Vec<BodyPart>, boundary: &str) -> SdkResult<Vec<u8>> {
+pub(crate) fn encode_multipart(
+    parts: Vec<BodyPart>,
+    boundary: &str,
+) -> SdkResult<Vec<u8>> {
     let mut body = Vec::new();
     for part in parts {
         body.extend_from_slice(format!("--{boundary}\r\n").as_bytes());
@@ -510,7 +523,10 @@ pub(crate) fn encode_multipart(parts: Vec<BodyPart>, boundary: &str) -> SdkResul
     Ok(body)
 }
 
-pub(crate) fn prepare_batch_part(mut data: ApiRequestData, api_root: &str) -> SdkResult<Vec<u8>> {
+pub(crate) fn prepare_batch_part(
+    mut data: ApiRequestData,
+    api_root: &str,
+) -> SdkResult<Vec<u8>> {
     let prefix = format!("{api_root}/words/");
     let relative_url = data.url.strip_prefix(&prefix).ok_or_else(|| {
         SdkError::InvalidRequest("batch request URL is outside the Words API".to_owned())
@@ -543,9 +559,9 @@ pub(crate) async fn parse_http_part(data: Vec<u8>) -> SdkResult<(u16, ResponseDa
         .windows(separator.len())
         .position(|window| window == separator)
         .ok_or_else(|| SdkError::InvalidResponse("HTTP part has no header separator".to_owned()))?;
-    let header_bytes = data
-        .get(..header_end)
-        .ok_or_else(|| SdkError::InvalidResponse("HTTP part header range is invalid".to_owned()))?;
+    let header_bytes = data.get(..header_end).ok_or_else(|| {
+        SdkError::InvalidResponse("HTTP part header range is invalid".to_owned())
+    })?;
     let header_text = String::from_utf8_lossy(header_bytes);
     let mut lines = header_text.lines();
     let status_line = lines

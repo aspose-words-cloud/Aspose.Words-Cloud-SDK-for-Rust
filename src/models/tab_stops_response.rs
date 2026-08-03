@@ -36,9 +36,10 @@ use super::*;
 pub struct TabStopsResponse {
     #[serde(flatten)]
     pub parent: WordsResponse,
-    /// Gets or sets the array of tab stops.
-    #[serde(rename = "TabStops", skip_serializing_if = "Option::is_none")]
-    pub tab_stops: Option<Vec<TabStop>>,
+        /// Gets or sets the array of tab stops.
+        #[serde(rename = "TabStops", skip_serializing_if = "Option::is_none")]
+        pub tab_stops: Option<Vec<TabStop>>,
+
 }
 
 impl Default for TabStopsResponse {
@@ -69,9 +70,9 @@ impl Model for TabStopsResponse {
     fn validate(&self) -> SdkResult<()> {
         self.parent.validate()?;
         if let Some(values) = &self.tab_stops {
-            for value in values {
-                value.validate()?;
-            }
+        for value in values {
+        value.validate()?;
+        }
         }
         Ok(())
     }
@@ -84,3 +85,4 @@ impl Model for TabStopsResponse {
         self
     }
 }
+

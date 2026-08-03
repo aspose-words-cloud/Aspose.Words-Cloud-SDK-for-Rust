@@ -25,13 +25,13 @@ use std::collections::HashMap;
 use async_trait::async_trait;
 use chrono::{DateTime, Utc};
 
-use super::*;
 use crate::models::*;
+use crate::responses::*;
 use crate::request::{
     ApiRequestData, DynamicResponse, ProgressCallback, Request, ResponseData, TypedRequest,
 };
-use crate::responses::*;
 use crate::{ApiClient, SdkResult};
+use super::*;
 
 /// Request parameters for the LoadWebDocument operation.
 pub struct LoadWebDocumentRequest {
@@ -71,6 +71,7 @@ impl LoadWebDocumentRequest {
     async fn parse_response_data(response: ResponseData) -> SdkResult<SaveResponse> {
         Ok(serde_json::from_slice::<SaveResponse>(&response.body)?)
     }
+
 }
 
 #[async_trait]
@@ -91,11 +92,9 @@ impl Request for LoadWebDocumentRequest {
         let mut body_parts = Vec::new();
 
         if let Some(value) = &self.storage {
-            query.push(("storage".to_owned(), client.query_value(value)?));
+        query.push(("storage".to_owned(), client.query_value(value)?));
         }
-        client
-            .add_model_part(&mut body_parts, "Body", &self.data)
-            .await?;
+        client.add_model_part(&mut body_parts, "Body", &self.data).await?;
 
         let url = client.build_url(&path, &query)?;
         let body = client.request_body_from_parts(&mut headers, body_parts);

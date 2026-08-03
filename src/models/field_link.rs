@@ -35,9 +35,10 @@ use super::*;
 pub struct FieldLink {
     #[serde(flatten)]
     pub parent: NodeLink,
-    /// Gets or sets the field code.
-    #[serde(rename = "FieldCode", skip_serializing_if = "Option::is_none")]
-    pub field_code: Option<String>,
+        /// Gets or sets the field code.
+        #[serde(rename = "FieldCode", skip_serializing_if = "Option::is_none")]
+        pub field_code: Option<String>,
+
 }
 
 impl Default for FieldLink {
@@ -78,3 +79,4 @@ impl Model for FieldLink {
         self
     }
 }
+

@@ -32,83 +32,72 @@ use super::*;
 /// DTO for field options.
 #[derive(Debug, Deserialize, Serialize)]
 pub struct FieldOptions {
-    /// Gets or sets Current User.
-    #[serde(rename = "CurrentUser", skip_serializing_if = "Option::is_none")]
-    pub current_user: Option<UserInformation>,
+        /// Gets or sets Current User.
+        #[serde(rename = "CurrentUser", skip_serializing_if = "Option::is_none")]
+        pub current_user: Option<UserInformation>,
 
-    /// Gets or sets Custom Toc Style Separator.
-    #[serde(
-        rename = "CustomTocStyleSeparator",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub custom_toc_style_separator: Option<String>,
 
-    /// Gets or sets Default Document Author.
-    #[serde(
-        rename = "DefaultDocumentAuthor",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub default_document_author: Option<String>,
+        /// Gets or sets Custom Toc Style Separator.
+        #[serde(rename = "CustomTocStyleSeparator", skip_serializing_if = "Option::is_none")]
+        pub custom_toc_style_separator: Option<String>,
 
-    /// Gets or sets Field Index Format.
-    #[serde(rename = "FieldIndexFormat", skip_serializing_if = "Option::is_none")]
-    pub field_index_format: Option<FieldOptionsFieldIndexFormatEnum>,
 
-    /// Gets or sets Field Update Culture Name.
-    /// It is used for all fields if FieldUpdateCultureSource is FieldCode.
-    #[serde(
-        rename = "FieldUpdateCultureName",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub field_update_culture_name: Option<String>,
+        /// Gets or sets Default Document Author.
+        #[serde(rename = "DefaultDocumentAuthor", skip_serializing_if = "Option::is_none")]
+        pub default_document_author: Option<String>,
 
-    /// Gets or sets Field Update Culture Source.
-    #[serde(
-        rename = "FieldUpdateCultureSource",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub field_update_culture_source: Option<FieldOptionsFieldUpdateCultureSourceEnum>,
 
-    /// Gets or sets File Name.
-    #[serde(rename = "FileName", skip_serializing_if = "Option::is_none")]
-    pub file_name: Option<String>,
+        /// Gets or sets Field Index Format.
+        #[serde(rename = "FieldIndexFormat", skip_serializing_if = "Option::is_none")]
+        pub field_index_format: Option<FieldOptionsFieldIndexFormatEnum>,
 
-    /// Gets or sets if Bidi Text Supported OnUpdate.
-    #[serde(
-        rename = "IsBidiTextSupportedOnUpdate",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub is_bidi_text_supported_on_update: Option<bool>,
 
-    /// Gets or sets if Legacy Number Format.
-    #[serde(rename = "LegacyNumberFormat", skip_serializing_if = "Option::is_none")]
-    pub legacy_number_format: Option<bool>,
+        /// Gets or sets Field Update Culture Name.
+            /// It is used for all fields if FieldUpdateCultureSource is FieldCode.
+        #[serde(rename = "FieldUpdateCultureName", skip_serializing_if = "Option::is_none")]
+        pub field_update_culture_name: Option<String>,
 
-    /// Gets or sets PreProcess Culture Name.
-    /// It is a culture code for DOC fields.
-    #[serde(
-        rename = "PreProcessCultureName",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub pre_process_culture_name: Option<String>,
 
-    /// Gets or sets Template Name.
-    #[serde(rename = "TemplateName", skip_serializing_if = "Option::is_none")]
-    pub template_name: Option<String>,
+        /// Gets or sets Field Update Culture Source.
+        #[serde(rename = "FieldUpdateCultureSource", skip_serializing_if = "Option::is_none")]
+        pub field_update_culture_source: Option<FieldOptionsFieldUpdateCultureSourceEnum>,
 
-    /// Gets or sets if Use Invariant Culture Number Format.
-    #[serde(
-        rename = "UseInvariantCultureNumberFormat",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub use_invariant_culture_number_format: Option<bool>,
 
-    /// Gets or sets BuiltIn Templates Paths.
-    #[serde(
-        rename = "BuiltInTemplatesPaths",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub built_in_templates_paths: Option<Vec<String>>,
+        /// Gets or sets File Name.
+        #[serde(rename = "FileName", skip_serializing_if = "Option::is_none")]
+        pub file_name: Option<String>,
+
+
+        /// Gets or sets if Bidi Text Supported OnUpdate.
+        #[serde(rename = "IsBidiTextSupportedOnUpdate", skip_serializing_if = "Option::is_none")]
+        pub is_bidi_text_supported_on_update: Option<bool>,
+
+
+        /// Gets or sets if Legacy Number Format.
+        #[serde(rename = "LegacyNumberFormat", skip_serializing_if = "Option::is_none")]
+        pub legacy_number_format: Option<bool>,
+
+
+        /// Gets or sets PreProcess Culture Name.
+            /// It is a culture code for DOC fields.
+        #[serde(rename = "PreProcessCultureName", skip_serializing_if = "Option::is_none")]
+        pub pre_process_culture_name: Option<String>,
+
+
+        /// Gets or sets Template Name.
+        #[serde(rename = "TemplateName", skip_serializing_if = "Option::is_none")]
+        pub template_name: Option<String>,
+
+
+        /// Gets or sets if Use Invariant Culture Number Format.
+        #[serde(rename = "UseInvariantCultureNumberFormat", skip_serializing_if = "Option::is_none")]
+        pub use_invariant_culture_number_format: Option<bool>,
+
+
+        /// Gets or sets BuiltIn Templates Paths.
+        #[serde(rename = "BuiltInTemplatesPaths", skip_serializing_if = "Option::is_none")]
+        pub built_in_templates_paths: Option<Vec<String>>,
+
 }
 
 impl Default for FieldOptions {
@@ -134,13 +123,25 @@ impl Default for FieldOptions {
 impl Model for FieldOptions {
     fn validate(&self) -> SdkResult<()> {
         if let Some(value) = &self.current_user {
-            value.validate()?;
+        value.validate()?;
         }
+
+
+
+
+
+
+
+
+
+
+
 
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {}
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+    }
 
     fn as_any(&self) -> &dyn Any {
         self
@@ -151,26 +152,26 @@ impl Model for FieldOptions {
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
 pub enum FieldOptionsFieldIndexFormatEnum {
     #[serde(rename = "Template")]
-    Template,
+        Template,
     #[serde(rename = "Classic")]
-    Classic,
+        Classic,
     #[serde(rename = "Fancy")]
-    Fancy,
+        Fancy,
     #[serde(rename = "Modern")]
-    Modern,
+        Modern,
     #[serde(rename = "Bulleted")]
-    Bulleted,
+        Bulleted,
     #[serde(rename = "Formal")]
-    Formal,
+        Formal,
     #[serde(rename = "Simple")]
-    Simple,
+        Simple,
 }
 
 /// Gets or sets Field Update Culture Source.
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
 pub enum FieldOptionsFieldUpdateCultureSourceEnum {
     #[serde(rename = "CurrentThread")]
-    CurrentThread,
+        CurrentThread,
     #[serde(rename = "FieldCode")]
-    FieldCode,
+        FieldCode,
 }

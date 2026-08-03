@@ -43,19 +43,14 @@ async fn compress_document_compress_document() -> TestResult<()> {
     let local_name = "TestCompress.docx".to_owned();
     let remote_name = "TestCompress.docx".to_owned();
 
-    context
-        .upload_file(
-            local_folder.clone() + "/" + &local_name,
-            remote_folder.clone() + "/" + &remote_name,
-        )
-        .await?;
+    context.upload_file(local_folder.clone() + "/" + &local_name, remote_folder.clone() + "/" + &remote_name).await?;
     let mut request_compress_options = CompressOptions::default();
+
 
     let request = CompressDocumentRequest::new(
         (remote_name.clone()).into(),
-        (request_compress_options).into(),
-    )
-    .with_folder((remote_folder.clone()).into());
+        (request_compress_options).into()
+    ).with_folder((remote_folder.clone()).into());
 
     let result = context.api().compress_document(request).await?;
     let result_json = serialize_result(&result)?;
@@ -72,14 +67,13 @@ async fn compress_document_compress_document_online() -> TestResult<()> {
     let local_folder = "DocumentActions/CompressDocument".to_owned();
     let local_name = "TestCompress.docx".to_owned();
 
-    let request_document = context
-        .load_binary_file(local_folder.clone() + "/" + &local_name)
-        .await?;
+    let request_document = context.load_binary_file(local_folder.clone() + "/" + &local_name).await?;
     let mut request_compress_options = CompressOptions::default();
+
 
     let request = CompressDocumentOnlineRequest::new(
         (request_document).into(),
-        (request_compress_options).into(),
+        (request_compress_options).into()
     );
 
     context.api().compress_document_online(request).await?;

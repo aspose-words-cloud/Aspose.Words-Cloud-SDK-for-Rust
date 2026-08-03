@@ -32,17 +32,20 @@ use super::*;
 /// The REST response with a job result.
 #[derive(Debug, Deserialize, Serialize)]
 pub struct JobInfo {
-    /// Gets or sets the job id.
-    #[serde(rename = "JobId", skip_serializing_if = "Option::is_none")]
-    pub job_id: Option<String>,
+        /// Gets or sets the job id.
+        #[serde(rename = "JobId", skip_serializing_if = "Option::is_none")]
+        pub job_id: Option<String>,
 
-    /// Gets or sets the job message.
-    #[serde(rename = "Message", skip_serializing_if = "Option::is_none")]
-    pub message: Option<String>,
 
-    /// Gets or sets the job status.
-    #[serde(rename = "Status", skip_serializing_if = "Option::is_none")]
-    pub status: Option<JobInfoStatusEnum>,
+        /// Gets or sets the job message.
+        #[serde(rename = "Message", skip_serializing_if = "Option::is_none")]
+        pub message: Option<String>,
+
+
+        /// Gets or sets the job status.
+        #[serde(rename = "Status", skip_serializing_if = "Option::is_none")]
+        pub status: Option<JobInfoStatusEnum>,
+
 }
 
 impl Default for JobInfo {
@@ -65,7 +68,8 @@ impl Model for JobInfo {
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {}
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+    }
 
     fn as_any(&self) -> &dyn Any {
         self
@@ -76,13 +80,13 @@ impl Model for JobInfo {
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
 pub enum JobInfoStatusEnum {
     #[serde(rename = "Unknown")]
-    Unknown,
+        Unknown,
     #[serde(rename = "Queued")]
-    Queued,
+        Queued,
     #[serde(rename = "Processing")]
-    Processing,
+        Processing,
     #[serde(rename = "Succeded")]
-    Succeded,
+        Succeded,
     #[serde(rename = "Failed")]
-    Failed,
+        Failed,
 }

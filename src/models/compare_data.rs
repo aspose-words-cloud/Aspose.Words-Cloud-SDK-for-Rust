@@ -32,40 +32,35 @@ use super::*;
 /// Container class for compare documents.
 #[derive(Debug, Deserialize, Serialize)]
 pub struct CompareData {
-    /// Gets or sets the initials of the author to use for revisions.
-    #[serde(rename = "Author", skip_serializing_if = "Option::is_none")]
-    pub author: Option<String>,
+        /// Gets or sets the initials of the author to use for revisions.
+        #[serde(rename = "Author", skip_serializing_if = "Option::is_none")]
+        pub author: Option<String>,
 
-    /// Gets or sets the compare options.
-    #[serde(rename = "CompareOptions", skip_serializing_if = "Option::is_none")]
-    pub compare_options: Option<CompareOptions>,
 
-    /// Gets or sets the path to document to compare at the server.
-    #[serde(
-        rename = "ComparingWithDocument",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub comparing_with_document: Option<String>,
+        /// Gets or sets the compare options.
+        #[serde(rename = "CompareOptions", skip_serializing_if = "Option::is_none")]
+        pub compare_options: Option<CompareOptions>,
 
-    /// Gets or sets the date and time to use for revisions.
-    #[serde(
-        rename = "DateTime",
-        skip_serializing_if = "Option::is_none",
-        default,
-        deserialize_with = "deserialize_optional_date_time"
-    )]
-    pub date_time: Option<chrono::DateTime<chrono::Utc>>,
 
-    /// Gets or sets the file reference.
-    #[serde(rename = "FileReference", skip_serializing_if = "Option::is_none")]
-    pub file_reference: Option<FileReference>,
+        /// Gets or sets the path to document to compare at the server.
+        #[serde(rename = "ComparingWithDocument", skip_serializing_if = "Option::is_none")]
+        pub comparing_with_document: Option<String>,
 
-    /// Gets or sets the result document format.
-    #[serde(
-        rename = "ResultDocumentFormat",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub result_document_format: Option<String>,
+
+        /// Gets or sets the date and time to use for revisions.
+        #[serde(rename = "DateTime", skip_serializing_if = "Option::is_none", default, deserialize_with = "deserialize_optional_date_time")]
+        pub date_time: Option<chrono::DateTime<chrono::Utc>>,
+
+
+        /// Gets or sets the file reference.
+        #[serde(rename = "FileReference", skip_serializing_if = "Option::is_none")]
+        pub file_reference: Option<FileReference>,
+
+
+        /// Gets or sets the result document format.
+        #[serde(rename = "ResultDocumentFormat", skip_serializing_if = "Option::is_none")]
+        pub result_document_format: Option<String>,
+
 }
 
 impl Default for CompareData {
@@ -94,11 +89,12 @@ impl Model for CompareData {
             ));
         }
         if let Some(value) = &self.compare_options {
-            value.validate()?;
+        value.validate()?;
         }
 
+
         if let Some(value) = &self.file_reference {
-            value.validate()?;
+        value.validate()?;
         }
 
         Ok(())
@@ -106,11 +102,13 @@ impl Model for CompareData {
 
     fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
         if let Some(value) = &self.file_reference {
-            value.collect_file_references(_output);
+        value.collect_file_references(_output);
         }
+
     }
 
     fn as_any(&self) -> &dyn Any {
         self
     }
 }
+

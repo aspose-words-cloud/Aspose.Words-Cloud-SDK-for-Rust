@@ -32,14 +32,17 @@ use super::*;
 /// Represents a single document style to insert.
 #[derive(Debug, Deserialize, Serialize)]
 pub struct StyleCopy {
-    /// Gets or sets the case sensitive name of the style to copy from it.
-    #[serde(rename = "StyleName", skip_serializing_if = "Option::is_none")]
-    pub style_name: Option<String>,
+        /// Gets or sets the case sensitive name of the style to copy from it.
+        #[serde(rename = "StyleName", skip_serializing_if = "Option::is_none")]
+        pub style_name: Option<String>,
+
 }
 
 impl Default for StyleCopy {
     fn default() -> Self {
-        Self { style_name: None }
+        Self {
+            style_name: None,
+        }
     }
 }
 
@@ -53,9 +56,11 @@ impl Model for StyleCopy {
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {}
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+    }
 
     fn as_any(&self) -> &dyn Any {
         self
     }
 }
+

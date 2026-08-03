@@ -32,13 +32,15 @@ use super::*;
 /// Utility class for Color serialization.
 #[derive(Debug, Deserialize, Serialize)]
 pub struct XmlColor {
-    /// Gets or sets the Alpha component of color structure.
-    #[serde(rename = "Alpha", skip_serializing_if = "Option::is_none")]
-    pub alpha: Option<i32>,
+        /// Gets or sets the Alpha component of color structure.
+        #[serde(rename = "Alpha", skip_serializing_if = "Option::is_none")]
+        pub alpha: Option<i32>,
 
-    /// Gets or sets the HTML string color representation.
-    #[serde(rename = "Web", skip_serializing_if = "Option::is_none")]
-    pub web: Option<String>,
+
+        /// Gets or sets the HTML string color representation.
+        #[serde(rename = "Web", skip_serializing_if = "Option::is_none")]
+        pub web: Option<String>,
+
 }
 
 impl Default for XmlColor {
@@ -55,9 +57,11 @@ impl Model for XmlColor {
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {}
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+    }
 
     fn as_any(&self) -> &dyn Any {
         self
     }
 }
+

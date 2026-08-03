@@ -32,30 +32,30 @@ use super::*;
 /// File or folder information.
 #[derive(Debug, Deserialize, Serialize)]
 pub struct StorageFile {
-    /// True if it is a folder.
-    #[serde(rename = "IsFolder", skip_serializing_if = "Option::is_none")]
-    pub is_folder: Option<bool>,
+        /// True if it is a folder.
+        #[serde(rename = "IsFolder", skip_serializing_if = "Option::is_none")]
+        pub is_folder: Option<bool>,
 
-    /// File or folder last modified DateTime.
-    #[serde(
-        rename = "ModifiedDate",
-        skip_serializing_if = "Option::is_none",
-        default,
-        deserialize_with = "deserialize_optional_date_time"
-    )]
-    pub modified_date: Option<chrono::DateTime<chrono::Utc>>,
 
-    /// File or folder name.
-    #[serde(rename = "Name", skip_serializing_if = "Option::is_none")]
-    pub name: Option<String>,
+        /// File or folder last modified DateTime.
+        #[serde(rename = "ModifiedDate", skip_serializing_if = "Option::is_none", default, deserialize_with = "deserialize_optional_date_time")]
+        pub modified_date: Option<chrono::DateTime<chrono::Utc>>,
 
-    /// File or folder path.
-    #[serde(rename = "Path", skip_serializing_if = "Option::is_none")]
-    pub path: Option<String>,
 
-    /// File or folder size.
-    #[serde(rename = "Size", skip_serializing_if = "Option::is_none")]
-    pub size: Option<i32>,
+        /// File or folder name.
+        #[serde(rename = "Name", skip_serializing_if = "Option::is_none")]
+        pub name: Option<String>,
+
+
+        /// File or folder path.
+        #[serde(rename = "Path", skip_serializing_if = "Option::is_none")]
+        pub path: Option<String>,
+
+
+        /// File or folder size.
+        #[serde(rename = "Size", skip_serializing_if = "Option::is_none")]
+        pub size: Option<i32>,
+
 }
 
 impl Default for StorageFile {
@@ -85,9 +85,11 @@ impl Model for StorageFile {
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {}
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+    }
 
     fn as_any(&self) -> &dyn Any {
         self
     }
 }
+

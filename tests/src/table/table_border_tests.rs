@@ -42,16 +42,12 @@ async fn table_border_get_borders() -> TestResult<()> {
     let local_file = "DocumentElements/Tables/TablesGet.docx".to_owned();
     let remote_file_name = "TestGetBorders.docx".to_owned();
 
-    context
-        .upload_file(
-            local_file.clone(),
-            remote_data_folder.clone() + "/" + &remote_file_name,
-        )
-        .await?;
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
-    let request = GetBordersRequest::new((remote_file_name.clone()).into())
-        .with_node_path(("tables/1/rows/0/cells/0".to_owned()).into())
-        .with_folder((remote_data_folder.clone()).into());
+    let request = GetBordersRequest::new(
+        (remote_file_name.clone()).into()
+    ).with_node_path(("tables/1/rows/0/cells/0".to_owned()).into())
+.with_folder((remote_data_folder.clone()).into());
 
     let result = context.api().get_borders(request).await?;
     let result_json = serialize_result(&result)?;
@@ -59,11 +55,7 @@ async fn table_border_get_borders() -> TestResult<()> {
     assert_not_null(&result_json, "Borders.List")?;
     assert_length(&result_json, "Borders.List", 6)?;
     assert_not_null(&result_json, "Borders.List[0].Color")?;
-    assert_string(
-        &result_json,
-        "Borders.List[0].Color.Web",
-        "#000000".to_owned(),
-    )?;
+    assert_string(&result_json, "Borders.List[0].Color.Web", "#000000".to_owned())?;
     Ok(())
 }
 
@@ -77,8 +69,9 @@ async fn table_border_get_borders_online() -> TestResult<()> {
 
     let request_document = context.load_binary_file(local_file.clone()).await?;
 
-    let request = GetBordersOnlineRequest::new((request_document).into())
-        .with_node_path(("tables/1/rows/0/cells/0".to_owned()).into());
+    let request = GetBordersOnlineRequest::new(
+        (request_document).into()
+    ).with_node_path(("tables/1/rows/0/cells/0".to_owned()).into());
 
     context.api().get_borders_online(request).await?;
     Ok(())
@@ -94,19 +87,13 @@ async fn table_border_get_border() -> TestResult<()> {
     let local_file = "DocumentElements/Tables/TablesGet.docx".to_owned();
     let remote_file_name = "TestGetBorder.docx".to_owned();
 
-    context
-        .upload_file(
-            local_file.clone(),
-            remote_data_folder.clone() + "/" + &remote_file_name,
-        )
-        .await?;
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
     let request = GetBorderRequest::new(
         (remote_file_name.clone()).into(),
-        ("left".to_owned()).into(),
-    )
-    .with_node_path(("tables/1/rows/0/cells/0".to_owned()).into())
-    .with_folder((remote_data_folder.clone()).into());
+        ("left".to_owned()).into()
+    ).with_node_path(("tables/1/rows/0/cells/0".to_owned()).into())
+.with_folder((remote_data_folder.clone()).into());
 
     let result = context.api().get_border(request).await?;
     let result_json = serialize_result(&result)?;
@@ -126,9 +113,10 @@ async fn table_border_get_border_online() -> TestResult<()> {
 
     let request_document = context.load_binary_file(local_file.clone()).await?;
 
-    let request =
-        GetBorderOnlineRequest::new((request_document).into(), ("left".to_owned()).into())
-            .with_node_path(("tables/1/rows/0/cells/0".to_owned()).into());
+    let request = GetBorderOnlineRequest::new(
+        (request_document).into(),
+        ("left".to_owned()).into()
+    ).with_node_path(("tables/1/rows/0/cells/0".to_owned()).into());
 
     context.api().get_border_online(request).await?;
     Ok(())
@@ -144,16 +132,12 @@ async fn table_border_delete_borders() -> TestResult<()> {
     let local_file = "DocumentElements/Tables/TablesGet.docx".to_owned();
     let remote_file_name = "TestDeleteBorders.docx".to_owned();
 
-    context
-        .upload_file(
-            local_file.clone(),
-            remote_data_folder.clone() + "/" + &remote_file_name,
-        )
-        .await?;
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
-    let request = DeleteBordersRequest::new((remote_file_name.clone()).into())
-        .with_node_path(("tables/1/rows/0/cells/0".to_owned()).into())
-        .with_folder((remote_data_folder.clone()).into());
+    let request = DeleteBordersRequest::new(
+        (remote_file_name.clone()).into()
+    ).with_node_path(("tables/1/rows/0/cells/0".to_owned()).into())
+.with_folder((remote_data_folder.clone()).into());
 
     context.api().delete_borders(request).await?;
     Ok(())
@@ -169,8 +153,9 @@ async fn table_border_delete_borders_online() -> TestResult<()> {
 
     let request_document = context.load_binary_file(local_file.clone()).await?;
 
-    let request = DeleteBordersOnlineRequest::new((request_document).into())
-        .with_node_path(("tables/1/rows/0/cells/0".to_owned()).into());
+    let request = DeleteBordersOnlineRequest::new(
+        (request_document).into()
+    ).with_node_path(("tables/1/rows/0/cells/0".to_owned()).into());
 
     context.api().delete_borders_online(request).await?;
     Ok(())
@@ -186,19 +171,13 @@ async fn table_border_delete_border() -> TestResult<()> {
     let local_file = "DocumentElements/Tables/TablesGet.docx".to_owned();
     let remote_file_name = "TestDeleteBorder.docx".to_owned();
 
-    context
-        .upload_file(
-            local_file.clone(),
-            remote_data_folder.clone() + "/" + &remote_file_name,
-        )
-        .await?;
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
     let request = DeleteBorderRequest::new(
         (remote_file_name.clone()).into(),
-        ("left".to_owned()).into(),
-    )
-    .with_node_path(("tables/1/rows/0/cells/0".to_owned()).into())
-    .with_folder((remote_data_folder.clone()).into());
+        ("left".to_owned()).into()
+    ).with_node_path(("tables/1/rows/0/cells/0".to_owned()).into())
+.with_folder((remote_data_folder.clone()).into());
 
     context.api().delete_border(request).await?;
     Ok(())
@@ -214,9 +193,10 @@ async fn table_border_delete_border_online() -> TestResult<()> {
 
     let request_document = context.load_binary_file(local_file.clone()).await?;
 
-    let request =
-        DeleteBorderOnlineRequest::new((request_document).into(), ("left".to_owned()).into())
-            .with_node_path(("tables/1/rows/0/cells/0".to_owned()).into());
+    let request = DeleteBorderOnlineRequest::new(
+        (request_document).into(),
+        ("left".to_owned()).into()
+    ).with_node_path(("tables/1/rows/0/cells/0".to_owned()).into());
 
     context.api().delete_border_online(request).await?;
     Ok(())
@@ -232,12 +212,7 @@ async fn table_border_update_border() -> TestResult<()> {
     let local_file = "DocumentElements/Tables/TablesGet.docx".to_owned();
     let remote_file_name = "TestUpdateBorder.docx".to_owned();
 
-    context
-        .upload_file(
-            local_file.clone(),
-            remote_data_folder.clone() + "/" + &remote_file_name,
-        )
-        .await?;
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
     let mut request_border_properties_color = XmlColor::default();
     request_border_properties_color.web = Some(("#AABBCC".to_owned()).into());
     let mut request_border_properties = Border::default();
@@ -251,10 +226,9 @@ async fn table_border_update_border() -> TestResult<()> {
     let request = UpdateBorderRequest::new(
         (remote_file_name.clone()).into(),
         ("left".to_owned()).into(),
-        (request_border_properties).into(),
-    )
-    .with_node_path(("tables/1/rows/0/cells/0".to_owned()).into())
-    .with_folder((remote_data_folder.clone()).into());
+        (request_border_properties).into()
+    ).with_node_path(("tables/1/rows/0/cells/0".to_owned()).into())
+.with_folder((remote_data_folder.clone()).into());
 
     let result = context.api().update_border(request).await?;
     let result_json = serialize_result(&result)?;
@@ -289,9 +263,8 @@ async fn table_border_update_border_online() -> TestResult<()> {
     let request = UpdateBorderOnlineRequest::new(
         (request_document).into(),
         (request_border_properties).into(),
-        ("left".to_owned()).into(),
-    )
-    .with_node_path(("tables/1/rows/0/cells/0".to_owned()).into());
+        ("left".to_owned()).into()
+    ).with_node_path(("tables/1/rows/0/cells/0".to_owned()).into());
 
     context.api().update_border_online(request).await?;
     Ok(())

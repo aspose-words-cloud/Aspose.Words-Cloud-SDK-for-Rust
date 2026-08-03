@@ -35,9 +35,11 @@ use super::*;
 pub struct EpubSaveOptionsData {
     #[serde(flatten)]
     pub parent: HtmlSaveOptionsData,
-    /// Gets or sets the maximum level of headings populated to the navigation map when exporting.
-    #[serde(rename = "NavigationMapLevel", skip_serializing_if = "Option::is_none")]
-    pub navigation_map_level: Option<i32>,
+        /// Gets or sets the maximum level of headings populated to the navigation map when exporting.
+        #[serde(rename = "NavigationMapLevel", skip_serializing_if = "Option::is_none")]
+        pub navigation_map_level: Option<i32>,
+
+
 }
 
 impl Default for EpubSaveOptionsData {
@@ -47,6 +49,7 @@ impl Default for EpubSaveOptionsData {
         Self {
             parent,
             navigation_map_level: None,
+
         }
     }
 }
@@ -79,3 +82,4 @@ impl Model for EpubSaveOptionsData {
         self
     }
 }
+

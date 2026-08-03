@@ -41,7 +41,9 @@ impl Default for DotmSaveOptionsData {
     fn default() -> Self {
         let mut parent = OoxmlSaveOptionsData::default();
         parent.save_format = Some("dotm".to_owned());
-        Self { parent }
+        Self {
+            parent,
+        }
     }
 }
 
@@ -73,3 +75,4 @@ impl Model for DotmSaveOptionsData {
         self
     }
 }
+

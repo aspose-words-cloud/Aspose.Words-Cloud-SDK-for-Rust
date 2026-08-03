@@ -41,7 +41,9 @@ impl Default for FlatOpcSaveOptionsData {
     fn default() -> Self {
         let mut parent = OoxmlSaveOptionsData::default();
         parent.save_format = Some("fopc".to_owned());
-        Self { parent }
+        Self {
+            parent,
+        }
     }
 }
 
@@ -73,3 +75,4 @@ impl Model for FlatOpcSaveOptionsData {
         self
     }
 }
+

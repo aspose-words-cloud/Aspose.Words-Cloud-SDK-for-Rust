@@ -41,7 +41,9 @@ impl Default for OpenXpsSaveOptionsData {
     fn default() -> Self {
         let mut parent = XpsSaveOptionsData::default();
         parent.save_format = Some("openxps".to_owned());
-        Self { parent }
+        Self {
+            parent,
+        }
     }
 }
 
@@ -73,3 +75,4 @@ impl Model for OpenXpsSaveOptionsData {
         self
     }
 }
+

@@ -33,38 +33,40 @@ use super::*;
 /// This response is returned by the Service when handling any "https://api.aspose.cloud/v4.0/words/Test.doc/signatures" REST API requests.
 #[derive(Debug, Deserialize, Serialize)]
 pub struct Signature {
-    /// Gets or sets the signing purpose comment.
-    #[serde(rename = "Comments", skip_serializing_if = "Option::is_none")]
-    pub comments: Option<String>,
+        /// Gets or sets the signing purpose comment.
+        #[serde(rename = "Comments", skip_serializing_if = "Option::is_none")]
+        pub comments: Option<String>,
 
-    /// Gets or sets the subject distinguished name of the certificate issuer.
-    #[serde(rename = "IssuerName", skip_serializing_if = "Option::is_none")]
-    pub issuer_name: Option<String>,
 
-    /// Gets or sets a value indicating whether this digital signature is valid.
-    #[serde(rename = "IsValid", skip_serializing_if = "Option::is_none")]
-    pub is_valid: Option<bool>,
+        /// Gets or sets the subject distinguished name of the certificate issuer.
+        #[serde(rename = "IssuerName", skip_serializing_if = "Option::is_none")]
+        pub issuer_name: Option<String>,
 
-    /// Gets or sets the type of the digital signature.
-    #[serde(rename = "SignatureType", skip_serializing_if = "Option::is_none")]
-    pub signature_type: Option<String>,
 
-    /// Gets or sets an array of bytes representing a signature value as base64 string.
-    #[serde(rename = "SignatureValue", skip_serializing_if = "Option::is_none")]
-    pub signature_value: Option<String>,
+        /// Gets or sets a value indicating whether this digital signature is valid.
+        #[serde(rename = "IsValid", skip_serializing_if = "Option::is_none")]
+        pub is_valid: Option<bool>,
 
-    /// Gets or sets the time the document was signed.
-    #[serde(
-        rename = "SignTime",
-        skip_serializing_if = "Option::is_none",
-        default,
-        deserialize_with = "deserialize_optional_date_time"
-    )]
-    pub sign_time: Option<chrono::DateTime<chrono::Utc>>,
 
-    /// Gets or sets the subject distinguished name of the certificate that was used to sign the document.
-    #[serde(rename = "SubjectName", skip_serializing_if = "Option::is_none")]
-    pub subject_name: Option<String>,
+        /// Gets or sets the type of the digital signature.
+        #[serde(rename = "SignatureType", skip_serializing_if = "Option::is_none")]
+        pub signature_type: Option<String>,
+
+
+        /// Gets or sets an array of bytes representing a signature value as base64 string.
+        #[serde(rename = "SignatureValue", skip_serializing_if = "Option::is_none")]
+        pub signature_value: Option<String>,
+
+
+        /// Gets or sets the time the document was signed.
+        #[serde(rename = "SignTime", skip_serializing_if = "Option::is_none", default, deserialize_with = "deserialize_optional_date_time")]
+        pub sign_time: Option<chrono::DateTime<chrono::Utc>>,
+
+
+        /// Gets or sets the subject distinguished name of the certificate that was used to sign the document.
+        #[serde(rename = "SubjectName", skip_serializing_if = "Option::is_none")]
+        pub subject_name: Option<String>,
+
 }
 
 impl Default for Signature {
@@ -96,9 +98,11 @@ impl Model for Signature {
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {}
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+    }
 
     fn as_any(&self) -> &dyn Any {
         self
     }
 }
+

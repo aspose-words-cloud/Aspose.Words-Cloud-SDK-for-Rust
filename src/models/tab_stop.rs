@@ -35,9 +35,10 @@ use super::*;
 pub struct TabStop {
     #[serde(flatten)]
     pub parent: TabStopBase,
-    /// Gets or sets a value indicating whether this tab stop clears any existing tab stops in this position.
-    #[serde(rename = "IsClear", skip_serializing_if = "Option::is_none")]
-    pub is_clear: Option<bool>,
+        /// Gets or sets a value indicating whether this tab stop clears any existing tab stops in this position.
+        #[serde(rename = "IsClear", skip_serializing_if = "Option::is_none")]
+        pub is_clear: Option<bool>,
+
 }
 
 impl Default for TabStop {
@@ -83,3 +84,4 @@ impl Model for TabStop {
         self
     }
 }
+

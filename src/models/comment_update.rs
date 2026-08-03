@@ -40,7 +40,9 @@ pub struct CommentUpdate {
 impl Default for CommentUpdate {
     fn default() -> Self {
         let mut parent = CommentBase::default();
-        Self { parent }
+        Self {
+            parent,
+        }
     }
 }
 
@@ -72,3 +74,4 @@ impl Model for CommentUpdate {
         self
     }
 }
+

@@ -35,78 +35,86 @@ use super::*;
 pub struct ImageSaveOptionsData {
     #[serde(flatten)]
     pub parent: FixedPageSaveOptionsData,
-    /// Gets or sets the horizontal resolution in dots per inch for the generated images.
-    /// This property has effect only when saving to raster image formats.
-    /// The default value is 96.
-    #[serde(
-        rename = "HorizontalResolution",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub horizontal_resolution: Option<f64>,
+        /// Gets or sets the horizontal resolution in dots per inch for the generated images.
+            /// This property has effect only when saving to raster image formats.
+            /// The default value is 96.
+        #[serde(rename = "HorizontalResolution", skip_serializing_if = "Option::is_none")]
+        pub horizontal_resolution: Option<f64>,
 
-    /// Gets or sets the brightness level of the image.
-    #[serde(rename = "ImageBrightness", skip_serializing_if = "Option::is_none")]
-    pub image_brightness: Option<f64>,
 
-    /// Gets or sets the color mode of the image.
-    #[serde(rename = "ImageColorMode", skip_serializing_if = "Option::is_none")]
-    pub image_color_mode: Option<ImageSaveOptionsDataImageColorModeEnum>,
+        /// Gets or sets the brightness level of the image.
+        #[serde(rename = "ImageBrightness", skip_serializing_if = "Option::is_none")]
+        pub image_brightness: Option<f64>,
 
-    /// Gets or sets the contrast level of the image.
-    #[serde(rename = "ImageContrast", skip_serializing_if = "Option::is_none")]
-    pub image_contrast: Option<f64>,
 
-    /// Gets or sets the background (paper) color of the image.
-    #[serde(rename = "PaperColor", skip_serializing_if = "Option::is_none")]
-    pub paper_color: Option<String>,
+        /// Gets or sets the color mode of the image.
+        #[serde(rename = "ImageColorMode", skip_serializing_if = "Option::is_none")]
+        pub image_color_mode: Option<ImageSaveOptionsDataImageColorModeEnum>,
 
-    /// Gets or sets the pixel format of the image.
-    #[serde(rename = "PixelFormat", skip_serializing_if = "Option::is_none")]
-    pub pixel_format: Option<ImageSaveOptionsDataPixelFormatEnum>,
 
-    /// Gets or sets both horizontal and vertical resolution in dots per inch for the generated images.
-    /// This property has effect only when saving to raster image formats.
-    /// The default value is 96.
-    #[serde(rename = "Resolution", skip_serializing_if = "Option::is_none")]
-    pub resolution: Option<f64>,
+        /// Gets or sets the contrast level of the image.
+        #[serde(rename = "ImageContrast", skip_serializing_if = "Option::is_none")]
+        pub image_contrast: Option<f64>,
 
-    /// Gets or sets the zoom factor of the image.
-    #[serde(rename = "Scale", skip_serializing_if = "Option::is_none")]
-    pub scale: Option<f64>,
 
-    /// Gets or sets a value indicating whether to use anti-aliasing for rendering.
-    #[serde(rename = "UseAntiAliasing", skip_serializing_if = "Option::is_none")]
-    pub use_anti_aliasing: Option<bool>,
+        /// Gets or sets the background (paper) color of the image.
+        #[serde(rename = "PaperColor", skip_serializing_if = "Option::is_none")]
+        pub paper_color: Option<String>,
 
-    /// Gets or sets a value indicating whether to use high quality (i.e. slow) rendering algorithms.
-    #[serde(
-        rename = "UseHighQualityRendering",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub use_high_quality_rendering: Option<bool>,
 
-    /// Gets or sets the vertical resolution in dots per inch for the generated images.
-    /// This property has effect only when saving to raster image formats.
-    /// The default value is 96.
-    #[serde(rename = "VerticalResolution", skip_serializing_if = "Option::is_none")]
-    pub vertical_resolution: Option<f64>,
+        /// Gets or sets the pixel format of the image.
+        #[serde(rename = "PixelFormat", skip_serializing_if = "Option::is_none")]
+        pub pixel_format: Option<ImageSaveOptionsDataPixelFormatEnum>,
 
-    /// Gets or sets the height of a generated image in pixels.
-    /// This property has effect only when saving to raster image formats
-    /// and used in pair with ImageWidth.
-    #[serde(rename = "ImageHeight", skip_serializing_if = "Option::is_none")]
-    pub image_height: Option<i32>,
 
-    /// Gets or sets the width of a generated image in pixels.
-    /// This property has effect only when saving to raster image formats
-    /// and used in pair with ImageHeight.
-    #[serde(rename = "ImageWidth", skip_serializing_if = "Option::is_none")]
-    pub image_width: Option<i32>,
+        /// Gets or sets both horizontal and vertical resolution in dots per inch for the generated images.
+            /// This property has effect only when saving to raster image formats.
+            /// The default value is 96.
+        #[serde(rename = "Resolution", skip_serializing_if = "Option::is_none")]
+        pub resolution: Option<f64>,
 
-    /// Gets or sets a value indicating whether to use GDI+ or Aspose.Words metafile renderer when saving to EMF.
-    /// If set to true - GDI+ metafile renderer is used. I.e. content is written to GDI+ graphics object and saved to metafile.If set to false - Aspose.Words metafile renderer is used. I.e. content is written directly to the metafile format with Aspose.Words.The default value is true.Has effect only when saving to EMF.
-    #[serde(rename = "UseGdiEmfRenderer", skip_serializing_if = "Option::is_none")]
-    pub use_gdi_emf_renderer: Option<bool>,
+
+        /// Gets or sets the zoom factor of the image.
+        #[serde(rename = "Scale", skip_serializing_if = "Option::is_none")]
+        pub scale: Option<f64>,
+
+
+        /// Gets or sets a value indicating whether to use anti-aliasing for rendering.
+        #[serde(rename = "UseAntiAliasing", skip_serializing_if = "Option::is_none")]
+        pub use_anti_aliasing: Option<bool>,
+
+
+        /// Gets or sets a value indicating whether to use high quality (i.e. slow) rendering algorithms.
+        #[serde(rename = "UseHighQualityRendering", skip_serializing_if = "Option::is_none")]
+        pub use_high_quality_rendering: Option<bool>,
+
+
+        /// Gets or sets the vertical resolution in dots per inch for the generated images.
+            /// This property has effect only when saving to raster image formats.
+            /// The default value is 96.
+        #[serde(rename = "VerticalResolution", skip_serializing_if = "Option::is_none")]
+        pub vertical_resolution: Option<f64>,
+
+
+        /// Gets or sets the height of a generated image in pixels.
+            /// This property has effect only when saving to raster image formats
+            /// and used in pair with ImageWidth.
+        #[serde(rename = "ImageHeight", skip_serializing_if = "Option::is_none")]
+        pub image_height: Option<i32>,
+
+
+        /// Gets or sets the width of a generated image in pixels.
+            /// This property has effect only when saving to raster image formats
+            /// and used in pair with ImageHeight.
+        #[serde(rename = "ImageWidth", skip_serializing_if = "Option::is_none")]
+        pub image_width: Option<i32>,
+
+
+        /// Gets or sets a value indicating whether to use GDI+ or Aspose.Words metafile renderer when saving to EMF.
+            /// If set to true - GDI+ metafile renderer is used. I.e. content is written to GDI+ graphics object and saved to metafile.If set to false - Aspose.Words metafile renderer is used. I.e. content is written directly to the metafile format with Aspose.Words.The default value is true.Has effect only when saving to EMF.
+        #[serde(rename = "UseGdiEmfRenderer", skip_serializing_if = "Option::is_none")]
+        pub use_gdi_emf_renderer: Option<bool>,
+
 }
 
 impl Default for ImageSaveOptionsData {
@@ -165,36 +173,36 @@ impl Model for ImageSaveOptionsData {
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
 pub enum ImageSaveOptionsDataImageColorModeEnum {
     #[serde(rename = "None")]
-    None,
+        None,
     #[serde(rename = "Grayscale")]
-    Grayscale,
+        Grayscale,
     #[serde(rename = "BlackAndWhite")]
-    BlackAndWhite,
+        BlackAndWhite,
 }
 
 /// Gets or sets the pixel format of the image.
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
 pub enum ImageSaveOptionsDataPixelFormatEnum {
     #[serde(rename = "Format16BppRgb555")]
-    Format16BppRgb555,
+        Format16BppRgb555,
     #[serde(rename = "Format16BppRgb565")]
-    Format16BppRgb565,
+        Format16BppRgb565,
     #[serde(rename = "Format16BppArgb1555")]
-    Format16BppArgb1555,
+        Format16BppArgb1555,
     #[serde(rename = "Format24BppRgb")]
-    Format24BppRgb,
+        Format24BppRgb,
     #[serde(rename = "Format32BppRgb")]
-    Format32BppRgb,
+        Format32BppRgb,
     #[serde(rename = "Format32BppArgb")]
-    Format32BppArgb,
+        Format32BppArgb,
     #[serde(rename = "Format32BppPArgb")]
-    Format32BppPArgb,
+        Format32BppPArgb,
     #[serde(rename = "Format48BppRgb")]
-    Format48BppRgb,
+        Format48BppRgb,
     #[serde(rename = "Format64BppArgb")]
-    Format64BppArgb,
+        Format64BppArgb,
     #[serde(rename = "Format64BppPArgb")]
-    Format64BppPArgb,
+        Format64BppPArgb,
     #[serde(rename = "Format1bppIndexed")]
-    Format1bppIndexed,
+        Format1bppIndexed,
 }

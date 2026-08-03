@@ -25,13 +25,13 @@ use std::collections::HashMap;
 use async_trait::async_trait;
 use chrono::{DateTime, Utc};
 
-use super::*;
 use crate::models::*;
+use crate::responses::*;
 use crate::request::{
     ApiRequestData, DynamicResponse, ProgressCallback, Request, ResponseData, TypedRequest,
 };
-use crate::responses::*;
 use crate::{ApiClient, SdkResult};
+use super::*;
 
 /// Request parameters for the CreateFolder operation.
 pub struct CreateFolderRequest {
@@ -72,6 +72,7 @@ impl CreateFolderRequest {
         let _response = response;
         Ok(())
     }
+
 }
 
 #[async_trait]
@@ -94,7 +95,7 @@ impl Request for CreateFolderRequest {
         let value = client.query_value(&self.path)?;
         path = path.replace("{path}", &value);
         if let Some(value) = &self.storage_name {
-            query.push(("storageName".to_owned(), client.query_value(value)?));
+        query.push(("storageName".to_owned(), client.query_value(value)?));
         }
 
         let url = client.build_url(&path, &query)?;

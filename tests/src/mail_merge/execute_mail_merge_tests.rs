@@ -42,16 +42,13 @@ async fn execute_mail_merge_execute_mail_merge_online() -> TestResult<()> {
     let local_document_file = "SampleExecuteTemplate.docx".to_owned();
     let local_data_file = "SampleExecuteTemplateData.txt".to_owned();
 
-    let request_template = context
-        .load_binary_file(mail_merge_folder.clone() + "/" + &local_document_file)
-        .await?;
-    let request_data = context
-        .load_binary_file(mail_merge_folder.clone() + "/" + &local_data_file)
-        .await?;
+    let request_template = context.load_binary_file(mail_merge_folder.clone() + "/" + &local_document_file).await?;
+    let request_data = context.load_binary_file(mail_merge_folder.clone() + "/" + &local_data_file).await?;
 
-    let request =
-        ExecuteMailMergeOnlineRequest::new((request_template).into(), (request_data).into())
-            .with_with_regions((true).into());
+    let request = ExecuteMailMergeOnlineRequest::new(
+        (request_template).into(),
+        (request_data).into()
+    ).with_with_regions((true).into());
 
     context.api().execute_mail_merge_online(request).await?;
     Ok(())
@@ -67,16 +64,13 @@ async fn execute_mail_merge_execute_mail_merge_online_job() -> TestResult<()> {
     let local_document_file = "SampleExecuteTemplate.docx".to_owned();
     let local_data_file = "SampleExecuteTemplateData.txt".to_owned();
 
-    let request_template = context
-        .load_binary_file(mail_merge_folder.clone() + "/" + &local_document_file)
-        .await?;
-    let request_data = context
-        .load_binary_file(mail_merge_folder.clone() + "/" + &local_data_file)
-        .await?;
+    let request_template = context.load_binary_file(mail_merge_folder.clone() + "/" + &local_document_file).await?;
+    let request_data = context.load_binary_file(mail_merge_folder.clone() + "/" + &local_data_file).await?;
 
-    let request =
-        ExecuteMailMergeOnlineJobRequest::new((request_template).into(), (request_data).into())
-            .with_with_regions((true).into());
+    let request = ExecuteMailMergeOnlineJobRequest::new(
+        (request_template).into(),
+        (request_data).into()
+    ).with_with_regions((true).into());
 
     let job_handler = context.api().execute_mail_merge_online_job(request).await?;
     job_handler.wait_result(Duration::from_secs(3)).await?;
@@ -93,30 +87,21 @@ async fn execute_mail_merge_execute_mail_merge() -> TestResult<()> {
     let mail_merge_folder = "DocumentActions/MailMerge".to_owned();
     let local_document_file = "SampleExecuteTemplate.docx".to_owned();
     let remote_file_name = "TestExecuteMailMerge.docx".to_owned();
-    let local_data_file =
-        read_text_file(mail_merge_folder.clone() + "/SampleMailMergeTemplateData.txt").await?;
+    let local_data_file = read_text_file(mail_merge_folder.clone() + "/SampleMailMergeTemplateData.txt").await?;
 
-    context
-        .upload_file(
-            mail_merge_folder.clone() + "/" + &local_document_file,
-            remote_data_folder.clone() + "/" + &remote_file_name,
-        )
-        .await?;
+    context.upload_file(mail_merge_folder.clone() + "/" + &local_document_file, remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
-    let request = ExecuteMailMergeRequest::new((remote_file_name.clone()).into())
-        .with_data((local_data_file.clone()).into())
-        .with_folder((remote_data_folder.clone()).into())
-        .with_with_regions((true).into())
-        .with_dest_file_name((base_test_out_path.clone() + "/" + &remote_file_name).into());
+    let request = ExecuteMailMergeRequest::new(
+        (remote_file_name.clone()).into()
+    ).with_data((local_data_file.clone()).into())
+.with_folder((remote_data_folder.clone()).into())
+.with_with_regions((true).into())
+.with_dest_file_name((base_test_out_path.clone() + "/" + &remote_file_name).into());
 
     let result = context.api().execute_mail_merge(request).await?;
     let result_json = serialize_result(&result)?;
     assert_not_null(&result_json, "Document")?;
-    assert_string(
-        &result_json,
-        "Document.FileName",
-        "TestExecuteMailMerge.docx".to_owned(),
-    )?;
+    assert_string(&result_json, "Document.FileName", "TestExecuteMailMerge.docx".to_owned())?;
     Ok(())
 }
 
@@ -130,30 +115,21 @@ async fn execute_mail_merge_execute_mail_merge_job() -> TestResult<()> {
     let mail_merge_folder = "DocumentActions/MailMerge".to_owned();
     let local_document_file = "SampleExecuteTemplate.docx".to_owned();
     let remote_file_name = "TestExecuteMailMerge.docx".to_owned();
-    let local_data_file =
-        read_text_file(mail_merge_folder.clone() + "/SampleMailMergeTemplateData.txt").await?;
+    let local_data_file = read_text_file(mail_merge_folder.clone() + "/SampleMailMergeTemplateData.txt").await?;
 
-    context
-        .upload_file(
-            mail_merge_folder.clone() + "/" + &local_document_file,
-            remote_data_folder.clone() + "/" + &remote_file_name,
-        )
-        .await?;
+    context.upload_file(mail_merge_folder.clone() + "/" + &local_document_file, remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
-    let request = ExecuteMailMergeJobRequest::new((remote_file_name.clone()).into())
-        .with_data((local_data_file.clone()).into())
-        .with_folder((remote_data_folder.clone()).into())
-        .with_with_regions((true).into())
-        .with_dest_file_name((base_test_out_path.clone() + "/" + &remote_file_name).into());
+    let request = ExecuteMailMergeJobRequest::new(
+        (remote_file_name.clone()).into()
+    ).with_data((local_data_file.clone()).into())
+.with_folder((remote_data_folder.clone()).into())
+.with_with_regions((true).into())
+.with_dest_file_name((base_test_out_path.clone() + "/" + &remote_file_name).into());
 
     let job_handler = context.api().execute_mail_merge_job(request).await?;
     let result = job_handler.wait_result(Duration::from_secs(3)).await?;
     let result_json = serialize_result(&result)?;
     assert_not_null(&result_json, "Document")?;
-    assert_string(
-        &result_json,
-        "Document.FileName",
-        "TestExecuteMailMerge.docx".to_owned(),
-    )?;
+    assert_string(&result_json, "Document.FileName", "TestExecuteMailMerge.docx".to_owned())?;
     Ok(())
 }

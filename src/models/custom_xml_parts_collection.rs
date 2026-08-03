@@ -35,9 +35,10 @@ use super::*;
 pub struct CustomXmlPartsCollection {
     #[serde(flatten)]
     pub parent: LinkElement,
-    /// Gets or sets the collection of CustomXmlPart.
-    #[serde(rename = "CustomXmlPartsList", skip_serializing_if = "Option::is_none")]
-    pub custom_xml_parts_list: Option<Vec<CustomXmlPart>>,
+        /// Gets or sets the collection of CustomXmlPart.
+        #[serde(rename = "CustomXmlPartsList", skip_serializing_if = "Option::is_none")]
+        pub custom_xml_parts_list: Option<Vec<CustomXmlPart>>,
+
 }
 
 impl Default for CustomXmlPartsCollection {
@@ -68,9 +69,9 @@ impl Model for CustomXmlPartsCollection {
     fn validate(&self) -> SdkResult<()> {
         self.parent.validate()?;
         if let Some(values) = &self.custom_xml_parts_list {
-            for value in values {
-                value.validate()?;
-            }
+        for value in values {
+        value.validate()?;
+        }
         }
         Ok(())
     }
@@ -83,3 +84,4 @@ impl Model for CustomXmlPartsCollection {
         self
     }
 }
+

@@ -36,9 +36,10 @@ use super::*;
 pub struct BookmarksResponse {
     #[serde(flatten)]
     pub parent: WordsResponse,
-    /// Gets or sets the collection of bookmarks.
-    #[serde(rename = "Bookmarks", skip_serializing_if = "Option::is_none")]
-    pub bookmarks: Option<Bookmarks>,
+        /// Gets or sets the collection of bookmarks.
+        #[serde(rename = "Bookmarks", skip_serializing_if = "Option::is_none")]
+        pub bookmarks: Option<Bookmarks>,
+
 }
 
 impl Default for BookmarksResponse {
@@ -69,7 +70,7 @@ impl Model for BookmarksResponse {
     fn validate(&self) -> SdkResult<()> {
         self.parent.validate()?;
         if let Some(value) = &self.bookmarks {
-            value.validate()?;
+        value.validate()?;
         }
         Ok(())
     }
@@ -82,3 +83,4 @@ impl Model for BookmarksResponse {
         self
     }
 }
+

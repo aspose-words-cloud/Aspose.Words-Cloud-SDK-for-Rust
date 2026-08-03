@@ -32,30 +32,35 @@ use super::*;
 /// RevisionCollection DTO.
 #[derive(Debug, Deserialize, Serialize)]
 pub struct RevisionCollection {
-    /// Gets or sets the revisions.
-    #[serde(rename = "Revisions", skip_serializing_if = "Option::is_none")]
-    pub revisions: Option<Vec<Revision>>,
+        /// Gets or sets the revisions.
+        #[serde(rename = "Revisions", skip_serializing_if = "Option::is_none")]
+        pub revisions: Option<Vec<Revision>>,
+
 }
 
 impl Default for RevisionCollection {
     fn default() -> Self {
-        Self { revisions: None }
+        Self {
+            revisions: None,
+        }
     }
 }
 
 impl Model for RevisionCollection {
     fn validate(&self) -> SdkResult<()> {
         if let Some(values) = &self.revisions {
-            for value in values {
-                value.validate()?;
-            }
+        for value in values {
+        value.validate()?;
+        }
         }
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {}
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+    }
 
     fn as_any(&self) -> &dyn Any {
         self
     }
 }
+

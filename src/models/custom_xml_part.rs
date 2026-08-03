@@ -35,15 +35,17 @@ use super::*;
 pub struct CustomXmlPart {
     #[serde(flatten)]
     pub parent: CustomXmlPartLink,
-    /// Gets or sets the custom xml part id.
-    /// Cannot be null.
-    #[serde(rename = "Id", skip_serializing_if = "Option::is_none")]
-    pub id: Option<String>,
+        /// Gets or sets the custom xml part id.
+            /// Cannot be null.
+        #[serde(rename = "Id", skip_serializing_if = "Option::is_none")]
+        pub id: Option<String>,
 
-    /// Gets or sets the custom xml part data.
-    /// Cannot be null.Default is an empty string.
-    #[serde(rename = "Data", skip_serializing_if = "Option::is_none")]
-    pub data: Option<String>,
+
+        /// Gets or sets the custom xml part data.
+            /// Cannot be null.Default is an empty string.
+        #[serde(rename = "Data", skip_serializing_if = "Option::is_none")]
+        pub data: Option<String>,
+
 }
 
 impl Default for CustomXmlPart {
@@ -90,3 +92,4 @@ impl Model for CustomXmlPart {
         self
     }
 }
+

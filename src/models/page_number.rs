@@ -32,28 +32,30 @@ use super::*;
 /// Class is used for insert page number request building.
 #[derive(Debug, Deserialize, Serialize)]
 pub struct PageNumber {
-    /// Gets or sets text alignment, possible values are left, right, center or justify.
-    #[serde(rename = "Alignment", skip_serializing_if = "Option::is_none")]
-    pub alignment: Option<String>,
+        /// Gets or sets text alignment, possible values are left, right, center or justify.
+        #[serde(rename = "Alignment", skip_serializing_if = "Option::is_none")]
+        pub alignment: Option<String>,
 
-    /// Gets or sets the page number format, e.g. "{PAGE} of {NUMPAGES}".
-    #[serde(rename = "Format", skip_serializing_if = "Option::is_none")]
-    pub format: Option<String>,
 
-    /// Gets or sets a value indicating whether if true the page number is added at the top of the page, else at the bottom.
-    #[serde(rename = "IsTop", skip_serializing_if = "Option::is_none")]
-    pub is_top: Option<bool>,
+        /// Gets or sets the page number format, e.g. "{PAGE} of {NUMPAGES}".
+        #[serde(rename = "Format", skip_serializing_if = "Option::is_none")]
+        pub format: Option<String>,
 
-    /// Gets or sets the starting page number of the document.
-    #[serde(rename = "PageStartingNumber", skip_serializing_if = "Option::is_none")]
-    pub page_starting_number: Option<i32>,
 
-    /// Gets or sets a value indicating whether if true the page number is added on first page too.
-    #[serde(
-        rename = "SetPageNumberOnFirstPage",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub set_page_number_on_first_page: Option<bool>,
+        /// Gets or sets a value indicating whether if true the page number is added at the top of the page, else at the bottom.
+        #[serde(rename = "IsTop", skip_serializing_if = "Option::is_none")]
+        pub is_top: Option<bool>,
+
+
+        /// Gets or sets the starting page number of the document.
+        #[serde(rename = "PageStartingNumber", skip_serializing_if = "Option::is_none")]
+        pub page_starting_number: Option<i32>,
+
+
+        /// Gets or sets a value indicating whether if true the page number is added on first page too.
+        #[serde(rename = "SetPageNumberOnFirstPage", skip_serializing_if = "Option::is_none")]
+        pub set_page_number_on_first_page: Option<bool>,
+
 }
 
 impl Default for PageNumber {
@@ -83,9 +85,11 @@ impl Model for PageNumber {
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {}
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+    }
 
     fn as_any(&self) -> &dyn Any {
         self
     }
 }
+

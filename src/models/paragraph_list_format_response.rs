@@ -36,9 +36,10 @@ use super::*;
 pub struct ParagraphListFormatResponse {
     #[serde(flatten)]
     pub parent: WordsResponse,
-    /// Gets or sets the list format for a paragraph.
-    #[serde(rename = "ListFormat", skip_serializing_if = "Option::is_none")]
-    pub list_format: Option<ListFormat>,
+        /// Gets or sets the list format for a paragraph.
+        #[serde(rename = "ListFormat", skip_serializing_if = "Option::is_none")]
+        pub list_format: Option<ListFormat>,
+
 }
 
 impl Default for ParagraphListFormatResponse {
@@ -69,7 +70,7 @@ impl Model for ParagraphListFormatResponse {
     fn validate(&self) -> SdkResult<()> {
         self.parent.validate()?;
         if let Some(value) = &self.list_format {
-            value.validate()?;
+        value.validate()?;
         }
         Ok(())
     }
@@ -82,3 +83,4 @@ impl Model for ParagraphListFormatResponse {
         self
     }
 }
+

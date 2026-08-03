@@ -36,15 +36,19 @@ use super::*;
 pub struct RunResponse {
     #[serde(flatten)]
     pub parent: WordsResponse,
-    /// Gets or sets the Run element.
-    #[serde(rename = "Run", skip_serializing_if = "Option::is_none")]
-    pub run: Option<Run>,
+        /// Gets or sets the Run element.
+        #[serde(rename = "Run", skip_serializing_if = "Option::is_none")]
+        pub run: Option<Run>,
+
 }
 
 impl Default for RunResponse {
     fn default() -> Self {
         let mut parent = WordsResponse::default();
-        Self { parent, run: None }
+        Self {
+            parent,
+            run: None,
+        }
     }
 }
 
@@ -66,7 +70,7 @@ impl Model for RunResponse {
     fn validate(&self) -> SdkResult<()> {
         self.parent.validate()?;
         if let Some(value) = &self.run {
-            value.validate()?;
+        value.validate()?;
         }
         Ok(())
     }
@@ -79,3 +83,4 @@ impl Model for RunResponse {
         self
     }
 }
+

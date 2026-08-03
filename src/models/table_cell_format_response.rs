@@ -36,9 +36,10 @@ use super::*;
 pub struct TableCellFormatResponse {
     #[serde(flatten)]
     pub parent: WordsResponse,
-    /// Gets or sets the formatting properties of a table cell.
-    #[serde(rename = "CellFormat", skip_serializing_if = "Option::is_none")]
-    pub cell_format: Option<TableCellFormat>,
+        /// Gets or sets the formatting properties of a table cell.
+        #[serde(rename = "CellFormat", skip_serializing_if = "Option::is_none")]
+        pub cell_format: Option<TableCellFormat>,
+
 }
 
 impl Default for TableCellFormatResponse {
@@ -69,7 +70,7 @@ impl Model for TableCellFormatResponse {
     fn validate(&self) -> SdkResult<()> {
         self.parent.validate()?;
         if let Some(value) = &self.cell_format {
-            value.validate()?;
+        value.validate()?;
         }
         Ok(())
     }
@@ -82,3 +83,4 @@ impl Model for TableCellFormatResponse {
         self
     }
 }
+

@@ -32,24 +32,25 @@ use super::*;
 /// Class to specify TimeZoneInfo parameters.
 #[derive(Debug, Deserialize, Serialize)]
 pub struct TimeZoneInfoData {
-    /// Gets or sets base utc offset in hh:mm:ss format.
-    #[serde(rename = "BaseUtcOffset", skip_serializing_if = "Option::is_none")]
-    pub base_utc_offset: Option<String>,
+        /// Gets or sets base utc offset in hh:mm:ss format.
+        #[serde(rename = "BaseUtcOffset", skip_serializing_if = "Option::is_none")]
+        pub base_utc_offset: Option<String>,
 
-    /// Gets or sets display name.
-    #[serde(rename = "DisplayName", skip_serializing_if = "Option::is_none")]
-    pub display_name: Option<String>,
 
-    /// Gets or sets an Id string for CustomTimeZoneInfo.
-    #[serde(rename = "Id", skip_serializing_if = "Option::is_none")]
-    pub id: Option<String>,
+        /// Gets or sets display name.
+        #[serde(rename = "DisplayName", skip_serializing_if = "Option::is_none")]
+        pub display_name: Option<String>,
 
-    /// Gets or sets standard display name.
-    #[serde(
-        rename = "StandardDisplayName",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub standard_display_name: Option<String>,
+
+        /// Gets or sets an Id string for CustomTimeZoneInfo.
+        #[serde(rename = "Id", skip_serializing_if = "Option::is_none")]
+        pub id: Option<String>,
+
+
+        /// Gets or sets standard display name.
+        #[serde(rename = "StandardDisplayName", skip_serializing_if = "Option::is_none")]
+        pub standard_display_name: Option<String>,
+
 }
 
 impl Default for TimeZoneInfoData {
@@ -68,9 +69,11 @@ impl Model for TimeZoneInfoData {
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {}
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+    }
 
     fn as_any(&self) -> &dyn Any {
         self
     }
 }
+

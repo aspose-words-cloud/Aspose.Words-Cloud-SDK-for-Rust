@@ -32,13 +32,15 @@ use super::*;
 /// Field.
 #[derive(Debug, Deserialize, Serialize)]
 pub struct FieldBase {
-    /// Gets or sets the LCID of the field.
-    #[serde(rename = "LocaleId", skip_serializing_if = "Option::is_none")]
-    pub locale_id: Option<String>,
+        /// Gets or sets the LCID of the field.
+        #[serde(rename = "LocaleId", skip_serializing_if = "Option::is_none")]
+        pub locale_id: Option<String>,
 
-    /// Gets or sets the field code.
-    #[serde(rename = "FieldCode", skip_serializing_if = "Option::is_none")]
-    pub field_code: Option<String>,
+
+        /// Gets or sets the field code.
+        #[serde(rename = "FieldCode", skip_serializing_if = "Option::is_none")]
+        pub field_code: Option<String>,
+
 }
 
 impl Default for FieldBase {
@@ -60,9 +62,11 @@ impl Model for FieldBase {
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {}
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+    }
 
     fn as_any(&self) -> &dyn Any {
         self
     }
 }
+

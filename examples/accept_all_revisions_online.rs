@@ -62,14 +62,18 @@ async fn main() -> SdkResult<()> {
     let file_name = "test_doc.docx".to_owned();
 
     // Calls AcceptAllRevisionsOnline method for document in cloud.
-    let request_document = tokio::fs::read(examples_data.join(file_name.clone())).await?;
-    let request = AcceptAllRevisionsOnlineRequest::new((request_document).into());
+    let request_document = tokio::fs::read(
+    examples_data.join(file_name.clone()),
+    ).await?;
+    let request = AcceptAllRevisionsOnlineRequest::new(
+        (request_document).into()
+    );
     let result = words_api.accept_all_revisions_online(request).await?;
     let files = result.r#document.ok_or_else(|| {
-        SdkError::InvalidResponse("the example response does not contain a document".to_owned())
+    SdkError::InvalidResponse("the example response does not contain a document".to_owned())
     })?;
     let content = files.into_values().next().ok_or_else(|| {
-        SdkError::InvalidResponse("the example response contains an empty document".to_owned())
+    SdkError::InvalidResponse("the example response contains an empty document".to_owned())
     })?;
     tokio::fs::write(examples_data.join("test_result.docx"), content).await?;
     Ok(())

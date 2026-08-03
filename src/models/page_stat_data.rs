@@ -32,21 +32,25 @@ use super::*;
 /// Container for the page's statistical data.
 #[derive(Debug, Deserialize, Serialize)]
 pub struct PageStatData {
-    /// Gets or sets the detailed statistics on the footnotes.
-    #[serde(rename = "FootnotesStatData", skip_serializing_if = "Option::is_none")]
-    pub footnotes_stat_data: Option<FootnotesStatData>,
+        /// Gets or sets the detailed statistics on the footnotes.
+        #[serde(rename = "FootnotesStatData", skip_serializing_if = "Option::is_none")]
+        pub footnotes_stat_data: Option<FootnotesStatData>,
 
-    /// Gets or sets the total count of paragraphs in the page.
-    #[serde(rename = "ParagraphCount", skip_serializing_if = "Option::is_none")]
-    pub paragraph_count: Option<i32>,
 
-    /// Gets or sets the total count of words in the page.
-    #[serde(rename = "WordCount", skip_serializing_if = "Option::is_none")]
-    pub word_count: Option<i32>,
+        /// Gets or sets the total count of paragraphs in the page.
+        #[serde(rename = "ParagraphCount", skip_serializing_if = "Option::is_none")]
+        pub paragraph_count: Option<i32>,
 
-    /// Gets or sets the page number.
-    #[serde(rename = "PageNumber", skip_serializing_if = "Option::is_none")]
-    pub page_number: Option<i32>,
+
+        /// Gets or sets the total count of words in the page.
+        #[serde(rename = "WordCount", skip_serializing_if = "Option::is_none")]
+        pub word_count: Option<i32>,
+
+
+        /// Gets or sets the page number.
+        #[serde(rename = "PageNumber", skip_serializing_if = "Option::is_none")]
+        pub page_number: Option<i32>,
+
 }
 
 impl Default for PageStatData {
@@ -78,15 +82,19 @@ impl Model for PageStatData {
             ));
         }
         if let Some(value) = &self.footnotes_stat_data {
-            value.validate()?;
+        value.validate()?;
         }
+
+
 
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {}
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+    }
 
     fn as_any(&self) -> &dyn Any {
         self
     }
 }
+

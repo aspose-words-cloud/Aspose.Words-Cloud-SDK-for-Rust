@@ -39,7 +39,9 @@ async fn info_get_info() -> TestResult<()> {
     let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
     let base_test_out_path = context.base_test_out_path().to_owned();
 
-    let request = GetInfoRequest::new();
+
+    let request = GetInfoRequest::new(
+    );
 
     context.api().get_info(request).await?;
     Ok(())

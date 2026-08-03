@@ -41,7 +41,9 @@ impl Default for DotSaveOptionsData {
     fn default() -> Self {
         let mut parent = DocSaveOptionsData::default();
         parent.save_format = Some("dot".to_owned());
-        Self { parent }
+        Self {
+            parent,
+        }
     }
 }
 
@@ -73,3 +75,4 @@ impl Model for DotSaveOptionsData {
         self
     }
 }
+

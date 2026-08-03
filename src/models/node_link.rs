@@ -35,9 +35,10 @@ use super::*;
 pub struct NodeLink {
     #[serde(flatten)]
     pub parent: LinkElement,
-    /// Gets or sets the node id.
-    #[serde(rename = "NodeId", skip_serializing_if = "Option::is_none")]
-    pub node_id: Option<String>,
+        /// Gets or sets the node id.
+        #[serde(rename = "NodeId", skip_serializing_if = "Option::is_none")]
+        pub node_id: Option<String>,
+
 }
 
 impl Default for NodeLink {
@@ -78,3 +79,4 @@ impl Model for NodeLink {
         self
     }
 }
+

@@ -32,27 +32,28 @@ use super::*;
 /// Represents a single document style properties to update.
 #[derive(Debug, Deserialize, Serialize)]
 pub struct StyleUpdate {
-    /// Gets or sets the name of the style to be applied automatically to a new paragraph inserted after a paragraph formatted with the specified style.
-    /// This property is not used by Aspose.Words. The next paragraph style will only be applied automatically when you edit the document in MS Word.
-    #[serde(
-        rename = "NextParagraphStyleName",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub next_paragraph_style_name: Option<String>,
+        /// Gets or sets the name of the style to be applied automatically to a new paragraph inserted after a paragraph formatted with the specified style.
+            /// This property is not used by Aspose.Words. The next paragraph style will only be applied automatically when you edit the document in MS Word.
+        #[serde(rename = "NextParagraphStyleName", skip_serializing_if = "Option::is_none")]
+        pub next_paragraph_style_name: Option<String>,
 
-    /// Gets or sets the name of the style this style is based on.
-    /// This will be an empty string if the style is not based on any other style and it can be set to an empty string.
-    #[serde(rename = "BaseStyleName", skip_serializing_if = "Option::is_none")]
-    pub base_style_name: Option<String>,
 
-    /// Gets or sets a value indicating whether this style is shown in the Quick Style gallery inside MS Word UI.
-    #[serde(rename = "IsQuickStyle", skip_serializing_if = "Option::is_none")]
-    pub is_quick_style: Option<bool>,
+        /// Gets or sets the name of the style this style is based on.
+            /// This will be an empty string if the style is not based on any other style and it can be set to an empty string.
+        #[serde(rename = "BaseStyleName", skip_serializing_if = "Option::is_none")]
+        pub base_style_name: Option<String>,
 
-    /// Gets or sets the name of the style.
-    /// Cannot be an empty string. If there already is a style with such name in the collection, than this style will override it. All affected nodes will reference new style.
-    #[serde(rename = "Name", skip_serializing_if = "Option::is_none")]
-    pub name: Option<String>,
+
+        /// Gets or sets a value indicating whether this style is shown in the Quick Style gallery inside MS Word UI.
+        #[serde(rename = "IsQuickStyle", skip_serializing_if = "Option::is_none")]
+        pub is_quick_style: Option<bool>,
+
+
+        /// Gets or sets the name of the style.
+            /// Cannot be an empty string. If there already is a style with such name in the collection, than this style will override it. All affected nodes will reference new style.
+        #[serde(rename = "Name", skip_serializing_if = "Option::is_none")]
+        pub name: Option<String>,
+
 }
 
 impl Default for StyleUpdate {
@@ -71,9 +72,11 @@ impl Model for StyleUpdate {
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {}
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+    }
 
     fn as_any(&self) -> &dyn Any {
         self
     }
 }
+

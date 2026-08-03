@@ -32,13 +32,15 @@ use super::*;
 /// Class for insert watermark text request building.
 #[derive(Debug, Deserialize, Serialize)]
 pub struct WatermarkText {
-    /// Gets or sets the watermark rotation angle.
-    #[serde(rename = "RotationAngle", skip_serializing_if = "Option::is_none")]
-    pub rotation_angle: Option<f64>,
+        /// Gets or sets the watermark rotation angle.
+        #[serde(rename = "RotationAngle", skip_serializing_if = "Option::is_none")]
+        pub rotation_angle: Option<f64>,
 
-    /// Gets or sets the watermark text.
-    #[serde(rename = "Text", skip_serializing_if = "Option::is_none")]
-    pub text: Option<String>,
+
+        /// Gets or sets the watermark text.
+        #[serde(rename = "Text", skip_serializing_if = "Option::is_none")]
+        pub text: Option<String>,
+
 }
 
 impl Default for WatermarkText {
@@ -65,9 +67,11 @@ impl Model for WatermarkText {
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {}
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+    }
 
     fn as_any(&self) -> &dyn Any {
         self
     }
 }
+

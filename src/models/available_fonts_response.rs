@@ -35,17 +35,20 @@ use super::*;
 pub struct AvailableFontsResponse {
     #[serde(flatten)]
     pub parent: WordsResponse,
-    /// Gets or sets the list of additional fonts, provided by Aspose team.
-    #[serde(rename = "AdditionalFonts", skip_serializing_if = "Option::is_none")]
-    pub additional_fonts: Option<Vec<FontInfo>>,
+        /// Gets or sets the list of additional fonts, provided by Aspose team.
+        #[serde(rename = "AdditionalFonts", skip_serializing_if = "Option::is_none")]
+        pub additional_fonts: Option<Vec<FontInfo>>,
 
-    /// Gets or sets the list of custom user fonts from user cloud storage. To use them, you should specify "fontsLocation" parameter in any request.
-    #[serde(rename = "CustomFonts", skip_serializing_if = "Option::is_none")]
-    pub custom_fonts: Option<Vec<FontInfo>>,
 
-    /// Gets or sets the list of system fonts, available on the server.
-    #[serde(rename = "SystemFonts", skip_serializing_if = "Option::is_none")]
-    pub system_fonts: Option<Vec<FontInfo>>,
+        /// Gets or sets the list of custom user fonts from user cloud storage. To use them, you should specify "fontsLocation" parameter in any request.
+        #[serde(rename = "CustomFonts", skip_serializing_if = "Option::is_none")]
+        pub custom_fonts: Option<Vec<FontInfo>>,
+
+
+        /// Gets or sets the list of system fonts, available on the server.
+        #[serde(rename = "SystemFonts", skip_serializing_if = "Option::is_none")]
+        pub system_fonts: Option<Vec<FontInfo>>,
+
 }
 
 impl Default for AvailableFontsResponse {
@@ -78,19 +81,19 @@ impl Model for AvailableFontsResponse {
     fn validate(&self) -> SdkResult<()> {
         self.parent.validate()?;
         if let Some(values) = &self.additional_fonts {
-            for value in values {
-                value.validate()?;
-            }
+        for value in values {
+        value.validate()?;
+        }
         }
         if let Some(values) = &self.custom_fonts {
-            for value in values {
-                value.validate()?;
-            }
+        for value in values {
+        value.validate()?;
+        }
         }
         if let Some(values) = &self.system_fonts {
-            for value in values {
-                value.validate()?;
-            }
+        for value in values {
+        value.validate()?;
+        }
         }
         Ok(())
     }
@@ -103,3 +106,4 @@ impl Model for AvailableFontsResponse {
         self
     }
 }
+

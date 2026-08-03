@@ -35,9 +35,10 @@ use super::*;
 pub struct WordsApiErrorResponse {
     #[serde(flatten)]
     pub parent: WordsResponse,
-    /// Gets or sets the API error.
-    #[serde(rename = "Error", skip_serializing_if = "Option::is_none")]
-    pub error: Option<Box<ApiError>>,
+        /// Gets or sets the API error.
+        #[serde(rename = "Error", skip_serializing_if = "Option::is_none")]
+        pub error: Option<Box<ApiError>>,
+
 }
 
 impl Default for WordsApiErrorResponse {
@@ -68,7 +69,7 @@ impl Model for WordsApiErrorResponse {
     fn validate(&self) -> SdkResult<()> {
         self.parent.validate()?;
         if let Some(value) = &self.error {
-            value.validate()?;
+        value.validate()?;
         }
         Ok(())
     }
@@ -81,3 +82,4 @@ impl Model for WordsApiErrorResponse {
         self
     }
 }
+

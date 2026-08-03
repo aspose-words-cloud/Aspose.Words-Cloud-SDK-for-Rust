@@ -41,7 +41,9 @@ impl Default for PositionAfterNode {
     fn default() -> Self {
         let mut parent = Position::default();
         parent.r#type = Some("After".to_owned());
-        Self { parent }
+        Self {
+            parent,
+        }
     }
 }
 
@@ -73,3 +75,4 @@ impl Model for PositionAfterNode {
         self
     }
 }
+

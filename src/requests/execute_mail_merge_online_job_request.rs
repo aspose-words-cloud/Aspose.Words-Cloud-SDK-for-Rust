@@ -25,13 +25,13 @@ use std::collections::HashMap;
 use async_trait::async_trait;
 use chrono::{DateTime, Utc};
 
-use super::*;
 use crate::models::*;
+use crate::responses::*;
 use crate::request::{
     ApiRequestData, DynamicResponse, ProgressCallback, Request, ResponseData, TypedRequest,
 };
-use crate::responses::*;
 use crate::{ApiClient, SdkResult};
+use super::*;
 
 /// Request parameters for the ExecuteMailMergeOnlineJob operation.
 pub struct ExecuteMailMergeOnlineJobRequest {
@@ -140,23 +140,21 @@ impl Request for ExecuteMailMergeOnlineJobRequest {
         let mut body_parts = Vec::new();
 
         if let Some(value) = &self.with_regions {
-            query.push(("withRegions".to_owned(), client.query_value(value)?));
+        query.push(("withRegions".to_owned(), client.query_value(value)?));
         }
         if let Some(value) = &self.merge_whole_document {
-            query.push(("mergeWholeDocument".to_owned(), client.query_value(value)?));
+        query.push(("mergeWholeDocument".to_owned(), client.query_value(value)?));
         }
         if let Some(value) = &self.cleanup {
-            query.push(("cleanup".to_owned(), client.query_value(value)?));
+        query.push(("cleanup".to_owned(), client.query_value(value)?));
         }
         if let Some(value) = &self.document_file_name {
-            query.push(("documentFileName".to_owned(), client.query_value(value)?));
+        query.push(("documentFileName".to_owned(), client.query_value(value)?));
         }
         client.add_binary_part(&mut body_parts, "Template", &self.template);
         client.add_binary_part(&mut body_parts, "Data", &self.data);
         if let Some(value) = &self.options {
-            client
-                .add_model_part(&mut body_parts, "Options", value)
-                .await?;
+        client.add_model_part(&mut body_parts, "Options", value).await?;
         }
 
         let url = client.build_url(&path, &query)?;

@@ -62,14 +62,22 @@ async fn main() -> SdkResult<()> {
     let file_name = "test_doc.docx".to_owned();
 
     // Upload original document to cloud storage.
-    let my_var1 = tokio::fs::read(examples_data.join(file_name.clone())).await?;
+    let my_var1 = tokio::fs::read(
+    examples_data.join(file_name.clone()),
+    ).await?;
     let my_var2 = file_name.clone();
-    let upload_file_request = UploadFileRequest::new((my_var1).into(), (my_var2).into());
+    let upload_file_request = UploadFileRequest::new(
+        (my_var1).into(),
+        (my_var2).into()
+    );
     let _result = words_api.upload_file(upload_file_request).await?;
+
 
     // Calls AcceptAllRevisions method for document in cloud.
     let my_var3 = file_name.clone();
-    let request = AcceptAllRevisionsRequest::new((my_var3).into());
+    let request = AcceptAllRevisionsRequest::new(
+        (my_var3).into()
+    );
     let _result = words_api.accept_all_revisions(request).await?;
 
     Ok(())

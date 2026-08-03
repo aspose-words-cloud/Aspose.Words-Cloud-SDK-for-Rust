@@ -35,24 +35,26 @@ use super::*;
 pub struct RtfSaveOptionsData {
     #[serde(flatten)]
     pub parent: SaveOptionsData,
-    /// Gets or sets a value indicating whether to make output RTF documents smaller in size, but if they contain RTL (right-to-left) text, it will not be displayed correctly.
-    #[serde(rename = "ExportCompactSize", skip_serializing_if = "Option::is_none")]
-    pub export_compact_size: Option<bool>,
+        /// Gets or sets a value indicating whether to make output RTF documents smaller in size, but if they contain RTL (right-to-left) text, it will not be displayed correctly.
+        #[serde(rename = "ExportCompactSize", skip_serializing_if = "Option::is_none")]
+        pub export_compact_size: Option<bool>,
 
-    /// Gets or sets a value indicating whether the keywords for "old readers" are written to RTF or not.
-    #[serde(
-        rename = "ExportImagesForOldReaders",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub export_images_for_old_readers: Option<bool>,
 
-    /// Gets or sets a value indicating whether to use pretty formats output.
-    #[serde(rename = "PrettyFormat", skip_serializing_if = "Option::is_none")]
-    pub pretty_format: Option<bool>,
+        /// Gets or sets a value indicating whether the keywords for "old readers" are written to RTF or not.
+        #[serde(rename = "ExportImagesForOldReaders", skip_serializing_if = "Option::is_none")]
+        pub export_images_for_old_readers: Option<bool>,
 
-    /// Gets or sets a value indicating whether when true all images will be saved as WMF. This option might help to avoid WordPad warning messages.
-    #[serde(rename = "SaveImagesAsWmf", skip_serializing_if = "Option::is_none")]
-    pub save_images_as_wmf: Option<bool>,
+
+        /// Gets or sets a value indicating whether to use pretty formats output.
+        #[serde(rename = "PrettyFormat", skip_serializing_if = "Option::is_none")]
+        pub pretty_format: Option<bool>,
+
+
+        /// Gets or sets a value indicating whether when true all images will be saved as WMF. This option might help to avoid WordPad warning messages.
+        #[serde(rename = "SaveImagesAsWmf", skip_serializing_if = "Option::is_none")]
+        pub save_images_as_wmf: Option<bool>,
+
+
 }
 
 impl Default for RtfSaveOptionsData {
@@ -65,6 +67,7 @@ impl Default for RtfSaveOptionsData {
             export_images_for_old_readers: None,
             pretty_format: None,
             save_images_as_wmf: None,
+
         }
     }
 }
@@ -97,3 +100,4 @@ impl Model for RtfSaveOptionsData {
         self
     }
 }
+

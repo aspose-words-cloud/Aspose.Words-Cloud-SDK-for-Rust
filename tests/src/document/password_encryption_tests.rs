@@ -39,7 +39,9 @@ async fn password_encryption_get_public_key() -> TestResult<()> {
     let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
     let base_test_out_path = context.base_test_out_path().to_owned();
 
-    let request = GetPublicKeyRequest::new();
+
+    let request = GetPublicKeyRequest::new(
+    );
 
     let result = context.api().get_public_key(request).await?;
     let result_json = serialize_result(&result)?;

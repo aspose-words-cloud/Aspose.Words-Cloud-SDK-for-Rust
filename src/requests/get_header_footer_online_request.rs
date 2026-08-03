@@ -25,13 +25,13 @@ use std::collections::HashMap;
 use async_trait::async_trait;
 use chrono::{DateTime, Utc};
 
-use super::*;
 use crate::models::*;
+use crate::responses::*;
 use crate::request::{
     ApiRequestData, DynamicResponse, ProgressCallback, Request, ResponseData, TypedRequest,
 };
-use crate::responses::*;
 use crate::{ApiClient, SdkResult};
+use super::*;
 
 /// Request parameters for the GetHeaderFooterOnline operation.
 pub struct GetHeaderFooterOnlineRequest {
@@ -104,10 +104,9 @@ impl GetHeaderFooterOnlineRequest {
     }
 
     async fn parse_response_data(response: ResponseData) -> SdkResult<HeaderFooterResponse> {
-        Ok(serde_json::from_slice::<HeaderFooterResponse>(
-            &response.body,
-        )?)
+        Ok(serde_json::from_slice::<HeaderFooterResponse>(&response.body)?)
     }
+
 }
 
 #[async_trait]
@@ -130,22 +129,19 @@ impl Request for GetHeaderFooterOnlineRequest {
         let value = client.query_value(&self.header_footer_index)?;
         path = path.replace("{headerFooterIndex}", &value);
         if let Some(value) = &self.load_encoding {
-            query.push(("loadEncoding".to_owned(), client.query_value(value)?));
+        query.push(("loadEncoding".to_owned(), client.query_value(value)?));
         }
         if let Some(value) = &self.password {
-            query.push((
-                "encryptedPassword".to_owned(),
-                client.encrypt_password(value).await?,
-            ));
+        query.push(("encryptedPassword".to_owned(), client.encrypt_password(value).await?));
         }
         if let Some(value) = &self.encrypted_password {
-            query.push(("encryptedPassword".to_owned(), client.query_value(value)?));
+        query.push(("encryptedPassword".to_owned(), client.query_value(value)?));
         }
         if let Some(value) = &self.open_type_support {
-            query.push(("openTypeSupport".to_owned(), client.query_value(value)?));
+        query.push(("openTypeSupport".to_owned(), client.query_value(value)?));
         }
         if let Some(value) = &self.filter_by_type {
-            query.push(("filterByType".to_owned(), client.query_value(value)?));
+        query.push(("filterByType".to_owned(), client.query_value(value)?));
         }
         client.add_binary_part(&mut body_parts, "Document", &self.document);
 

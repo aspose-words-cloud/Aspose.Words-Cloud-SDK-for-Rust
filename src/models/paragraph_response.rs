@@ -36,9 +36,10 @@ use super::*;
 pub struct ParagraphResponse {
     #[serde(flatten)]
     pub parent: WordsResponse,
-    /// Gets or sets the paragraph.
-    #[serde(rename = "Paragraph", skip_serializing_if = "Option::is_none")]
-    pub paragraph: Option<Paragraph>,
+        /// Gets or sets the paragraph.
+        #[serde(rename = "Paragraph", skip_serializing_if = "Option::is_none")]
+        pub paragraph: Option<Paragraph>,
+
 }
 
 impl Default for ParagraphResponse {
@@ -69,7 +70,7 @@ impl Model for ParagraphResponse {
     fn validate(&self) -> SdkResult<()> {
         self.parent.validate()?;
         if let Some(value) = &self.paragraph {
-            value.validate()?;
+        value.validate()?;
         }
         Ok(())
     }
@@ -82,3 +83,4 @@ impl Model for ParagraphResponse {
         self
     }
 }
+

@@ -35,13 +35,12 @@ use super::*;
 pub struct MarkdownSaveOptionsData {
     #[serde(flatten)]
     pub parent: TxtSaveOptionsBaseData,
-    /// Gets or sets the value, that specifies how to align contents in tables when exporting into the Markdown format.
-    /// The default value is Auto.
-    #[serde(
-        rename = "TableContentAlignment",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub table_content_alignment: Option<MarkdownSaveOptionsDataTableContentAlignmentEnum>,
+        /// Gets or sets the value, that specifies how to align contents in tables when exporting into the Markdown format.
+            /// The default value is Auto.
+        #[serde(rename = "TableContentAlignment", skip_serializing_if = "Option::is_none")]
+        pub table_content_alignment: Option<MarkdownSaveOptionsDataTableContentAlignmentEnum>,
+
+
 }
 
 impl Default for MarkdownSaveOptionsData {
@@ -51,6 +50,7 @@ impl Default for MarkdownSaveOptionsData {
         Self {
             parent,
             table_content_alignment: None,
+
         }
     }
 }
@@ -89,11 +89,11 @@ impl Model for MarkdownSaveOptionsData {
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
 pub enum MarkdownSaveOptionsDataTableContentAlignmentEnum {
     #[serde(rename = "Auto")]
-    Auto,
+        Auto,
     #[serde(rename = "Left")]
-    Left,
+        Left,
     #[serde(rename = "Center")]
-    Center,
+        Center,
     #[serde(rename = "Right")]
-    Right,
+        Right,
 }

@@ -32,17 +32,20 @@ use super::*;
 /// Base class for paragraph format tab stop DTO.
 #[derive(Debug, Deserialize, Serialize)]
 pub struct TabStopBase {
-    /// Gets or sets the alignment of text at this tab stop.
-    #[serde(rename = "Alignment", skip_serializing_if = "Option::is_none")]
-    pub alignment: Option<TabStopBaseAlignmentEnum>,
+        /// Gets or sets the alignment of text at this tab stop.
+        #[serde(rename = "Alignment", skip_serializing_if = "Option::is_none")]
+        pub alignment: Option<TabStopBaseAlignmentEnum>,
 
-    /// Gets or sets the type of the leader line displayed under the tab character.
-    #[serde(rename = "Leader", skip_serializing_if = "Option::is_none")]
-    pub leader: Option<TabStopBaseLeaderEnum>,
 
-    /// Gets or sets the position of the tab stop in points.
-    #[serde(rename = "Position", skip_serializing_if = "Option::is_none")]
-    pub position: Option<f64>,
+        /// Gets or sets the type of the leader line displayed under the tab character.
+        #[serde(rename = "Leader", skip_serializing_if = "Option::is_none")]
+        pub leader: Option<TabStopBaseLeaderEnum>,
+
+
+        /// Gets or sets the position of the tab stop in points.
+        #[serde(rename = "Position", skip_serializing_if = "Option::is_none")]
+        pub position: Option<f64>,
+
 }
 
 impl Default for TabStopBase {
@@ -75,7 +78,8 @@ impl Model for TabStopBase {
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {}
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+    }
 
     fn as_any(&self) -> &dyn Any {
         self
@@ -86,34 +90,34 @@ impl Model for TabStopBase {
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
 pub enum TabStopBaseAlignmentEnum {
     #[serde(rename = "Left")]
-    Left,
+        Left,
     #[serde(rename = "Center")]
-    Center,
+        Center,
     #[serde(rename = "Right")]
-    Right,
+        Right,
     #[serde(rename = "Decimal")]
-    Decimal,
+        Decimal,
     #[serde(rename = "Bar")]
-    Bar,
+        Bar,
     #[serde(rename = "List")]
-    List,
+        List,
     #[serde(rename = "Clear")]
-    Clear,
+        Clear,
 }
 
 /// Gets or sets the type of the leader line displayed under the tab character.
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
 pub enum TabStopBaseLeaderEnum {
     #[serde(rename = "None")]
-    None,
+        None,
     #[serde(rename = "Dots")]
-    Dots,
+        Dots,
     #[serde(rename = "Dashes")]
-    Dashes,
+        Dashes,
     #[serde(rename = "Line")]
-    Line,
+        Line,
     #[serde(rename = "Heavy")]
-    Heavy,
+        Heavy,
     #[serde(rename = "MiddleDot")]
-    MiddleDot,
+        MiddleDot,
 }

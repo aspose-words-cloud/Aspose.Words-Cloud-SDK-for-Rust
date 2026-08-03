@@ -36,9 +36,10 @@ use super::*;
 pub struct TableLinkCollectionResponse {
     #[serde(flatten)]
     pub parent: WordsResponse,
-    /// Gets or sets the collection of tables.
-    #[serde(rename = "Tables", skip_serializing_if = "Option::is_none")]
-    pub tables: Option<TableLinkCollection>,
+        /// Gets or sets the collection of tables.
+        #[serde(rename = "Tables", skip_serializing_if = "Option::is_none")]
+        pub tables: Option<TableLinkCollection>,
+
 }
 
 impl Default for TableLinkCollectionResponse {
@@ -69,7 +70,7 @@ impl Model for TableLinkCollectionResponse {
     fn validate(&self) -> SdkResult<()> {
         self.parent.validate()?;
         if let Some(value) = &self.tables {
-            value.validate()?;
+        value.validate()?;
         }
         Ok(())
     }
@@ -82,3 +83,4 @@ impl Model for TableLinkCollectionResponse {
         self
     }
 }
+

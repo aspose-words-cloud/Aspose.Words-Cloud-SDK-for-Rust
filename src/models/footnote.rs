@@ -35,28 +35,33 @@ use super::*;
 pub struct Footnote {
     #[serde(flatten)]
     pub parent: FootnoteLink,
-    /// Gets or sets the link to comment range start node.
-    #[serde(rename = "Position", skip_serializing_if = "Option::is_none")]
-    pub position: Option<DocumentPosition>,
+        /// Gets or sets the link to comment range start node.
+        #[serde(rename = "Position", skip_serializing_if = "Option::is_none")]
+        pub position: Option<DocumentPosition>,
 
-    /// Gets or sets the value, that specifies whether this is a footnote or endnote.
-    #[serde(rename = "FootnoteType", skip_serializing_if = "Option::is_none")]
-    pub footnote_type: Option<FootnoteFootnoteTypeEnum>,
 
-    /// Gets or sets the custom reference mark to be used for this footnote.
-    /// The default value is Empty, meaning auto-numbered footnotes are used.
-    /// RTF-format can only store 1 symbol as custom reference mark, so upon export only the first symbol will be written others will be discard.
-    #[serde(rename = "ReferenceMark", skip_serializing_if = "Option::is_none")]
-    pub reference_mark: Option<String>,
+        /// Gets or sets the value, that specifies whether this is a footnote or endnote.
+        #[serde(rename = "FootnoteType", skip_serializing_if = "Option::is_none")]
+        pub footnote_type: Option<FootnoteFootnoteTypeEnum>,
 
-    /// Gets or sets text of the footnote.
-    /// This method allows to quickly set text of a footnote from a string. The string can contain paragraph breaks, this will create paragraphs of text in the footnote accordingly.
-    #[serde(rename = "Text", skip_serializing_if = "Option::is_none")]
-    pub text: Option<String>,
 
-    /// Gets or sets the content of the footnote.
-    #[serde(rename = "Content", skip_serializing_if = "Option::is_none")]
-    pub content: Option<StoryChildNodes>,
+        /// Gets or sets the custom reference mark to be used for this footnote.
+            /// The default value is Empty, meaning auto-numbered footnotes are used.
+            /// RTF-format can only store 1 symbol as custom reference mark, so upon export only the first symbol will be written others will be discard.
+        #[serde(rename = "ReferenceMark", skip_serializing_if = "Option::is_none")]
+        pub reference_mark: Option<String>,
+
+
+        /// Gets or sets text of the footnote.
+            /// This method allows to quickly set text of a footnote from a string. The string can contain paragraph breaks, this will create paragraphs of text in the footnote accordingly.
+        #[serde(rename = "Text", skip_serializing_if = "Option::is_none")]
+        pub text: Option<String>,
+
+
+        /// Gets or sets the content of the footnote.
+        #[serde(rename = "Content", skip_serializing_if = "Option::is_none")]
+        pub content: Option<StoryChildNodes>,
+
 }
 
 impl Default for Footnote {
@@ -91,11 +96,13 @@ impl Model for Footnote {
     fn validate(&self) -> SdkResult<()> {
         self.parent.validate()?;
         if let Some(value) = &self.position {
-            value.validate()?;
+        value.validate()?;
         }
 
+
+
         if let Some(value) = &self.content {
-            value.validate()?;
+        value.validate()?;
         }
         Ok(())
     }
@@ -113,7 +120,7 @@ impl Model for Footnote {
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
 pub enum FootnoteFootnoteTypeEnum {
     #[serde(rename = "Footnote")]
-    Footnote,
+        Footnote,
     #[serde(rename = "Endnote")]
-    Endnote,
+        Endnote,
 }

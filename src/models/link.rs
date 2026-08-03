@@ -33,21 +33,25 @@ use super::*;
 /// This is supposed to be an atom:link, therefore it should have all attributes specified here http://tools.ietf.org/html/rfc4287#section-4.2.7.
 #[derive(Debug, Deserialize, Serialize)]
 pub struct Link {
-    /// Gets or sets the "href" attribute with the link's IRI. atom:link elements MUST have an href attribute, whose value MUST be a IRI reference.
-    #[serde(rename = "Href", skip_serializing_if = "Option::is_none")]
-    pub href: Option<String>,
+        /// Gets or sets the "href" attribute with the link's IRI. atom:link elements MUST have an href attribute, whose value MUST be a IRI reference.
+        #[serde(rename = "Href", skip_serializing_if = "Option::is_none")]
+        pub href: Option<String>,
 
-    /// Gets or sets the option that controls whether atom:link elements MAY have a "rel" attribute that indicates the link relation type.  If the "rel" attribute is not present, the link element MUST be interpreted as if the link relation type is "alternate".
-    #[serde(rename = "Rel", skip_serializing_if = "Option::is_none")]
-    pub rel: Option<String>,
 
-    /// Gets or sets the "title" attribute, that conveys human-readable information about the link. The content of the "title" attribute is Language-Sensitive.
-    #[serde(rename = "Title", skip_serializing_if = "Option::is_none")]
-    pub title: Option<String>,
+        /// Gets or sets the option that controls whether atom:link elements MAY have a "rel" attribute that indicates the link relation type.  If the "rel" attribute is not present, the link element MUST be interpreted as if the link relation type is "alternate".
+        #[serde(rename = "Rel", skip_serializing_if = "Option::is_none")]
+        pub rel: Option<String>,
 
-    /// Gets or sets the "type" attribute. The "type" attribute's value is an advisory media type: it is a hint about the type of the representation that is expected to be returned when the value of the href attribute is dereferenced. Note that the type attribute does not override the actual media type returned with the representation.
-    #[serde(rename = "Type", skip_serializing_if = "Option::is_none")]
-    pub r#type: Option<String>,
+
+        /// Gets or sets the "title" attribute, that conveys human-readable information about the link. The content of the "title" attribute is Language-Sensitive.
+        #[serde(rename = "Title", skip_serializing_if = "Option::is_none")]
+        pub title: Option<String>,
+
+
+        /// Gets or sets the "type" attribute. The "type" attribute's value is an advisory media type: it is a hint about the type of the representation that is expected to be returned when the value of the href attribute is dereferenced. Note that the type attribute does not override the actual media type returned with the representation.
+        #[serde(rename = "Type", skip_serializing_if = "Option::is_none")]
+        pub r#type: Option<String>,
+
 }
 
 impl Default for Link {
@@ -66,9 +70,11 @@ impl Model for Link {
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {}
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+    }
 
     fn as_any(&self) -> &dyn Any {
         self
     }
 }
+

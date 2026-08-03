@@ -42,15 +42,12 @@ async fn page_setup_get_section_page_setup() -> TestResult<()> {
     let local_file = "Common/test_multi_pages.docx".to_owned();
     let remote_file_name = "TestGetSectionPageSetup.docx".to_owned();
 
-    context
-        .upload_file(
-            local_file.clone(),
-            remote_data_folder.clone() + "/" + &remote_file_name,
-        )
-        .await?;
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
-    let request = GetSectionPageSetupRequest::new((remote_file_name.clone()).into(), (0).into())
-        .with_folder((remote_data_folder.clone()).into());
+    let request = GetSectionPageSetupRequest::new(
+        (remote_file_name.clone()).into(),
+        (0).into()
+    ).with_folder((remote_data_folder.clone()).into());
 
     let result = context.api().get_section_page_setup(request).await?;
     let result_json = serialize_result(&result)?;
@@ -69,7 +66,10 @@ async fn page_setup_get_section_page_setup_online() -> TestResult<()> {
 
     let request_document = context.load_binary_file(local_file.clone()).await?;
 
-    let request = GetSectionPageSetupOnlineRequest::new((request_document).into(), (0).into());
+    let request = GetSectionPageSetupOnlineRequest::new(
+        (request_document).into(),
+        (0).into()
+    );
 
     context.api().get_section_page_setup_online(request).await?;
     Ok(())
@@ -85,12 +85,7 @@ async fn page_setup_update_section_page_setup() -> TestResult<()> {
     let local_file = "Common/test_multi_pages.docx".to_owned();
     let remote_file_name = "TestUpdateSectionPageSetup.docx".to_owned();
 
-    context
-        .upload_file(
-            local_file.clone(),
-            remote_data_folder.clone() + "/" + &remote_file_name,
-        )
-        .await?;
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
     let mut request_page_setup = PageSetup::default();
     request_page_setup.rtl_gutter = Some((true).into());
     request_page_setup.left_margin = Some(((10.0) as f64).into());
@@ -100,14 +95,14 @@ async fn page_setup_update_section_page_setup() -> TestResult<()> {
     let request = UpdateSectionPageSetupRequest::new(
         (remote_file_name.clone()).into(),
         (0).into(),
-        (request_page_setup).into(),
-    )
-    .with_folder((remote_data_folder.clone()).into());
+        (request_page_setup).into()
+    ).with_folder((remote_data_folder.clone()).into());
 
     let result = context.api().update_section_page_setup(request).await?;
     let result_json = serialize_result(&result)?;
     assert_not_null(&result_json, "PageSetup")?;
     assert_bool(&result_json, "PageSetup.RtlGutter", true)?;
+
 
     Ok(())
 }
@@ -130,13 +125,10 @@ async fn page_setup_update_section_page_setup_online() -> TestResult<()> {
     let request = UpdateSectionPageSetupOnlineRequest::new(
         (request_document).into(),
         (0).into(),
-        (request_page_setup).into(),
+        (request_page_setup).into()
     );
 
-    context
-        .api()
-        .update_section_page_setup_online(request)
-        .await?;
+    context.api().update_section_page_setup_online(request).await?;
     Ok(())
 }
 
@@ -150,19 +142,13 @@ async fn page_setup_get_render_page() -> TestResult<()> {
     let local_text_file = "DocumentElements/Text/SampleWordDocument.docx".to_owned();
     let remote_file_name = "TestGetRenderPage.docx".to_owned();
 
-    context
-        .upload_file(
-            local_text_file.clone(),
-            remote_data_folder.clone() + "/" + &remote_file_name,
-        )
-        .await?;
+    context.upload_file(local_text_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
     let request = RenderPageRequest::new(
         (remote_file_name.clone()).into(),
         (1).into(),
-        ("jpg".to_owned()).into(),
-    )
-    .with_folder((remote_data_folder.clone()).into());
+        ("jpg".to_owned()).into()
+    ).with_folder((remote_data_folder.clone()).into());
 
     context.api().render_page(request).await?;
     Ok(())
@@ -181,7 +167,7 @@ async fn page_setup_get_render_page_online() -> TestResult<()> {
     let request = RenderPageOnlineRequest::new(
         (request_document).into(),
         (1).into(),
-        ("jpg".to_owned()).into(),
+        ("jpg".to_owned()).into()
     );
 
     context.api().render_page_online(request).await?;

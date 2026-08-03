@@ -35,14 +35,16 @@ use super::*;
 pub struct ProtectionRequestV2 {
     #[serde(flatten)]
     pub parent: ProtectionRequestBase,
-    /// Gets or sets the new password for the document protection.
-    /// This property is required, but empty value is allowed.
-    #[serde(rename = "ProtectionPassword", skip_serializing_if = "Option::is_none")]
-    pub protection_password: Option<String>,
+        /// Gets or sets the new password for the document protection.
+            /// This property is required, but empty value is allowed.
+        #[serde(rename = "ProtectionPassword", skip_serializing_if = "Option::is_none")]
+        pub protection_password: Option<String>,
 
-    /// Gets or sets the new type of the document protection.
-    #[serde(rename = "ProtectionType", skip_serializing_if = "Option::is_none")]
-    pub protection_type: Option<ProtectionRequestV2ProtectionTypeEnum>,
+
+        /// Gets or sets the new type of the document protection.
+        #[serde(rename = "ProtectionType", skip_serializing_if = "Option::is_none")]
+        pub protection_type: Option<ProtectionRequestV2ProtectionTypeEnum>,
+
 }
 
 impl Default for ProtectionRequestV2 {
@@ -99,13 +101,13 @@ impl Model for ProtectionRequestV2 {
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
 pub enum ProtectionRequestV2ProtectionTypeEnum {
     #[serde(rename = "AllowOnlyRevisions")]
-    AllowOnlyRevisions,
+        AllowOnlyRevisions,
     #[serde(rename = "AllowOnlyComments")]
-    AllowOnlyComments,
+        AllowOnlyComments,
     #[serde(rename = "AllowOnlyFormFields")]
-    AllowOnlyFormFields,
+        AllowOnlyFormFields,
     #[serde(rename = "ReadOnly")]
-    ReadOnly,
+        ReadOnly,
     #[serde(rename = "NoProtection")]
-    NoProtection,
+        NoProtection,
 }

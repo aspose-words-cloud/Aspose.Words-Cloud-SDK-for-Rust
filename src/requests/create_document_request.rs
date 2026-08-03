@@ -25,13 +25,13 @@ use std::collections::HashMap;
 use async_trait::async_trait;
 use chrono::{DateTime, Utc};
 
-use super::*;
 use crate::models::*;
+use crate::responses::*;
 use crate::request::{
     ApiRequestData, DynamicResponse, ProgressCallback, Request, ResponseData, TypedRequest,
 };
-use crate::responses::*;
 use crate::{ApiClient, SdkResult};
+use super::*;
 
 /// Request parameters for the CreateDocument operation.
 pub struct CreateDocumentRequest {
@@ -79,6 +79,7 @@ impl CreateDocumentRequest {
     async fn parse_response_data(response: ResponseData) -> SdkResult<DocumentResponse> {
         Ok(serde_json::from_slice::<DocumentResponse>(&response.body)?)
     }
+
 }
 
 #[async_trait]
@@ -100,10 +101,10 @@ impl Request for CreateDocumentRequest {
 
         query.push(("fileName".to_owned(), client.query_value(&self.file_name)?));
         if let Some(value) = &self.folder {
-            query.push(("folder".to_owned(), client.query_value(value)?));
+        query.push(("folder".to_owned(), client.query_value(value)?));
         }
         if let Some(value) = &self.storage {
-            query.push(("storage".to_owned(), client.query_value(value)?));
+        query.push(("storage".to_owned(), client.query_value(value)?));
         }
 
         let url = client.build_url(&path, &query)?;

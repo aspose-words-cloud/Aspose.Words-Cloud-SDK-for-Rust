@@ -32,23 +32,23 @@ use super::*;
 /// Container class for Downsample options.
 #[derive(Debug, Deserialize, Serialize)]
 pub struct DownsampleOptionsData {
-    /// Gets or sets a value indicating whether images should be downsampled.
-    /// The default value is true.
-    #[serde(rename = "DownsampleImages", skip_serializing_if = "Option::is_none")]
-    pub downsample_images: Option<bool>,
+        /// Gets or sets a value indicating whether images should be downsampled.
+            /// The default value is true.
+        #[serde(rename = "DownsampleImages", skip_serializing_if = "Option::is_none")]
+        pub downsample_images: Option<bool>,
 
-    /// Gets or sets the resolution in pixels per inch which the images should be downsampled to.
-    /// The default value is 220 ppi.
-    #[serde(rename = "Resolution", skip_serializing_if = "Option::is_none")]
-    pub resolution: Option<i32>,
 
-    /// Gets or sets the threshold resolution in pixels per inch. If resolution of an image in the document is less than threshold value, the downsampling algorithm will not be applied. A value of 0 means the threshold check is not used and all images that can be reduced in size are downsampled.
-    /// The default value is 0.
-    #[serde(
-        rename = "ResolutionThreshold",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub resolution_threshold: Option<i32>,
+        /// Gets or sets the resolution in pixels per inch which the images should be downsampled to.
+            /// The default value is 220 ppi.
+        #[serde(rename = "Resolution", skip_serializing_if = "Option::is_none")]
+        pub resolution: Option<i32>,
+
+
+        /// Gets or sets the threshold resolution in pixels per inch. If resolution of an image in the document is less than threshold value, the downsampling algorithm will not be applied. A value of 0 means the threshold check is not used and all images that can be reduced in size are downsampled.
+            /// The default value is 0.
+        #[serde(rename = "ResolutionThreshold", skip_serializing_if = "Option::is_none")]
+        pub resolution_threshold: Option<i32>,
+
 }
 
 impl Default for DownsampleOptionsData {
@@ -66,9 +66,11 @@ impl Model for DownsampleOptionsData {
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {}
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+    }
 
     fn as_any(&self) -> &dyn Any {
         self
     }
 }
+

@@ -36,14 +36,10 @@ use super::*;
 pub struct FormFieldResponse {
     #[serde(flatten)]
     pub parent: WordsResponse,
-    /// Gets or sets the form field.
-    #[serde(
-        rename = "FormField",
-        skip_serializing_if = "Option::is_none",
-        default,
-        deserialize_with = "deserialize_optional_model"
-    )]
-    pub form_field: Option<ModelBox>,
+        /// Gets or sets the form field.
+        #[serde(rename = "FormField", skip_serializing_if = "Option::is_none", default, deserialize_with = "deserialize_optional_model")]
+        pub form_field: Option<ModelBox>,
+
 }
 
 impl Default for FormFieldResponse {
@@ -74,7 +70,7 @@ impl Model for FormFieldResponse {
     fn validate(&self) -> SdkResult<()> {
         self.parent.validate()?;
         if let Some(value) = &self.form_field {
-            value.validate()?;
+        value.validate()?;
         }
         Ok(())
     }
@@ -87,3 +83,4 @@ impl Model for FormFieldResponse {
         self
     }
 }
+

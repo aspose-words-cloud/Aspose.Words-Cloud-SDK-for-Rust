@@ -32,16 +32,15 @@ use super::*;
 /// Container class for individual bookmarks outline level.
 #[derive(Debug, Deserialize, Serialize)]
 pub struct BookmarksOutlineLevelData {
-    /// Gets or sets the bookmark's level.
-    #[serde(
-        rename = "BookmarksOutlineLevel",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub bookmarks_outline_level: Option<i32>,
+        /// Gets or sets the bookmark's level.
+        #[serde(rename = "BookmarksOutlineLevel", skip_serializing_if = "Option::is_none")]
+        pub bookmarks_outline_level: Option<i32>,
 
-    /// Gets or sets the bookmark's name.
-    #[serde(rename = "Name", skip_serializing_if = "Option::is_none")]
-    pub name: Option<String>,
+
+        /// Gets or sets the bookmark's name.
+        #[serde(rename = "Name", skip_serializing_if = "Option::is_none")]
+        pub name: Option<String>,
+
 }
 
 impl Default for BookmarksOutlineLevelData {
@@ -57,16 +56,17 @@ impl Model for BookmarksOutlineLevelData {
     fn validate(&self) -> SdkResult<()> {
         if self.bookmarks_outline_level.is_none() {
             return Err(SdkError::InvalidRequest(
-                "property BookmarksOutlineLevel in BookmarksOutlineLevelData is required"
-                    .to_owned(),
+                "property BookmarksOutlineLevel in BookmarksOutlineLevelData is required".to_owned(),
             ));
         }
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {}
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+    }
 
     fn as_any(&self) -> &dyn Any {
         self
     }
 }
+

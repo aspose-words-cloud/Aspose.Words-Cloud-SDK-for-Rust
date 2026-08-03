@@ -31,11 +31,13 @@ use super::*;
 
 /// Represents a list of entries which will be appended to the original resource entry.
 #[derive(Debug, Deserialize, Serialize)]
-pub struct BaseEntryList {}
+pub struct BaseEntryList {
+}
 
 impl Default for BaseEntryList {
     fn default() -> Self {
-        Self {}
+        Self {
+        }
     }
 }
 
@@ -44,9 +46,11 @@ impl Model for BaseEntryList {
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {}
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+    }
 
     fn as_any(&self) -> &dyn Any {
         self
     }
 }
+

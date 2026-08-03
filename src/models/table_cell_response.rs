@@ -36,15 +36,19 @@ use super::*;
 pub struct TableCellResponse {
     #[serde(flatten)]
     pub parent: WordsResponse,
-    /// Gets or sets the table cell.
-    #[serde(rename = "Cell", skip_serializing_if = "Option::is_none")]
-    pub cell: Option<TableCell>,
+        /// Gets or sets the table cell.
+        #[serde(rename = "Cell", skip_serializing_if = "Option::is_none")]
+        pub cell: Option<TableCell>,
+
 }
 
 impl Default for TableCellResponse {
     fn default() -> Self {
         let mut parent = WordsResponse::default();
-        Self { parent, cell: None }
+        Self {
+            parent,
+            cell: None,
+        }
     }
 }
 
@@ -66,7 +70,7 @@ impl Model for TableCellResponse {
     fn validate(&self) -> SdkResult<()> {
         self.parent.validate()?;
         if let Some(value) = &self.cell {
-            value.validate()?;
+        value.validate()?;
         }
         Ok(())
     }
@@ -79,3 +83,4 @@ impl Model for TableCellResponse {
         self
     }
 }
+

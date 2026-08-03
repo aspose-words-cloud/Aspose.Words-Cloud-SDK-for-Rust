@@ -35,13 +35,15 @@ use super::*;
 pub struct StructuredDocumentTag {
     #[serde(flatten)]
     pub parent: StructuredDocumentTagBase,
-    /// Gets or sets the level at which this SDT occurs in the document tree.
-    #[serde(rename = "Level", skip_serializing_if = "Option::is_none")]
-    pub level: Option<StructuredDocumentTagLevelEnum>,
+        /// Gets or sets the level at which this SDT occurs in the document tree.
+        #[serde(rename = "Level", skip_serializing_if = "Option::is_none")]
+        pub level: Option<StructuredDocumentTagLevelEnum>,
 
-    /// Gets or sets type of this Structured document tag.
-    #[serde(rename = "SdtType", skip_serializing_if = "Option::is_none")]
-    pub sdt_type: Option<StructuredDocumentTagSdtTypeEnum>,
+
+        /// Gets or sets type of this Structured document tag.
+        #[serde(rename = "SdtType", skip_serializing_if = "Option::is_none")]
+        pub sdt_type: Option<StructuredDocumentTagSdtTypeEnum>,
+
 }
 
 impl Default for StructuredDocumentTag {
@@ -88,52 +90,52 @@ impl Model for StructuredDocumentTag {
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
 pub enum StructuredDocumentTagLevelEnum {
     #[serde(rename = "Unknown")]
-    Unknown,
+        Unknown,
     #[serde(rename = "Inline")]
-    Inline,
+        Inline,
     #[serde(rename = "Block")]
-    Block,
+        Block,
     #[serde(rename = "Row")]
-    Row,
+        Row,
     #[serde(rename = "Cell")]
-    Cell,
+        Cell,
 }
 
 /// Gets or sets type of this Structured document tag.
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
 pub enum StructuredDocumentTagSdtTypeEnum {
     #[serde(rename = "None")]
-    None,
+        None,
     #[serde(rename = "Bibliography")]
-    Bibliography,
+        Bibliography,
     #[serde(rename = "Citation")]
-    Citation,
+        Citation,
     #[serde(rename = "Equation")]
-    Equation,
+        Equation,
     #[serde(rename = "DropDownList")]
-    DropDownList,
+        DropDownList,
     #[serde(rename = "ComboBox")]
-    ComboBox,
+        ComboBox,
     #[serde(rename = "Date")]
-    Date,
+        Date,
     #[serde(rename = "BuildingBlockGallery")]
-    BuildingBlockGallery,
+        BuildingBlockGallery,
     #[serde(rename = "DocPartObj")]
-    DocPartObj,
+        DocPartObj,
     #[serde(rename = "Group")]
-    Group,
+        Group,
     #[serde(rename = "Picture")]
-    Picture,
+        Picture,
     #[serde(rename = "RichText")]
-    RichText,
+        RichText,
     #[serde(rename = "PlainText")]
-    PlainText,
+        PlainText,
     #[serde(rename = "Checkbox")]
-    Checkbox,
+        Checkbox,
     #[serde(rename = "RepeatingSection")]
-    RepeatingSection,
+        RepeatingSection,
     #[serde(rename = "RepeatingSectionItem")]
-    RepeatingSectionItem,
+        RepeatingSectionItem,
     #[serde(rename = "EntityPicker")]
-    EntityPicker,
+        EntityPicker,
 }

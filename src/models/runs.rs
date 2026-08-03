@@ -35,15 +35,19 @@ use super::*;
 pub struct Runs {
     #[serde(flatten)]
     pub parent: LinkElement,
-    /// Gets or sets the collection of runs.
-    #[serde(rename = "List", skip_serializing_if = "Option::is_none")]
-    pub list: Option<Vec<Run>>,
+        /// Gets or sets the collection of runs.
+        #[serde(rename = "List", skip_serializing_if = "Option::is_none")]
+        pub list: Option<Vec<Run>>,
+
 }
 
 impl Default for Runs {
     fn default() -> Self {
         let mut parent = LinkElement::default();
-        Self { parent, list: None }
+        Self {
+            parent,
+            list: None,
+        }
     }
 }
 
@@ -65,9 +69,9 @@ impl Model for Runs {
     fn validate(&self) -> SdkResult<()> {
         self.parent.validate()?;
         if let Some(values) = &self.list {
-            for value in values {
-                value.validate()?;
-            }
+        for value in values {
+        value.validate()?;
+        }
         }
         Ok(())
     }
@@ -80,3 +84,4 @@ impl Model for Runs {
         self
     }
 }
+

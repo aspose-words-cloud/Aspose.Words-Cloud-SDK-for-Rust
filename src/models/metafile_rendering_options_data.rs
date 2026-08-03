@@ -32,49 +32,39 @@ use super::*;
 /// Container class for options of metafile rendering.
 #[derive(Debug, Deserialize, Serialize)]
 pub struct MetafileRenderingOptionsData {
-    /// Gets or sets the option that controls how EMF+ Dual metafiles should be rendered.
-    #[serde(
-        rename = "EmfPlusDualRenderingMode",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub emf_plus_dual_rendering_mode:
-        Option<MetafileRenderingOptionsDataEmfPlusDualRenderingModeEnum>,
+        /// Gets or sets the option that controls how EMF+ Dual metafiles should be rendered.
+        #[serde(rename = "EmfPlusDualRenderingMode", skip_serializing_if = "Option::is_none")]
+        pub emf_plus_dual_rendering_mode: Option<MetafileRenderingOptionsDataEmfPlusDualRenderingModeEnum>,
 
-    /// Gets or sets a value indicating whether the raster operations should be emulated.
-    /// Specific raster operations could be used in metafiles. They can not be rendered directly to vector graphics. Emulating raster operations requires partial rasterization of the resulting vector graphics which may affect the metafile rendering performance. When this value is set to true, Aspose.Words emulates the raster operations. The resulting output maybe partially rasterized and performance might be slower. When this value is set to false, Aspose.Words does not emulate the raster operations. When Aspose.Words encounters a raster operation in a metafile it fallbacks to rendering the metafile into a bitmap by using the operating system. This option is used only when metafile is rendered as vector graphics. The default value is true.
-    #[serde(
-        rename = "EmulateRasterOperations",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub emulate_raster_operations: Option<bool>,
 
-    /// Gets or sets a value determining whether metafile rendering emulates the display of the metafile according to the size on page
-    /// or the display of the metafile in its default size.
-    #[serde(
-        rename = "EmulateRenderingToSizeOnPage",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub emulate_rendering_to_size_on_page: Option<bool>,
+        /// Gets or sets a value indicating whether the raster operations should be emulated.
+            /// Specific raster operations could be used in metafiles. They can not be rendered directly to vector graphics. Emulating raster operations requires partial rasterization of the resulting vector graphics which may affect the metafile rendering performance. When this value is set to true, Aspose.Words emulates the raster operations. The resulting output maybe partially rasterized and performance might be slower. When this value is set to false, Aspose.Words does not emulate the raster operations. When Aspose.Words encounters a raster operation in a metafile it fallbacks to rendering the metafile into a bitmap by using the operating system. This option is used only when metafile is rendered as vector graphics. The default value is true.
+        #[serde(rename = "EmulateRasterOperations", skip_serializing_if = "Option::is_none")]
+        pub emulate_raster_operations: Option<bool>,
 
-    /// Gets or sets the resolution in pixels per inch for the emulation of metafile rendering to the size on page.
-    /// This option is used only when EmulateRenderingToSizeOnPage is set to true.The default value is 96. This is a default display resolution. I.e. metafile rendering will emulate the display of
-    /// the metafile in MS Word with a 100% zoom factor.
-    #[serde(
-        rename = "EmulateRenderingToSizeOnPageResolution",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub emulate_rendering_to_size_on_page_resolution: Option<i32>,
 
-    /// Gets or sets the option that controls how metafile images should be rendered.
-    #[serde(rename = "RenderingMode", skip_serializing_if = "Option::is_none")]
-    pub rendering_mode: Option<MetafileRenderingOptionsDataRenderingModeEnum>,
+        /// Gets or sets a value determining whether metafile rendering emulates the display of the metafile according to the size on page
+            /// or the display of the metafile in its default size.
+        #[serde(rename = "EmulateRenderingToSizeOnPage", skip_serializing_if = "Option::is_none")]
+        pub emulate_rendering_to_size_on_page: Option<bool>,
 
-    /// Gets or sets the flag, that controls how WMF metafiles with embedded EMF metafiles should be rendered.
-    #[serde(
-        rename = "UseEmfEmbeddedToWmf",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub use_emf_embedded_to_wmf: Option<bool>,
+
+        /// Gets or sets the resolution in pixels per inch for the emulation of metafile rendering to the size on page.
+            /// This option is used only when EmulateRenderingToSizeOnPage is set to true.The default value is 96. This is a default display resolution. I.e. metafile rendering will emulate the display of
+            /// the metafile in MS Word with a 100% zoom factor.
+        #[serde(rename = "EmulateRenderingToSizeOnPageResolution", skip_serializing_if = "Option::is_none")]
+        pub emulate_rendering_to_size_on_page_resolution: Option<i32>,
+
+
+        /// Gets or sets the option that controls how metafile images should be rendered.
+        #[serde(rename = "RenderingMode", skip_serializing_if = "Option::is_none")]
+        pub rendering_mode: Option<MetafileRenderingOptionsDataRenderingModeEnum>,
+
+
+        /// Gets or sets the flag, that controls how WMF metafiles with embedded EMF metafiles should be rendered.
+        #[serde(rename = "UseEmfEmbeddedToWmf", skip_serializing_if = "Option::is_none")]
+        pub use_emf_embedded_to_wmf: Option<bool>,
+
 }
 
 impl Default for MetafileRenderingOptionsData {
@@ -95,7 +85,8 @@ impl Model for MetafileRenderingOptionsData {
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {}
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+    }
 
     fn as_any(&self) -> &dyn Any {
         self
@@ -106,20 +97,20 @@ impl Model for MetafileRenderingOptionsData {
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
 pub enum MetafileRenderingOptionsDataEmfPlusDualRenderingModeEnum {
     #[serde(rename = "EmfPlusWithFallback")]
-    EmfPlusWithFallback,
+        EmfPlusWithFallback,
     #[serde(rename = "EmfPlus")]
-    EmfPlus,
+        EmfPlus,
     #[serde(rename = "Emf")]
-    Emf,
+        Emf,
 }
 
 /// Gets or sets the option that controls how metafile images should be rendered.
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
 pub enum MetafileRenderingOptionsDataRenderingModeEnum {
     #[serde(rename = "VectorWithFallback")]
-    VectorWithFallback,
+        VectorWithFallback,
     #[serde(rename = "Vector")]
-    Vector,
+        Vector,
     #[serde(rename = "Bitmap")]
-    Bitmap,
+        Bitmap,
 }

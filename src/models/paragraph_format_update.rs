@@ -40,7 +40,9 @@ pub struct ParagraphFormatUpdate {
 impl Default for ParagraphFormatUpdate {
     fn default() -> Self {
         let mut parent = ParagraphFormatBase::default();
-        Self { parent }
+        Self {
+            parent,
+        }
     }
 }
 
@@ -72,3 +74,4 @@ impl Model for ParagraphFormatUpdate {
         self
     }
 }
+

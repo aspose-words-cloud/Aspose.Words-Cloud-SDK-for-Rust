@@ -32,14 +32,17 @@ use super::*;
 /// Words document property DTO for create or update.
 #[derive(Debug, Deserialize, Serialize)]
 pub struct DocumentPropertyCreateOrUpdate {
-    /// Gets or sets the value of the document property.
-    #[serde(rename = "Value", skip_serializing_if = "Option::is_none")]
-    pub value: Option<String>,
+        /// Gets or sets the value of the document property.
+        #[serde(rename = "Value", skip_serializing_if = "Option::is_none")]
+        pub value: Option<String>,
+
 }
 
 impl Default for DocumentPropertyCreateOrUpdate {
     fn default() -> Self {
-        Self { value: None }
+        Self {
+            value: None,
+        }
     }
 }
 
@@ -53,9 +56,11 @@ impl Model for DocumentPropertyCreateOrUpdate {
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {}
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+    }
 
     fn as_any(&self) -> &dyn Any {
         self
     }
 }
+

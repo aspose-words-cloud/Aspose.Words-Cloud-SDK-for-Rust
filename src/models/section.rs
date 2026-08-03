@@ -35,25 +35,30 @@ use super::*;
 pub struct Section {
     #[serde(flatten)]
     pub parent: LinkElement,
-    /// Gets or sets the list of child nodes.
-    #[serde(rename = "ChildNodes", skip_serializing_if = "Option::is_none")]
-    pub child_nodes: Option<Vec<NodeLink>>,
+        /// Gets or sets the list of child nodes.
+        #[serde(rename = "ChildNodes", skip_serializing_if = "Option::is_none")]
+        pub child_nodes: Option<Vec<NodeLink>>,
 
-    /// Gets or sets the link to Paragraphs resource.
-    #[serde(rename = "Paragraphs", skip_serializing_if = "Option::is_none")]
-    pub paragraphs: Option<LinkElement>,
 
-    /// Gets or sets the link to PageSetup resource.
-    #[serde(rename = "PageSetup", skip_serializing_if = "Option::is_none")]
-    pub page_setup: Option<LinkElement>,
+        /// Gets or sets the link to Paragraphs resource.
+        #[serde(rename = "Paragraphs", skip_serializing_if = "Option::is_none")]
+        pub paragraphs: Option<LinkElement>,
 
-    /// Gets or sets the link to HeaderFooters resource.
-    #[serde(rename = "HeaderFooters", skip_serializing_if = "Option::is_none")]
-    pub header_footers: Option<LinkElement>,
 
-    /// Gets or sets the link to Tables resource.
-    #[serde(rename = "Tables", skip_serializing_if = "Option::is_none")]
-    pub tables: Option<LinkElement>,
+        /// Gets or sets the link to PageSetup resource.
+        #[serde(rename = "PageSetup", skip_serializing_if = "Option::is_none")]
+        pub page_setup: Option<LinkElement>,
+
+
+        /// Gets or sets the link to HeaderFooters resource.
+        #[serde(rename = "HeaderFooters", skip_serializing_if = "Option::is_none")]
+        pub header_footers: Option<LinkElement>,
+
+
+        /// Gets or sets the link to Tables resource.
+        #[serde(rename = "Tables", skip_serializing_if = "Option::is_none")]
+        pub tables: Option<LinkElement>,
+
 }
 
 impl Default for Section {
@@ -88,21 +93,21 @@ impl Model for Section {
     fn validate(&self) -> SdkResult<()> {
         self.parent.validate()?;
         if let Some(values) = &self.child_nodes {
-            for value in values {
-                value.validate()?;
-            }
+        for value in values {
+        value.validate()?;
+        }
         }
         if let Some(value) = &self.paragraphs {
-            value.validate()?;
+        value.validate()?;
         }
         if let Some(value) = &self.page_setup {
-            value.validate()?;
+        value.validate()?;
         }
         if let Some(value) = &self.header_footers {
-            value.validate()?;
+        value.validate()?;
         }
         if let Some(value) = &self.tables {
-            value.validate()?;
+        value.validate()?;
         }
         Ok(())
     }
@@ -115,3 +120,4 @@ impl Model for Section {
         self
     }
 }
+

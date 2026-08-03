@@ -42,15 +42,11 @@ async fn document_statistics_get_document_statistics() -> TestResult<()> {
     let local_file = "Common/test_multi_pages.docx".to_owned();
     let remote_file_name = "TestGetDocumentStatistics.docx".to_owned();
 
-    context
-        .upload_file(
-            local_file.clone(),
-            remote_data_folder.clone() + "/" + &remote_file_name,
-        )
-        .await?;
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
-    let request = GetDocumentStatisticsRequest::new((remote_file_name.clone()).into())
-        .with_folder((remote_data_folder.clone()).into());
+    let request = GetDocumentStatisticsRequest::new(
+        (remote_file_name.clone()).into()
+    ).with_folder((remote_data_folder.clone()).into());
 
     let result = context.api().get_document_statistics(request).await?;
     let result_json = serialize_result(&result)?;
@@ -69,11 +65,10 @@ async fn document_statistics_get_document_statistics_online() -> TestResult<()> 
 
     let request_document = context.load_binary_file(local_file.clone()).await?;
 
-    let request = GetDocumentStatisticsOnlineRequest::new((request_document).into());
+    let request = GetDocumentStatisticsOnlineRequest::new(
+        (request_document).into()
+    );
 
-    context
-        .api()
-        .get_document_statistics_online(request)
-        .await?;
+    context.api().get_document_statistics_online(request).await?;
     Ok(())
 }

@@ -35,9 +35,10 @@ use super::*;
 pub struct SearchResultsCollection {
     #[serde(flatten)]
     pub parent: LinkElement,
-    /// Gets or sets the collection of comments.
-    #[serde(rename = "ResultsList", skip_serializing_if = "Option::is_none")]
-    pub results_list: Option<Vec<SearchResult>>,
+        /// Gets or sets the collection of comments.
+        #[serde(rename = "ResultsList", skip_serializing_if = "Option::is_none")]
+        pub results_list: Option<Vec<SearchResult>>,
+
 }
 
 impl Default for SearchResultsCollection {
@@ -68,9 +69,9 @@ impl Model for SearchResultsCollection {
     fn validate(&self) -> SdkResult<()> {
         self.parent.validate()?;
         if let Some(values) = &self.results_list {
-            for value in values {
-                value.validate()?;
-            }
+        for value in values {
+        value.validate()?;
+        }
         }
         Ok(())
     }
@@ -83,3 +84,4 @@ impl Model for SearchResultsCollection {
         self
     }
 }
+

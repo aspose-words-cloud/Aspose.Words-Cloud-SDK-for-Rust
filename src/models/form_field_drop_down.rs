@@ -35,17 +35,16 @@ use super::*;
 pub struct FormFieldDropDown {
     #[serde(flatten)]
     pub parent: FormField,
-    /// Gets or sets the items array of a dropdown form field.
-    /// Microsoft Word allows maximum 25 items in a dropdown form field.
-    #[serde(rename = "DropDownItems", skip_serializing_if = "Option::is_none")]
-    pub drop_down_items: Option<Vec<String>>,
+        /// Gets or sets the items array of a dropdown form field.
+            /// Microsoft Word allows maximum 25 items in a dropdown form field.
+        #[serde(rename = "DropDownItems", skip_serializing_if = "Option::is_none")]
+        pub drop_down_items: Option<Vec<String>>,
 
-    /// Gets or sets the index specifying the currently selected item in a dropdown form field.
-    #[serde(
-        rename = "DropDownSelectedIndex",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub drop_down_selected_index: Option<i32>,
+
+        /// Gets or sets the index specifying the currently selected item in a dropdown form field.
+        #[serde(rename = "DropDownSelectedIndex", skip_serializing_if = "Option::is_none")]
+        pub drop_down_selected_index: Option<i32>,
+
 }
 
 impl Default for FormFieldDropDown {
@@ -92,3 +91,4 @@ impl Model for FormFieldDropDown {
         self
     }
 }
+

@@ -35,17 +35,20 @@ use super::*;
 pub struct ProtectionRequest {
     #[serde(flatten)]
     pub parent: ProtectionRequestBase,
-    /// Gets or sets the new password.
-    #[serde(rename = "NewPassword", skip_serializing_if = "Option::is_none")]
-    pub new_password: Option<String>,
+        /// Gets or sets the new password.
+        #[serde(rename = "NewPassword", skip_serializing_if = "Option::is_none")]
+        pub new_password: Option<String>,
 
-    /// Gets or sets the current password.
-    #[serde(rename = "Password", skip_serializing_if = "Option::is_none")]
-    pub password: Option<String>,
 
-    /// Gets or sets the new type of protection.
-    #[serde(rename = "ProtectionType", skip_serializing_if = "Option::is_none")]
-    pub protection_type: Option<String>,
+        /// Gets or sets the current password.
+        #[serde(rename = "Password", skip_serializing_if = "Option::is_none")]
+        pub password: Option<String>,
+
+
+        /// Gets or sets the new type of protection.
+        #[serde(rename = "ProtectionType", skip_serializing_if = "Option::is_none")]
+        pub protection_type: Option<String>,
+
 }
 
 impl Default for ProtectionRequest {
@@ -93,3 +96,4 @@ impl Model for ProtectionRequest {
         self
     }
 }
+

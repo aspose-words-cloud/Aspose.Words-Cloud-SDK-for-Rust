@@ -32,28 +32,33 @@ use super::*;
 /// Reference to a document.
 #[derive(Debug, Deserialize, Serialize)]
 pub struct LinkElement {
-    /// Gets or sets the link to the document.
-    #[serde(rename = "Link", skip_serializing_if = "Option::is_none")]
-    pub link: Option<WordsApiLink>,
+        /// Gets or sets the link to the document.
+        #[serde(rename = "Link", skip_serializing_if = "Option::is_none")]
+        pub link: Option<WordsApiLink>,
+
 }
 
 impl Default for LinkElement {
     fn default() -> Self {
-        Self { link: None }
+        Self {
+            link: None,
+        }
     }
 }
 
 impl Model for LinkElement {
     fn validate(&self) -> SdkResult<()> {
         if let Some(value) = &self.link {
-            value.validate()?;
+        value.validate()?;
         }
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {}
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+    }
 
     fn as_any(&self) -> &dyn Any {
         self
     }
 }
+

@@ -32,29 +32,35 @@ use super::*;
 /// Class for document replace text request building.
 #[derive(Debug, Deserialize, Serialize)]
 pub struct ReplaceTextParameters {
-    /// Gets or sets a value indicating whether apply superscript to font or not.
-    #[serde(rename = "ApplySuperscript", skip_serializing_if = "Option::is_none")]
-    pub apply_superscript: Option<bool>,
+        /// Gets or sets a value indicating whether apply superscript to font or not.
+        #[serde(rename = "ApplySuperscript", skip_serializing_if = "Option::is_none")]
+        pub apply_superscript: Option<bool>,
 
-    /// Gets or sets a value indicating whether flag, true means the search is case-sensitive; false means the search is not case-sensitive.
-    #[serde(rename = "IsMatchCase", skip_serializing_if = "Option::is_none")]
-    pub is_match_case: Option<bool>,
 
-    /// Gets or sets a value indicating whether flag, means that only whole word matched are replaced.
-    #[serde(rename = "IsMatchWholeWord", skip_serializing_if = "Option::is_none")]
-    pub is_match_whole_word: Option<bool>,
+        /// Gets or sets a value indicating whether flag, true means the search is case-sensitive; false means the search is not case-sensitive.
+        #[serde(rename = "IsMatchCase", skip_serializing_if = "Option::is_none")]
+        pub is_match_case: Option<bool>,
 
-    /// Gets or sets a value indicating whether flag, means that OldValue contains regex expression.
-    #[serde(rename = "IsOldValueRegex", skip_serializing_if = "Option::is_none")]
-    pub is_old_value_regex: Option<bool>,
 
-    /// Gets or sets the new text value to replace by.
-    #[serde(rename = "NewValue", skip_serializing_if = "Option::is_none")]
-    pub new_value: Option<String>,
+        /// Gets or sets a value indicating whether flag, means that only whole word matched are replaced.
+        #[serde(rename = "IsMatchWholeWord", skip_serializing_if = "Option::is_none")]
+        pub is_match_whole_word: Option<bool>,
 
-    /// Gets or sets the old text value (or regex pattern IsOldValueRegex) to replace.
-    #[serde(rename = "OldValue", skip_serializing_if = "Option::is_none")]
-    pub old_value: Option<String>,
+
+        /// Gets or sets a value indicating whether flag, means that OldValue contains regex expression.
+        #[serde(rename = "IsOldValueRegex", skip_serializing_if = "Option::is_none")]
+        pub is_old_value_regex: Option<bool>,
+
+
+        /// Gets or sets the new text value to replace by.
+        #[serde(rename = "NewValue", skip_serializing_if = "Option::is_none")]
+        pub new_value: Option<String>,
+
+
+        /// Gets or sets the old text value (or regex pattern IsOldValueRegex) to replace.
+        #[serde(rename = "OldValue", skip_serializing_if = "Option::is_none")]
+        pub old_value: Option<String>,
+
 }
 
 impl Default for ReplaceTextParameters {
@@ -100,9 +106,11 @@ impl Model for ReplaceTextParameters {
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {}
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+    }
 
     fn as_any(&self) -> &dyn Any {
         self
     }
 }
+

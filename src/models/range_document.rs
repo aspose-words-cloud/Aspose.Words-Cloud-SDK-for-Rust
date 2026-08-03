@@ -32,9 +32,10 @@ use super::*;
 /// DTO container with a Range element.
 #[derive(Debug, Deserialize, Serialize)]
 pub struct RangeDocument {
-    /// Gets or sets the name for a new document.
-    #[serde(rename = "DocumentName", skip_serializing_if = "Option::is_none")]
-    pub document_name: Option<String>,
+        /// Gets or sets the name for a new document.
+        #[serde(rename = "DocumentName", skip_serializing_if = "Option::is_none")]
+        pub document_name: Option<String>,
+
 }
 
 impl Default for RangeDocument {
@@ -55,9 +56,11 @@ impl Model for RangeDocument {
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {}
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+    }
 
     fn as_any(&self) -> &dyn Any {
         self
     }
 }
+

@@ -32,13 +32,15 @@ use super::*;
 /// DTO container with a preferred width value.
 #[derive(Debug, Deserialize, Serialize)]
 pub struct PreferredWidth {
-    /// Gets or sets the unit of measure used for this preferred width value.
-    #[serde(rename = "Type", skip_serializing_if = "Option::is_none")]
-    pub r#type: Option<PreferredWidthTypeEnum>,
+        /// Gets or sets the unit of measure used for this preferred width value.
+        #[serde(rename = "Type", skip_serializing_if = "Option::is_none")]
+        pub r#type: Option<PreferredWidthTypeEnum>,
 
-    /// Gets or sets the preferred width value. The unit of measure is specified in the Type property.
-    #[serde(rename = "Value", skip_serializing_if = "Option::is_none")]
-    pub value: Option<f64>,
+
+        /// Gets or sets the preferred width value. The unit of measure is specified in the Type property.
+        #[serde(rename = "Value", skip_serializing_if = "Option::is_none")]
+        pub value: Option<f64>,
+
 }
 
 impl Default for PreferredWidth {
@@ -60,7 +62,8 @@ impl Model for PreferredWidth {
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {}
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+    }
 
     fn as_any(&self) -> &dyn Any {
         self
@@ -71,9 +74,9 @@ impl Model for PreferredWidth {
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
 pub enum PreferredWidthTypeEnum {
     #[serde(rename = "Auto")]
-    Auto,
+        Auto,
     #[serde(rename = "Percent")]
-    Percent,
+        Percent,
     #[serde(rename = "Points")]
-    Points,
+        Points,
 }

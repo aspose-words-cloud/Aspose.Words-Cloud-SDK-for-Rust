@@ -35,13 +35,15 @@ use super::*;
 pub struct Field {
     #[serde(flatten)]
     pub parent: FieldLink,
-    /// Gets or sets the LCID of the field.
-    #[serde(rename = "LocaleId", skip_serializing_if = "Option::is_none")]
-    pub locale_id: Option<String>,
+        /// Gets or sets the LCID of the field.
+        #[serde(rename = "LocaleId", skip_serializing_if = "Option::is_none")]
+        pub locale_id: Option<String>,
 
-    /// Gets or sets the field result.
-    #[serde(rename = "Result", skip_serializing_if = "Option::is_none")]
-    pub result: Option<String>,
+
+        /// Gets or sets the field result.
+        #[serde(rename = "Result", skip_serializing_if = "Option::is_none")]
+        pub result: Option<String>,
+
 }
 
 impl Default for Field {
@@ -83,3 +85,4 @@ impl Model for Field {
         self
     }
 }
+

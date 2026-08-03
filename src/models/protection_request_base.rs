@@ -31,11 +31,13 @@ use super::*;
 
 /// Request on changing of protection.
 #[derive(Debug, Deserialize, Serialize)]
-pub struct ProtectionRequestBase {}
+pub struct ProtectionRequestBase {
+}
 
 impl Default for ProtectionRequestBase {
     fn default() -> Self {
-        Self {}
+        Self {
+        }
     }
 }
 
@@ -44,9 +46,11 @@ impl Model for ProtectionRequestBase {
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {}
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+    }
 
     fn as_any(&self) -> &dyn Any {
         self
     }
 }
+

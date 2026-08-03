@@ -25,13 +25,13 @@ use std::collections::HashMap;
 use async_trait::async_trait;
 use chrono::{DateTime, Utc};
 
-use super::*;
 use crate::models::*;
+use crate::responses::*;
 use crate::request::{
     ApiRequestData, DynamicResponse, ProgressCallback, Request, ResponseData, TypedRequest,
 };
-use crate::responses::*;
 use crate::{ApiClient, SdkResult};
+use super::*;
 
 /// Request parameters for the CopyFile operation.
 pub struct CopyFileRequest {
@@ -91,6 +91,7 @@ impl CopyFileRequest {
         let _response = response;
         Ok(())
     }
+
 }
 
 #[async_trait]
@@ -114,13 +115,13 @@ impl Request for CopyFileRequest {
         path = path.replace("{srcPath}", &value);
         query.push(("destPath".to_owned(), client.query_value(&self.dest_path)?));
         if let Some(value) = &self.src_storage_name {
-            query.push(("srcStorageName".to_owned(), client.query_value(value)?));
+        query.push(("srcStorageName".to_owned(), client.query_value(value)?));
         }
         if let Some(value) = &self.dest_storage_name {
-            query.push(("destStorageName".to_owned(), client.query_value(value)?));
+        query.push(("destStorageName".to_owned(), client.query_value(value)?));
         }
         if let Some(value) = &self.version_id {
-            query.push(("versionId".to_owned(), client.query_value(value)?));
+        query.push(("versionId".to_owned(), client.query_value(value)?));
         }
 
         let url = client.build_url(&path, &query)?;

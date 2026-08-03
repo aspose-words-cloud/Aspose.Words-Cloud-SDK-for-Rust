@@ -32,13 +32,15 @@ use super::*;
 /// Info additional item.
 #[derive(Debug, Deserialize, Serialize)]
 pub struct InfoAdditionalItem {
-    /// Gets or sets Key.
-    #[serde(rename = "Key", skip_serializing_if = "Option::is_none")]
-    pub key: Option<String>,
+        /// Gets or sets Key.
+        #[serde(rename = "Key", skip_serializing_if = "Option::is_none")]
+        pub key: Option<String>,
 
-    /// Gets or sets Value.
-    #[serde(rename = "Value", skip_serializing_if = "Option::is_none")]
-    pub value: Option<String>,
+
+        /// Gets or sets Value.
+        #[serde(rename = "Value", skip_serializing_if = "Option::is_none")]
+        pub value: Option<String>,
+
 }
 
 impl Default for InfoAdditionalItem {
@@ -55,9 +57,11 @@ impl Model for InfoAdditionalItem {
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {}
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+    }
 
     fn as_any(&self) -> &dyn Any {
         self
     }
 }
+

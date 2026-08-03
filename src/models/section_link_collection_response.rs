@@ -36,9 +36,10 @@ use super::*;
 pub struct SectionLinkCollectionResponse {
     #[serde(flatten)]
     pub parent: WordsResponse,
-    /// Gets or sets the collection of sections.
-    #[serde(rename = "Sections", skip_serializing_if = "Option::is_none")]
-    pub sections: Option<SectionLinkCollection>,
+        /// Gets or sets the collection of sections.
+        #[serde(rename = "Sections", skip_serializing_if = "Option::is_none")]
+        pub sections: Option<SectionLinkCollection>,
+
 }
 
 impl Default for SectionLinkCollectionResponse {
@@ -69,7 +70,7 @@ impl Model for SectionLinkCollectionResponse {
     fn validate(&self) -> SdkResult<()> {
         self.parent.validate()?;
         if let Some(value) = &self.sections {
-            value.validate()?;
+        value.validate()?;
         }
         Ok(())
     }
@@ -82,3 +83,4 @@ impl Model for SectionLinkCollectionResponse {
         self
     }
 }
+

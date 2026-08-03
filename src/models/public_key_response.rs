@@ -35,13 +35,15 @@ use super::*;
 pub struct PublicKeyResponse {
     #[serde(flatten)]
     pub parent: WordsResponse,
-    /// Gets or sets RSA key exponent as Base64 string.
-    #[serde(rename = "Exponent", skip_serializing_if = "Option::is_none")]
-    pub exponent: Option<String>,
+        /// Gets or sets RSA key exponent as Base64 string.
+        #[serde(rename = "Exponent", skip_serializing_if = "Option::is_none")]
+        pub exponent: Option<String>,
 
-    /// Gets or sets RSA key modulus as Base64 string.
-    #[serde(rename = "Modulus", skip_serializing_if = "Option::is_none")]
-    pub modulus: Option<String>,
+
+        /// Gets or sets RSA key modulus as Base64 string.
+        #[serde(rename = "Modulus", skip_serializing_if = "Option::is_none")]
+        pub modulus: Option<String>,
+
 }
 
 impl Default for PublicKeyResponse {
@@ -83,3 +85,4 @@ impl Model for PublicKeyResponse {
         self
     }
 }
+

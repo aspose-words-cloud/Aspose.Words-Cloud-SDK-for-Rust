@@ -36,13 +36,15 @@ use super::*;
 pub struct SearchResponse {
     #[serde(flatten)]
     pub parent: WordsResponse,
-    /// Gets or sets the regular expression pattern used to find matches.
-    #[serde(rename = "SearchingPattern", skip_serializing_if = "Option::is_none")]
-    pub searching_pattern: Option<String>,
+        /// Gets or sets the regular expression pattern used to find matches.
+        #[serde(rename = "SearchingPattern", skip_serializing_if = "Option::is_none")]
+        pub searching_pattern: Option<String>,
 
-    /// Gets or sets the collection of search results.
-    #[serde(rename = "SearchResults", skip_serializing_if = "Option::is_none")]
-    pub search_results: Option<SearchResultsCollection>,
+
+        /// Gets or sets the collection of search results.
+        #[serde(rename = "SearchResults", skip_serializing_if = "Option::is_none")]
+        pub search_results: Option<SearchResultsCollection>,
+
 }
 
 impl Default for SearchResponse {
@@ -74,7 +76,7 @@ impl Model for SearchResponse {
     fn validate(&self) -> SdkResult<()> {
         self.parent.validate()?;
         if let Some(value) = &self.search_results {
-            value.validate()?;
+        value.validate()?;
         }
         Ok(())
     }
@@ -87,3 +89,4 @@ impl Model for SearchResponse {
         self
     }
 }
+

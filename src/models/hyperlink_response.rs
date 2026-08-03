@@ -36,9 +36,10 @@ use super::*;
 pub struct HyperlinkResponse {
     #[serde(flatten)]
     pub parent: WordsResponse,
-    /// Gets or sets the hyperlink.
-    #[serde(rename = "Hyperlink", skip_serializing_if = "Option::is_none")]
-    pub hyperlink: Option<Hyperlink>,
+        /// Gets or sets the hyperlink.
+        #[serde(rename = "Hyperlink", skip_serializing_if = "Option::is_none")]
+        pub hyperlink: Option<Hyperlink>,
+
 }
 
 impl Default for HyperlinkResponse {
@@ -69,7 +70,7 @@ impl Model for HyperlinkResponse {
     fn validate(&self) -> SdkResult<()> {
         self.parent.validate()?;
         if let Some(value) = &self.hyperlink {
-            value.validate()?;
+        value.validate()?;
         }
         Ok(())
     }
@@ -82,3 +83,4 @@ impl Model for HyperlinkResponse {
         self
     }
 }
+

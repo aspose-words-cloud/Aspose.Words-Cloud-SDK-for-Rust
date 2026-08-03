@@ -32,17 +32,20 @@ use super::*;
 /// Container class for details of encryption.
 #[derive(Debug, Deserialize, Serialize)]
 pub struct PdfEncryptionDetailsData {
-    /// Gets or sets the owner password for the encrypted PDF document.
-    #[serde(rename = "OwnerPassword", skip_serializing_if = "Option::is_none")]
-    pub owner_password: Option<String>,
+        /// Gets or sets the owner password for the encrypted PDF document.
+        #[serde(rename = "OwnerPassword", skip_serializing_if = "Option::is_none")]
+        pub owner_password: Option<String>,
 
-    /// Gets or sets the operations that are allowed to a user on the encrypted PDF document.
-    #[serde(rename = "Permissions", skip_serializing_if = "Option::is_none")]
-    pub permissions: Option<Vec<PdfPermissionsEnum>>,
 
-    /// Gets or sets the user password required for opening the encrypted PDF document.
-    #[serde(rename = "UserPassword", skip_serializing_if = "Option::is_none")]
-    pub user_password: Option<String>,
+        /// Gets or sets the operations that are allowed to a user on the encrypted PDF document.
+        #[serde(rename = "Permissions", skip_serializing_if = "Option::is_none")]
+        pub permissions: Option<Vec<PdfPermissionsEnum>>,
+
+
+        /// Gets or sets the user password required for opening the encrypted PDF document.
+        #[serde(rename = "UserPassword", skip_serializing_if = "Option::is_none")]
+        pub user_password: Option<String>,
+
 }
 
 impl Default for PdfEncryptionDetailsData {
@@ -60,9 +63,11 @@ impl Model for PdfEncryptionDetailsData {
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {}
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+    }
 
     fn as_any(&self) -> &dyn Any {
         self
     }
 }
+

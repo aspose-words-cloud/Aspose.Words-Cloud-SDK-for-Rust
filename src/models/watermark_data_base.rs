@@ -31,11 +31,13 @@ use super::*;
 
 /// Class for insert watermark text request building.
 #[derive(Debug, Deserialize, Serialize)]
-pub struct WatermarkDataBase {}
+pub struct WatermarkDataBase {
+}
 
 impl Default for WatermarkDataBase {
     fn default() -> Self {
-        Self {}
+        Self {
+        }
     }
 }
 
@@ -44,9 +46,11 @@ impl Model for WatermarkDataBase {
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {}
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+    }
 
     fn as_any(&self) -> &dyn Any {
         self
     }
 }
+

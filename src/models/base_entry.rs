@@ -32,9 +32,10 @@ use super::*;
 /// Represents a base class for document which will be appended to the original resource document.
 #[derive(Debug, Deserialize, Serialize)]
 pub struct BaseEntry {
-    /// Gets or sets the file reference.
-    #[serde(rename = "FileReference", skip_serializing_if = "Option::is_none")]
-    pub file_reference: Option<FileReference>,
+        /// Gets or sets the file reference.
+        #[serde(rename = "FileReference", skip_serializing_if = "Option::is_none")]
+        pub file_reference: Option<FileReference>,
+
 }
 
 impl Default for BaseEntry {
@@ -53,14 +54,14 @@ impl Model for BaseEntry {
             ));
         }
         if let Some(value) = &self.file_reference {
-            value.validate()?;
+        value.validate()?;
         }
         Ok(())
     }
 
     fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
         if let Some(value) = &self.file_reference {
-            value.collect_file_references(_output);
+        value.collect_file_references(_output);
         }
     }
 
@@ -68,3 +69,4 @@ impl Model for BaseEntry {
         self
     }
 }
+

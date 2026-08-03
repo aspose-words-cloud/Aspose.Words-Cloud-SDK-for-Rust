@@ -40,7 +40,9 @@ pub struct CustomXmlPartLink {
 impl Default for CustomXmlPartLink {
     fn default() -> Self {
         let mut parent = LinkElement::default();
-        Self { parent }
+        Self {
+            parent,
+        }
     }
 }
 
@@ -72,3 +74,4 @@ impl Model for CustomXmlPartLink {
         self
     }
 }
+

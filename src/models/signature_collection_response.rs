@@ -36,13 +36,15 @@ use super::*;
 pub struct SignatureCollectionResponse {
     #[serde(flatten)]
     pub parent: WordsResponse,
-    /// Gets or sets a value indicating whether all signatures are valid. Returns true if there is no signatures.
-    #[serde(rename = "IsValid", skip_serializing_if = "Option::is_none")]
-    pub is_valid: Option<bool>,
+        /// Gets or sets a value indicating whether all signatures are valid. Returns true if there is no signatures.
+        #[serde(rename = "IsValid", skip_serializing_if = "Option::is_none")]
+        pub is_valid: Option<bool>,
 
-    /// Gets or sets signatures.
-    #[serde(rename = "Signatures", skip_serializing_if = "Option::is_none")]
-    pub signatures: Option<Vec<Signature>>,
+
+        /// Gets or sets signatures.
+        #[serde(rename = "Signatures", skip_serializing_if = "Option::is_none")]
+        pub signatures: Option<Vec<Signature>>,
+
 }
 
 impl Default for SignatureCollectionResponse {
@@ -79,9 +81,9 @@ impl Model for SignatureCollectionResponse {
             ));
         }
         if let Some(values) = &self.signatures {
-            for value in values {
-                value.validate()?;
-            }
+        for value in values {
+        value.validate()?;
+        }
         }
         Ok(())
     }
@@ -94,3 +96,4 @@ impl Model for SignatureCollectionResponse {
         self
     }
 }
+

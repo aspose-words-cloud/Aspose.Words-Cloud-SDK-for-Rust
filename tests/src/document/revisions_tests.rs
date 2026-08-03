@@ -42,16 +42,12 @@ async fn revisions_accept_all_revisions() -> TestResult<()> {
     let local_file = "DocumentElements/Revisions/TestRevisions.doc".to_owned();
     let remote_file_name = "TestAcceptAllRevisions.docx".to_owned();
 
-    context
-        .upload_file(
-            local_file.clone(),
-            remote_data_folder.clone() + "/" + &remote_file_name,
-        )
-        .await?;
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
-    let request = AcceptAllRevisionsRequest::new((remote_file_name.clone()).into())
-        .with_folder((remote_data_folder.clone()).into())
-        .with_dest_file_name((base_test_out_path.clone() + "/" + &remote_file_name).into());
+    let request = AcceptAllRevisionsRequest::new(
+        (remote_file_name.clone()).into()
+    ).with_folder((remote_data_folder.clone()).into())
+.with_dest_file_name((base_test_out_path.clone() + "/" + &remote_file_name).into());
 
     let result = context.api().accept_all_revisions(request).await?;
     let result_json = serialize_result(&result)?;
@@ -70,7 +66,9 @@ async fn revisions_accept_all_revisions_online() -> TestResult<()> {
 
     let request_document = context.load_binary_file(local_file.clone()).await?;
 
-    let request = AcceptAllRevisionsOnlineRequest::new((request_document).into());
+    let request = AcceptAllRevisionsOnlineRequest::new(
+        (request_document).into()
+    );
 
     let result = context.api().accept_all_revisions_online(request).await?;
     let result_json = serialize_result(&result)?;
@@ -91,16 +89,12 @@ async fn revisions_reject_all_revisions() -> TestResult<()> {
     let local_file = "DocumentElements/Revisions/TestRevisions.doc".to_owned();
     let remote_file_name = "TestRejectAllRevisions.docx".to_owned();
 
-    context
-        .upload_file(
-            local_file.clone(),
-            remote_data_folder.clone() + "/" + &remote_file_name,
-        )
-        .await?;
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
-    let request = RejectAllRevisionsRequest::new((remote_file_name.clone()).into())
-        .with_folder((remote_data_folder.clone()).into())
-        .with_dest_file_name((base_test_out_path.clone() + "/" + &remote_file_name).into());
+    let request = RejectAllRevisionsRequest::new(
+        (remote_file_name.clone()).into()
+    ).with_folder((remote_data_folder.clone()).into())
+.with_dest_file_name((base_test_out_path.clone() + "/" + &remote_file_name).into());
 
     let result = context.api().reject_all_revisions(request).await?;
     let result_json = serialize_result(&result)?;
@@ -119,7 +113,9 @@ async fn revisions_reject_all_revisions_online() -> TestResult<()> {
 
     let request_document = context.load_binary_file(local_file.clone()).await?;
 
-    let request = RejectAllRevisionsOnlineRequest::new((request_document).into());
+    let request = RejectAllRevisionsOnlineRequest::new(
+        (request_document).into()
+    );
 
     let result = context.api().reject_all_revisions_online(request).await?;
     let result_json = serialize_result(&result)?;
@@ -140,15 +136,11 @@ async fn revisions_get_all_revisions() -> TestResult<()> {
     let local_file = "DocumentElements/Revisions/TestRevisions.doc".to_owned();
     let remote_file_name = "TestAcceptAllRevisions.docx".to_owned();
 
-    context
-        .upload_file(
-            local_file.clone(),
-            remote_data_folder.clone() + "/" + &remote_file_name,
-        )
-        .await?;
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
-    let request = GetAllRevisionsRequest::new((remote_file_name.clone()).into())
-        .with_folder((remote_data_folder.clone()).into());
+    let request = GetAllRevisionsRequest::new(
+        (remote_file_name.clone()).into()
+    ).with_folder((remote_data_folder.clone()).into());
 
     let result = context.api().get_all_revisions(request).await?;
     let result_json = serialize_result(&result)?;
@@ -167,7 +159,9 @@ async fn revisions_get_all_revisions_online() -> TestResult<()> {
 
     let request_document = context.load_binary_file(local_file.clone()).await?;
 
-    let request = GetAllRevisionsOnlineRequest::new((request_document).into());
+    let request = GetAllRevisionsOnlineRequest::new(
+        (request_document).into()
+    );
 
     let result = context.api().get_all_revisions_online(request).await?;
     let result_json = serialize_result(&result)?;

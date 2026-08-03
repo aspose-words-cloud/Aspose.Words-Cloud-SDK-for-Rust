@@ -35,9 +35,10 @@ use super::*;
 pub struct PositionInsideNode {
     #[serde(flatten)]
     pub parent: Position,
-    /// Gets or sets the offset in the node.
-    #[serde(rename = "Offset", skip_serializing_if = "Option::is_none")]
-    pub offset: Option<i32>,
+        /// Gets or sets the offset in the node.
+        #[serde(rename = "Offset", skip_serializing_if = "Option::is_none")]
+        pub offset: Option<i32>,
+
 }
 
 impl Default for PositionInsideNode {
@@ -80,3 +81,4 @@ impl Model for PositionInsideNode {
         self
     }
 }
+

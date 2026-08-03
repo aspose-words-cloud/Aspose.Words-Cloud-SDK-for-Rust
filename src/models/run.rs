@@ -40,7 +40,9 @@ pub struct Run {
 impl Default for Run {
     fn default() -> Self {
         let mut parent = RunLink::default();
-        Self { parent }
+        Self {
+            parent,
+        }
     }
 }
 
@@ -72,3 +74,4 @@ impl Model for Run {
         self
     }
 }
+

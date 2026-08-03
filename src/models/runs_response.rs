@@ -36,15 +36,19 @@ use super::*;
 pub struct RunsResponse {
     #[serde(flatten)]
     pub parent: WordsResponse,
-    /// Gets or sets the collection of Run elements.
-    #[serde(rename = "Runs", skip_serializing_if = "Option::is_none")]
-    pub runs: Option<Runs>,
+        /// Gets or sets the collection of Run elements.
+        #[serde(rename = "Runs", skip_serializing_if = "Option::is_none")]
+        pub runs: Option<Runs>,
+
 }
 
 impl Default for RunsResponse {
     fn default() -> Self {
         let mut parent = WordsResponse::default();
-        Self { parent, runs: None }
+        Self {
+            parent,
+            runs: None,
+        }
     }
 }
 
@@ -66,7 +70,7 @@ impl Model for RunsResponse {
     fn validate(&self) -> SdkResult<()> {
         self.parent.validate()?;
         if let Some(value) = &self.runs {
-            value.validate()?;
+        value.validate()?;
         }
         Ok(())
     }
@@ -79,3 +83,4 @@ impl Model for RunsResponse {
         self
     }
 }
+

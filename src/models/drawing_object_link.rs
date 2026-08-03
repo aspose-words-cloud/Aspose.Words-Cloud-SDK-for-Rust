@@ -40,7 +40,9 @@ pub struct DrawingObjectLink {
 impl Default for DrawingObjectLink {
     fn default() -> Self {
         let mut parent = NodeLink::default();
-        Self { parent }
+        Self {
+            parent,
+        }
     }
 }
 
@@ -72,3 +74,4 @@ impl Model for DrawingObjectLink {
         self
     }
 }
+

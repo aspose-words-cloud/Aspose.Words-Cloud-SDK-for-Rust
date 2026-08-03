@@ -44,5 +44,6 @@ fn parse_date_time(value: &str) -> Result<DateTime<Utc>, chrono::ParseError> {
         return Ok(value.and_utc());
     }
 
-    NaiveDateTime::parse_from_str(value, "%Y-%m-%dT%H:%M:%S%.f").map(|value| value.and_utc())
+    NaiveDateTime::parse_from_str(value, "%Y-%m-%dT%H:%M:%S%.f")
+        .map(|value| value.and_utc())
 }

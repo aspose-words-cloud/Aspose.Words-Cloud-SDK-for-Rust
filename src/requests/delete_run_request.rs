@@ -25,13 +25,13 @@ use std::collections::HashMap;
 use async_trait::async_trait;
 use chrono::{DateTime, Utc};
 
-use super::*;
 use crate::models::*;
+use crate::responses::*;
 use crate::request::{
     ApiRequestData, DynamicResponse, ProgressCallback, Request, ResponseData, TypedRequest,
 };
-use crate::responses::*;
 use crate::{ApiClient, SdkResult};
+use super::*;
 
 /// Request parameters for the DeleteRun operation.
 pub struct DeleteRunRequest {
@@ -142,6 +142,7 @@ impl DeleteRunRequest {
         let _response = response;
         Ok(())
     }
+
 }
 
 #[async_trait]
@@ -168,34 +169,31 @@ impl Request for DeleteRunRequest {
         let value = client.query_value(&self.index)?;
         path = path.replace("{index}", &value);
         if let Some(value) = &self.folder {
-            query.push(("folder".to_owned(), client.query_value(value)?));
+        query.push(("folder".to_owned(), client.query_value(value)?));
         }
         if let Some(value) = &self.storage {
-            query.push(("storage".to_owned(), client.query_value(value)?));
+        query.push(("storage".to_owned(), client.query_value(value)?));
         }
         if let Some(value) = &self.load_encoding {
-            query.push(("loadEncoding".to_owned(), client.query_value(value)?));
+        query.push(("loadEncoding".to_owned(), client.query_value(value)?));
         }
         if let Some(value) = &self.password {
-            query.push((
-                "encryptedPassword".to_owned(),
-                client.encrypt_password(value).await?,
-            ));
+        query.push(("encryptedPassword".to_owned(), client.encrypt_password(value).await?));
         }
         if let Some(value) = &self.encrypted_password {
-            query.push(("encryptedPassword".to_owned(), client.query_value(value)?));
+        query.push(("encryptedPassword".to_owned(), client.query_value(value)?));
         }
         if let Some(value) = &self.open_type_support {
-            query.push(("openTypeSupport".to_owned(), client.query_value(value)?));
+        query.push(("openTypeSupport".to_owned(), client.query_value(value)?));
         }
         if let Some(value) = &self.dest_file_name {
-            query.push(("destFileName".to_owned(), client.query_value(value)?));
+        query.push(("destFileName".to_owned(), client.query_value(value)?));
         }
         if let Some(value) = &self.revision_author {
-            query.push(("revisionAuthor".to_owned(), client.query_value(value)?));
+        query.push(("revisionAuthor".to_owned(), client.query_value(value)?));
         }
         if let Some(value) = &self.revision_date_time {
-            query.push(("revisionDateTime".to_owned(), client.query_value(value)?));
+        query.push(("revisionDateTime".to_owned(), client.query_value(value)?));
         }
 
         let url = client.build_url(&path, &query)?;

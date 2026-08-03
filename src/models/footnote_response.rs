@@ -36,9 +36,10 @@ use super::*;
 pub struct FootnoteResponse {
     #[serde(flatten)]
     pub parent: WordsResponse,
-    /// Gets or sets the footnote.
-    #[serde(rename = "Footnote", skip_serializing_if = "Option::is_none")]
-    pub footnote: Option<Footnote>,
+        /// Gets or sets the footnote.
+        #[serde(rename = "Footnote", skip_serializing_if = "Option::is_none")]
+        pub footnote: Option<Footnote>,
+
 }
 
 impl Default for FootnoteResponse {
@@ -69,7 +70,7 @@ impl Model for FootnoteResponse {
     fn validate(&self) -> SdkResult<()> {
         self.parent.validate()?;
         if let Some(value) = &self.footnote {
-            value.validate()?;
+        value.validate()?;
         }
         Ok(())
     }
@@ -82,3 +83,4 @@ impl Model for FootnoteResponse {
         self
     }
 }
+

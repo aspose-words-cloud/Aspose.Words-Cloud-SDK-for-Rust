@@ -36,9 +36,10 @@ use super::*;
 pub struct FieldNamesResponse {
     #[serde(flatten)]
     pub parent: WordsResponse,
-    /// Gets or sets the collection of mail merge fields.
-    #[serde(rename = "FieldNames", skip_serializing_if = "Option::is_none")]
-    pub field_names: Option<FieldNames>,
+        /// Gets or sets the collection of mail merge fields.
+        #[serde(rename = "FieldNames", skip_serializing_if = "Option::is_none")]
+        pub field_names: Option<FieldNames>,
+
 }
 
 impl Default for FieldNamesResponse {
@@ -69,7 +70,7 @@ impl Model for FieldNamesResponse {
     fn validate(&self) -> SdkResult<()> {
         self.parent.validate()?;
         if let Some(value) = &self.field_names {
-            value.validate()?;
+        value.validate()?;
         }
         Ok(())
     }
@@ -82,3 +83,4 @@ impl Model for FieldNamesResponse {
         self
     }
 }
+

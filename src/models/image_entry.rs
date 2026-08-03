@@ -40,7 +40,9 @@ pub struct ImageEntry {
 impl Default for ImageEntry {
     fn default() -> Self {
         let mut parent = BaseEntry::default();
-        Self { parent }
+        Self {
+            parent,
+        }
     }
 }
 
@@ -72,3 +74,4 @@ impl Model for ImageEntry {
         self
     }
 }
+

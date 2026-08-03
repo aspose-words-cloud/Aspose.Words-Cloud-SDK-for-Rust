@@ -32,33 +32,40 @@ use super::*;
 /// Represents Words document DTO.
 #[derive(Debug, Deserialize, Serialize)]
 pub struct Document {
-    /// Gets or sets the list of links that originate from this document.
-    #[serde(rename = "Links", skip_serializing_if = "Option::is_none")]
-    pub links: Option<Vec<Link>>,
+        /// Gets or sets the list of links that originate from this document.
+        #[serde(rename = "Links", skip_serializing_if = "Option::is_none")]
+        pub links: Option<Vec<Link>>,
 
-    /// Gets or sets the document properties.
-    #[serde(rename = "DocumentProperties", skip_serializing_if = "Option::is_none")]
-    pub document_properties: Option<DocumentProperties>,
 
-    /// Gets or sets the name of the file.
-    #[serde(rename = "FileName", skip_serializing_if = "Option::is_none")]
-    pub file_name: Option<String>,
+        /// Gets or sets the document properties.
+        #[serde(rename = "DocumentProperties", skip_serializing_if = "Option::is_none")]
+        pub document_properties: Option<DocumentProperties>,
 
-    /// Gets or sets the file size.
-    #[serde(rename = "FileSize", skip_serializing_if = "Option::is_none")]
-    pub file_size: Option<i32>,
 
-    /// Gets or sets a value indicating whether the document is encrypted and requires a password to open.
-    #[serde(rename = "IsEncrypted", skip_serializing_if = "Option::is_none")]
-    pub is_encrypted: Option<bool>,
+        /// Gets or sets the name of the file.
+        #[serde(rename = "FileName", skip_serializing_if = "Option::is_none")]
+        pub file_name: Option<String>,
 
-    /// Gets or sets a value indicating whether the document contains a digital signature. This property merely informs that a digital signature is present on a document, but it does not specify whether the signature is valid or not.
-    #[serde(rename = "IsSigned", skip_serializing_if = "Option::is_none")]
-    pub is_signed: Option<bool>,
 
-    /// Gets or sets the original format of the document.
-    #[serde(rename = "SourceFormat", skip_serializing_if = "Option::is_none")]
-    pub source_format: Option<DocumentSourceFormatEnum>,
+        /// Gets or sets the file size.
+        #[serde(rename = "FileSize", skip_serializing_if = "Option::is_none")]
+        pub file_size: Option<i32>,
+
+
+        /// Gets or sets a value indicating whether the document is encrypted and requires a password to open.
+        #[serde(rename = "IsEncrypted", skip_serializing_if = "Option::is_none")]
+        pub is_encrypted: Option<bool>,
+
+
+        /// Gets or sets a value indicating whether the document contains a digital signature. This property merely informs that a digital signature is present on a document, but it does not specify whether the signature is valid or not.
+        #[serde(rename = "IsSigned", skip_serializing_if = "Option::is_none")]
+        pub is_signed: Option<bool>,
+
+
+        /// Gets or sets the original format of the document.
+        #[serde(rename = "SourceFormat", skip_serializing_if = "Option::is_none")]
+        pub source_format: Option<DocumentSourceFormatEnum>,
+
 }
 
 impl Default for Document {
@@ -93,18 +100,23 @@ impl Model for Document {
             ));
         }
         if let Some(values) = &self.links {
-            for value in values {
-                value.validate()?;
-            }
+        for value in values {
+        value.validate()?;
+        }
         }
         if let Some(value) = &self.document_properties {
-            value.validate()?;
+        value.validate()?;
         }
+
+
+
+
 
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {}
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+    }
 
     fn as_any(&self) -> &dyn Any {
         self
@@ -115,47 +127,47 @@ impl Model for Document {
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
 pub enum DocumentSourceFormatEnum {
     #[serde(rename = "Unknown")]
-    Unknown,
+        Unknown,
     #[serde(rename = "Doc")]
-    Doc,
+        Doc,
     #[serde(rename = "Dot")]
-    Dot,
+        Dot,
     #[serde(rename = "DocPreWord60")]
-    DocPreWord60,
+        DocPreWord60,
     #[serde(rename = "Docx")]
-    Docx,
+        Docx,
     #[serde(rename = "Docm")]
-    Docm,
+        Docm,
     #[serde(rename = "Dotx")]
-    Dotx,
+        Dotx,
     #[serde(rename = "Dotm")]
-    Dotm,
+        Dotm,
     #[serde(rename = "FlatOpc")]
-    FlatOpc,
+        FlatOpc,
     #[serde(rename = "Rtf")]
-    Rtf,
+        Rtf,
     #[serde(rename = "WordML")]
-    WordMl,
+        WordMl,
     #[serde(rename = "Html")]
-    Html,
+        Html,
     #[serde(rename = "Mhtml")]
-    Mhtml,
+        Mhtml,
     #[serde(rename = "Epub")]
-    Epub,
+        Epub,
     #[serde(rename = "Text")]
-    Text,
+        Text,
     #[serde(rename = "Odt")]
-    Odt,
+        Odt,
     #[serde(rename = "Ott")]
-    Ott,
+        Ott,
     #[serde(rename = "Pdf")]
-    Pdf,
+        Pdf,
     #[serde(rename = "Xps")]
-    Xps,
+        Xps,
     #[serde(rename = "Tiff")]
-    Tiff,
+        Tiff,
     #[serde(rename = "Svg")]
-    Svg,
+        Svg,
     #[serde(rename = "Azw3")]
-    Azw3,
+        Azw3,
 }

@@ -32,13 +32,15 @@ use super::*;
 /// Result of search operation.
 #[derive(Debug, Deserialize, Serialize)]
 pub struct SearchResult {
-    /// Gets or sets the link to result range start node.
-    #[serde(rename = "RangeStart", skip_serializing_if = "Option::is_none")]
-    pub range_start: Option<DocumentPosition>,
+        /// Gets or sets the link to result range start node.
+        #[serde(rename = "RangeStart", skip_serializing_if = "Option::is_none")]
+        pub range_start: Option<DocumentPosition>,
 
-    /// Gets or sets the link to result range end node.
-    #[serde(rename = "RangeEnd", skip_serializing_if = "Option::is_none")]
-    pub range_end: Option<DocumentPosition>,
+
+        /// Gets or sets the link to result range end node.
+        #[serde(rename = "RangeEnd", skip_serializing_if = "Option::is_none")]
+        pub range_end: Option<DocumentPosition>,
+
 }
 
 impl Default for SearchResult {
@@ -53,17 +55,19 @@ impl Default for SearchResult {
 impl Model for SearchResult {
     fn validate(&self) -> SdkResult<()> {
         if let Some(value) = &self.range_start {
-            value.validate()?;
+        value.validate()?;
         }
         if let Some(value) = &self.range_end {
-            value.validate()?;
+        value.validate()?;
         }
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {}
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+    }
 
     fn as_any(&self) -> &dyn Any {
         self
     }
 }
+

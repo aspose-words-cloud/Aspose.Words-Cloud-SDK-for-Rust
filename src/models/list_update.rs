@@ -32,13 +32,11 @@ use super::*;
 /// Update document properties if document list.
 #[derive(Debug, Deserialize, Serialize)]
 pub struct ListUpdate {
-    /// Gets or sets a value indicating whether list should be restarted at each section. The default value is false.
-    /// This option is supported only in RTF, DOC and DOCX document formats. This option will be written to DOCX only if Aspose.Words.Saving.OoxmlCompliance is higher than Aspose.Words.Saving.OoxmlCompliance.Ecma376_2006.
-    #[serde(
-        rename = "IsRestartAtEachSection",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub is_restart_at_each_section: Option<bool>,
+        /// Gets or sets a value indicating whether list should be restarted at each section. The default value is false.
+            /// This option is supported only in RTF, DOC and DOCX document formats. This option will be written to DOCX only if Aspose.Words.Saving.OoxmlCompliance is higher than Aspose.Words.Saving.OoxmlCompliance.Ecma376_2006.
+        #[serde(rename = "IsRestartAtEachSection", skip_serializing_if = "Option::is_none")]
+        pub is_restart_at_each_section: Option<bool>,
+
 }
 
 impl Default for ListUpdate {
@@ -54,9 +52,11 @@ impl Model for ListUpdate {
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {}
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+    }
 
     fn as_any(&self) -> &dyn Any {
         self
     }
 }
+

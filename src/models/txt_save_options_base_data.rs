@@ -35,26 +35,27 @@ use super::*;
 pub struct TxtSaveOptionsBaseData {
     #[serde(flatten)]
     pub parent: SaveOptionsData,
-    /// Gets or sets the character encoding to use when exporting in plain text format.
-    #[serde(rename = "Encoding", skip_serializing_if = "Option::is_none")]
-    pub encoding: Option<String>,
+        /// Gets or sets the character encoding to use when exporting in plain text format.
+        #[serde(rename = "Encoding", skip_serializing_if = "Option::is_none")]
+        pub encoding: Option<String>,
 
-    /// Gets or sets the option that controls whether to output headers and footers when exporting in plain text format.
-    /// The default value is TxtExportHeadersFootersMode.PrimaryOnly.
-    #[serde(
-        rename = "ExportHeadersFootersMode",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub export_headers_footers_mode: Option<TxtSaveOptionsBaseDataExportHeadersFootersModeEnum>,
 
-    /// Gets or sets a value indicating whether the page breaks should be preserved during export.
-    /// The default value is false.
-    #[serde(rename = "ForcePageBreaks", skip_serializing_if = "Option::is_none")]
-    pub force_page_breaks: Option<bool>,
+        /// Gets or sets the option that controls whether to output headers and footers when exporting in plain text format.
+            /// The default value is TxtExportHeadersFootersMode.PrimaryOnly.
+        #[serde(rename = "ExportHeadersFootersMode", skip_serializing_if = "Option::is_none")]
+        pub export_headers_footers_mode: Option<TxtSaveOptionsBaseDataExportHeadersFootersModeEnum>,
 
-    /// Gets or sets the string to use as a paragraph break when exporting in plain text format.
-    #[serde(rename = "ParagraphBreak", skip_serializing_if = "Option::is_none")]
-    pub paragraph_break: Option<String>,
+
+        /// Gets or sets a value indicating whether the page breaks should be preserved during export.
+            /// The default value is false.
+        #[serde(rename = "ForcePageBreaks", skip_serializing_if = "Option::is_none")]
+        pub force_page_breaks: Option<bool>,
+
+
+        /// Gets or sets the string to use as a paragraph break when exporting in plain text format.
+        #[serde(rename = "ParagraphBreak", skip_serializing_if = "Option::is_none")]
+        pub paragraph_break: Option<String>,
+
 }
 
 impl Default for TxtSaveOptionsBaseData {
@@ -104,9 +105,9 @@ impl Model for TxtSaveOptionsBaseData {
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
 pub enum TxtSaveOptionsBaseDataExportHeadersFootersModeEnum {
     #[serde(rename = "None")]
-    None,
+        None,
     #[serde(rename = "PrimaryOnly")]
-    PrimaryOnly,
+        PrimaryOnly,
     #[serde(rename = "AllAtEnd")]
-    AllAtEnd,
+        AllAtEnd,
 }

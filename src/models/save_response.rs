@@ -35,9 +35,10 @@ use super::*;
 pub struct SaveResponse {
     #[serde(flatten)]
     pub parent: WordsResponse,
-    /// Gets or sets the save result.
-    #[serde(rename = "SaveResult", skip_serializing_if = "Option::is_none")]
-    pub save_result: Option<SaveResult>,
+        /// Gets or sets the save result.
+        #[serde(rename = "SaveResult", skip_serializing_if = "Option::is_none")]
+        pub save_result: Option<SaveResult>,
+
 }
 
 impl Default for SaveResponse {
@@ -68,7 +69,7 @@ impl Model for SaveResponse {
     fn validate(&self) -> SdkResult<()> {
         self.parent.validate()?;
         if let Some(value) = &self.save_result {
-            value.validate()?;
+        value.validate()?;
         }
         Ok(())
     }
@@ -81,3 +82,4 @@ impl Model for SaveResponse {
         self
     }
 }
+

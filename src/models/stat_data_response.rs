@@ -35,13 +35,15 @@ use super::*;
 pub struct StatDataResponse {
     #[serde(flatten)]
     pub parent: WordsResponse,
-    /// Gets or sets the link to the document.
-    #[serde(rename = "DocumentLink", skip_serializing_if = "Option::is_none")]
-    pub document_link: Option<FileLink>,
+        /// Gets or sets the link to the document.
+        #[serde(rename = "DocumentLink", skip_serializing_if = "Option::is_none")]
+        pub document_link: Option<FileLink>,
 
-    /// Gets or sets the statistical data of the document.
-    #[serde(rename = "StatData", skip_serializing_if = "Option::is_none")]
-    pub stat_data: Option<DocumentStatData>,
+
+        /// Gets or sets the statistical data of the document.
+        #[serde(rename = "StatData", skip_serializing_if = "Option::is_none")]
+        pub stat_data: Option<DocumentStatData>,
+
 }
 
 impl Default for StatDataResponse {
@@ -73,10 +75,10 @@ impl Model for StatDataResponse {
     fn validate(&self) -> SdkResult<()> {
         self.parent.validate()?;
         if let Some(value) = &self.document_link {
-            value.validate()?;
+        value.validate()?;
         }
         if let Some(value) = &self.stat_data {
-            value.validate()?;
+        value.validate()?;
         }
         Ok(())
     }
@@ -89,3 +91,4 @@ impl Model for StatDataResponse {
         self
     }
 }
+

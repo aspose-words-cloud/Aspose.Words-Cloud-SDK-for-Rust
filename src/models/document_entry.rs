@@ -35,13 +35,15 @@ use super::*;
 pub struct DocumentEntry {
     #[serde(flatten)]
     pub parent: BaseEntry,
-    /// Gets or sets document password encrypted on API public key. The default value is null (the document has no password).
-    #[serde(rename = "EncryptedPassword", skip_serializing_if = "Option::is_none")]
-    pub encrypted_password: Option<String>,
+        /// Gets or sets document password encrypted on API public key. The default value is null (the document has no password).
+        #[serde(rename = "EncryptedPassword", skip_serializing_if = "Option::is_none")]
+        pub encrypted_password: Option<String>,
 
-    /// Gets or sets the option that controls formatting will be used: appended or destination document. Can be KeepSourceFormatting or UseDestinationStyles.
-    #[serde(rename = "ImportFormatMode", skip_serializing_if = "Option::is_none")]
-    pub import_format_mode: Option<DocumentEntryImportFormatModeEnum>,
+
+        /// Gets or sets the option that controls formatting will be used: appended or destination document. Can be KeepSourceFormatting or UseDestinationStyles.
+        #[serde(rename = "ImportFormatMode", skip_serializing_if = "Option::is_none")]
+        pub import_format_mode: Option<DocumentEntryImportFormatModeEnum>,
+
 }
 
 impl Default for DocumentEntry {
@@ -93,9 +95,9 @@ impl Model for DocumentEntry {
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
 pub enum DocumentEntryImportFormatModeEnum {
     #[serde(rename = "UseDestinationStyles")]
-    UseDestinationStyles,
+        UseDestinationStyles,
     #[serde(rename = "KeepSourceFormatting")]
-    KeepSourceFormatting,
+        KeepSourceFormatting,
     #[serde(rename = "KeepDifferentStyles")]
-    KeepDifferentStyles,
+        KeepDifferentStyles,
 }

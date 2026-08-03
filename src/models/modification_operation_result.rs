@@ -32,13 +32,15 @@ use super::*;
 /// result of the operation which modifies the original document and saves the result.
 #[derive(Debug, Deserialize, Serialize)]
 pub struct ModificationOperationResult {
-    /// Gets or sets the link to the dest document (result of the modification operation).
-    #[serde(rename = "Dest", skip_serializing_if = "Option::is_none")]
-    pub dest: Option<FileLink>,
+        /// Gets or sets the link to the dest document (result of the modification operation).
+        #[serde(rename = "Dest", skip_serializing_if = "Option::is_none")]
+        pub dest: Option<FileLink>,
 
-    /// Gets or sets the link to the source document (source for the modification operation).
-    #[serde(rename = "Source", skip_serializing_if = "Option::is_none")]
-    pub source: Option<FileLink>,
+
+        /// Gets or sets the link to the source document (source for the modification operation).
+        #[serde(rename = "Source", skip_serializing_if = "Option::is_none")]
+        pub source: Option<FileLink>,
+
 }
 
 impl Default for ModificationOperationResult {
@@ -53,17 +55,19 @@ impl Default for ModificationOperationResult {
 impl Model for ModificationOperationResult {
     fn validate(&self) -> SdkResult<()> {
         if let Some(value) = &self.dest {
-            value.validate()?;
+        value.validate()?;
         }
         if let Some(value) = &self.source {
-            value.validate()?;
+        value.validate()?;
         }
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {}
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+    }
 
     fn as_any(&self) -> &dyn Any {
         self
     }
 }
+

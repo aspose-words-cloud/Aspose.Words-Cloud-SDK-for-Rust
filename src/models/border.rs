@@ -36,33 +36,39 @@ use super::*;
 pub struct Border {
     #[serde(flatten)]
     pub parent: LinkElement,
-    /// Gets or sets the border type.
-    #[serde(rename = "BorderType", skip_serializing_if = "Option::is_none")]
-    pub border_type: Option<BorderBorderTypeEnum>,
+        /// Gets or sets the border type.
+        #[serde(rename = "BorderType", skip_serializing_if = "Option::is_none")]
+        pub border_type: Option<BorderBorderTypeEnum>,
 
-    /// Gets or sets the border color.
-    #[serde(rename = "Color", skip_serializing_if = "Option::is_none")]
-    pub color: Option<XmlColor>,
 
-    /// Gets or sets the distance of the border from text or from the page edge in points.
-    /// Has no effect and will be automatically reset to zero for borders of table cells.
-    #[serde(rename = "DistanceFromText", skip_serializing_if = "Option::is_none")]
-    pub distance_from_text: Option<f64>,
+        /// Gets or sets the border color.
+        #[serde(rename = "Color", skip_serializing_if = "Option::is_none")]
+        pub color: Option<XmlColor>,
 
-    /// Gets or sets the border style.
-    /// If you set line style to none, then line width is automatically changed to zero.
-    #[serde(rename = "LineStyle", skip_serializing_if = "Option::is_none")]
-    pub line_style: Option<BorderLineStyleEnum>,
 
-    /// Gets or sets the border width in points.
-    /// If you set line width greater than zero when line style is none, the line style is automatically changed to single line.
-    #[serde(rename = "LineWidth", skip_serializing_if = "Option::is_none")]
-    pub line_width: Option<f64>,
+        /// Gets or sets the distance of the border from text or from the page edge in points.
+            /// Has no effect and will be automatically reset to zero for borders of table cells.
+        #[serde(rename = "DistanceFromText", skip_serializing_if = "Option::is_none")]
+        pub distance_from_text: Option<f64>,
 
-    /// Gets or sets a value indicating whether the border has a shadow.
-    /// In Microsoft Word, for a border to have a shadow, the borders on all four sides (left, top, right and bottom) should be of the same type, width, color and all should have the Shadow property set to true.
-    #[serde(rename = "Shadow", skip_serializing_if = "Option::is_none")]
-    pub shadow: Option<bool>,
+
+        /// Gets or sets the border style.
+            /// If you set line style to none, then line width is automatically changed to zero.
+        #[serde(rename = "LineStyle", skip_serializing_if = "Option::is_none")]
+        pub line_style: Option<BorderLineStyleEnum>,
+
+
+        /// Gets or sets the border width in points.
+            /// If you set line width greater than zero when line style is none, the line style is automatically changed to single line.
+        #[serde(rename = "LineWidth", skip_serializing_if = "Option::is_none")]
+        pub line_width: Option<f64>,
+
+
+        /// Gets or sets a value indicating whether the border has a shadow.
+            /// In Microsoft Word, for a border to have a shadow, the borders on all four sides (left, top, right and bottom) should be of the same type, width, color and all should have the Shadow property set to true.
+        #[serde(rename = "Shadow", skip_serializing_if = "Option::is_none")]
+        pub shadow: Option<bool>,
+
 }
 
 impl Default for Border {
@@ -98,8 +104,11 @@ impl Model for Border {
     fn validate(&self) -> SdkResult<()> {
         self.parent.validate()?;
         if let Some(value) = &self.color {
-            value.validate()?;
+        value.validate()?;
         }
+
+
+
 
         Ok(())
     }
@@ -117,23 +126,23 @@ impl Model for Border {
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
 pub enum BorderBorderTypeEnum {
     #[serde(rename = "Bottom")]
-    Bottom,
+        Bottom,
     #[serde(rename = "Left")]
-    Left,
+        Left,
     #[serde(rename = "Right")]
-    Right,
+        Right,
     #[serde(rename = "Top")]
-    Top,
+        Top,
     #[serde(rename = "Horizontal")]
-    Horizontal,
+        Horizontal,
     #[serde(rename = "Vertical")]
-    Vertical,
+        Vertical,
     #[serde(rename = "DiagonalDown")]
-    DiagonalDown,
+        DiagonalDown,
     #[serde(rename = "DiagonalUp")]
-    DiagonalUp,
+        DiagonalUp,
     #[serde(rename = "None")]
-    None,
+        None,
 }
 
 /// Gets or sets the border style.
@@ -141,57 +150,57 @@ pub enum BorderBorderTypeEnum {
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
 pub enum BorderLineStyleEnum {
     #[serde(rename = "None")]
-    None,
+        None,
     #[serde(rename = "Single")]
-    Single,
+        Single,
     #[serde(rename = "Thick")]
-    Thick,
+        Thick,
     #[serde(rename = "Double")]
-    Double,
+        Double,
     #[serde(rename = "Hairline")]
-    Hairline,
+        Hairline,
     #[serde(rename = "Dot")]
-    Dot,
+        Dot,
     #[serde(rename = "DashLargeGap")]
-    DashLargeGap,
+        DashLargeGap,
     #[serde(rename = "DotDash")]
-    DotDash,
+        DotDash,
     #[serde(rename = "DotDotDash")]
-    DotDotDash,
+        DotDotDash,
     #[serde(rename = "Triple")]
-    Triple,
+        Triple,
     #[serde(rename = "ThinThickSmallGap")]
-    ThinThickSmallGap,
+        ThinThickSmallGap,
     #[serde(rename = "ThickThinSmallGap")]
-    ThickThinSmallGap,
+        ThickThinSmallGap,
     #[serde(rename = "ThinThickThinSmallGap")]
-    ThinThickThinSmallGap,
+        ThinThickThinSmallGap,
     #[serde(rename = "ThinThickMediumGap")]
-    ThinThickMediumGap,
+        ThinThickMediumGap,
     #[serde(rename = "ThickThinMediumGap")]
-    ThickThinMediumGap,
+        ThickThinMediumGap,
     #[serde(rename = "ThinThickThinMediumGap")]
-    ThinThickThinMediumGap,
+        ThinThickThinMediumGap,
     #[serde(rename = "ThinThickLargeGap")]
-    ThinThickLargeGap,
+        ThinThickLargeGap,
     #[serde(rename = "ThickThinLargeGap")]
-    ThickThinLargeGap,
+        ThickThinLargeGap,
     #[serde(rename = "ThinThickThinLargeGap")]
-    ThinThickThinLargeGap,
+        ThinThickThinLargeGap,
     #[serde(rename = "Wave")]
-    Wave,
+        Wave,
     #[serde(rename = "DoubleWave")]
-    DoubleWave,
+        DoubleWave,
     #[serde(rename = "DashSmallGap")]
-    DashSmallGap,
+        DashSmallGap,
     #[serde(rename = "DashDotStroker")]
-    DashDotStroker,
+        DashDotStroker,
     #[serde(rename = "Emboss3D")]
-    Emboss3D,
+        Emboss3D,
     #[serde(rename = "Engrave3D")]
-    Engrave3D,
+        Engrave3D,
     #[serde(rename = "Outset")]
-    Outset,
+        Outset,
     #[serde(rename = "Inset")]
-    Inset,
+        Inset,
 }

@@ -32,16 +32,15 @@ use super::*;
 /// Container class for details of digital signature.
 #[derive(Debug, Deserialize, Serialize)]
 pub struct DigitalSignatureDetails {
-    /// Gets or sets the certificate's filename using for signing.
-    #[serde(
-        rename = "CertificateFilename",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub certificate_filename: Option<String>,
+        /// Gets or sets the certificate's filename using for signing.
+        #[serde(rename = "CertificateFilename", skip_serializing_if = "Option::is_none")]
+        pub certificate_filename: Option<String>,
 
-    /// Gets or sets signing options.
-    #[serde(rename = "SignOptions", skip_serializing_if = "Option::is_none")]
-    pub sign_options: Option<SignOptions>,
+
+        /// Gets or sets signing options.
+        #[serde(rename = "SignOptions", skip_serializing_if = "Option::is_none")]
+        pub sign_options: Option<SignOptions>,
+
 }
 
 impl Default for DigitalSignatureDetails {
@@ -56,14 +55,16 @@ impl Default for DigitalSignatureDetails {
 impl Model for DigitalSignatureDetails {
     fn validate(&self) -> SdkResult<()> {
         if let Some(value) = &self.sign_options {
-            value.validate()?;
+        value.validate()?;
         }
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {}
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+    }
 
     fn as_any(&self) -> &dyn Any {
         self
     }
 }
+

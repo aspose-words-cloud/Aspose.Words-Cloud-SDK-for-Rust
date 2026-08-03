@@ -35,9 +35,10 @@ use super::*;
 pub struct ParagraphLinkCollection {
     #[serde(flatten)]
     pub parent: LinkElement,
-    /// Gets or sets the collection of paragraph's links.
-    #[serde(rename = "ParagraphLinkList", skip_serializing_if = "Option::is_none")]
-    pub paragraph_link_list: Option<Vec<ParagraphLink>>,
+        /// Gets or sets the collection of paragraph's links.
+        #[serde(rename = "ParagraphLinkList", skip_serializing_if = "Option::is_none")]
+        pub paragraph_link_list: Option<Vec<ParagraphLink>>,
+
 }
 
 impl Default for ParagraphLinkCollection {
@@ -68,9 +69,9 @@ impl Model for ParagraphLinkCollection {
     fn validate(&self) -> SdkResult<()> {
         self.parent.validate()?;
         if let Some(values) = &self.paragraph_link_list {
-            for value in values {
-                value.validate()?;
-            }
+        for value in values {
+        value.validate()?;
+        }
         }
         Ok(())
     }
@@ -83,3 +84,4 @@ impl Model for ParagraphLinkCollection {
         self
     }
 }
+

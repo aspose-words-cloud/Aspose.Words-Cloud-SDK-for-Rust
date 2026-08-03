@@ -35,17 +35,20 @@ use super::*;
 pub struct HeaderFooter {
     #[serde(flatten)]
     pub parent: HeaderFooterLink,
-    /// Gets or sets the child nodes.
-    #[serde(rename = "ChildNodes", skip_serializing_if = "Option::is_none")]
-    pub child_nodes: Option<Vec<NodeLink>>,
+        /// Gets or sets the child nodes.
+        #[serde(rename = "ChildNodes", skip_serializing_if = "Option::is_none")]
+        pub child_nodes: Option<Vec<NodeLink>>,
 
-    /// Gets or sets the link to Paragraphs resource.
-    #[serde(rename = "Paragraphs", skip_serializing_if = "Option::is_none")]
-    pub paragraphs: Option<LinkElement>,
 
-    /// Gets or sets the link to DrawingObjects resource.
-    #[serde(rename = "DrawingObjects", skip_serializing_if = "Option::is_none")]
-    pub drawing_objects: Option<LinkElement>,
+        /// Gets or sets the link to Paragraphs resource.
+        #[serde(rename = "Paragraphs", skip_serializing_if = "Option::is_none")]
+        pub paragraphs: Option<LinkElement>,
+
+
+        /// Gets or sets the link to DrawingObjects resource.
+        #[serde(rename = "DrawingObjects", skip_serializing_if = "Option::is_none")]
+        pub drawing_objects: Option<LinkElement>,
+
 }
 
 impl Default for HeaderFooter {
@@ -78,15 +81,15 @@ impl Model for HeaderFooter {
     fn validate(&self) -> SdkResult<()> {
         self.parent.validate()?;
         if let Some(values) = &self.child_nodes {
-            for value in values {
-                value.validate()?;
-            }
+        for value in values {
+        value.validate()?;
+        }
         }
         if let Some(value) = &self.paragraphs {
-            value.validate()?;
+        value.validate()?;
         }
         if let Some(value) = &self.drawing_objects {
-            value.validate()?;
+        value.validate()?;
         }
         Ok(())
     }
@@ -99,3 +102,4 @@ impl Model for HeaderFooter {
         self
     }
 }
+

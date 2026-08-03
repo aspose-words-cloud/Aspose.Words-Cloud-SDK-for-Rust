@@ -35,9 +35,10 @@ use super::*;
 pub struct RevisionsModificationResponse {
     #[serde(flatten)]
     pub parent: WordsResponse,
-    /// Gets or sets the result of the modification operations for the revisions collection.
-    #[serde(rename = "Result", skip_serializing_if = "Option::is_none")]
-    pub result: Option<ModificationOperationResult>,
+        /// Gets or sets the result of the modification operations for the revisions collection.
+        #[serde(rename = "Result", skip_serializing_if = "Option::is_none")]
+        pub result: Option<ModificationOperationResult>,
+
 }
 
 impl Default for RevisionsModificationResponse {
@@ -68,7 +69,7 @@ impl Model for RevisionsModificationResponse {
     fn validate(&self) -> SdkResult<()> {
         self.parent.validate()?;
         if let Some(value) = &self.result {
-            value.validate()?;
+        value.validate()?;
         }
         Ok(())
     }
@@ -81,3 +82,4 @@ impl Model for RevisionsModificationResponse {
         self
     }
 }
+

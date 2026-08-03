@@ -35,9 +35,10 @@ use super::*;
 pub struct TableLinkCollection {
     #[serde(flatten)]
     pub parent: LinkElement,
-    /// Gets or sets the collection of table's links.
-    #[serde(rename = "TableLinkList", skip_serializing_if = "Option::is_none")]
-    pub table_link_list: Option<Vec<TableLink>>,
+        /// Gets or sets the collection of table's links.
+        #[serde(rename = "TableLinkList", skip_serializing_if = "Option::is_none")]
+        pub table_link_list: Option<Vec<TableLink>>,
+
 }
 
 impl Default for TableLinkCollection {
@@ -68,9 +69,9 @@ impl Model for TableLinkCollection {
     fn validate(&self) -> SdkResult<()> {
         self.parent.validate()?;
         if let Some(values) = &self.table_link_list {
-            for value in values {
-                value.validate()?;
-            }
+        for value in values {
+        value.validate()?;
+        }
         }
         Ok(())
     }
@@ -83,3 +84,4 @@ impl Model for TableLinkCollection {
         self
     }
 }
+

@@ -36,9 +36,10 @@ use super::*;
 pub struct HeaderFooterResponse {
     #[serde(flatten)]
     pub parent: WordsResponse,
-    /// Gets or sets the HeaderFooter.
-    #[serde(rename = "HeaderFooter", skip_serializing_if = "Option::is_none")]
-    pub header_footer: Option<HeaderFooter>,
+        /// Gets or sets the HeaderFooter.
+        #[serde(rename = "HeaderFooter", skip_serializing_if = "Option::is_none")]
+        pub header_footer: Option<HeaderFooter>,
+
 }
 
 impl Default for HeaderFooterResponse {
@@ -69,7 +70,7 @@ impl Model for HeaderFooterResponse {
     fn validate(&self) -> SdkResult<()> {
         self.parent.validate()?;
         if let Some(value) = &self.header_footer {
-            value.validate()?;
+        value.validate()?;
         }
         Ok(())
     }
@@ -82,3 +83,4 @@ impl Model for HeaderFooterResponse {
         self
     }
 }
+

@@ -32,13 +32,15 @@ use super::*;
 /// Describes the location of the node.
 #[derive(Debug, Deserialize, Serialize)]
 pub struct Position {
-    /// Gets or sets the node id.
-    #[serde(rename = "NodeId", skip_serializing_if = "Option::is_none")]
-    pub node_id: Option<String>,
+        /// Gets or sets the node id.
+        #[serde(rename = "NodeId", skip_serializing_if = "Option::is_none")]
+        pub node_id: Option<String>,
 
-    /// Gets position type.
-    #[serde(rename = "Type", skip_serializing_if = "Option::is_none")]
-    pub r#type: Option<String>,
+
+        /// Gets position type.
+        #[serde(rename = "Type", skip_serializing_if = "Option::is_none")]
+        pub r#type: Option<String>,
+
 }
 
 impl Default for Position {
@@ -60,9 +62,11 @@ impl Model for Position {
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {}
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+    }
 
     fn as_any(&self) -> &dyn Any {
         self
     }
 }
+

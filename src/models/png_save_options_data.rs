@@ -41,7 +41,9 @@ impl Default for PngSaveOptionsData {
     fn default() -> Self {
         let mut parent = ImageSaveOptionsData::default();
         parent.save_format = Some("png".to_owned());
-        Self { parent }
+        Self {
+            parent,
+        }
     }
 }
 
@@ -73,3 +75,4 @@ impl Model for PngSaveOptionsData {
         self
     }
 }
+

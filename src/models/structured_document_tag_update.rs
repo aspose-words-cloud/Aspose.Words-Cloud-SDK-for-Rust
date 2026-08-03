@@ -40,7 +40,9 @@ pub struct StructuredDocumentTagUpdate {
 impl Default for StructuredDocumentTagUpdate {
     fn default() -> Self {
         let mut parent = StructuredDocumentTag::default();
-        Self { parent }
+        Self {
+            parent,
+        }
     }
 }
 
@@ -72,3 +74,4 @@ impl Model for StructuredDocumentTagUpdate {
         self
     }
 }
+

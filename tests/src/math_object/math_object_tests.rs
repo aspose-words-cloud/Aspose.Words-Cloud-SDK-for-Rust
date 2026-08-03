@@ -42,27 +42,19 @@ async fn math_object_get_office_math_objects() -> TestResult<()> {
     let local_file = "DocumentElements/MathObjects/MathObjects.docx".to_owned();
     let remote_file_name = "TestGetOfficeMathObjects.docx".to_owned();
 
-    context
-        .upload_file(
-            local_file.clone(),
-            remote_data_folder.clone() + "/" + &remote_file_name,
-        )
-        .await?;
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
-    let request = GetOfficeMathObjectsRequest::new((remote_file_name.clone()).into())
-        .with_node_path(("".to_owned()).into())
-        .with_folder((remote_data_folder.clone()).into());
+    let request = GetOfficeMathObjectsRequest::new(
+        (remote_file_name.clone()).into()
+    ).with_node_path(("".to_owned()).into())
+.with_folder((remote_data_folder.clone()).into());
 
     let result = context.api().get_office_math_objects(request).await?;
     let result_json = serialize_result(&result)?;
     assert_not_null(&result_json, "OfficeMathObjects")?;
     assert_not_null(&result_json, "OfficeMathObjects.List")?;
     assert_length(&result_json, "OfficeMathObjects.List", 16)?;
-    assert_string(
-        &result_json,
-        "OfficeMathObjects.List[0].NodeId",
-        "0.0.0.0".to_owned(),
-    )?;
+    assert_string(&result_json, "OfficeMathObjects.List[0].NodeId", "0.0.0.0".to_owned())?;
     Ok(())
 }
 
@@ -76,13 +68,11 @@ async fn math_object_get_office_math_objects_online() -> TestResult<()> {
 
     let request_document = context.load_binary_file(local_file.clone()).await?;
 
-    let request = GetOfficeMathObjectsOnlineRequest::new((request_document).into())
-        .with_node_path(("".to_owned()).into());
+    let request = GetOfficeMathObjectsOnlineRequest::new(
+        (request_document).into()
+    ).with_node_path(("".to_owned()).into());
 
-    context
-        .api()
-        .get_office_math_objects_online(request)
-        .await?;
+    context.api().get_office_math_objects_online(request).await?;
     Ok(())
 }
 
@@ -96,26 +86,18 @@ async fn math_object_get_office_math_objects_without_node_path() -> TestResult<(
     let local_file = "DocumentElements/MathObjects/MathObjects.docx".to_owned();
     let remote_file_name = "TestGetOfficeMathObjectsWithoutNodePath.docx".to_owned();
 
-    context
-        .upload_file(
-            local_file.clone(),
-            remote_data_folder.clone() + "/" + &remote_file_name,
-        )
-        .await?;
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
-    let request = GetOfficeMathObjectsRequest::new((remote_file_name.clone()).into())
-        .with_folder((remote_data_folder.clone()).into());
+    let request = GetOfficeMathObjectsRequest::new(
+        (remote_file_name.clone()).into()
+    ).with_folder((remote_data_folder.clone()).into());
 
     let result = context.api().get_office_math_objects(request).await?;
     let result_json = serialize_result(&result)?;
     assert_not_null(&result_json, "OfficeMathObjects")?;
     assert_not_null(&result_json, "OfficeMathObjects.List")?;
     assert_length(&result_json, "OfficeMathObjects.List", 16)?;
-    assert_string(
-        &result_json,
-        "OfficeMathObjects.List[0].NodeId",
-        "0.0.0.0".to_owned(),
-    )?;
+    assert_string(&result_json, "OfficeMathObjects.List[0].NodeId", "0.0.0.0".to_owned())?;
     Ok(())
 }
 
@@ -129,25 +111,18 @@ async fn math_object_get_office_math_object() -> TestResult<()> {
     let local_file = "DocumentElements/MathObjects/MathObjects.docx".to_owned();
     let remote_file_name = "TestGetOfficeMathObject.docx".to_owned();
 
-    context
-        .upload_file(
-            local_file.clone(),
-            remote_data_folder.clone() + "/" + &remote_file_name,
-        )
-        .await?;
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
-    let request = GetOfficeMathObjectRequest::new((remote_file_name.clone()).into(), (0).into())
-        .with_node_path(("".to_owned()).into())
-        .with_folder((remote_data_folder.clone()).into());
+    let request = GetOfficeMathObjectRequest::new(
+        (remote_file_name.clone()).into(),
+        (0).into()
+    ).with_node_path(("".to_owned()).into())
+.with_folder((remote_data_folder.clone()).into());
 
     let result = context.api().get_office_math_object(request).await?;
     let result_json = serialize_result(&result)?;
     assert_not_null(&result_json, "OfficeMathObject")?;
-    assert_string(
-        &result_json,
-        "OfficeMathObject.NodeId",
-        "0.0.0.0".to_owned(),
-    )?;
+    assert_string(&result_json, "OfficeMathObject.NodeId", "0.0.0.0".to_owned())?;
     Ok(())
 }
 
@@ -161,8 +136,10 @@ async fn math_object_get_office_math_object_online() -> TestResult<()> {
 
     let request_document = context.load_binary_file(local_file.clone()).await?;
 
-    let request = GetOfficeMathObjectOnlineRequest::new((request_document).into(), (0).into())
-        .with_node_path(("".to_owned()).into());
+    let request = GetOfficeMathObjectOnlineRequest::new(
+        (request_document).into(),
+        (0).into()
+    ).with_node_path(("".to_owned()).into());
 
     context.api().get_office_math_object_online(request).await?;
     Ok(())
@@ -178,24 +155,17 @@ async fn math_object_get_office_math_object_without_node_path() -> TestResult<()
     let local_file = "DocumentElements/MathObjects/MathObjects.docx".to_owned();
     let remote_file_name = "TestGetOfficeMathObjectWithoutNodePath.docx".to_owned();
 
-    context
-        .upload_file(
-            local_file.clone(),
-            remote_data_folder.clone() + "/" + &remote_file_name,
-        )
-        .await?;
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
-    let request = GetOfficeMathObjectRequest::new((remote_file_name.clone()).into(), (0).into())
-        .with_folder((remote_data_folder.clone()).into());
+    let request = GetOfficeMathObjectRequest::new(
+        (remote_file_name.clone()).into(),
+        (0).into()
+    ).with_folder((remote_data_folder.clone()).into());
 
     let result = context.api().get_office_math_object(request).await?;
     let result_json = serialize_result(&result)?;
     assert_not_null(&result_json, "OfficeMathObject")?;
-    assert_string(
-        &result_json,
-        "OfficeMathObject.NodeId",
-        "0.0.0.0".to_owned(),
-    )?;
+    assert_string(&result_json, "OfficeMathObject.NodeId", "0.0.0.0".to_owned())?;
     Ok(())
 }
 
@@ -209,20 +179,14 @@ async fn math_object_render_math_object() -> TestResult<()> {
     let local_file = "DocumentElements/MathObjects/MathObjects.docx".to_owned();
     let remote_file_name = "TestRenderMathObject.docx".to_owned();
 
-    context
-        .upload_file(
-            local_file.clone(),
-            remote_data_folder.clone() + "/" + &remote_file_name,
-        )
-        .await?;
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
     let request = RenderMathObjectRequest::new(
         (remote_file_name.clone()).into(),
         ("png".to_owned()).into(),
-        (0).into(),
-    )
-    .with_node_path(("".to_owned()).into())
-    .with_folder((remote_data_folder.clone()).into());
+        (0).into()
+    ).with_node_path(("".to_owned()).into())
+.with_folder((remote_data_folder.clone()).into());
 
     context.api().render_math_object(request).await?;
     Ok(())
@@ -241,9 +205,8 @@ async fn math_object_render_math_object_online() -> TestResult<()> {
     let request = RenderMathObjectOnlineRequest::new(
         (request_document).into(),
         ("png".to_owned()).into(),
-        (0).into(),
-    )
-    .with_node_path(("".to_owned()).into());
+        (0).into()
+    ).with_node_path(("".to_owned()).into());
 
     context.api().render_math_object_online(request).await?;
     Ok(())
@@ -259,19 +222,13 @@ async fn math_object_render_math_object_without_node_path() -> TestResult<()> {
     let local_file = "DocumentElements/MathObjects/MathObjects.docx".to_owned();
     let remote_file_name = "TestRenderMathObjectWithoutNodePath.docx".to_owned();
 
-    context
-        .upload_file(
-            local_file.clone(),
-            remote_data_folder.clone() + "/" + &remote_file_name,
-        )
-        .await?;
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
     let request = RenderMathObjectRequest::new(
         (remote_file_name.clone()).into(),
         ("png".to_owned()).into(),
-        (0).into(),
-    )
-    .with_folder((remote_data_folder.clone()).into());
+        (0).into()
+    ).with_folder((remote_data_folder.clone()).into());
 
     context.api().render_math_object(request).await?;
     Ok(())
@@ -287,16 +244,13 @@ async fn math_object_delete_office_math_object() -> TestResult<()> {
     let local_file = "DocumentElements/MathObjects/MathObjects.docx".to_owned();
     let remote_file_name = "TestDeleteOfficeMathObject.docx".to_owned();
 
-    context
-        .upload_file(
-            local_file.clone(),
-            remote_data_folder.clone() + "/" + &remote_file_name,
-        )
-        .await?;
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
-    let request = DeleteOfficeMathObjectRequest::new((remote_file_name.clone()).into(), (0).into())
-        .with_node_path(("".to_owned()).into())
-        .with_folder((remote_data_folder.clone()).into());
+    let request = DeleteOfficeMathObjectRequest::new(
+        (remote_file_name.clone()).into(),
+        (0).into()
+    ).with_node_path(("".to_owned()).into())
+.with_folder((remote_data_folder.clone()).into());
 
     context.api().delete_office_math_object(request).await?;
     Ok(())
@@ -312,13 +266,12 @@ async fn math_object_delete_office_math_object_online() -> TestResult<()> {
 
     let request_document = context.load_binary_file(local_file.clone()).await?;
 
-    let request = DeleteOfficeMathObjectOnlineRequest::new((request_document).into(), (0).into())
-        .with_node_path(("".to_owned()).into());
+    let request = DeleteOfficeMathObjectOnlineRequest::new(
+        (request_document).into(),
+        (0).into()
+    ).with_node_path(("".to_owned()).into());
 
-    context
-        .api()
-        .delete_office_math_object_online(request)
-        .await?;
+    context.api().delete_office_math_object_online(request).await?;
     Ok(())
 }
 
@@ -332,15 +285,12 @@ async fn math_object_delete_office_math_object_without_node_path() -> TestResult
     let local_file = "DocumentElements/MathObjects/MathObjects.docx".to_owned();
     let remote_file_name = "TestDeleteOfficeMathObjectWithoutNodePath.docx".to_owned();
 
-    context
-        .upload_file(
-            local_file.clone(),
-            remote_data_folder.clone() + "/" + &remote_file_name,
-        )
-        .await?;
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
-    let request = DeleteOfficeMathObjectRequest::new((remote_file_name.clone()).into(), (0).into())
-        .with_folder((remote_data_folder.clone()).into());
+    let request = DeleteOfficeMathObjectRequest::new(
+        (remote_file_name.clone()).into(),
+        (0).into()
+    ).with_folder((remote_data_folder.clone()).into());
 
     context.api().delete_office_math_object(request).await?;
     Ok(())
@@ -356,15 +306,11 @@ async fn math_object_delete_office_math_objects() -> TestResult<()> {
     let local_file = "DocumentElements/MathObjects/MathObjects.docx".to_owned();
     let remote_file_name = "TestDeleteOfficeMathObject.docx".to_owned();
 
-    context
-        .upload_file(
-            local_file.clone(),
-            remote_data_folder.clone() + "/" + &remote_file_name,
-        )
-        .await?;
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
 
-    let request = DeleteOfficeMathObjectsRequest::new((remote_file_name.clone()).into())
-        .with_folder((remote_data_folder.clone()).into());
+    let request = DeleteOfficeMathObjectsRequest::new(
+        (remote_file_name.clone()).into()
+    ).with_folder((remote_data_folder.clone()).into());
 
     context.api().delete_office_math_objects(request).await?;
     Ok(())
@@ -380,11 +326,10 @@ async fn math_object_delete_office_math_objects_online() -> TestResult<()> {
 
     let request_document = context.load_binary_file(local_file.clone()).await?;
 
-    let request = DeleteOfficeMathObjectsOnlineRequest::new((request_document).into());
+    let request = DeleteOfficeMathObjectsOnlineRequest::new(
+        (request_document).into()
+    );
 
-    context
-        .api()
-        .delete_office_math_objects_online(request)
-        .await?;
+    context.api().delete_office_math_objects_online(request).await?;
     Ok(())
 }

@@ -40,7 +40,9 @@ pub struct FieldUpdate {
 impl Default for FieldUpdate {
     fn default() -> Self {
         let mut parent = FieldBase::default();
-        Self { parent }
+        Self {
+            parent,
+        }
     }
 }
 
@@ -72,3 +74,4 @@ impl Model for FieldUpdate {
         self
     }
 }
+

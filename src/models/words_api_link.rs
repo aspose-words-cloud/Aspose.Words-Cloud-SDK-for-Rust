@@ -40,7 +40,9 @@ pub struct WordsApiLink {
 impl Default for WordsApiLink {
     fn default() -> Self {
         let mut parent = Link::default();
-        Self { parent }
+        Self {
+            parent,
+        }
     }
 }
 
@@ -72,3 +74,4 @@ impl Model for WordsApiLink {
         self
     }
 }
+

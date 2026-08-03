@@ -41,7 +41,9 @@ impl Default for XamlFlowPackSaveOptionsData {
     fn default() -> Self {
         let mut parent = XamlFlowSaveOptionsData::default();
         parent.save_format = Some("xamlflow_pack".to_owned());
-        Self { parent }
+        Self {
+            parent,
+        }
     }
 }
 
@@ -73,3 +75,4 @@ impl Model for XamlFlowPackSaveOptionsData {
         self
     }
 }
+

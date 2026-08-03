@@ -35,30 +35,36 @@ use super::*;
 pub struct WatermarkDataText {
     #[serde(flatten)]
     pub parent: WatermarkDataBase,
-    /// Gets or sets font color. The default value is System.Drawing.Color.Silver.
-    #[serde(rename = "Color", skip_serializing_if = "Option::is_none")]
-    pub color: Option<XmlColor>,
+        /// Gets or sets font color. The default value is System.Drawing.Color.Silver.
+        #[serde(rename = "Color", skip_serializing_if = "Option::is_none")]
+        pub color: Option<XmlColor>,
 
-    /// Gets or sets font family name. The default value is "Calibri".
-    #[serde(rename = "FontFamily", skip_serializing_if = "Option::is_none")]
-    pub font_family: Option<String>,
 
-    /// Gets or sets a font size. The default value is 0 - auto.
-    /// Valid values range from 0 to 65.5 inclusive. Auto font size means that the watermark will be scaled to its max width and max height relative to the page margins.
-    #[serde(rename = "FontSize", skip_serializing_if = "Option::is_none")]
-    pub font_size: Option<f64>,
+        /// Gets or sets font family name. The default value is "Calibri".
+        #[serde(rename = "FontFamily", skip_serializing_if = "Option::is_none")]
+        pub font_family: Option<String>,
 
-    /// Gets or sets a boolean value which is responsible for opacity of the watermark. The default value is true.
-    #[serde(rename = "IsSemitrasparent", skip_serializing_if = "Option::is_none")]
-    pub is_semitrasparent: Option<bool>,
 
-    /// Gets or sets layout of the watermark. The default value is Aspose.Words.WatermarkLayout.Diagonal.
-    #[serde(rename = "Layout", skip_serializing_if = "Option::is_none")]
-    pub layout: Option<WatermarkDataTextLayoutEnum>,
+        /// Gets or sets a font size. The default value is 0 - auto.
+            /// Valid values range from 0 to 65.5 inclusive. Auto font size means that the watermark will be scaled to its max width and max height relative to the page margins.
+        #[serde(rename = "FontSize", skip_serializing_if = "Option::is_none")]
+        pub font_size: Option<f64>,
 
-    /// Gets or sets the watermark text.
-    #[serde(rename = "Text", skip_serializing_if = "Option::is_none")]
-    pub text: Option<String>,
+
+        /// Gets or sets a boolean value which is responsible for opacity of the watermark. The default value is true.
+        #[serde(rename = "IsSemitrasparent", skip_serializing_if = "Option::is_none")]
+        pub is_semitrasparent: Option<bool>,
+
+
+        /// Gets or sets layout of the watermark. The default value is Aspose.Words.WatermarkLayout.Diagonal.
+        #[serde(rename = "Layout", skip_serializing_if = "Option::is_none")]
+        pub layout: Option<WatermarkDataTextLayoutEnum>,
+
+
+        /// Gets or sets the watermark text.
+        #[serde(rename = "Text", skip_serializing_if = "Option::is_none")]
+        pub text: Option<String>,
+
 }
 
 impl Default for WatermarkDataText {
@@ -99,8 +105,12 @@ impl Model for WatermarkDataText {
             ));
         }
         if let Some(value) = &self.color {
-            value.validate()?;
+        value.validate()?;
         }
+
+
+
+
 
         Ok(())
     }
@@ -118,7 +128,7 @@ impl Model for WatermarkDataText {
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
 pub enum WatermarkDataTextLayoutEnum {
     #[serde(rename = "Horizontal")]
-    Horizontal,
+        Horizontal,
     #[serde(rename = "Diagonal")]
-    Diagonal,
+        Diagonal,
 }

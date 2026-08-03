@@ -32,31 +32,25 @@ use super::*;
 /// Represents a bookmark to insert.
 #[derive(Debug, Deserialize, Serialize)]
 pub struct BookmarkInsert {
-    /// Gets or sets the name of the bookmark.
-    #[serde(rename = "Name", skip_serializing_if = "Option::is_none")]
-    pub name: Option<String>,
+        /// Gets or sets the name of the bookmark.
+        #[serde(rename = "Name", skip_serializing_if = "Option::is_none")]
+        pub name: Option<String>,
 
-    /// Gets or sets text, enclosed in the bookmark.
-    #[serde(rename = "Text", skip_serializing_if = "Option::is_none")]
-    pub text: Option<String>,
 
-    /// Gets or sets the link to start bookmark node.
-    #[serde(
-        rename = "StartRange",
-        skip_serializing_if = "Option::is_none",
-        default,
-        deserialize_with = "deserialize_optional_model"
-    )]
-    pub start_range: Option<ModelBox>,
+        /// Gets or sets text, enclosed in the bookmark.
+        #[serde(rename = "Text", skip_serializing_if = "Option::is_none")]
+        pub text: Option<String>,
 
-    /// Gets or sets the link to end bookmark node.
-    #[serde(
-        rename = "EndRange",
-        skip_serializing_if = "Option::is_none",
-        default,
-        deserialize_with = "deserialize_optional_model"
-    )]
-    pub end_range: Option<ModelBox>,
+
+        /// Gets or sets the link to start bookmark node.
+        #[serde(rename = "StartRange", skip_serializing_if = "Option::is_none", default, deserialize_with = "deserialize_optional_model")]
+        pub start_range: Option<ModelBox>,
+
+
+        /// Gets or sets the link to end bookmark node.
+        #[serde(rename = "EndRange", skip_serializing_if = "Option::is_none", default, deserialize_with = "deserialize_optional_model")]
+        pub end_range: Option<ModelBox>,
+
 }
 
 impl Default for BookmarkInsert {
@@ -93,17 +87,19 @@ impl Model for BookmarkInsert {
             ));
         }
         if let Some(value) = &self.start_range {
-            value.validate()?;
+        value.validate()?;
         }
         if let Some(value) = &self.end_range {
-            value.validate()?;
+        value.validate()?;
         }
         Ok(())
     }
 
-    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {}
+    fn collect_file_references<'a>(&'a self, _output: &mut Vec<&'a FileReference>) {
+    }
 
     fn as_any(&self) -> &dyn Any {
         self
     }
 }
+

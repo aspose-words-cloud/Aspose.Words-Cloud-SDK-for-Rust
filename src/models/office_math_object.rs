@@ -35,23 +35,27 @@ use super::*;
 pub struct OfficeMathObject {
     #[serde(flatten)]
     pub parent: OfficeMathLink,
-    /// Gets or sets the content of a footnote.
-    #[serde(rename = "Content", skip_serializing_if = "Option::is_none")]
-    pub content: Option<StoryChildNodes>,
+        /// Gets or sets the content of a footnote.
+        #[serde(rename = "Content", skip_serializing_if = "Option::is_none")]
+        pub content: Option<StoryChildNodes>,
 
-    /// Gets or sets the display format type of the OfficeMath object. This display format defines whether an equation is displayed inline with the text or displayed on its own line.
-    /// Display format type has effect for top level Office Math only.Returned display format type is always Inline for nested Office Math.
-    #[serde(rename = "DisplayType", skip_serializing_if = "Option::is_none")]
-    pub display_type: Option<OfficeMathObjectDisplayTypeEnum>,
 
-    /// Gets or sets the justification of the OfficeMath object.
-    /// Justification cannot be set to the Office Math with display format type Inline.Inline justification cannot be set to the Office Math with display format type Display.Corresponding DisplayType has to be set before setting Office Math justification.
-    #[serde(rename = "Justification", skip_serializing_if = "Option::is_none")]
-    pub justification: Option<OfficeMathObjectJustificationEnum>,
+        /// Gets or sets the display format type of the OfficeMath object. This display format defines whether an equation is displayed inline with the text or displayed on its own line.
+            /// Display format type has effect for top level Office Math only.Returned display format type is always Inline for nested Office Math.
+        #[serde(rename = "DisplayType", skip_serializing_if = "Option::is_none")]
+        pub display_type: Option<OfficeMathObjectDisplayTypeEnum>,
 
-    /// Gets or sets the type of the OfficeMath object.
-    #[serde(rename = "MathObjectType", skip_serializing_if = "Option::is_none")]
-    pub math_object_type: Option<OfficeMathObjectMathObjectTypeEnum>,
+
+        /// Gets or sets the justification of the OfficeMath object.
+            /// Justification cannot be set to the Office Math with display format type Inline.Inline justification cannot be set to the Office Math with display format type Display.Corresponding DisplayType has to be set before setting Office Math justification.
+        #[serde(rename = "Justification", skip_serializing_if = "Option::is_none")]
+        pub justification: Option<OfficeMathObjectJustificationEnum>,
+
+
+        /// Gets or sets the type of the OfficeMath object.
+        #[serde(rename = "MathObjectType", skip_serializing_if = "Option::is_none")]
+        pub math_object_type: Option<OfficeMathObjectMathObjectTypeEnum>,
+
 }
 
 impl Default for OfficeMathObject {
@@ -85,8 +89,10 @@ impl Model for OfficeMathObject {
     fn validate(&self) -> SdkResult<()> {
         self.parent.validate()?;
         if let Some(value) = &self.content {
-            value.validate()?;
+        value.validate()?;
         }
+
+
 
         Ok(())
     }
@@ -105,9 +111,9 @@ impl Model for OfficeMathObject {
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
 pub enum OfficeMathObjectDisplayTypeEnum {
     #[serde(rename = "Display")]
-    Display,
+        Display,
     #[serde(rename = "Inline")]
-    Inline,
+        Inline,
 }
 
 /// Gets or sets the justification of the OfficeMath object.
@@ -115,82 +121,82 @@ pub enum OfficeMathObjectDisplayTypeEnum {
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
 pub enum OfficeMathObjectJustificationEnum {
     #[serde(rename = "CenterGroup")]
-    CenterGroup,
+        CenterGroup,
     #[serde(rename = "Default")]
-    Default,
+        Default,
     #[serde(rename = "Center")]
-    Center,
+        Center,
     #[serde(rename = "Left")]
-    Left,
+        Left,
     #[serde(rename = "Right")]
-    Right,
+        Right,
     #[serde(rename = "Inline")]
-    Inline,
+        Inline,
 }
 
 /// Gets or sets the type of the OfficeMath object.
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
 pub enum OfficeMathObjectMathObjectTypeEnum {
     #[serde(rename = "OMath")]
-    OMath,
+        OMath,
     #[serde(rename = "OMathPara")]
-    OMathPara,
+        OMathPara,
     #[serde(rename = "Accent")]
-    Accent,
+        Accent,
     #[serde(rename = "Bar")]
-    Bar,
+        Bar,
     #[serde(rename = "BorderBox")]
-    BorderBox,
+        BorderBox,
     #[serde(rename = "Box")]
-    Box,
+        Box,
     #[serde(rename = "Delimiter")]
-    Delimiter,
+        Delimiter,
     #[serde(rename = "Degree")]
-    Degree,
+        Degree,
     #[serde(rename = "Argument")]
-    Argument,
+        Argument,
     #[serde(rename = "Array")]
-    Array,
+        Array,
     #[serde(rename = "Fraction")]
-    Fraction,
+        Fraction,
     #[serde(rename = "Denominator")]
-    Denominator,
+        Denominator,
     #[serde(rename = "Numerator")]
-    Numerator,
+        Numerator,
     #[serde(rename = "Function")]
-    Function,
+        Function,
     #[serde(rename = "FunctionName")]
-    FunctionName,
+        FunctionName,
     #[serde(rename = "GroupCharacter")]
-    GroupCharacter,
+        GroupCharacter,
     #[serde(rename = "Limit")]
-    Limit,
+        Limit,
     #[serde(rename = "LowerLimit")]
-    LowerLimit,
+        LowerLimit,
     #[serde(rename = "UpperLimit")]
-    UpperLimit,
+        UpperLimit,
     #[serde(rename = "Matrix")]
-    Matrix,
+        Matrix,
     #[serde(rename = "MatrixRow")]
-    MatrixRow,
+        MatrixRow,
     #[serde(rename = "NAry")]
-    NAry,
+        NAry,
     #[serde(rename = "Phantom")]
-    Phantom,
+        Phantom,
     #[serde(rename = "Radical")]
-    Radical,
+        Radical,
     #[serde(rename = "SubscriptPart")]
-    SubscriptPart,
+        SubscriptPart,
     #[serde(rename = "SuperscriptPart")]
-    SuperscriptPart,
+        SuperscriptPart,
     #[serde(rename = "PreSubSuperscript")]
-    PreSubSuperscript,
+        PreSubSuperscript,
     #[serde(rename = "Subscript")]
-    Subscript,
+        Subscript,
     #[serde(rename = "SubSuperscript")]
-    SubSuperscript,
+        SubSuperscript,
     #[serde(rename = "Superscript")]
-    Superscript,
+        Superscript,
     #[serde(rename = "None")]
-    None,
+        None,
 }
