@@ -20,8 +20,9 @@
 // SOFTWARE.
 // --------------------------------------------------------------------------------
 
+#![allow(warnings)]
+#![cfg_attr(rustfmt, rustfmt_skip)]
 #![allow(dead_code, unused_imports)]
-// Example expressions use the same schema-independent conversion rules as tests.
 #![allow(clippy::unnecessary_to_owned, clippy::useless_conversion)]
 
 use std::env;

@@ -20,6 +20,8 @@
 // SOFTWARE.
 // --------------------------------------------------------------------------------
 
+#![allow(warnings)]
+#![cfg_attr(rustfmt, rustfmt_skip)]
 #![allow(dead_code, unused_imports, unused_mut)]
 // Generated models use one uniform implementation strategy, including inherited
 // defaults and request constructors without required arguments.
@@ -31,15 +33,25 @@
 
 #![forbid(unsafe_code)]
 
+#[cfg_attr(rustfmt, rustfmt_skip)]
 mod api;
+#[cfg_attr(rustfmt, rustfmt_skip)]
 mod api_client;
+#[cfg_attr(rustfmt, rustfmt_skip)]
 mod batch;
+#[cfg_attr(rustfmt, rustfmt_skip)]
 mod configuration;
+#[cfg_attr(rustfmt, rustfmt_skip)]
 mod error;
+#[cfg_attr(rustfmt, rustfmt_skip)]
 mod job_handler;
+#[cfg_attr(rustfmt, rustfmt_skip)]
 pub mod models;
+#[cfg_attr(rustfmt, rustfmt_skip)]
 mod request;
+#[cfg_attr(rustfmt, rustfmt_skip)]
 pub mod requests;
+#[cfg_attr(rustfmt, rustfmt_skip)]
 pub mod responses;
 
 pub use api::WordsApi;

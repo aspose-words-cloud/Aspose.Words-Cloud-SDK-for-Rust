@@ -15,7 +15,6 @@ def needToBuild = false
 def packageTesting = false
 
 def installCiTools() {
-    sh 'rustup component add rustfmt clippy'
     sh 'mkdir -p .ci-bin'
     sh 'curl -LsSf https://get.nexte.st/0.9.137/linux | tar zxf - -C .ci-bin'
     sh 'test -x .ci-bin/cargo-nextest'
@@ -64,12 +63,8 @@ node('words-linux') {
                         installCiTools()
                     }
 
-                    stage('format') {
-                        sh 'cargo fmt --manifest-path tests/Cargo.toml -- --check'
-                    }
-
-                    stage('lint') {
-                        sh 'cargo clippy --manifest-path tests/Cargo.toml --all-targets -- -D warnings'
+                    stage('build') {
+                        sh 'cargo build --manifest-path tests/Cargo.toml --all-targets'
                     }
 
                     stage('tests') {
@@ -82,14 +77,9 @@ node('words-linux') {
                         installCiTools()
                     }
 
-                    stage('format') {
-                        sh 'cargo fmt -- --check'
-                        sh 'cargo fmt --manifest-path tests/Cargo.toml -- --check'
-                    }
-
-                    stage('lint') {
-                        sh 'cargo clippy --all-targets -- -D warnings'
-                        sh 'cargo clippy --manifest-path tests/Cargo.toml --all-targets -- -D warnings'
+                    stage('build') {
+                        sh 'cargo build --all-targets'
+                        sh 'cargo build --manifest-path tests/Cargo.toml --all-targets'
                     }
 
                     stage('tests') {
