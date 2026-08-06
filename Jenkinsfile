@@ -13,6 +13,9 @@ properties([
 
 def needToBuild = false
 def packageTesting = false
+def ciImageName = null
+def targetCacheVolume = null
+def dependencyCacheKey = null
 
 def installCiTools() {
     sh 'mkdir -p .ci-bin'
@@ -23,7 +26,7 @@ def installCiTools() {
 
 def runTests() {
     try {
-        sh '.ci-bin/cargo-nextest nextest run --manifest-path tests/Cargo.toml --config-file .config/nextest.toml --profile ci'
+        sh '.ci-bin/cargo-nextest nextest run --manifest-path tests/Cargo.toml --config-file .config/nextest.toml --profile ci --cargo-profile ci-cd --locked'
     } finally {
         junit '**/target/nextest/ci/junit.xml'
     }
@@ -56,30 +59,54 @@ node('words-linux') {
                 }
             }
 
-            if (packageTesting) {
-                docker.image('rust:1.88').inside {
-                    stage('prepare package testing') {
-                        sh 'cp tests/Cargo.package-testing.toml tests/Cargo.toml'
-                        installCiTools()
-                    }
-
-                    stage('build') {
-                        sh 'cargo build --manifest-path tests/Cargo.toml --all-targets'
-                    }
-
-                    stage('tests') {
-                        runTests()
-                    }
-                }
-            } else if (needToBuild) {
+            if (packageTesting || needToBuild) {
                 docker.image('rust:1.88').inside {
                     stage('prepare') {
-                        installCiTools()
-                    }
+                        if (packageTesting) {
+                            sh 'cp tests/Cargo.package-testing.toml tests/Cargo.toml'
+                        }
 
+                        installCiTools()
+                        sh 'cargo generate-lockfile --manifest-path tests/Cargo.toml'
+
+                        dependencyCacheKey = sh(
+                            script: 'sha256sum Dockerfile.ci Cargo.toml tests/Cargo.toml tests/Cargo.lock | sha256sum',
+                            returnStdout: true
+                        ).trim().tokenize()[0].take(16)
+                        ciImageName = packageTesting ? 'aspose-words-cloud-rust-ci:rust-1.88-package-testing' : 'aspose-words-cloud-rust-ci:rust-1.88'
+                        targetCacheVolume = packageTesting ? 'aspose-words-cloud-rust-package-testing-target' : 'aspose-words-cloud-rust-target'
+                        echo "Using Rust target cache volume ${targetCacheVolume}"
+                    }
+                }
+
+                def ciImage
+                stage('image') {
+                    ciImage = docker.build(ciImageName, '--pull --file Dockerfile.ci .')
+                }
+
+                stage('cache') {
+                    withEnv([
+                        "RUST_DEPENDENCY_CACHE_KEY=${dependencyCacheKey}",
+                        "RUST_TARGET_CACHE_VOLUME=${targetCacheVolume}",
+                        "RUST_CI_IMAGE=${ciImageName}"
+                    ]) {
+                        sh '''docker run --rm \
+                            --env RUST_DEPENDENCY_CACHE_KEY \
+                            --volume "$RUST_TARGET_CACHE_VOLUME:/cache" \
+                            "$RUST_CI_IMAGE" \
+                            sh -c 'cached_key="$(cat /cache/.dependency-cache-key 2>/dev/null || true)"; \
+                                if test "$cached_key" != "$RUST_DEPENDENCY_CACHE_KEY"; then \
+                                    find /cache -mindepth 1 -delete; \
+                                    cp -a "$CARGO_TARGET_DIR/." /cache/; \
+                                    printf "%s\\n" "$RUST_DEPENDENCY_CACHE_KEY" > /cache/.dependency-cache-key; \
+                                fi' '''
+                    }
+                }
+
+                ciImage.inside("--volume ${targetCacheVolume}:/opt/rust-ci-target") {
                     stage('build') {
-                        sh 'cargo build --all-targets'
-                        sh 'cargo build --manifest-path tests/Cargo.toml --all-targets'
+                        sh 'find src tests/src -type f -exec touch {} +'
+                        sh 'cargo build --manifest-path tests/Cargo.toml --profile ci-cd --all-targets --locked'
                     }
 
                     stage('tests') {

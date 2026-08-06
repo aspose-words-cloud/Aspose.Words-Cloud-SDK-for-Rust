@@ -1,0 +1,24 @@
+FROM rust:1.88-bookworm
+
+RUN apt-get -o APT::Sandbox::User=root update \
+    && apt-get -o APT::Sandbox::User=root install -y --no-install-recommends mold \
+    && rm -rf /var/lib/apt/lists/*
+
+ENV CARGO_BUILD_TARGET=x86_64-unknown-linux-gnu \
+    CARGO_HOME=/opt/rust-ci-cargo \
+    CARGO_TARGET_DIR=/opt/rust-ci-target \
+    RUSTFLAGS="-C link-arg=-fuse-ld=mold"
+
+WORKDIR /opt/rust-dependency-cache
+
+# Source files are represented by minimal stubs so this layer changes only when
+# a manifest, the resolved dependency graph, or the CI image changes.
+COPY Cargo.toml ./Cargo.toml
+COPY tests/Cargo.toml tests/Cargo.lock ./tests/
+COPY .ci/dependency-cache/sdk/lib.rs ./src/lib.rs
+COPY .ci/dependency-cache/tests/lib.rs ./tests/src/lib.rs
+
+RUN cargo build --manifest-path tests/Cargo.toml --profile ci-cd --all-targets --locked \
+    && chmod -R a+rwX "${CARGO_HOME}" "${CARGO_TARGET_DIR}"
+
+WORKDIR /workspace

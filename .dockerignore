@@ -1,0 +1,12 @@
+*
+!Cargo.toml
+!Dockerfile.ci
+!tests/
+!tests/Cargo.toml
+!tests/Cargo.lock
+!.ci/
+!.ci/dependency-cache/
+!.ci/dependency-cache/sdk/
+!.ci/dependency-cache/sdk/lib.rs
+!.ci/dependency-cache/tests/
+!.ci/dependency-cache/tests/lib.rs
