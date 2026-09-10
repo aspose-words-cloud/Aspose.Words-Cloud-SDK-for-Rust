@@ -1,6 +1,6 @@
 [package]
 name = "aspose-words-cloud"
-version = "26.8.0"
+version = "26.9.0"
 edition = "2021"
 rust-version = "1.88"
 description = "Rust SDK for the Aspose.Words Cloud API"
