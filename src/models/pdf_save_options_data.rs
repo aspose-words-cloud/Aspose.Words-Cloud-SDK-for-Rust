@@ -123,6 +123,17 @@ pub struct PdfSaveOptionsData {
         pub font_embedding_mode: Option<PdfSaveOptionsDataFontEmbeddingModeEnum>,
 
 
+        /// Gets or sets a value determining  whether to generate scripts that emulate specific Microsoft Word form field behavior in PDF.
+            /// Default is false.
+            /// When this option is enabled, the exporter generates PDF JavaScript actions to emulate Microsoft Word
+            /// form field behavior, such as date and time form fields with formatting and validation rules.When set to true, supported behavior will be exported as PDF JavaScript actions.
+            /// When set to false, no form field scripts will be generated.Script execution depends on the PDF viewer. Some PDF viewers might ignore scripts, restrict script execution,
+            /// or require the user to enable JavaScript.JavaScript actions are prohibited by PDF/A-1, PDF/A-2 and PDF/A-3 compliance.
+            /// The false value will be used automatically in this case.
+        #[serde(rename = "GenerateFormFieldScripts", skip_serializing_if = "Option::is_none")]
+        pub generate_form_field_scripts: Option<bool>,
+
+
         /// Gets or sets the option that controls how bookmarks in headers/footers are exported.
             /// The default value is Aspose.Words.Saving.HeaderFooterBookmarksExportMode.All.
         #[serde(rename = "HeaderFooterBookmarksExportMode", skip_serializing_if = "Option::is_none")]
@@ -242,6 +253,7 @@ impl Default for PdfSaveOptionsData {
             export_document_structure: None,
             export_language_to_span_tag: None,
             font_embedding_mode: None,
+            generate_form_field_scripts: None,
             header_footer_bookmarks_export_mode: None,
             image_color_space_export_mode: None,
             image_compression: None,
@@ -293,6 +305,7 @@ impl Model for PdfSaveOptionsData {
         if let Some(value) = &self.encryption_details {
         value.validate()?;
         }
+
 
 
 

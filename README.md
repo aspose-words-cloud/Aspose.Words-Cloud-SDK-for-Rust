@@ -32,7 +32,7 @@ Add these dependencies to your `Cargo.toml`:
 
 ```toml
 [dependencies]
-aspose-words-cloud = "26.8.0"
+aspose-words-cloud = "26.9.0"
 tokio = { version = "1", features = ["fs", "macros", "rt-multi-thread"] }
 ```
 

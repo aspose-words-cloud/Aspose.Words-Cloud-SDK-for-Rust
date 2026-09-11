@@ -348,7 +348,7 @@ impl ApiClient {
             .header("x-aspose-client", "rust sdk")
             .header(
                 "x-aspose-client-version",
-                "26.8",
+                "26.9",
             );
         for (name, value) in data.headers {
             let name = HeaderName::from_bytes(name.as_bytes()).map_err(|error| {

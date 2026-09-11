@@ -40,6 +40,12 @@ pub struct XpsSaveOptionsData {
         pub bookmarks_outline_level: Option<i32>,
 
 
+        /// Gets or sets a compression level used to save document.
+            /// The default value is Normal.
+        #[serde(rename = "CompressionLevel", skip_serializing_if = "Option::is_none")]
+        pub compression_level: Option<XpsSaveOptionsDataCompressionLevelEnum>,
+
+
         /// Gets or sets the details for signing the output document.
         #[serde(rename = "DigitalSignatureDetails", skip_serializing_if = "Option::is_none")]
         pub digital_signature_details: Option<DigitalSignatureDetails>,
@@ -69,6 +75,7 @@ impl Default for XpsSaveOptionsData {
         Self {
             parent,
             bookmarks_outline_level: None,
+            compression_level: None,
             digital_signature_details: None,
             headings_outline_levels: None,
             outline_options: None,
@@ -116,3 +123,16 @@ impl Model for XpsSaveOptionsData {
     }
 }
 
+/// Gets or sets a compression level used to save document.
+/// The default value is Normal.
+#[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
+pub enum XpsSaveOptionsDataCompressionLevelEnum {
+    #[serde(rename = "Normal")]
+        Normal,
+    #[serde(rename = "Maximum")]
+        Maximum,
+    #[serde(rename = "Fast")]
+        Fast,
+    #[serde(rename = "SuperFast")]
+        SuperFast,
+}
