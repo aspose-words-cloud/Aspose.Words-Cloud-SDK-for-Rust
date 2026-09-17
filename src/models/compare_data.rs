@@ -32,6 +32,11 @@ use super::*;
 /// Container class for compare documents.
 #[derive(Debug, Deserialize, Serialize)]
 pub struct CompareData {
+        /// Gets or sets advanced compare options that might help to produce more precise comparison output.
+        #[serde(rename = "AdvancedOptions", skip_serializing_if = "Option::is_none")]
+        pub advanced_options: Option<AdvancedCompareOptions>,
+
+
         /// Gets or sets the initials of the author to use for revisions.
         #[serde(rename = "Author", skip_serializing_if = "Option::is_none")]
         pub author: Option<String>,
@@ -66,6 +71,7 @@ pub struct CompareData {
 impl Default for CompareData {
     fn default() -> Self {
         Self {
+            advanced_options: None,
             author: None,
             compare_options: None,
             comparing_with_document: None,
@@ -88,6 +94,10 @@ impl Model for CompareData {
                 "property FileReference in CompareData is required".to_owned(),
             ));
         }
+        if let Some(value) = &self.advanced_options {
+        value.validate()?;
+        }
+
         if let Some(value) = &self.compare_options {
         value.validate()?;
         }

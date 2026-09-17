@@ -23,6 +23,7 @@
 mod date_time;
 mod file_reference;
 mod model;
+mod advanced_compare_options;
 mod api_error;
 mod available_fonts_response;
 mod azw3_save_options_data;
@@ -321,6 +322,7 @@ pub(crate) use date_time::deserialize_optional_date_time;
 pub use file_reference::FileReference;
 pub use model::{Model, ModelBox};
 pub(crate) use model::{deserialize_optional_model, deserialize_optional_models};
+pub use advanced_compare_options::*;
 pub use api_error::*;
 pub use available_fonts_response::*;
 pub use azw3_save_options_data::*;
