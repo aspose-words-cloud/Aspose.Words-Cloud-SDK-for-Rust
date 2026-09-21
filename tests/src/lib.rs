@@ -50,80 +50,60 @@ mod examples_tests;
 mod readme_tests;
 #[cfg(test)]
 #[cfg_attr(rustfmt, rustfmt_skip)]
-#[path = "bookmark/bookmark_tests.rs"]
-mod bookmark_tests;
+#[path = "styles/styles_tests.rs"]
+mod styles_tests;
+#[cfg(test)]
+#[cfg_attr(rustfmt, rustfmt_skip)]
+#[path = "watermark/watermark_tests.rs"]
+mod watermark_tests;
 #[cfg(test)]
 #[cfg_attr(rustfmt, rustfmt_skip)]
 #[path = "compatibility/compatibility_tests.rs"]
 mod compatibility_tests;
 #[cfg(test)]
 #[cfg_attr(rustfmt, rustfmt_skip)]
-#[path = "document/append_document_tests.rs"]
-mod append_document_tests;
-#[cfg(test)]
-#[cfg_attr(rustfmt, rustfmt_skip)]
-#[path = "document/comment_tests.rs"]
-mod comment_tests;
-#[cfg(test)]
-#[cfg_attr(rustfmt, rustfmt_skip)]
-#[path = "document/compare_document_tests.rs"]
-mod compare_document_tests;
-#[cfg(test)]
-#[cfg_attr(rustfmt, rustfmt_skip)]
-#[path = "document/compress_document_tests.rs"]
-mod compress_document_tests;
-#[cfg(test)]
-#[cfg_attr(rustfmt, rustfmt_skip)]
-#[path = "document/convert_document_tests.rs"]
-mod convert_document_tests;
-#[cfg(test)]
-#[cfg_attr(rustfmt, rustfmt_skip)]
-#[path = "document/custom_xml_parts_tests.rs"]
-mod custom_xml_parts_tests;
-#[cfg(test)]
-#[cfg_attr(rustfmt, rustfmt_skip)]
-#[path = "document/document_tests.rs"]
-mod document_tests;
-#[cfg(test)]
-#[cfg_attr(rustfmt, rustfmt_skip)]
-#[path = "document/document_statistics_tests.rs"]
-mod document_statistics_tests;
-#[cfg(test)]
-#[cfg_attr(rustfmt, rustfmt_skip)]
-#[path = "document/document_with_format_tests.rs"]
-mod document_with_format_tests;
-#[cfg(test)]
-#[cfg_attr(rustfmt, rustfmt_skip)]
-#[path = "document/load_web_document_tests.rs"]
-mod load_web_document_tests;
-#[cfg(test)]
-#[cfg_attr(rustfmt, rustfmt_skip)]
-#[path = "document/password_encryption_tests.rs"]
-mod password_encryption_tests;
-#[cfg(test)]
-#[cfg_attr(rustfmt, rustfmt_skip)]
-#[path = "document/revisions_tests.rs"]
-mod revisions_tests;
-#[cfg(test)]
-#[cfg_attr(rustfmt, rustfmt_skip)]
-#[path = "document/signature_tests.rs"]
-mod signature_tests;
-#[cfg(test)]
-#[cfg_attr(rustfmt, rustfmt_skip)]
-#[path = "document/split_document_to_format_tests.rs"]
-mod split_document_to_format_tests;
+#[path = "run/run_tests.rs"]
+mod run_tests;
 #[cfg(test)]
 #[cfg_attr(rustfmt, rustfmt_skip)]
 #[path = "document_properties/document_properties_tests.rs"]
 mod document_properties_tests;
 #[cfg(test)]
 #[cfg_attr(rustfmt, rustfmt_skip)]
+#[path = "page_setup/page_setup_tests.rs"]
+mod page_setup_tests;
+#[cfg(test)]
+#[cfg_attr(rustfmt, rustfmt_skip)]
+#[path = "info/info_tests.rs"]
+mod info_tests;
+#[cfg(test)]
+#[cfg_attr(rustfmt, rustfmt_skip)]
+#[path = "sections/section_tests.rs"]
+mod section_tests;
+#[cfg(test)]
+#[cfg_attr(rustfmt, rustfmt_skip)]
+#[path = "math_object/math_object_tests.rs"]
+mod math_object_tests;
+#[cfg(test)]
+#[cfg_attr(rustfmt, rustfmt_skip)]
+#[path = "lists/lists_tests.rs"]
+mod lists_tests;
+#[cfg(test)]
+#[cfg_attr(rustfmt, rustfmt_skip)]
+#[path = "structured_document_tag/structured_document_tag_tests.rs"]
+mod structured_document_tag_tests;
+#[cfg(test)]
+#[cfg_attr(rustfmt, rustfmt_skip)]
+#[path = "text/text_tests.rs"]
+mod text_tests;
+#[cfg(test)]
+#[cfg_attr(rustfmt, rustfmt_skip)]
 #[path = "document_protection/document_protection_tests.rs"]
 mod document_protection_tests;
 #[cfg(test)]
 #[cfg_attr(rustfmt, rustfmt_skip)]
-#[path = "drawing/drawing_objects_tests.rs"]
-mod drawing_objects_tests;
+#[path = "font/font_tests.rs"]
+mod font_tests;
 #[cfg(test)]
 #[cfg_attr(rustfmt, rustfmt_skip)]
 #[path = "field/field_tests.rs"]
@@ -134,76 +114,96 @@ mod field_tests;
 mod form_field_tests;
 #[cfg(test)]
 #[cfg_attr(rustfmt, rustfmt_skip)]
-#[path = "font/font_tests.rs"]
-mod font_tests;
-#[cfg(test)]
-#[cfg_attr(rustfmt, rustfmt_skip)]
-#[path = "footnote/footnote_tests.rs"]
-mod footnote_tests;
-#[cfg(test)]
-#[cfg_attr(rustfmt, rustfmt_skip)]
-#[path = "header_footer/header_footer_tests.rs"]
-mod header_footer_tests;
-#[cfg(test)]
-#[cfg_attr(rustfmt, rustfmt_skip)]
-#[path = "hyperlink/hyperlink_tests.rs"]
-mod hyperlink_tests;
-#[cfg(test)]
-#[cfg_attr(rustfmt, rustfmt_skip)]
-#[path = "info/info_tests.rs"]
-mod info_tests;
-#[cfg(test)]
-#[cfg_attr(rustfmt, rustfmt_skip)]
-#[path = "lists/lists_tests.rs"]
-mod lists_tests;
-#[cfg(test)]
-#[cfg_attr(rustfmt, rustfmt_skip)]
-#[path = "macros/macros_tests.rs"]
-mod macros_tests;
-#[cfg(test)]
-#[cfg_attr(rustfmt, rustfmt_skip)]
-#[path = "mail_merge/execute_mail_merge_tests.rs"]
-mod execute_mail_merge_tests;
+#[path = "mail_merge/mail_merge_fileds_tests.rs"]
+mod mail_merge_fileds_tests;
 #[cfg(test)]
 #[cfg_attr(rustfmt, rustfmt_skip)]
 #[path = "mail_merge/execute_template_tests.rs"]
 mod execute_template_tests;
 #[cfg(test)]
 #[cfg_attr(rustfmt, rustfmt_skip)]
+#[path = "mail_merge/execute_mail_merge_tests.rs"]
+mod execute_mail_merge_tests;
+#[cfg(test)]
+#[cfg_attr(rustfmt, rustfmt_skip)]
 #[path = "mail_merge/execute_template_with_field_options_tests.rs"]
 mod execute_template_with_field_options_tests;
-#[cfg(test)]
-#[cfg_attr(rustfmt, rustfmt_skip)]
-#[path = "mail_merge/mail_merge_fileds_tests.rs"]
-mod mail_merge_fileds_tests;
-#[cfg(test)]
-#[cfg_attr(rustfmt, rustfmt_skip)]
-#[path = "math_object/math_object_tests.rs"]
-mod math_object_tests;
-#[cfg(test)]
-#[cfg_attr(rustfmt, rustfmt_skip)]
-#[path = "page_setup/page_setup_tests.rs"]
-mod page_setup_tests;
-#[cfg(test)]
-#[cfg_attr(rustfmt, rustfmt_skip)]
-#[path = "paragraph/paragraph_tests.rs"]
-mod paragraph_tests;
-#[cfg(test)]
-#[cfg_attr(rustfmt, rustfmt_skip)]
-#[path = "range/range_tests.rs"]
-mod range_tests;
 #[cfg(test)]
 #[cfg_attr(rustfmt, rustfmt_skip)]
 #[path = "report/build_report_tests.rs"]
 mod build_report_tests;
 #[cfg(test)]
 #[cfg_attr(rustfmt, rustfmt_skip)]
-#[path = "run/run_tests.rs"]
-mod run_tests;
+#[path = "document/document_statistics_tests.rs"]
+mod document_statistics_tests;
 #[cfg(test)]
 #[cfg_attr(rustfmt, rustfmt_skip)]
-#[path = "sections/section_tests.rs"]
-mod section_tests;
+#[path = "document/document_tests.rs"]
+mod document_tests;
+#[cfg(test)]
+#[cfg_attr(rustfmt, rustfmt_skip)]
+#[path = "document/compare_document_tests.rs"]
+mod compare_document_tests;
+#[cfg(test)]
+#[cfg_attr(rustfmt, rustfmt_skip)]
+#[path = "document/password_encryption_tests.rs"]
+mod password_encryption_tests;
+#[cfg(test)]
+#[cfg_attr(rustfmt, rustfmt_skip)]
+#[path = "document/revisions_tests.rs"]
+mod revisions_tests;
+#[cfg(test)]
+#[cfg_attr(rustfmt, rustfmt_skip)]
+#[path = "document/append_document_tests.rs"]
+mod append_document_tests;
+#[cfg(test)]
+#[cfg_attr(rustfmt, rustfmt_skip)]
+#[path = "document/compress_document_tests.rs"]
+mod compress_document_tests;
+#[cfg(test)]
+#[cfg_attr(rustfmt, rustfmt_skip)]
+#[path = "document/signature_tests.rs"]
+mod signature_tests;
+#[cfg(test)]
+#[cfg_attr(rustfmt, rustfmt_skip)]
+#[path = "document/split_document_to_format_tests.rs"]
+mod split_document_to_format_tests;
+#[cfg(test)]
+#[cfg_attr(rustfmt, rustfmt_skip)]
+#[path = "document/document_with_format_tests.rs"]
+mod document_with_format_tests;
+#[cfg(test)]
+#[cfg_attr(rustfmt, rustfmt_skip)]
+#[path = "document/comment_tests.rs"]
+mod comment_tests;
+#[cfg(test)]
+#[cfg_attr(rustfmt, rustfmt_skip)]
+#[path = "document/load_web_document_tests.rs"]
+mod load_web_document_tests;
+#[cfg(test)]
+#[cfg_attr(rustfmt, rustfmt_skip)]
+#[path = "document/convert_document_tests.rs"]
+mod convert_document_tests;
+#[cfg(test)]
+#[cfg_attr(rustfmt, rustfmt_skip)]
+#[path = "document/custom_xml_parts_tests.rs"]
+mod custom_xml_parts_tests;
+#[cfg(test)]
+#[cfg_attr(rustfmt, rustfmt_skip)]
+#[path = "bookmark/bookmark_tests.rs"]
+mod bookmark_tests;
+#[cfg(test)]
+#[cfg_attr(rustfmt, rustfmt_skip)]
+#[path = "paragraph/paragraph_tests.rs"]
+mod paragraph_tests;
+#[cfg(test)]
+#[cfg_attr(rustfmt, rustfmt_skip)]
+#[path = "drawing/drawing_objects_tests.rs"]
+mod drawing_objects_tests;
+#[cfg(test)]
+#[cfg_attr(rustfmt, rustfmt_skip)]
+#[path = "range/range_tests.rs"]
+mod range_tests;
 #[cfg(test)]
 #[cfg_attr(rustfmt, rustfmt_skip)]
 #[path = "storage/file_tests.rs"]
@@ -214,12 +214,12 @@ mod file_tests;
 mod folder_tests;
 #[cfg(test)]
 #[cfg_attr(rustfmt, rustfmt_skip)]
-#[path = "structured_document_tag/structured_document_tag_tests.rs"]
-mod structured_document_tag_tests;
+#[path = "hyperlink/hyperlink_tests.rs"]
+mod hyperlink_tests;
 #[cfg(test)]
 #[cfg_attr(rustfmt, rustfmt_skip)]
-#[path = "styles/styles_tests.rs"]
-mod styles_tests;
+#[path = "macros/macros_tests.rs"]
+mod macros_tests;
 #[cfg(test)]
 #[cfg_attr(rustfmt, rustfmt_skip)]
 #[path = "table/table_tests.rs"]
@@ -230,9 +230,9 @@ mod table_tests;
 mod table_border_tests;
 #[cfg(test)]
 #[cfg_attr(rustfmt, rustfmt_skip)]
-#[path = "text/text_tests.rs"]
-mod text_tests;
+#[path = "header_footer/header_footer_tests.rs"]
+mod header_footer_tests;
 #[cfg(test)]
 #[cfg_attr(rustfmt, rustfmt_skip)]
-#[path = "watermark/watermark_tests.rs"]
-mod watermark_tests;
+#[path = "footnote/footnote_tests.rs"]
+mod footnote_tests;
