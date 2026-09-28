@@ -32,7 +32,7 @@ def runTests() {
     }
 }
 
-node('words-linux') {
+node('sdk-linux') {
     cleanWs()
     dir('rust') {
         try {
