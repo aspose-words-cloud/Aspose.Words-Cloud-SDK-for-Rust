@@ -60,7 +60,7 @@ node('sdk-linux') {
             }
 
             if (packageTesting || needToBuild) {
-                docker.image('rust:1.88').inside {
+                docker.image('rust:1.99').inside {
                     stage('prepare') {
                         if (packageTesting) {
                             sh 'cp tests/Cargo.package-testing.toml tests/Cargo.toml'
@@ -73,7 +73,7 @@ node('sdk-linux') {
                             script: 'sha256sum Dockerfile.ci Cargo.toml tests/Cargo.toml tests/Cargo.lock | sha256sum',
                             returnStdout: true
                         ).trim().tokenize()[0].take(16)
-                        ciImageName = packageTesting ? 'aspose-words-cloud-rust-ci:rust-1.88-package-testing' : 'aspose-words-cloud-rust-ci:rust-1.88'
+                        ciImageName = packageTesting ? 'aspose-words-cloud-rust-ci:rust-1.99-package-testing' : 'aspose-words-cloud-rust-ci:rust-1.99'
                         targetCacheVolume = packageTesting ? 'aspose-words-cloud-rust-package-testing-target' : 'aspose-words-cloud-rust-target'
                         echo "Using Rust target cache volume ${targetCacheVolume}"
                     }

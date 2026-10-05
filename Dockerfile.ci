@@ -1,4 +1,4 @@
-FROM rust:1.88-bookworm
+FROM rust:1.99-bookworm
 
 RUN apt-get -o APT::Sandbox::User=root update \
     && apt-get -o APT::Sandbox::User=root install -y --no-install-recommends mold \
