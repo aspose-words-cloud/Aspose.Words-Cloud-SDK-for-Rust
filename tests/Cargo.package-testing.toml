@@ -1,7 +1,9 @@
 [package]
 name = "aspose-words-cloud-tests"
 version = "26.9.0"
-edition = "2021"
+edition = "2024"
+resolver = "3"
+rust-version = "1.99"
 publish = false
 
 [dependencies]
