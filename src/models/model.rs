@@ -99,6 +99,7 @@ fn deserialize_model_value(value: Value) -> SdkResult<ModelBox> {
         })?;
 
     match model_type {
+        "AdvancedCompareOptions" => Ok(serde_json::from_value::<AdvancedCompareOptions>(value)?.into()),
         "ApiError" => Ok(serde_json::from_value::<ApiError>(value)?.into()),
         "AvailableFontsResponse" => Ok(serde_json::from_value::<AvailableFontsResponse>(value)?.into()),
         "Azw3SaveOptionsData" => Ok(serde_json::from_value::<Azw3SaveOptionsData>(value)?.into()),

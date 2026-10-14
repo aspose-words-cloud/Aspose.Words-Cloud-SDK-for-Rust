@@ -33,7 +33,7 @@ def makeRelease() {
     }
 }
 
-node('words-linux') {
+node('sdk-linux') {
     cleanWs()
     makeRelease()
 }
