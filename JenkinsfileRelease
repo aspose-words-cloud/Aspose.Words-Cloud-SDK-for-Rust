@@ -1,31 +1,151 @@
-parameters {
-    string(name: 'tagVersion', description: 'new version number for tag')
+properties([
+    disableConcurrentBuilds(),
+    parameters([
+        booleanParam(name: 'dry-run', defaultValue: true, description: 'Verify the release without publishing.')
+    ])
+])
+
+def githubRepoApi = 'https://api.github.com/repos/aspose-words-cloud/Aspose.Words-Cloud-SDK-for-Rust'
+def dryRun = params['dry-run'] != false
+def commitHash
+def releaseVersion
+def releaseNotes
+
+def checkoutSdk(String revision) {
+    checkout([
+        $class: 'GitSCM',
+        branches: [[name: revision]],
+        doGenerateSubmoduleConfigurations: false,
+        extensions: [],
+        submoduleCfg: [],
+        userRemoteConfigs: [[
+            credentialsId: '361885ba-9425-4230-950e-0af201d90547',
+            url: 'https://git.auckland.dynabic.com/words-cloud/words-cloud-rust.git'
+        ]]
+    ])
+    sh '''
+        git config user.email 'jenkins.aspose@gmail.com'
+        git config user.name 'jenkins'
+    '''
 }
 
-def makeRelease() {
-    try {
-        stage('merge') {
-            checkout([$class: 'GitSCM', branches: [[name: '*/release']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'LocalBranch', localBranch: '**']], submoduleCfg: [], userRemoteConfigs: [[credentialsId: '361885ba-9425-4230-950e-0af201d90547', url: 'https://git.auckland.dynabic.com/words-cloud/words-cloud-rust.git']]])
-            sh "git config user.email 'jenkins.aspose@gmail.com'"
-            sh "git config user.name 'jenkins'"
-            sh 'git checkout --merge release'
-            sh 'git reset --hard origin/release'
-            sh 'git merge --no-ff --allow-unrelated-histories origin/master'
-            sh 'git diff --name-status'
-            sh 'git commit -am "Merged master branch to release" || exit 0'
-            withCredentials([usernamePassword(credentialsId: '361885ba-9425-4230-950e-0af201d90547', passwordVariable: 'gitPass', usernameVariable: 'gitUsername')]) {
-                sh 'git push https://$gitUsername:$gitPass@git.auckland.dynabic.com/words-cloud/words-cloud-rust.git release'
+def getSpecVersion() {
+    def specText = sh(script: 'curl --fail --silent --show-error --location --max-time 180 https://api.aspose.cloud/v4.0/words/codegen/spec', returnStdout: true)
+    def spec = new groovy.json.JsonSlurperClassic().parseText(specText)
+    def version = spec.SdkVersion
+    if (!(version instanceof String) || !(version ==~ /[0-9]+\.[0-9]+/)) {
+        error('Production API specification must contain a valid SdkVersion (major.minor).')
+    }
+    return version
+}
+
+// Call within a withCredentials block that provides GITHUB_TOKEN.
+def getGithubStatus(String url) {
+    withEnv(["GITHUB_REQUEST_URL=${url}"]) {
+        return sh(script: '''set +x
+curl --silent --show-error --connect-timeout 15 --max-time 45 \
+    --header "Authorization: Bearer $GITHUB_TOKEN" \
+    --header 'Accept: application/vnd.github+json' \
+    --output /dev/null --write-out '%{http_code}' "$GITHUB_REQUEST_URL"''', returnStdout: true).trim()
+    }
+}
+
+def waitForGithubTag(String repoApi, String version) {
+    timeout(time: 15, unit: 'MINUTES') {
+        waitUntil(initialRecurrencePeriod: 15000) {
+            def status = getGithubStatus("${repoApi}/git/ref/tags/${version}")
+            if (status == '404') {
+                // Waiting for release tag to synchronize to GitHub (15 minute timeout).
+                return false
             }
+            if (status != '200') {
+                error("GitHub tag lookup failed with HTTP ${status}.")
+                return false
+            }
+
+            // Tag found
+            return true
+        }
+    }
+}
+
+def createGithubRelease(String repoApi, String version, String notes) {
+    def payloadFile = "${pwd(tmp: true)}/github-release.json"
+    writeFile file: payloadFile, text: groovy.json.JsonOutput.toJson([
+        tag_name: version,
+        name: version,
+        body: notes,
+        draft: false,
+        prerelease: false,
+        make_latest: 'true'
+    ])
+    withEnv(["GITHUB_RELEASE_URL=${repoApi}/releases", "GITHUB_RELEASE_PAYLOAD=${payloadFile}"]) {
+        sh '''
+            set +x
+            curl --fail-with-body --silent --show-error --max-time 180 \
+                --request POST --header "Authorization: Bearer $GITHUB_TOKEN" \
+                --header 'Accept: application/vnd.github+json' \
+                --header 'Content-Type: application/json' \
+                --data-binary "@$GITHUB_RELEASE_PAYLOAD" "$GITHUB_RELEASE_URL"
+        '''
+    }
+}
+
+node('sdk-linux') {
+    cleanWs()
+    try {
+        stage('checkout') {
+            checkoutSdk('master')
+            commitHash = sh(script: 'git rev-parse HEAD', returnStdout: true).trim()
         }
 
-        stage('tag') {
-            checkout([$class: 'GitSCM', branches: [[name: '*/release']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'LocalBranch', localBranch: '**']], submoduleCfg: [], userRemoteConfigs: [[credentialsId: '361885ba-9425-4230-950e-0af201d90547', url: 'https://git.auckland.dynabic.com/words-cloud/words-cloud-rust.git']]])
-            sh 'git config user.email "jenkins.aspose@gmail.com"'
-            sh 'git config user.name "jenkins"'
-            sh "git tag -a ${tagVersion} -m 'version ${tagVersion}' | exit 0"
+        stage('verify') {
+            releaseVersion = getSpecVersion()
+            env.RELEASE_VERSION = releaseVersion
+            if (!fileExists('.codegen/version')) {
+                error('Missing generated SDK version file: .codegen/version')
+            }
+            def sdkVersion = readFile('.codegen/version').trim()
+            if (sdkVersion != releaseVersion) {
+                error("SDK version '${sdkVersion}' does not exactly match api version '${releaseVersion}'.")
+            }
 
-            withCredentials([usernamePassword(credentialsId: '361885ba-9425-4230-950e-0af201d90547', passwordVariable: 'gitPass', usernameVariable: 'gitUsername')]) {
-                sh 'git push https://$gitUsername:$gitPass@git.auckland.dynabic.com/words-cloud/words-cloud-rust.git ${tagVersion}'
+            withCredentials([gitUsernamePassword(credentialsId: '361885ba-9425-4230-950e-0af201d90547', gitToolName: scm.gitTool ?: 'Default')]) {
+                def existingTag = sh(script: 'git ls-remote --tags origin "refs/tags/$RELEASE_VERSION"', returnStdout: true).trim()
+                if (existingTag) {
+                    error("Release tag '${releaseVersion}' already exists in the remote origin.")
+                }
+            }
+
+            def notesPath = ".codegen/changelog/${releaseVersion}.md"
+            releaseNotes = fileExists(notesPath) ? readFile(notesPath) : ''
+            if (!fileExists(notesPath)) {
+                echo "No changelog for ${releaseVersion}; the GitHub release description will be empty."
+            }
+
+            // Validate GitHub credentials before any publication, including in dry-run mode.
+            // This read-only request checks token validity and repository access, not write permission.
+            withCredentials([string(credentialsId: 'words-release-github-token', variable: 'GITHUB_TOKEN')]) {
+                def githubStatus = getGithubStatus(githubRepoApi)
+                if (githubStatus != '200') {
+                    error("GitHub credential verification failed with HTTP ${githubStatus}. Check words-release-github-token and its repository access.")
+                }
+            }
+
+            echo "Verified SDK version ${releaseVersion}; dry-run=${dryRun}."
+        }
+
+        stage('merge') {
+            sh '''
+                git checkout -B release origin/release
+                git reset --hard origin/release
+                git merge --no-ff --no-edit -m 'Merge master into release' origin/master
+            '''
+            if (!dryRun) {
+                commitHash = sh(script: 'git rev-parse HEAD', returnStdout: true).trim()
+                withCredentials([gitUsernamePassword(credentialsId: '361885ba-9425-4230-950e-0af201d90547', gitToolName: scm.gitTool ?: 'Default')]) {
+                    sh 'git push origin release'
+                }
             }
         }
     } finally {
@@ -33,7 +153,53 @@ def makeRelease() {
     }
 }
 
+// Do not hold an sdk-linux executor while the downstream tests running.
+stage('tests') {
+    build job: 'words-rust-sdk', wait: true, propagate: true, parameters: [
+        string(name: 'branch', value: commitHash),
+        string(name: 'apiUrl', value: 'https://api.aspose.cloud'),
+        booleanParam(name: 'ignoreCiSkip', value: true),
+        string(name: 'credentialsId', value: 'productionCreds'),
+        booleanParam(name: 'packageTesting', value: false)
+    ]
+}
+
 node('sdk-linux') {
     cleanWs()
-    makeRelease()
+    try {
+        stage('prepare') {
+            checkoutSdk(commitHash)
+        }
+
+        if (!dryRun) {
+            stage('publish-tag') {
+                withEnv(["COMMIT_HASH=${commitHash}"]) {
+                    sh 'git tag -a "$RELEASE_VERSION" "$COMMIT_HASH" -m "Version $RELEASE_VERSION"'
+                }
+                withCredentials([gitUsernamePassword(credentialsId: '361885ba-9425-4230-950e-0af201d90547', gitToolName: scm.gitTool ?: 'Default')]) {
+                    sh 'git push origin "refs/tags/$RELEASE_VERSION"'
+                }
+            }
+        }
+
+        stage('publish-crate') {
+            docker.image('rust:1.99').inside {
+                // Cargo publish packages and compiles the crate, including in dry-run mode.
+                withCredentials([string(credentialsId: 'words-rust-crates-io-token', variable: 'CARGO_REGISTRY_TOKEN')]) {
+                    sh "cargo publish ${dryRun ? '--dry-run' : ''}"
+                }
+            }
+        }
+
+        if (!dryRun) {
+            stage('publish-github') {
+                withCredentials([string(credentialsId: 'words-release-github-token', variable: 'GITHUB_TOKEN')]) {
+                    waitForGithubTag(githubRepoApi, releaseVersion)
+                    createGithubRelease(githubRepoApi, releaseVersion, releaseNotes)
+                }
+            }
+        }
+    } finally {
+        deleteDir()
+    }
 }
