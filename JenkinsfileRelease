@@ -31,7 +31,7 @@ def checkoutSdk(String revision) {
 
 def getSpecVersion() {
     def specText = sh(script: 'curl --fail --silent --show-error --location --max-time 180 https://api.aspose.cloud/v4.0/words/codegen/spec', returnStdout: true)
-    def spec = new groovy.json.JsonSlurperClassic().parseText(specText)
+    def spec = readJSON text: specText, returnPojo: true
     def version = spec.SdkVersion
     if (!(version instanceof String) || !(version ==~ /[0-9]+\.[0-9]+/)) {
         error('Production API specification must contain a valid SdkVersion (major.minor).')
@@ -71,14 +71,14 @@ def waitForGithubTag(String repoApi, String version) {
 
 def createGithubRelease(String repoApi, String version, String notes) {
     def payloadFile = "${pwd(tmp: true)}/github-release.json"
-    writeFile file: payloadFile, text: groovy.json.JsonOutput.toJson([
+    writeJSON file: payloadFile, json: [
         tag_name: version,
         name: version,
         body: notes,
         draft: false,
         prerelease: false,
         make_latest: 'true'
-    ])
+    ]
     withEnv(["GITHUB_RELEASE_URL=${repoApi}/releases", "GITHUB_RELEASE_PAYLOAD=${payloadFile}"]) {
         sh '''
             set +x
