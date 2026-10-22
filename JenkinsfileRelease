@@ -1,5 +1,9 @@
 def githubRepoApi = 'https://api.github.com/repos/aspose-words-cloud/Aspose.Words-Cloud-SDK-for-Rust'
 def dryRun = params['dry-run'] != false
+def interactive = params.interactive == true
+def skipPublishTag = false
+def skipPublishCrate = false
+def skipPublishGithub = false
 def commitHash
 def releaseVersion
 def releaseNotes
@@ -84,6 +88,31 @@ def createGithubRelease(String repoApi, String version, String notes) {
     }
 }
 
+def getCrateStatus(String version) {
+    withEnv(["CRATE_VERSION_URL=https://crates.io/api/v1/crates/aspose-words-cloud/${version}.0"]) {
+        return sh(script: '''
+            curl --silent --show-error --connect-timeout 30 --max-time 180 \
+                --user-agent 'aspose.com' \
+                --output /dev/null --write-out '%{http_code}' "$CRATE_VERSION_URL"
+        ''', returnStdout: true).trim()
+    }
+}
+
+def confirmContinuation(String message) {
+    timeout(time: 10, unit: 'MINUTES') {
+        input message: message, ok: 'Continue'
+    }
+    echo "User approved: ${message}"
+}
+
+def verifyOrConfirm(boolean interactive, String problem, String continuation) {
+    if (interactive) {
+        confirmContinuation("${problem} ${continuation}")
+    } else {
+        error(problem)
+    }
+}
+
 pipeline {
     agent none
     options {
@@ -92,6 +121,7 @@ pipeline {
     }
     parameters {
         booleanParam(name: 'dry-run', defaultValue: true, description: 'Verify the release without publishing.')
+        booleanParam(name: 'interactive', defaultValue: false, description: 'Allow explicit approval to continue after verification or publication failures.')
     }
     stages {
         stage('init') {
@@ -109,20 +139,28 @@ pipeline {
                 stage('verify') {
                     steps {
                         script {
-                            releaseVersion = getSpecVersion()
-                            env.RELEASE_VERSION = releaseVersion
                             if (!fileExists('.codegen/version')) {
                                 error('Missing generated SDK version file: .codegen/version')
                             }
-                            def sdkVersion = readFile('.codegen/version').trim()
-                            if (sdkVersion != releaseVersion) {
-                                error("SDK version '${sdkVersion}' does not exactly match api version '${releaseVersion}'.")
+                            releaseVersion = readFile('.codegen/version').trim()
+                            if (!(releaseVersion ==~ /[0-9]+\.[0-9]+/)) {
+                                error('Generated SDK version must have the format major.minor.')
+                            }
+                            env.RELEASE_VERSION = releaseVersion
+                            def specVersion = getSpecVersion()
+                            if (releaseVersion != specVersion) {
+                                verifyOrConfirm(interactive,
+                                    "SDK version '${releaseVersion}' does not match production API version '${specVersion}'.",
+                                    "Continue releasing SDK version ${releaseVersion}?")
                             }
 
                             withCredentials([gitUsernamePassword(credentialsId: '361885ba-9425-4230-950e-0af201d90547', gitToolName: scm.gitTool ?: 'Default')]) {
                                 def existingTag = sh(script: 'git ls-remote --tags origin "refs/tags/$RELEASE_VERSION"', returnStdout: true).trim()
                                 if (existingTag) {
-                                    error("Release tag '${releaseVersion}' already exists in the remote origin.")
+                                    verifyOrConfirm(interactive,
+                                        "Release tag '${releaseVersion}' already exists in origin.",
+                                        'Continue without publishing the Git tag?')
+                                    skipPublishTag = true
                                 }
                             }
 
@@ -137,11 +175,40 @@ pipeline {
                             withCredentials([string(credentialsId: 'words-release-github-token', variable: 'GITHUB_TOKEN')]) {
                                 def githubStatus = getGithubStatus(githubRepoApi)
                                 if (githubStatus != '200') {
-                                    error("GitHub credential verification failed with HTTP ${githubStatus}. Check words-release-github-token and its repository access.")
+                                    verifyOrConfirm(interactive,
+                                        "GitHub repository access check failed with HTTP ${githubStatus}.",
+                                        'Continue without publishing the GitHub release?')
+                                    skipPublishGithub = true
+                                } else {
+                                    def releaseStatus = getGithubStatus("${githubRepoApi}/releases/tags/${releaseVersion}")
+                                    if (releaseStatus == '200') {
+                                        verifyOrConfirm(interactive,
+                                            "GitHub release '${releaseVersion}' already exists.",
+                                            'Continue without publishing the GitHub release?')
+                                        skipPublishGithub = true
+                                    } else if (releaseStatus != '404') {
+                                        verifyOrConfirm(interactive,
+                                            "GitHub release lookup failed with HTTP ${releaseStatus}.",
+                                            'Continue without publishing the GitHub release?')
+                                        skipPublishGithub = true
+                                    }
                                 }
                             }
 
-                            echo "Verified SDK version ${releaseVersion}; dry-run=${dryRun}."
+                            def crateStatus = getCrateStatus(releaseVersion)
+                            if (crateStatus == '200') {
+                                verifyOrConfirm(interactive,
+                                    "Crate aspose-words-cloud ${releaseVersion}.0 already exists on crates.io.",
+                                    'Continue without the publish-crate stage, including its dry-run checks?')
+                                skipPublishCrate = true
+                            } else if (crateStatus != '404') {
+                                verifyOrConfirm(interactive,
+                                    "crates.io version lookup failed with HTTP ${crateStatus}.",
+                                    'Continue without the publish-crate stage, including its dry-run checks?')
+                                skipPublishCrate = true
+                            }
+
+                            echo "Verified SDK version ${releaseVersion}; dry-run=${dryRun}; skipPublishTag=${skipPublishTag}; skipPublishCrate=${skipPublishCrate}; skipPublishGithub=${skipPublishGithub}."
                         }
                     }
                 }
@@ -197,37 +264,65 @@ pipeline {
                     }
                 }
                 stage('publish-tag') {
-                    when { expression { !dryRun } }
+                    when { expression { !dryRun && !skipPublishTag } }
                     steps {
                         script {
-                            withEnv(["COMMIT_HASH=${commitHash}"]) {
-                                sh 'git tag -a "$RELEASE_VERSION" "$COMMIT_HASH" -m "Version $RELEASE_VERSION"'
-                            }
-                            withCredentials([gitUsernamePassword(credentialsId: '361885ba-9425-4230-950e-0af201d90547', gitToolName: scm.gitTool ?: 'Default')]) {
-                                sh 'git push origin "refs/tags/$RELEASE_VERSION"'
+                            try {
+                                withEnv(["COMMIT_HASH=${commitHash}"]) {
+                                    sh 'git tag -a "$RELEASE_VERSION" "$COMMIT_HASH" -m "Version $RELEASE_VERSION"'
+                                }
+                                withCredentials([gitUsernamePassword(credentialsId: '361885ba-9425-4230-950e-0af201d90547', gitToolName: scm.gitTool ?: 'Default')]) {
+                                    sh 'git push origin "refs/tags/$RELEASE_VERSION"'
+                                }
+                            } catch (Exception failure) {
+                                if (interactive) {
+                                    confirmContinuation("${failure}. Continue?")
+                                    unstable("${failure}. See the preceding error in the build log.")
+                                } else {
+                                    throw failure
+                                }
                             }
                         }
                     }
                 }
                 stage('publish-crate') {
+                    when { expression { !skipPublishCrate } }
                     steps {
                         script {
-                            docker.image('rust:1.99').inside {
-                                // Cargo publish packages and compiles the crate, including in dry-run mode.
-                                withCredentials([string(credentialsId: 'words-rust-crates-io-token', variable: 'CARGO_REGISTRY_TOKEN')]) {
-                                    sh "cargo publish ${dryRun ? '--dry-run' : ''}"
+                            try {
+                                docker.image('rust:1.99').inside {
+                                    // Cargo publish packages and compiles the crate, including in dry-run mode.
+                                    withCredentials([string(credentialsId: 'words-rust-crates-io-token', variable: 'CARGO_REGISTRY_TOKEN')]) {
+                                        sh "cargo publish ${dryRun ? '--dry-run' : ''}"
+                                    }
+                                }
+                            } catch (Exception failure) {
+                                if (interactive) {
+                                    confirmContinuation("${failure}. Continue?")
+                                    unstable("${failure}. See the preceding error in the build log.")
+                                } else {
+                                    throw failure
                                 }
                             }
                         }
                     }
                 }
                 stage('publish-github') {
-                    when { expression { !dryRun } }
+                    when { expression { !dryRun && !skipPublishGithub } }
                     steps {
                         script {
-                            withCredentials([string(credentialsId: 'words-release-github-token', variable: 'GITHUB_TOKEN')]) {
-                                waitForGithubTag(githubRepoApi, releaseVersion)
-                                createGithubRelease(githubRepoApi, releaseVersion, releaseNotes)
+                            try {
+                                withCredentials([string(credentialsId: 'words-release-github-token', variable: 'GITHUB_TOKEN')]) {
+                                    waitForGithubTag(githubRepoApi, releaseVersion)
+                                    createGithubRelease(githubRepoApi, releaseVersion, releaseNotes)
+                                }
+                            } catch (Exception failure) {
+                                if (interactive) {
+                                    confirmContinuation("${failure}. Continue?")
+                                    unstable("${failure}. See the preceding error in the build log.")
+                                } else {
+                                    throw failure
+                                }
                             }
                         }
                     }
