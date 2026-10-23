@@ -1,4 +1,5 @@
 def githubRepoApi = 'https://api.github.com/repos/aspose-words-cloud/Aspose.Words-Cloud-SDK-for-Rust'
+def localRepoUrl = 'https://git.auckland.dynabic.com/words-cloud/words-cloud-rust.git'
 def dryRun = params['dry-run'] != false
 def interactive = params.interactive == true
 def skipPublishTag = false
@@ -7,8 +8,10 @@ def skipPublishGithub = false
 def commitHash
 def releaseVersion
 def releaseNotes
+def releaseCheckBranch
+def releaseCheckBranchCleanupRequired = false
 
-def checkoutSdk(String revision) {
+def checkoutSdk(String repoUrl, String revision) {
     checkout([
         $class: 'GitSCM',
         branches: [[name: revision]],
@@ -17,7 +20,7 @@ def checkoutSdk(String revision) {
         submoduleCfg: [],
         userRemoteConfigs: [[
             credentialsId: '361885ba-9425-4230-950e-0af201d90547',
-            url: 'https://git.auckland.dynabic.com/words-cloud/words-cloud-rust.git'
+            url: repoUrl
         ]]
     ])
     sh '''
@@ -120,7 +123,7 @@ pipeline {
         skipDefaultCheckout(true)
     }
     parameters {
-        booleanParam(name: 'dry-run', defaultValue: true, description: 'Verify the release without publishing.')
+        booleanParam(name: 'dry-run', defaultValue: true, description: 'Verify without publishing or pushing release; temporary remote branches are created and deleted.')
         booleanParam(name: 'interactive', defaultValue: false, description: 'Allow explicit approval to continue after verification or publication failures.')
     }
     stages {
@@ -131,7 +134,7 @@ pipeline {
                     steps {
                         script {
                             cleanWs()
-                            checkoutSdk('master')
+                            checkoutSdk(localRepoUrl, 'master')
                             commitHash = sh(script: 'git rev-parse HEAD', returnStdout: true).trim()
                         }
                     }
@@ -212,18 +215,34 @@ pipeline {
                         }
                     }
                 }
-                stage('merge') {
+                stage('merge-prepare') {
                     steps {
                         script {
-                            sh '''
-                                git checkout -B release origin/release
-                                git reset --hard origin/release
-                                git merge --no-ff --no-edit -m 'Merge master into release' origin/master
-                            '''
-                            if (!dryRun) {
-                                commitHash = sh(script: 'git rev-parse HEAD', returnStdout: true).trim()
+                            // Refresh release after verification, retaining the verified master SHA.
+                            checkoutSdk(localRepoUrl, 'release')
+                            def timestamp = sh(script: 'date +%s', returnStdout: true).trim()
+                            releaseCheckBranch = "release-${releaseVersion}-${timestamp}"
+                            withEnv(["RELEASE_CHECK_BRANCH=${releaseCheckBranch}", "MASTER_COMMIT=${commitHash}"]) {
                                 withCredentials([gitUsernamePassword(credentialsId: '361885ba-9425-4230-950e-0af201d90547', gitToolName: scm.gitTool ?: 'Default')]) {
-                                    sh 'git push origin release'
+                                    def existingBranch = sh(script: 'git ls-remote --heads origin "refs/heads/$RELEASE_CHECK_BRANCH"', returnStdout: true).trim()
+                                    if (existingBranch) {
+                                        error("Temporary branch '${releaseCheckBranch}' already exists in origin.")
+                                    }
+                                }
+                                sh '''
+                                    git checkout -b "$RELEASE_CHECK_BRANCH" origin/release
+                                    base_commit=$(git rev-parse HEAD)
+                                    git merge --no-ff --no-edit -m 'Merge master into release candidate [ci skip]' "$MASTER_COMMIT"
+                                    if [ "$(git rev-parse HEAD)" = "$base_commit" ]; then
+                                        git commit --allow-empty -m 'Merge master into release candidate [ci skip]'
+                                    fi
+                                '''
+                                commitHash = sh(script: 'git rev-parse HEAD', returnStdout: true).trim()
+                                // Also clean up if the server accepts the push but its response is lost.
+                                releaseCheckBranchCleanupRequired = true
+                                withCredentials([gitUsernamePassword(credentialsId: '361885ba-9425-4230-950e-0af201d90547', gitToolName: scm.gitTool ?: 'Default')]) {
+                                    // An empty lease allows creation only, never replacement of an existing ref.
+                                    sh 'git push --force-with-lease="refs/heads/$RELEASE_CHECK_BRANCH:" origin "HEAD:refs/heads/$RELEASE_CHECK_BRANCH"'
                                 }
                             }
                         }
@@ -243,7 +262,7 @@ pipeline {
             steps {
                 script {
                     build job: 'words-rust-sdk', wait: true, propagate: true, parameters: [
-                        string(name: 'branch', value: commitHash),
+                        string(name: 'branch', value: "refs/heads/${releaseCheckBranch}"),
                         string(name: 'apiUrl', value: 'https://api.aspose.cloud'),
                         booleanParam(name: 'ignoreCiSkip', value: true),
                         string(name: 'credentialsId', value: 'productionCreds'),
@@ -255,11 +274,30 @@ pipeline {
         stage('act') {
             agent { label 'sdk-linux' }
             stages {
-                stage('prepare') {
+                stage('merge-apply') {
                     steps {
                         script {
                             cleanWs()
-                            checkoutSdk(commitHash)
+                            checkoutSdk(localRepoUrl, 'release')
+                            withEnv(["RELEASE_CHECK_BRANCH=${releaseCheckBranch}"]) {
+                                def candidateCommit = sh(script: 'git rev-parse "refs/remotes/origin/$RELEASE_CHECK_BRANCH"', returnStdout: true).trim()
+                                if (candidateCommit != commitHash) {
+                                    error("Temporary branch '${releaseCheckBranch}' changed after merge-check. Refusing to update release.")
+                                }
+                                sh '''
+                                    git checkout -B release origin/release
+                                    git merge --ff-only "refs/remotes/origin/$RELEASE_CHECK_BRANCH"
+                                '''
+                                def appliedCommit = sh(script: 'git rev-parse HEAD', returnStdout: true).trim()
+                                if (appliedCommit != commitHash) {
+                                    error('Release does not match the tested commit after merge-apply. Refusing to publish.')
+                                }
+                            }
+                            if (!dryRun) {
+                                withCredentials([gitUsernamePassword(credentialsId: '361885ba-9425-4230-950e-0af201d90547', gitToolName: scm.gitTool ?: 'Default')]) {
+                                    sh 'git push origin release'
+                                }
+                            }
                         }
                     }
                 }
@@ -332,6 +370,40 @@ pipeline {
                 always {
                     script {
                         deleteDir()
+                    }
+                }
+            }
+        }
+    }
+    post {
+        always {
+            script {
+                stage('cleanup') {
+                    if (releaseCheckBranchCleanupRequired) {
+                        node('sdk-linux') {
+                            deleteDir()
+                            try {
+                                withEnv(["LOCAL_REPO_URL=${localRepoUrl}", "RELEASE_CHECK_BRANCH=${releaseCheckBranch}", "CHECKED_COMMIT=${commitHash}"]) {
+                                    withCredentials([gitUsernamePassword(credentialsId: '361885ba-9425-4230-950e-0af201d90547', gitToolName: scm.gitTool ?: 'Default')]) {
+                                        // Delete the temporary remote branch used to test the release candidate.
+                                        // git init creates an empty local repository so git push can run without a checkout.
+                                        // The repository URL is passed directly, so no git remote add origin is needed.
+                                        // git push with an empty source (:refs/heads/...) deletes the remote branch.
+                                        // CHECKED_COMMIT and --force-with-lease allow deletion only if the branch
+                                        // still points to the tested commit, preserving concurrent changes.
+                                        sh '''
+                                            git init
+                                            remote_branch=$(git ls-remote --heads "$LOCAL_REPO_URL" "refs/heads/$RELEASE_CHECK_BRANCH")
+                                            if [ -n "$remote_branch" ]; then
+                                                git push --force-with-lease="refs/heads/$RELEASE_CHECK_BRANCH:$CHECKED_COMMIT" "$LOCAL_REPO_URL" ":refs/heads/$RELEASE_CHECK_BRANCH"
+                                            fi
+                                        '''
+                                    }
+                                }
+                            } finally {
+                                deleteDir()
+                            }
+                        }
                     }
                 }
             }
