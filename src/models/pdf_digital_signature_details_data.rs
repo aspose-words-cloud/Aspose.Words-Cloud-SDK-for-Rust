@@ -94,4 +94,6 @@ pub enum PdfDigitalSignatureDetailsDataHashAlgorithmEnum {
         Sha512,
     #[serde(rename = "RipeMD160")]
         RipeMd160,
+    #[serde(rename = "Auto")]
+        Auto,
 }
