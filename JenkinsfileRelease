@@ -1,39 +1,31 @@
-parameters {
-    string(name: 'tagVersion', description: 'new version number for tag')
-}
+@Library('jenkins-shared-lib') _
 
-def makeRelease() {
-    try {
-        stage('merge') {
-            checkout([$class: 'GitSCM', branches: [[name: '*/release']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'LocalBranch', localBranch: '**']], submoduleCfg: [], userRemoteConfigs: [[credentialsId: '361885ba-9425-4230-950e-0af201d90547', url: 'https://git.auckland.dynabic.com/words-cloud/words-cloud-rust.git']]])
-            sh "git config user.email 'jenkins.aspose@gmail.com'"
-            sh "git config user.name 'jenkins'"
-            sh 'git checkout --merge release'
-            sh 'git reset --hard origin/release'
-            sh 'git merge --no-ff --allow-unrelated-histories origin/master'
-            sh 'git diff --name-status'
-            sh 'git commit -am "Merged master branch to release" || exit 0'
-            withCredentials([usernamePassword(credentialsId: '361885ba-9425-4230-950e-0af201d90547', passwordVariable: 'gitPass', usernameVariable: 'gitUsername')]) {
-                sh 'git push https://$gitUsername:$gitPass@git.auckland.dynabic.com/words-cloud/words-cloud-rust.git release'
-            }
-        }
-
-        stage('tag') {
-            checkout([$class: 'GitSCM', branches: [[name: '*/release']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'LocalBranch', localBranch: '**']], submoduleCfg: [], userRemoteConfigs: [[credentialsId: '361885ba-9425-4230-950e-0af201d90547', url: 'https://git.auckland.dynabic.com/words-cloud/words-cloud-rust.git']]])
-            sh 'git config user.email "jenkins.aspose@gmail.com"'
-            sh 'git config user.name "jenkins"'
-            sh "git tag -a ${tagVersion} -m 'version ${tagVersion}' | exit 0"
-
-            withCredentials([usernamePassword(credentialsId: '361885ba-9425-4230-950e-0af201d90547', passwordVariable: 'gitPass', usernameVariable: 'gitUsername')]) {
-                sh 'git push https://$gitUsername:$gitPass@git.auckland.dynabic.com/words-cloud/words-cloud-rust.git ${tagVersion}'
-            }
-        }
-    } finally {
-        deleteDir()
+def getPackageStatus(String version) {
+    return withEnv(["CRATE_VERSION_URL=https://crates.io/api/v1/crates/aspose-words-cloud/${version}.0"]) {
+        return sh(script: '''
+            curl --silent --show-error --connect-timeout 30 --max-time 180 \
+                --user-agent 'aspose.com' \
+                --output /dev/null --write-out '%{http_code}' "$CRATE_VERSION_URL"
+        ''', returnStdout: true).trim()
     }
 }
 
-node('sdk-linux') {
-    cleanWs()
-    makeRelease()
+def publishPackage(boolean dryRun) {
+    docker.image('rust:1.99').inside {
+        // Cargo publish packages and compiles the crate, including in dry-run mode.
+        withCredentials([string(credentialsId: 'words-rust-crates-io-token', variable: 'CARGO_REGISTRY_TOKEN')]) {
+            sh "cargo publish ${dryRun ? '--dry-run' : ''}"
+        }
+    }
 }
+
+sdkRelease(
+    localRepoUrl: 'https://git.auckland.dynabic.com/words-cloud/words-cloud-rust.git',
+    githubRepoApi: 'https://api.github.com/repos/aspose-words-cloud/Aspose.Words-Cloud-SDK-for-Rust',
+    testJob: 'words-rust-sdk',
+    getPackageStatus: { String version -> getPackageStatus(version) },
+    publishPackage: { boolean dryRun -> publishPackage(dryRun) },
+    getTagName: { String version -> version },
+    getReleaseName: { String version -> version },
+    getReleaseFiles: { String version -> [] }
+)
