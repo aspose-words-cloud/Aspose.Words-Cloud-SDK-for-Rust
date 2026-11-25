@@ -2066,6 +2066,26 @@ impl WordsApi {
         request.parse_response(response).await
     }
 
+    /// Inserts a new DrawingObject to the document node. The image is passed by reference:
+    /// a storage path in the document folder or its subfolders, an HTTP(S) URL, or a request part.
+    pub async fn insert_drawing_object_by_reference(
+        &self,
+        request: InsertDrawingObjectByReferenceRequest,
+    ) -> SdkResult<DrawingObjectResponse> {
+        let response = self.client.execute(&request).await?;
+        request.parse_response(response).await
+    }
+
+    /// Inserts a new DrawingObject to the document node. The image is passed by reference:
+    /// a storage path in the document folder or its subfolders, an HTTP(S) URL, or a request part.
+    pub async fn insert_drawing_object_by_reference_online(
+        &self,
+        request: InsertDrawingObjectByReferenceOnlineRequest,
+    ) -> SdkResult<InsertDrawingObjectByReferenceOnlineResponse> {
+        let response = self.client.execute(&request).await?;
+        request.parse_response(response).await
+    }
+
     /// Inserts a new DrawingObject to the document node.
     pub async fn insert_drawing_object_online(
         &self,

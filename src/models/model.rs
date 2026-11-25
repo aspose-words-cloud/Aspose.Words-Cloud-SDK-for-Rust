@@ -159,6 +159,7 @@ fn deserialize_model_value(value: Value) -> SdkResult<ModelBox> {
         "DrawingObject" => Ok(serde_json::from_value::<DrawingObject>(value)?.into()),
         "DrawingObjectCollection" => Ok(serde_json::from_value::<DrawingObjectCollection>(value)?.into()),
         "DrawingObjectInsert" => Ok(serde_json::from_value::<DrawingObjectInsert>(value)?.into()),
+        "DrawingObjectInsertData" => Ok(serde_json::from_value::<DrawingObjectInsertData>(value)?.into()),
         "DrawingObjectLink" => Ok(serde_json::from_value::<DrawingObjectLink>(value)?.into()),
         "DrawingObjectResponse" => Ok(serde_json::from_value::<DrawingObjectResponse>(value)?.into()),
         "DrawingObjectsResponse" => Ok(serde_json::from_value::<DrawingObjectsResponse>(value)?.into()),
