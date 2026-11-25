@@ -434,6 +434,76 @@ async fn drawing_objects_insert_drawing_object_without_node_path() -> TestResult
     Ok(())
 }
 
+/// Test for adding drawing object with the image from the storage.
+#[tokio::test]
+async fn drawing_objects_insert_drawing_object_by_reference() -> TestResult<()> {
+    let context = TestContext::from_settings().await?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let remote_data_folder = remote_base_test_data_folder.clone() + "/DocumentElements/DrawingObjectss";
+    let local_file = "Common/test_multi_pages.docx".to_owned();
+    let remote_file_name = "TestInsertDrawingObjectByReference.docx".to_owned();
+    let remote_image_path = remote_data_folder.clone() + "/TestInsertDrawingObjectByReference.png";
+
+    context.upload_file(local_file.clone(), remote_data_folder.clone() + "/" + &remote_file_name).await?;
+    context.upload_file("Common/aspose-cloud.png".to_owned(), remote_image_path.clone()).await?;
+    let request_drawing_object_image_reference = FileReference::remote(
+    remote_image_path.clone(),
+    None,
+    );
+    let mut request_drawing_object = DrawingObjectInsertData::default();
+    request_drawing_object.height = Some(((0) as f64).into());
+    request_drawing_object.left = Some(((0) as f64).into());
+    request_drawing_object.top = Some(((0) as f64).into());
+    request_drawing_object.width = Some(((0) as f64).into());
+    request_drawing_object.relative_horizontal_position = Some((DrawingObjectInsertRelativeHorizontalPositionEnum::Margin).into());
+    request_drawing_object.relative_vertical_position = Some((DrawingObjectInsertRelativeVerticalPositionEnum::Margin).into());
+    request_drawing_object.wrap_type = Some((DrawingObjectInsertWrapTypeEnum::Inline).into());
+    request_drawing_object.image_reference = Some((request_drawing_object_image_reference).into());
+
+    let request = InsertDrawingObjectByReferenceRequest::new(
+        (remote_file_name.clone()).into(),
+        (request_drawing_object).into()
+    ).with_node_path(("".to_owned()).into())
+.with_folder((remote_data_folder.clone()).into());
+
+    context.api().insert_drawing_object_by_reference(request).await?;
+    Ok(())
+}
+
+/// Test for adding drawing object online with the image from the request.
+#[tokio::test]
+async fn drawing_objects_insert_drawing_object_by_reference_online() -> TestResult<()> {
+    let context = TestContext::from_settings().await?;
+    let remote_base_test_data_folder = context.remote_base_test_data_folder().to_owned();
+    let base_test_out_path = context.base_test_out_path().to_owned();
+    let local_file = "Common/test_multi_pages.docx".to_owned();
+
+    let request_document = context.load_binary_file(local_file.clone()).await?;
+    let request_drawing_object_image_reference_content = context.load_binary_file("Common/aspose-cloud.png".to_owned()).await?;
+    let request_drawing_object_image_reference = FileReference::local(
+    request_drawing_object_image_reference_content,
+    None,
+    );
+    let mut request_drawing_object = DrawingObjectInsertData::default();
+    request_drawing_object.height = Some(((0) as f64).into());
+    request_drawing_object.left = Some(((0) as f64).into());
+    request_drawing_object.top = Some(((0) as f64).into());
+    request_drawing_object.width = Some(((0) as f64).into());
+    request_drawing_object.relative_horizontal_position = Some((DrawingObjectInsertRelativeHorizontalPositionEnum::Margin).into());
+    request_drawing_object.relative_vertical_position = Some((DrawingObjectInsertRelativeVerticalPositionEnum::Margin).into());
+    request_drawing_object.wrap_type = Some((DrawingObjectInsertWrapTypeEnum::Inline).into());
+    request_drawing_object.image_reference = Some((request_drawing_object_image_reference).into());
+
+    let request = InsertDrawingObjectByReferenceOnlineRequest::new(
+        (request_document).into(),
+        (request_drawing_object).into()
+    ).with_node_path(("".to_owned()).into());
+
+    context.api().insert_drawing_object_by_reference_online(request).await?;
+    Ok(())
+}
+
 /// Test for deleting drawing object.
 #[tokio::test]
 async fn drawing_objects_delete_drawing_object() -> TestResult<()> {
